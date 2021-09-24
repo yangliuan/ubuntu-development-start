@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Nginx
+Comment=Web http server
+Exec=sh /opt/oneinstack/start/nginx_start.sh
+Icon=/opt/oneinstack/icon/nginx.jpeg
+Type=Application
+Categories=Development;Nginx;
+Keywords=Nginx;nginx

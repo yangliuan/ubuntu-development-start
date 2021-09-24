@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=FileZilla3
+Comment=FileZilla3.
+Exec=/opt/filezilla3/bin/filezilla
+Icon=/opt/filezilla3/share/icons/hicolor/48x48/apps/filezilla.png
+Type=Application
+Categories=Development;
+Keywords=filezilla;

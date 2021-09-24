@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=php-fpm
+Comment=relation database
+Exec=sh /opt/oneinstack/start/php-fpm_start.sh
+Icon=/opt/oneinstack/icon/php-fpm.png
+Type=Application
+Categories=Development;php-fpm;
+Keywords=Php;php-fpm

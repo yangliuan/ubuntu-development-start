@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Apache httpd
+Comment=web http server
+Exec=sh /opt/oneinstack/start/httpd_start.sh
+Icon=/opt/oneinstack/icon/apached.png
+Type=Application
+Categories=Development;Apache Httpd;
+Keywords=Apache Httpd;apache httpd
