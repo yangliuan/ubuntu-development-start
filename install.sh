@@ -457,7 +457,7 @@ if [ ${ARG_NUM} == 0 ]; then
       break
     fi
   done
-
+  
   # choice php
   while :; do echo
     read -e -p "Do you want to install PHP? [y/n]: " php_flag
@@ -722,6 +722,17 @@ if [[ ${nginx_option} =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${tomca
   [ ! -d ${wwwlogs_dir} ] && mkdir -p ${wwwlogs_dir}
 fi
 [ -d /data ] && chmod 755 /data
+
+# install Elasticsearch
+while :; do echo
+read -e -p "Do you want to install Elasticsearch? [y/n]: " es_flag
+if [[ ! ${es_flag} =~ ^[y,n]$ ]]; then
+  echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+else
+  [ "${es_flag}" == 'y' -a -e "/usr/share/elasticsearch/jdk/bin/java" ] && { echo "${CWARNING}Elasticsearch already installed! ${CEND}"; unset es_flag; }
+  break
+fi
+done
 
 # install wget gcc curl python
 if [ ! -e ~/.oneinstack ]; then
@@ -1103,6 +1114,7 @@ case "${tomcat_option}" in
     ;;
 esac
 
+
 # Nodejs
 if [ "${node_flag}" == 'y' ]; then
   . include/node.sh
@@ -1137,6 +1149,12 @@ fi
 if [ "${memcached_flag}" == 'y' ]; then
   . include/memcached.sh
   Install_memcached_server 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# elasticsearch
+if [ "${es_flag}" == 'y' ]; then
+  . include/elasticsearch.sh
+  Install_elasticsearch 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # index example
