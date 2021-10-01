@@ -694,6 +694,17 @@ if [ ${ARG_NUM} == 0 ]; then
     fi
   done
 
+  # check redis-desktop-manager
+    while :; do echo
+    read -e -p "Do you want to install redis-desktop-manager? [y/n]: " redis_desktop_manager_flag
+    if [[ ! ${redis_desktop_manager_flag} =~ ^[y,n]$ ]]; then
+      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+      # [ "${redis_desktop_manager_flag}" == 'y' -a -e "${redis_install_dir}/bin/redis-server" ] && { echo "${CWARNING}redis-server already installed! ${CEND}"; unset redis_flag; }
+      break
+    fi
+  done
+
   # check memcached
   while :; do echo
     read -e -p "Do you want to install memcached-server? [y/n]: " memcached_flag
@@ -1114,6 +1125,12 @@ fi
 if [ "${redis_flag}" == 'y' ]; then
   . include/redis.sh
   Install_redis_server 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# redis-desktop-manager
+if [ "${redis_desktop_manager_flag}" == 'y' ]; then
+  . include/redis_desktop_manager.sh
+  Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # memcached
