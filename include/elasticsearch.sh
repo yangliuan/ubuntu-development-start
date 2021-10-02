@@ -3,7 +3,7 @@ Install_elasticsearch(){
     wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
     sudo apt-get install apt-transport-https
     echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
-    sudo apt-get update && sudo apt-get install elasticsearch
+    sudo apt-get update && sudo apt-get install elasticsearch && sudo apt-get install kibana
 }
 #未来改进
 #1.选择是仓库安装方式还是软件包安装方式
