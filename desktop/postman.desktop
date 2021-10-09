@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=postman
+Comment=The Collaboration Platform for API Development
+Exec=/opt/postman/app/Postman
+Icon=/opt/postman/app/resources/app/assets/icon.png
+Type=Application
+Categories=Development;API;
+Keywords=postman;
