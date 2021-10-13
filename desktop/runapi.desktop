@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Runapi
+Comment=Showdoc client
+Exec=/opt/runapi/runapi.AppImage
+Icon=/opt/runapi/runapi.png
+Type=Application
+Categories=Development;Api Tools;
+Keywords=runapi;
