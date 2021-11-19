@@ -478,10 +478,11 @@ if [ ${ARG_NUM} == 0 ]; then
           echo -e "\t${CMSG} 8${CEND}. Install php-7.3"
           echo -e "\t${CMSG} 9${CEND}. Install php-7.4"
           echo -e "\t${CMSG}10${CEND}. Install php-8.0"
+          echo -e "\t${CMSG}11${CEND}. Install php-8.1"
           read -e -p "Please input a number:(Default 7 press Enter) " php_option
           php_option=${php_option:-7}
-          if [[ ! ${php_option} =~ ^[1-9]$|^10$ ]]; then
-            echo "${CWARNING}input error! Please only input number 1~10${CEND}"
+          if [[ ! ${php_option} =~ ^[1-9]$|^11$ ]]; then
+            echo "${CWARNING}input error! Please only input number 1~11${CEND}"
           else
             break
           fi
@@ -925,6 +926,10 @@ case "${php_option}" in
   10)
     . include/php-8.0.sh
     Install_PHP80 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  11)
+    . include/php-8.1.sh
+    Install_PHP81 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
