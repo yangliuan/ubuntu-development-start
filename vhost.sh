@@ -33,7 +33,7 @@ Show_Help() {
   --help, -h                  Show this help message
   --quiet, -q                 quiet operation
   --list, -l                  List Virtualhost
-  --mphp_ver [53~80]          Use another PHP version (PATH: /usr/local/php${mphp_ver})
+  --mphp_ver [53~81]          Use another PHP version (PATH: /usr/local/php${mphp_ver})
   --proxy                     Use proxy
   --add                       Add Virtualhost
   --delete, --del             Delete Virtualhost
@@ -62,7 +62,7 @@ while :; do
       ;;
     --mphp_ver)
       mphp_ver=$2; mphp_flag=y; shift 2
-      [[ ! "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^80$ ]] && { echo "${CWARNING}mphp_ver input error! Please only input number 53~80${CEND}"; unset mphp_ver mphp_flag; }
+      [[ ! "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^8[0-1]$ ]] && { echo "${CWARNING}mphp_ver input error! Please only input number 53~81${CEND}"; unset mphp_ver mphp_flag; }
       ;;
     --proxy)
       proxy_flag=y; shift 1
@@ -111,7 +111,7 @@ Choose_ENV() {
     [ "$(${apache_install_dir}/bin/apachectl -v | awk -F'.' /version/'{print $2}')" == '4' ] && { Apache_main_ver=24; Apache_grant='Require all granted'; }
     [ "$(${apache_install_dir}/bin/apachectl -v | awk -F'.' /version/'{print $2}')" == '2' ] && Apache_main_ver=22
   fi
-  if [ -e "${php_install_dir}/bin/phpize" -a -e "${tomcat_install_dir}/conf/server.xml" ]; then
+  if [ -e "${php_install_dir}/bin/phpize" -a -e "${tomcat_install_dir}/conf/server.xml" ] && [[ -z ${proxy_flag} || "${proxy_flag}" != 'y' ]]; then
     Number=11
     while :; do echo
       echo "Please choose to use environment:"
@@ -332,10 +332,11 @@ What Are You Doing?
         [ -e "/dev/shm/php73-cgi.sock" ] && echo -e "\t${CMSG} 8${CEND}. PHP 7.3"
         [ -e "/dev/shm/php74-cgi.sock" ] && echo -e "\t${CMSG} 9${CEND}. PHP 7.4"
         [ -e "/dev/shm/php80-cgi.sock" ] && echo -e "\t${CMSG}10${CEND}. PHP 8.0"
+        [ -e "/dev/shm/php81-cgi.sock" ] && echo -e "\t${CMSG}10${CEND}. PHP 8.1"
         read -e -p "Please input a number:(Default 0 press Enter) " php_option
         php_option=${php_option:-0}
-        if [[ ! ${php_option} =~ ^[0-9]$|^10$ ]]; then
-          echo "${CWARNING}input error! Please only input number 0~10${CEND}"
+        if [[ ! ${php_option} =~ ^[0-9]$|^1[0-1]$ ]]; then
+          echo "${CWARNING}input error! Please only input number 0~11${CEND}"
         else
           break
         fi
@@ -351,6 +352,7 @@ What Are You Doing?
     [ "${php_option}" == '8' ] && mphp_ver=73
     [ "${php_option}" == '9' ] && mphp_ver=74
     [ "${php_option}" == '10' ] && mphp_ver=80
+    [ "${php_option}" == '11' ] && mphp_ver=81
     [ ! -e "/dev/shm/php${mphp_ver}-cgi.sock" ] && unset mphp_ver
   fi
 
@@ -484,7 +486,7 @@ What Are You Doing?
       Nginx_conf=$(echo -e "listen 80;\n  listen ${LISTENOPT};\n  ssl_certificate ${PATH_SSL}/${domain}.crt;\n  ssl_certificate_key ${PATH_SSL}/${domain}.key;\n  ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;\n  ssl_ciphers TLS13-AES-256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-128-GCM-SHA256:TLS13-AES-128-CCM-8-SHA256:TLS13-AES-128-CCM-SHA256:EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;\n  ssl_prefer_server_ciphers on;\n  ssl_session_timeout 10m;\n  ssl_session_cache builtin:1000 shared:SSL:10m;\n  ssl_buffer_size 1400;\n  add_header Strict-Transport-Security max-age=15768000;\n  ssl_stapling on;\n  ssl_stapling_verify on;\n")
     fi
     Apache_SSL=$(echo -e "SSLEngine on\n  SSLCertificateFile \"${PATH_SSL}/${domain}.crt\"\n  SSLCertificateKeyFile \"${PATH_SSL}/${domain}.key\"")
-  elif [ "$apache_ssl_flag" == 'y' ]; then
+  elif [ "${apache_ssl_flag}" == 'y' ]; then
     Create_SSL
     Apache_SSL=$(echo -e "SSLEngine on\n  SSLCertificateFile \"${PATH_SSL}/${domain}.crt\"\n  SSLCertificateKeyFile \"${PATH_SSL}/${domain}.key\"")
     [ -z "$(grep 'Listen 443' ${apache_install_dir}/conf/httpd.conf)" ] && sed -i "s@Listen 80@&\nListen 443@" ${apache_install_dir}/conf/httpd.conf
@@ -602,6 +604,9 @@ server {
   location ~ /(\.user\.ini|\.ht|\.git|\.svn|\.project|LICENSE|README\.md) {
     deny all;
   }
+  location /.well-known {
+    allow all;
+  }
   ${NGX_CONF}
 }
 EOF
@@ -697,6 +702,9 @@ server {
   }
   location ~ /(\.user\.ini|\.ht|\.git|\.svn|\.project|LICENSE|README\.md) {
     deny all;
+  }
+  location /.well-known {
+    allow all;
   }
 }
 EOF
@@ -797,25 +805,13 @@ server {
   location ~ /(\.user\.ini|\.ht|\.git|\.svn|\.project|LICENSE|README\.md) {
     deny all;
   }
+  location /.well-known {
+    allow all;
+  }
 }
 EOF
 
   [ "${redirect_flag}" == 'y' ] && sed -i "s@^  root.*;@&\n  if (\$host != ${domain}) {  return 301 \$scheme://${domain}\$request_uri;  }@" ${web_install_dir}/conf/vhost/${domain}.conf
-
-  if [ "${nginx_ssl_flag}" == 'y' ]; then
-    sed -i "s@^  listen 80;@&\n  listen ${LISTENOPT};@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_stapling_verify on;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_stapling on;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  add_header Strict-Transport-Security max-age=15768000;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_buffer_size 1400;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_session_cache builtin:1000 shared:SSL:10m;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_session_timeout 10m;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_prefer_server_ciphers on;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_ciphers TLS13-AES-256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-128-GCM-SHA256:TLS13-AES-128-CCM-8-SHA256:TLS13-AES-128-CCM-SHA256:EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:\!MD5;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_certificate_key ${PATH_SSL}/${domain}.key;@" ${web_install_dir}/conf/vhost/${domain}.conf
-    sed -i "s@^  server_name.*;@&\n  ssl_certificate ${PATH_SSL}/${domain}.crt;@" ${web_install_dir}/conf/vhost/${domain}.conf
-  fi
 
   if [ "${anti_hotlinking_flag}" == 'y' ]; then
       sed -i "s@^  root.*;@&\n  }@" ${web_install_dir}/conf/vhost/${domain}.conf
@@ -848,7 +844,7 @@ EOF
 "
   echo "$(printf "%-30s" "Your domain:")${CMSG}${domain}${CEND}"
   echo "$(printf "%-30s" "Virtualhost conf:")${CMSG}${web_install_dir}/conf/vhost/${domain}.conf${CEND}"
-  echo "$(printf "%-30s" "Directory of:")${CMSG}${vhostdir}${CEND}"
+  #echo "$(printf "%-30s" "Directory of:")${CMSG}${vhostdir}${CEND}"
   [ "${rewrite_flag}" == 'y' -a "${rewrite}" != 'magento2' -a "${rewrite}" != 'pathinfo' ] && echo "$(printf "%-30s" "Rewrite rule:")${CMSG}${web_install_dir}/conf/rewrite/${rewrite}.conf${CEND}"
   Print_SSL
 }
@@ -898,7 +894,7 @@ Create_apache_conf() {
 </Directory>
 </VirtualHost>
 EOF
-  [ "$apache_ssl_flag" == 'y' ] && cat >> ${apache_install_dir}/conf/vhost/${domain}.conf << EOF
+  [ "${apache_ssl_flag}" == 'y' ] && cat >> ${apache_install_dir}/conf/vhost/${domain}.conf << EOF
 <VirtualHost *:443>
   ServerAdmin admin@example.com
   DocumentRoot "${vhostdir}"
@@ -976,6 +972,9 @@ server {
   }
   location ~ /(\.user\.ini|\.ht|\.git|\.svn|\.project|LICENSE|README\.md) {
     deny all;
+  }
+  location /.well-known {
+    allow all;
   }
 }
 EOF
