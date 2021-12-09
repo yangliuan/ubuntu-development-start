@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=oss-browser
+Comment=Aliyun Oss tools
+Exec=/opt/oss-browser/oss-browser
+Icon=/opt/oss-browser/resources/custom/icon.png
+Type=Application
+Categories=Development;oss-browser;
+Keywords=oss-browser;
