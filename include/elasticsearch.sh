@@ -13,7 +13,7 @@ autorefresh=1
 type=rpm-md
 EOF
       fi
-        yum install --enablerepo=elasticsearch elasticsearch && yum install kibana
+        yum install --enablerepo=elasticsearch elasticsearch && yum install --enablerepo=elasticsearch kibana
     elif [ "${PM}" == "apt-get" ]; then
         wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
         apt-get install apt-transport-https
