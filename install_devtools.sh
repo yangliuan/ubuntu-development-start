@@ -33,7 +33,19 @@ while :; do echo
     fi
 done
 
-# redis-desktop-manager
+# check navicat preminu
+while :; do echo
+    read -e -p "Do you want to install navicat_preminu? [y/n]: " navicat_preminu_flag
+    if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat15/navicat15-premium-cs.AppImage" ] && { echo "${CWARNING}navicat_preminu already installed! ${CEND}"; unset redis_desktop_manager_flag; }
+        break
+    fi
+done
+
+
+# install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
   . include/redis_desktop_manager.sh
   Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install.log
