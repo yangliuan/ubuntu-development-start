@@ -64,5 +64,8 @@ else
     unset navicat_preminu_flag;
 fi
 
-. include/filezilla.sh
-Install_FileZilla
+# . include/filezilla.sh
+# Install_FileZilla
+
+. include/postman.sh
+Install_Postman
