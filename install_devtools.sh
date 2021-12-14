@@ -63,3 +63,6 @@ else
     fi
     unset navicat_preminu_flag;
 fi
+
+. include/filezilla.sh
+Install_FileZilla
