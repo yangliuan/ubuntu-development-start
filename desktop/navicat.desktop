@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Navicat Premium
 Comment=Database Manager Tools
-Exec=/opt/navicat15/navicat15-premium-cs.AppImage
-Icon=/opt/navicat15/icon.png
+Exec=/opt/navicat/navicat15-premium-cs.AppImage
+Icon=/opt/navicat/navicat.png
 Type=Application
 Categories=Development;Database Tools;
 Keywords=navicat;

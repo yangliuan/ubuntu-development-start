@@ -39,20 +39,27 @@ while :; do echo
     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        # [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat15/navicat15-premium-cs.AppImage" ] && { echo "${CWARNING}navicat_preminu already installed! ${CEND}"; unset navicat_preminu_flag; }
+        [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat/navicat15-premium-cs.AppImage" ] && { echo "${CWARNING}navicat_preminu already installed! ${CEND}"; unset navicat_preminu_flag; }
         break
     fi
 done
 
-
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
-  . include/redis_desktop_manager.sh
-  Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install.log
+    . include/redis_desktop_manager.sh
+    Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install navicat_preminu
 if [ "${navicat_preminu_flag}" == 'y' ]; then
-  . include/navicat_preminu.sh
-  Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install.log
+    . include/navicat_preminu.sh
+    Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install.log
+else
+    read -e -p "Do you want to extend navicat_preminu trial time? [y/n]: " navicat_preminu_flag
+    if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    elif [ "${navicat_preminu_flag}" == 'y' ]; then
+        rm -rfv /home/${run_user}/.config/dconf /home/${run_user}/.config/navicat;
+    fi
+    unset navicat_preminu_flag;
 fi
