@@ -72,7 +72,18 @@ while :; do echo
     if [[ ! ${runapi_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${runapi_flag}" == 'y' -a -e "/opt/runapi/runapi.AppImage" ] && { echo "${CWARNING}runapi_flag already installed! ${CEND}"; unset runapi_flag; }
+        [ "${runapi_flag}" == 'y' -a -e "/opt/runapi/runapi.AppImage" ] && { echo "${CWARNING}runapi already installed! ${CEND}"; unset runapi_flag; }
+        break
+    fi
+done
+
+# check install oss-browser
+while :; do echo
+    read -e -p "Do you want to install oss-browser? [y/n]: " ossbrowser_flag
+    if [[ ! ${ossbrowser_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${ossbrowser_flag}" == 'y' -a -e "/opt/oss-browser/oss-browser" ] && { echo "${CWARNING}oss-browser already installed! ${CEND}"; unset ossbrowser_flag; }
         break
     fi
 done
@@ -105,4 +116,9 @@ fi
 if [ "${runapi_flag}" == 'y' ]; then
     . include/devtools/runapi.sh
     Install_Runapi 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+if [ "${ossbrowser_flag}" == 'y' ]; then
+    . include/devtools/ossbrowser.sh
+    Install_Ossbrowser 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
