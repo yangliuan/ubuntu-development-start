@@ -55,6 +55,17 @@ while :; do echo
     fi
 done
 
+# check install remmina
+while :; do echo
+    read -e -p "Do you want to install remmina? [y/n]: " remmina_flag
+    if [[ ! ${remmina_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        # [ "${remmina_flag}" == 'y' -a -e "/snap/bin/remmina" ] && { echo "${CWARNING}remmina already installed! ${CEND}"; unset remmina_flag; }
+        break
+    fi
+done
+
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
     . include/devtools/redis_desktop_manager.sh
@@ -79,4 +90,10 @@ fi
 if [ "${postman_flag}" == 'y' ]; then
     . include/devtools/postman.sh
     Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# install remmina
+if [ "${remmina_flag}" == 'y' ]; then
+    . include/devtools/remmina.sh
+    Install_Remmina 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
