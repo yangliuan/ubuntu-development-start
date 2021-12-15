@@ -35,24 +35,35 @@ done
 
 # check navicat preminu
 while :; do echo
-    read -e -p "Do you want to install navicat_preminu? [y/n]: " navicat_preminu_flag
+    read -e -p "Do you want to install navicat preminu? [y/n]: " navicat_preminu_flag
     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat/navicat15-premium-cs.AppImage" ] && { echo "${CWARNING}navicat_preminu already installed! ${CEND}"; unset navicat_preminu_flag; }
+        [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat/navicat${navicat_ver}-premium-cs.AppImage" ] && { echo "${CWARNING}navicat preminu already installed! ${CEND}"; unset navicat_preminu_flag; }
+        break
+    fi
+done
+
+# check install postman
+while :; do echo
+    read -e -p "Do you want to install postman? [y/n]: " postman_flag
+    if [[ ! ${postman_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${postman_flag}" == 'y' -a -e "/opt/postman/app/postman" ] && { echo "${CWARNING}postman already installed! ${CEND}"; unset postman_flag; }
         break
     fi
 done
 
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
-    . include/redis_desktop_manager.sh
+    . include/devtools/redis_desktop_manager.sh
     Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-# install navicat_preminu
+# install navicat preminu
 if [ "${navicat_preminu_flag}" == 'y' ]; then
-    . include/navicat_preminu.sh
+    . include/devtools/navicat_preminu.sh
     Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install.log
 else
     read -e -p "Do you want to extend navicat_preminu trial time? [y/n]: " navicat_preminu_flag
@@ -64,8 +75,8 @@ else
     unset navicat_preminu_flag;
 fi
 
-# . include/filezilla.sh
-# Install_FileZilla
-
-. include/postman.sh
-Install_Postman
+# install postman
+if [ "${redis_desktop_manager_flag}" == 'y' ]; then
+    . include/devtools/postman.sh
+    Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
