@@ -65,18 +65,18 @@ fi
 if [ "${navicat_preminu_flag}" == 'y' ]; then
     . include/devtools/navicat_preminu.sh
     Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install.log
-else
-    read -e -p "Do you want to extend navicat_preminu trial time? [y/n]: " navicat_preminu_flag
-    if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    elif [ "${navicat_preminu_flag}" == 'y' ]; then
-        rm -rfv /home/${run_user}/.config/dconf /home/${run_user}/.config/navicat;
-    fi
-    unset navicat_preminu_flag;
+# else
+#     read -e -p "Do you want to extend navicat_preminu trial time? [y/n]: " navicat_preminu_flag
+#     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
+#         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+#     elif [ "${navicat_preminu_flag}" == 'y' ]; then
+#         rm -rfv /home/${run_user}/.config/dconf /home/${run_user}/.config/navicat;
+#     fi
+#     unset navicat_preminu_flag;
 fi
 
 # install postman
-if [ "${redis_desktop_manager_flag}" == 'y' ]; then
+if [ "${postman_flag}" == 'y' ]; then
     . include/devtools/postman.sh
     Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
