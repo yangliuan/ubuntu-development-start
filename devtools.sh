@@ -112,12 +112,13 @@ if [ "${postman_flag}" == 'y' ]; then
     Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-
+# install runapi
 if [ "${runapi_flag}" == 'y' ]; then
     . include/devtools/runapi.sh
     Install_Runapi 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
+# install oss-browser
 if [ "${ossbrowser_flag}" == 'y' ]; then
     . include/devtools/ossbrowser.sh
     Install_Ossbrowser 2>&1 | tee -a ${oneinstack_dir}/install.log
