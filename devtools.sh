@@ -44,6 +44,17 @@ while :; do echo
     fi
 done
 
+# check install remmina
+while :; do echo
+    read -e -p "Do you want to install remmina? [y/n]: " remmina_flag
+    if [[ ! ${remmina_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${remmina_flag}" == 'y' -a -e "/usr/bin/remmina" ] && { echo "${CWARNING}remmina already installed! ${CEND}"; unset remmina_flag; }
+        break
+    fi
+done
+
 # check install postman
 while :; do echo
     read -e -p "Do you want to install postman? [y/n]: " postman_flag
@@ -55,13 +66,13 @@ while :; do echo
     fi
 done
 
-# check install remmina
+# check install runapi
 while :; do echo
-    read -e -p "Do you want to install remmina? [y/n]: " remmina_flag
-    if [[ ! ${remmina_flag} =~ ^[y,n]$ ]]; then
+    read -e -p "Do you want to install runapi? [y/n]: " runapi_flag
+    if [[ ! ${runapi_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${remmina_flag}" == 'y' -a -e "/usr/bin/remmina" ] && { echo "${CWARNING}remmina already installed! ${CEND}"; unset remmina_flag; }
+        [ "${runapi_flag}" == 'y' -a -e "/opt/runapi/runapi.AppImage" ] && { echo "${CWARNING}runapi_flag already installed! ${CEND}"; unset runapi_flag; }
         break
     fi
 done
@@ -76,14 +87,12 @@ fi
 if [ "${navicat_preminu_flag}" == 'y' ]; then
     . include/devtools/navicat_preminu.sh
     Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install.log
-# else
-#     read -e -p "Do you want to extend navicat_preminu trial time? [y/n]: " navicat_preminu_flag
-#     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
-#         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-#     elif [ "${navicat_preminu_flag}" == 'y' ]; then
-#         rm -rfv /home/${run_user}/.config/dconf /home/${run_user}/.config/navicat;
-#     fi
-#     unset navicat_preminu_flag;
+fi
+
+# install remmina
+if [ "${remmina_flag}" == 'y' ]; then
+    . include/devtools/remmina.sh
+    Install_Remmina 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install postman
@@ -92,8 +101,8 @@ if [ "${postman_flag}" == 'y' ]; then
     Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-# install remmina
-if [ "${remmina_flag}" == 'y' ]; then
-    . include/devtools/remmina.sh
-    Install_Remmina 2>&1 | tee -a ${oneinstack_dir}/install.log
+
+if [ "${runapi_flag}" == 'y' ]; then
+    . include/devtools/runapi.sh
+    Install_Runapi 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
