@@ -21,6 +21,11 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_dir.sh
 . ./include/download.sh
 . ./include/get_char.sh
+. ./include/get_char.sh
+. ./include/devtools/service_desktop.sh
+
+#publish service desktop
+Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 
 # check redis-desktop-manager
 while :; do echo
