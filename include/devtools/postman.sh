@@ -9,6 +9,7 @@ Install_Postman(){
     mv -fv Postman /opt/postman
     chown -Rv ${run_user}.${run_group} /opt/postman
     cp -rfv ${oneinstack_dir}/desktop/postman.desktop /usr/share/applications/
-    
+    rm -rfv linux64
+
     popd > /dev/null
 }

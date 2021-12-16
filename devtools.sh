@@ -93,6 +93,17 @@ while :; do echo
     fi
 done
 
+# check install virtualbox
+while :; do echo
+    read -e -p "Do you want to install virtualbox? [y/n]: " virtualbox_flag
+    if [[ ! ${virtualbox_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${virtualbox_flag}" == 'y' -a -e "/usr/bin/virtualbox" ] && { echo "${CWARNING}virtualbox_flag already installed! ${CEND}"; unset virtualbox_flag; }
+        break
+    fi
+done
+
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
     . include/devtools/redis_desktop_manager.sh
@@ -127,4 +138,10 @@ fi
 if [ "${ossbrowser_flag}" == 'y' ]; then
     . include/devtools/ossbrowser.sh
     Install_Ossbrowser 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# install vitualbox
+if [ "${virtualbox_flag}" == 'y' ]; then
+    . include/devtools/virtualbox.sh
+    Install_Vbox 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
