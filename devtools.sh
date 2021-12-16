@@ -99,7 +99,18 @@ while :; do echo
     if [[ ! ${virtualbox_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${virtualbox_flag}" == 'y' -a -e "/usr/bin/virtualbox" ] && { echo "${CWARNING}virtualbox_flag already installed! ${CEND}"; unset virtualbox_flag; }
+        [ "${virtualbox_flag}" == 'y' -a -e "/usr/bin/virtualbox" ] && { echo "${CWARNING}virtualbox already installed! ${CEND}"; unset virtualbox_flag; }
+        break
+    fi
+done
+
+# check install filezilla
+while :; do echo
+    read -e -p "Do you want to install filezilla? [y/n]: " filezilla_flag
+    if [[ ! ${filezilla_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${filezilla_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}filezilla already installed! ${CEND}"; unset filezilla_flag; }
         break
     fi
 done
@@ -144,4 +155,10 @@ fi
 if [ "${virtualbox_flag}" == 'y' ]; then
     . include/devtools/virtualbox.sh
     Install_Vbox 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# install filezilla
+if [ "${filezilla_flag}" == 'y' ]; then
+    . include/devtools/filezilla.sh
+    Install_FileZilla 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
