@@ -176,6 +176,13 @@ fi
 
 # install jmeter
 if [ "${jmeter_flag}" == 'y' ]; then
-    . include/devtools/jmeter.sh
-    Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
+    jdk_option=1
+    . include/check_download.sh
+    checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
+
+    . include/jdk-11.0.sh
+    Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install.log
+    
+    #. include/devtools/jmeter.sh
+    # Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
