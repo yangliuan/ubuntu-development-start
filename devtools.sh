@@ -110,7 +110,18 @@ while :; do echo
     if [[ ! ${filezilla_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${filezilla_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}filezilla already installed! ${CEND}"; unset filezilla_flag; }
+        [ "${filezilla_flag}" == 'y' -a -e "/opt/filezilla3/bin/filezilla" ] && { echo "${CWARNING}filezilla already installed! ${CEND}"; unset filezilla_flag; }
+        break
+    fi
+done
+
+# check install jmeter
+while :; do echo
+    read -e -p "Do you want to install jmeter? [y/n]: " jmeter_flag
+    if [[ ! ${jmeter_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${jmeter_flag}" == 'y' -a -e "/opt/jmeter/bin/ApacheJMeter.jar" ] && { echo "${CWARNING}jmeter already installed! ${CEND}"; unset jmeter_flag; }
         break
     fi
 done
@@ -161,4 +172,10 @@ fi
 if [ "${filezilla_flag}" == 'y' ]; then
     . include/devtools/filezilla.sh
     Install_FileZilla 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# install jmeter
+if [ "${jmeter_flag}" == 'y' ]; then
+    . include/devtools/jmeter.sh
+    Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi

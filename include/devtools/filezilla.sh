@@ -3,7 +3,7 @@ Install_FileZilla(){
     pushd ${oneinstack_dir}/src > /dev/null
     
     echo "Download filezilla ftp client ..."
-    src_url="https://download.filezilla.cn/client/linux/FileZilla_${filezilla_ver}_i686-linux-gnu.tar.bz2" && Download_src
+    src_url="http://mirror.yangliuan.cn/FileZilla_${filezilla_ver}_x86_64-linux-gnu.tar.bz2" && Download_src
     tar -jxvf FileZilla_${filezilla_ver}_i686-linux-gnu.tar.bz2
     mv -fv FileZilla3 /opt/filezilla3
     cp -rfv ${oneinstack_dir}/desktop/filezilla3.desktop /usr/share/applications/
