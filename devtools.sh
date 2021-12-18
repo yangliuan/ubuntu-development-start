@@ -24,6 +24,8 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/get_char.sh
 . ./include/devtools/service_desktop.sh
 
+ARG_NUM=$#
+
 #publish service desktop
 Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 
@@ -122,6 +124,21 @@ while :; do echo
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
         [ "${jmeter_flag}" == 'y' -a -e "/opt/jmeter/bin/ApacheJMeter.jar" ] && { echo "${CWARNING}jmeter already installed! ${CEND}"; unset jmeter_flag; }
+        #install jdk 
+        if [ "${jmeter_flag}" == 'y' ]; then
+            while :; do echo
+                echo 'Please select JDK version:'
+                echo -e "\t${CMSG}1${CEND}. Install JDK-11.0"
+                echo -e "\t${CMSG}2${CEND}. Install JDK-1.8"
+                read -e -p "Please input a number:(Default 1 press Enter) " jdk_option
+                jdk_option=${jdk_option:-1}
+                if [[ ! ${jdk_option} =~ ^[1-2]$ ]]; then
+                  echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+                else
+                  break
+                fi
+            done
+        fi
         break
     fi
 done
@@ -174,15 +191,42 @@ if [ "${filezilla_flag}" == 'y' ]; then
     Install_FileZilla 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-# install jmeter
-if [ "${jmeter_flag}" == 'y' ]; then
-    jdk_option=1
-    . include/check_download.sh
-    checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
-
+# JDK
+case "${jdk_option}" in
+  1)
     . include/jdk-11.0.sh
     Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install.log
-    
-    #. include/devtools/jmeter.sh
-    # Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  2)
+    . include/jdk-1.8.sh
+    Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  3)
+    . include/jdk-1.7.sh
+    Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  4)
+    . include/jdk-1.6.sh
+    Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+esac
+
+# install jmeter
+if [ "${jmeter_flag}" == 'y' ]; then  
+    . include/devtools/jmeter.sh
+    Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
+
+
+if [ ${ARG_NUM} == 0 ]; then
+  while :; do echo
+    echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
+    read -e -p "Do you want to restart OS ? [y/n]: " reboot_flag
+    if [[ ! "${reboot_flag}" =~ ^[y,n]$ ]]; then
+      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+      break
+    fi
+  done
+fi
+[ "${reboot_flag}" == 'y' ] && reboot
