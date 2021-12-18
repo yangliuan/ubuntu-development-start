@@ -217,7 +217,7 @@ if [ "${jmeter_flag}" == 'y' ]; then
     Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-
+#reboot system
 if [ ${ARG_NUM} == 0 ]; then
   while :; do echo
     echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
