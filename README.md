@@ -24,6 +24,7 @@
 
 ## Thinks
 
-[Oneinstack]: https://github.com/oneinstack/oneinstack
-[Nvm]: https://github.com/nvm-sh/nvm
+[Oneinstack](https://github.com/oneinstack/oneinstack)
+
+[Nvm](https://github.com/nvm-sh/nvm)
 
