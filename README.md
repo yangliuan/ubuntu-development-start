@@ -7,18 +7,19 @@
 ## 脚本目录结构
 
 ```
-├─ addons.sh oneinstack 
-├─ backup_setup.sh oneinstack
-├─ backup.sh oneinstack
-├─ devtools.sh 常用开发工具
-├─ elasticsearch.sh elasticsearch安装脚本
-├─ install.sh oneinstack安装脚本
-├─ nvm.sh nvm安装脚本
-├─ pureftpd_vhost.sh oneinstack
-├─ reset_db_root_password.sh oneinstack
-├─ uninstall.sh oneinstack
-├─ upgrade.sh oneinstack
-├─ vhost.sh oneinstack
+├─ include
+|  |─ devtools 开发工具
+|  |  |─ filezilla.sh ftp客户端
+|  |  |─ jmeter.sh 测试工具
+|  |  |─ navicat_preminu.sh 数据库管理工具
+|  |  |─ ossbrowser.sh 阿里云oss客户端工具
+|  |  |─ postman.sh api测试工具
+|  |  |─ redis_desktop_manager.sh redis客户端工具
+|  |  |─ remmina.sh 远程终端工具
+|  |  |─ runapi.sh 远程终端工具
+|  |  |─ service_desktop.sh 发布服务快捷方式
+|  |  |─ virtualbox.sh 虚拟机
+|  |  |─ vscode.sh IDE
 ├─ start 启动服务
 │  ├─ elasticsearch_start.sh 启动 elasticsearch
 │  ├─ httpd_start.sh 启动 apache
@@ -31,7 +32,18 @@
 │  ├─ composer.sh 切换composer版本
 │  ├─ php.sh 切换php版本
 │  ├─ redis.sh 切换redis版本
-
+├─ addons.sh oneinstack 
+├─ backup_setup.sh oneinstack
+├─ backup.sh oneinstack
+├─ devtools.sh 常用开发工具
+├─ elasticsearch.sh elasticsearch安装脚本
+├─ install.sh oneinstack安装脚本
+├─ nvm.sh nvm安装脚本
+├─ pureftpd_vhost.sh oneinstack
+├─ reset_db_root_password.sh oneinstack
+├─ uninstall.sh oneinstack
+├─ upgrade.sh oneinstack
+├─ vhost.sh oneinstack
 ```
 
 
