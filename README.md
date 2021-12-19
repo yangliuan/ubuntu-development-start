@@ -12,7 +12,8 @@
 ├─ backup.sh oneinstack
 ├─ devtools.sh 常用开发工具
 ├─ elasticsearch.sh elasticsearch安装脚本
-├─ nvm.sh nvm开发环境安装脚本
+├─ install.sh oneinstack安装脚本
+├─ nvm.sh nvm安装脚本
 ├─ pureftpd_vhost.sh oneinstack
 ├─ reset_db_root_password.sh oneinstack
 ├─ uninstall.sh oneinstack
