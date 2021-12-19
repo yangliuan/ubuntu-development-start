@@ -32,6 +32,7 @@ Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 # check redis-desktop-manager
 while :; do echo
     read -e -p "Do you want to install redis-desktop-manager? [y/n]: " redis_desktop_manager_flag
+    redis_desktop_manager_flag=${redis_desktop_manager_flag:-y}
     if [[ ! ${redis_desktop_manager_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -43,6 +44,7 @@ done
 # check navicat preminu
 while :; do echo
     read -e -p "Do you want to install navicat preminu? [y/n]: " navicat_preminu_flag
+    navicat_preminu_flag=${navicat_preminu_flag:-y}
     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -54,6 +56,7 @@ done
 # check install remmina
 while :; do echo
     read -e -p "Do you want to install remmina? [y/n]: " remmina_flag
+    remmina_flag=${remmina_flag:-y}
     if [[ ! ${remmina_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -65,6 +68,7 @@ done
 # check install postman
 while :; do echo
     read -e -p "Do you want to install postman? [y/n]: " postman_flag
+    postman_flag=${postman_flag:-y}
     if [[ ! ${postman_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -76,6 +80,7 @@ done
 # check install runapi
 while :; do echo
     read -e -p "Do you want to install runapi? [y/n]: " runapi_flag
+    runapi_flag=${runapi_flag:-y}
     if [[ ! ${runapi_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -87,6 +92,7 @@ done
 # check install oss-browser
 while :; do echo
     read -e -p "Do you want to install oss-browser? [y/n]: " ossbrowser_flag
+    ossbrowser_flag=${ossbrowser_flag:-y}
     if [[ ! ${ossbrowser_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -98,6 +104,7 @@ done
 # check install virtualbox
 while :; do echo
     read -e -p "Do you want to install virtualbox? [y/n]: " virtualbox_flag
+    virtualbox_flag=${virtualbox_flag:-y}
     if [[ ! ${virtualbox_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -109,6 +116,7 @@ done
 # check install filezilla
 while :; do echo
     read -e -p "Do you want to install filezilla? [y/n]: " filezilla_flag
+    filezilla_flag=${filezilla_flag:-y}
     if [[ ! ${filezilla_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -120,6 +128,7 @@ done
 # check install jmeter
 while :; do echo
     read -e -p "Do you want to install jmeter? [y/n]: " jmeter_flag
+    jmeter_flag=${jmeter_flag:-y}
     if [[ ! ${jmeter_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -139,6 +148,17 @@ while :; do echo
                 fi
             done
         fi
+        break
+    fi
+done
+
+# check install vscode
+while :; do echo
+    read -e -p "Do you want to install or upgrade vscode? [y/n]: " vscode_flag
+    vscode_flag=${vscode_flag:-y}
+    if [[ ! ${vscode_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
         break
     fi
 done
@@ -216,6 +236,13 @@ if [ "${jmeter_flag}" == 'y' ]; then
     . include/devtools/jmeter.sh
     Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
+
+# install vscode
+if [ "${vscode_flag}" == 'y' ]; then  
+    . include/devtools/vscode.sh
+    Install_Vscode 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
 
 #reboot system
 if [ ${ARG_NUM} == 0 ]; then
