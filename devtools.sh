@@ -25,6 +25,8 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/devtools/service_desktop.sh
 
 ARG_NUM=$#
+Ubuntu_Ver=$(lsb_release -r --short)
+echo "Ubuntu Version ${Ubuntu_Ver}"
 
 #publish service desktop
 Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
@@ -49,6 +51,18 @@ while :; do echo
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
         [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat/navicat${navicat_ver}-premium-cs.AppImage" ] && { echo "${CWARNING}navicat preminu already installed! ${CEND}"; unset navicat_preminu_flag; }
+        break
+    fi
+done
+
+# check mysql workbench
+while :; do echo
+    read -e -p "Do you want to install mysql workbench? [y/n]: " mysql_workbench_flag
+    mysql_workbench_flag=${mysql_workbench_flag:-y}
+    if [[ ! ${mysql_workbench_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${mysql_workbench_flag}" == 'y' -a -e "/usr/bin/mysql-workbench" ] && { echo "${CWARNING}navicat preminu already installed! ${CEND}"; unset mysql_workbench_flag; }
         break
     fi
 done
@@ -155,7 +169,7 @@ done
 # check install vscode
 while :; do echo
     read -e -p "Do you want to install or upgrade vscode? [y/n]: " vscode_flag
-    vscode_flag=${vscode_flag:-y}
+    vscode_flag=${vscode_flag:-n}
     if [[ ! ${vscode_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -173,6 +187,12 @@ fi
 if [ "${navicat_preminu_flag}" == 'y' ]; then
     . include/devtools/navicat_preminu.sh
     Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# install mysql workbench
+if [ "${mysql_workbench_flag}" == 'y' ]; then
+    . include/devtools/mysql-workbench.sh
+    Mysql_Workbench 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install remmina
