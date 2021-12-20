@@ -8,5 +8,6 @@ Install_Jmeter(){
     cp -rfv ${oneinstack_dir}/desktop/jmeter.desktop /usr/share/applications/
     chown -Rv ${run_user}.${run_group} /opt/jmeter
     chmod -Rv 755 /opt/jmeter
+    rm -rfv apache-jmeter-${jmeter_ver}.zip
     popd > /dev/null
 }
