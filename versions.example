@@ -142,7 +142,7 @@ elasticsearch_ver=7.x
 nvm_ver=0.39.0
 
 # devtools
-navicat_ver=15
+navicat_ver=16
 filezilla_ver=3.57.0
 postman_ver=9.4.1
 virtualbox_ver=6.1.30
