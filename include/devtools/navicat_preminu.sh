@@ -1,7 +1,6 @@
 #!/bin/bash
 Install_navicat_preminu(){
    pushd ${oneinstack_dir}/src > /dev/null
-
    echo "Download navicat preminu${navicat_ver}..."
    src_url="https://download.navicat.com.cn/download/navicat${navicat_ver}-premium-cs.AppImage" && Download_src
    
@@ -15,6 +14,5 @@ Install_navicat_preminu(){
    rm -rfv /home/${run_user}/.config/dconf /home/${run_user}/.config/navicat
    cp -rfv ${oneinstack_dir}/icon/navicat.png /opt/navicat/
    cp -rfv ${oneinstack_dir}/desktop/navicat.desktop /usr/share/applications/
-   
    popd > /dev/null
 }
