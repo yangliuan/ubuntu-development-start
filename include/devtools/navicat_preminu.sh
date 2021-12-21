@@ -12,7 +12,7 @@ Install_navicat_preminu(){
    chown -Rv ${run_user}.${run_group} /opt/navicat/navicat-premium-cs.AppImage
    chmod -Rv 755 /opt/navicat/navicat-premium-cs.AppImage
    rm -rfv /home/${run_user}/.config/dconf /home/${run_user}/.config/navicat
-   cp -rfv ${oneinstack_dir}/icon/navicat.png /opt/navicat/
+   cp -rfv ${oneinstack_dir}/icon/navicat.svg /opt/navicat/
    cp -rfv ${oneinstack_dir}/desktop/navicat.desktop /usr/share/applications/
    popd > /dev/null
 }
