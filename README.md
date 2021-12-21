@@ -46,6 +46,9 @@
 ├─ vhost.sh oneinstack
 ```
 
+## 使用方法
+首先运行 sudo ./install.sh 安装开发环境服务 然后再运行其它脚本
+
 
 ## Thinks
 
