@@ -21,8 +21,6 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_dir.sh
 . ./include/download.sh
 . ./include/get_char.sh
-. ./include/get_char.sh
-. ./include/devtools/service_desktop.sh
 
 ARG_NUM=$#
 Ubuntu_Ver=$(lsb_release -r --short)
@@ -200,6 +198,7 @@ done
 
 #publish service desktop
 if [ "${service_desktop_flag}" == 'y' ]; then
+    . include/devtools/service_desktop.sh
     Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
