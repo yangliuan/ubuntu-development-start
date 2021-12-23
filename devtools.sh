@@ -28,8 +28,16 @@ ARG_NUM=$#
 Ubuntu_Ver=$(lsb_release -r --short)
 echo "Ubuntu Version ${Ubuntu_Ver}"
 
-#publish service desktop
-Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+# check service desktop
+while :; do echo
+    read -e -p "Do you want to install service desktop? [y/n]: " service_desktop_flag
+    service_desktop_flag=${service_desktop_flag:-n}
+    if [[ ! ${service_desktop_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        break;
+    fi
+done
 
 # check redis-desktop-manager
 while :; do echo
@@ -75,6 +83,18 @@ while :; do echo
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
         [ "${remmina_flag}" == 'y' -a -e "/usr/bin/remmina" ] && { echo "${CWARNING}remmina already installed! ${CEND}"; unset remmina_flag; }
+        break
+    fi
+done
+
+# check install wireshark
+while :; do echo
+    read -e -p "Do you want to install wireshark? [y/n]: " wireshark_flag
+    wireshark_flag=${wireshark_flag:-y}
+    if [[ ! ${wireshark_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${wireshark_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}wireshark already installed! ${CEND}"; unset wireshark_flag; }
         break
     fi
 done
@@ -177,6 +197,12 @@ while :; do echo
     fi
 done
 
+
+#publish service desktop
+if [ "${service_desktop_flag}" == 'y' ]; then
+    Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
     . include/devtools/redis_desktop_manager.sh
@@ -199,6 +225,12 @@ fi
 if [ "${remmina_flag}" == 'y' ]; then
     . include/devtools/remmina.sh
     Install_Remmina 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# install wireshark
+if [ "${wireshark_flag}" == 'y' ]; then
+    . include/devtools/wireshark.sh
+    Install_Wireshark 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install postman
