@@ -92,7 +92,7 @@ while :; do echo
     if [[ ! ${wireshark_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${wireshark_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}wireshark already installed! ${CEND}"; unset wireshark_flag; }
+        [ "${wireshark_flag}" == 'y' -a -e "/usr/bin/wireshark" ] && { echo "${CWARNING}wireshark already installed! ${CEND}"; unset wireshark_flag; }
         break
     fi
 done
