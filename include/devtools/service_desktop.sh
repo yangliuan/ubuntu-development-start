@@ -9,5 +9,6 @@ Service_Desktop(){
     cp -rfv nginx.desktop /usr/share/applications
     cp -rfv php-fpm.desktop /usr/share/applications
     cp -rfv redis.desktop /usr/share/applications
+    chmod -R 777 /usr/share/applications
     popd > /dev/null
 }
