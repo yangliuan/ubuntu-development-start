@@ -56,7 +56,7 @@ while :; do echo
     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat/navicat${navicat_ver}-premium-cs.AppImage" ] && { echo "${CWARNING}navicat preminu already installed! ${CEND}"; unset navicat_preminu_flag; }
+        [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat/navicat-premium-cs.AppImage" ] && { echo "${CWARNING}navicat preminu already installed! ${CEND}"; unset navicat_preminu_flag; }
         break
     fi
 done
@@ -194,6 +194,32 @@ while :; do echo
         break
     fi
 done
+
+# Check download source packages
+# jdk
+if [[ "${jdk_option}" =~ ^[1-4]$ ]]; then
+    case "${jdk_option}" in
+        1)
+        echo "Download JDK 11.0..."
+        JDK_FILE="jdk-${jdk110_ver}_linux-${SYS_BIT_j}_bin.tar.gz"
+        ;;
+        2)
+        echo "Download JDK 1.8..."
+        JDK_FILE="jdk-$(echo ${jdk18_ver} | awk -F. '{print $2}')u$(echo ${ } | awk -F_ '{print $NF}')-linux-${SYS_BIT_j}.tar.gz"
+        ;;
+        3)
+        echo "Download JDK 1.7..."
+        JDK_FILE="jdk-$(echo ${jdk17_ver} | awk -F. '{print $2}')u$(echo ${jdk17_ver} | awk -F_ '{print $NF}')-linux-${SYS_BIT_j}.tar.gz"
+        ;;
+        4)
+        echo "Download JDK 1.6..."
+        JDK_FILE="jdk-$(echo ${jdk16_ver} | awk -F. '{print $2}')u$(echo ${jdk16_ver} | awk -F_ '{print $NF}')-linux-${SYS_BIT_j}.bin"
+        ;;
+    esac
+    src_url=http://mirrors.linuxeye.com/jdk/${JDK_FILE} && Download_src
+    echo "Download apr..."
+    src_url=http://archive.apache.org/dist/apr/apr-${apr_ver}.tar.gz && Download_src
+fi
 
 
 #publish service desktop

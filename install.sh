@@ -11,7 +11,7 @@
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
-#######################################################################
+####################################################################
 #       OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+      #
 #       For more information please visit https://oneinstack.com      #
 #######################################################################
