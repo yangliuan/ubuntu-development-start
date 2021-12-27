@@ -1,8 +1,4 @@
 #!/bin/bash
-
-export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
-clear
-
 printf "
 #######################################################################
 #                            install nvm                              #
@@ -11,9 +7,7 @@ printf "
 "
 oneinstack_dir=$(dirname "`readlink -f $0`")
 pushd ${oneinstack_dir} > /dev/null
-. ./versions.txt
-
-wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${nvm_ver}install.sh" | bash
+source ./include/nvm.sh
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm

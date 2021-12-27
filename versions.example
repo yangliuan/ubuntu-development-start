@@ -139,7 +139,7 @@ fail2ban_ver=0.11.2
 elasticsearch_ver=7.x
 
 # nvm
-nvm_ver=0.39.0
+nvm_ver=nvm_ver=0.39.1
 
 # devtools
 navicat_ver=16
