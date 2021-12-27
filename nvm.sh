@@ -9,7 +9,8 @@ printf "
 #                                                                     #
 #######################################################################
 "
-
+oneinstack_dir=$(dirname "`readlink -f $0`")
+pushd ${oneinstack_dir} > /dev/null
 . ./versions.txt
 
 wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${nvm_ver}install.sh" | bash
