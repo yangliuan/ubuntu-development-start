@@ -33,3 +33,6 @@ chown yangliuan.root /usr/local/bin/composer
 echo
 /usr/local/php/bin/php /usr/local/bin/composer -V
 echo 'switch composer success!'
+
+#change composer mirrors
+/usr/local/php/bin/php /usr/local/bin/composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
