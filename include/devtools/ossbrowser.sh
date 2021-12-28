@@ -9,5 +9,6 @@ Install_Ossbrowser(){
     chmod -Rv 755 oss-browser-linux-x64
     mv -v oss-browser-linux-x64 /opt/oss-browser
     cp -rfv ${oneinstack_dir}/desktop/oss-browser.desktop /usr/share/applications/
+    sudo apt-get install libgconf-2-4
     popd > /dev/null
 }
