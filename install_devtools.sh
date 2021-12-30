@@ -26,6 +26,17 @@ ARG_NUM=$#
 Ubuntu_Ver=$(lsb_release -r --short)
 echo "Ubuntu Version ${Ubuntu_Ver}"
 
+# check set develop config
+while :; do echo
+    read -e -p "Do you want to set develop config? [y/n]: " develop_config_flag
+    develop_config_flag=${develop_config_flag:-n}
+    if [[ ! ${develop_config_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        break;
+    fi
+done
+
 # check service desktop
 while :; do echo
     read -e -p "Do you want to install service desktop? [y/n]: " service_desktop_flag
@@ -184,10 +195,15 @@ while :; do echo
     fi
 done
 
-# check install vscode
+# check install or upgrade vscode
 while :; do echo
-    read -e -p "Do you want to install or upgrade vscode? [y/n]: " vscode_flag
-    vscode_flag=${vscode_flag:-n}
+    if [ -e "/usr/bin/code" ];then 
+        read -e -p "Do you want to upgrade vscode? [y/n]: " vscode_flag
+        vscode_flag=${vscode_flag:-n}
+    else
+        read -e -p "Do you want to install vscode? [y/n]: " vscode_flag
+        vscode_flag=${vscode_flag:-y}
+    fi
     if [[ ! ${vscode_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -198,18 +214,27 @@ done
 # check install obs studio
 while :; do echo
     read -e -p "Do you want to install or obs studio ? [y/n]: " obs_studio_flag
-    obs_studio_flag=${obs_studio_flag:-n}
+    obs_studio_flag=${obs_studio_flag:-y}
     if [[ ! ${obs_studio_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
+        [ "${obs_studio_flag}" == 'y' -a -e "/usr/bin/obs" ] && { echo "${CWARNING}obs studio already installed! ${CEND}"; unset obs_studio_flag; }
         break
     fi
 done
 
 # Check download source packages
-. ./include/check_download.sh
-[ "${armplatform}" == "y" ] && dbinstallmethod=2
-checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
+if [ "${jmeter_flag}" == 'y' ]; then
+    . ./include/check_download.sh
+    [ "${armplatform}" == "y" ] && dbinstallmethod=2
+    checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+#set develop config
+if [ "${develop_config_flag}" == 'y' ]; then
+    . include/devtools/develop_config.sh
+    Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
 
 #publish service desktop
 if [ "${service_desktop_flag}" == 'y' ]; then
