@@ -35,9 +35,9 @@
 ├─ addons.sh oneinstack 
 ├─ backup_setup.sh oneinstack
 ├─ backup.sh oneinstack
-├─ devtools.sh 常用开发工具
-├─ elasticsearch.sh elasticsearch安装脚本
-├─ install.sh oneinstack安装脚本
+├─ install_devtools.sh 安装常用开发工具
+├─ install_other.sh 安装elasticsearch,ffmpge
+├─ install.sh 安装oneinstack包含的软件
 ├─ nvm.sh nvm安装脚本
 ├─ pureftpd_vhost.sh oneinstack
 ├─ reset_db_root_password.sh oneinstack
