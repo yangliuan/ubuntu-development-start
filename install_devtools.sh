@@ -287,28 +287,13 @@ case "${jdk_option}" in
 esac
 
 # install jmeter
-if [ "${jmeter_flag}" == 'y' ]; then  
+if [ "${jmeter_flag}" == 'y' ]; then
     . include/devtools/jmeter.sh
     Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install vscode
-if [ "${vscode_flag}" == 'y' ]; then  
+if [ "${vscode_flag}" == 'y' ]; then
     . include/devtools/vscode.sh
     Install_Vscode 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
-
-
-#reboot system
-if [ ${ARG_NUM} == 0 ]; then
-  while :; do echo
-    echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
-    read -e -p "Do you want to restart OS ? [y/n]: " reboot_flag
-    if [[ ! "${reboot_flag}" =~ ^[y,n]$ ]]; then
-      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-      break
-    fi
-  done
-fi
-[ "${reboot_flag}" == 'y' ] && reboot
