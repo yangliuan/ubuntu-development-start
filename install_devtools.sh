@@ -195,6 +195,17 @@ while :; do echo
     fi
 done
 
+# check install obs studio
+while :; do echo
+    read -e -p "Do you want to install or obs studio ? [y/n]: " obs_studio_flag
+    obs_studio_flag=${obs_studio_flag:-n}
+    if [[ ! ${obs_studio_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        break
+    fi
+done
+
 # Check download source packages
 . ./include/check_download.sh
 [ "${armplatform}" == "y" ] && dbinstallmethod=2
@@ -296,4 +307,10 @@ fi
 if [ "${vscode_flag}" == 'y' ]; then
     . include/devtools/vscode.sh
     Install_Vscode 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# install obs studio
+if [ "${obs_studio_flag}" == 'y' ]; then
+    . include/devtools/obs_studio.sh
+    Install_ObsStudio 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
