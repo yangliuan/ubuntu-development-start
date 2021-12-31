@@ -23,9 +23,9 @@ Switch_Composer(){
     chmod u+x /usr/local/bin/composer
 
     #输出php和composer版本信息
-    php -v
+    /usr/local/php/bin/php -v
     echo
-    composer -V
+    sudo -u ${run_user} /usr/local/php/bin/php /usr/local/bin/composer -V
     echo 'switch composer success!'
 }
 
@@ -48,6 +48,6 @@ Switch_Composer_Mirrors(){
     fi
 
     #更改全局镜像
-    composer config -g repo.packagist composer ${composer_mirrors[${mirrors_option}]}
-    composer config -g -l
+    sudo -u ${run_user} /usr/local/php/bin/php /usr/local/bin/composer config -g repo.packagist composer ${composer_mirrors[${mirrors_option}]}
+    sudo -u ${run_user} /usr/local/php/bin/php /usr/local/bin/composer config -g -l
 }

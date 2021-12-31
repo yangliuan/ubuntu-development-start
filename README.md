@@ -28,10 +28,6 @@
 │  ├─ nginx_start.sh 启动 nginx
 │  ├─ php-fpm_start.sh 启动 php-fpm
 │  ├─ redis_start.sh 启动 redis_start
-├─ switch 切换版本
-│  ├─ composer.sh 切换composer版本
-│  ├─ php.sh 切换php版本
-│  ├─ redis.sh 切换redis版本
 ├─ addons.sh oneinstack 
 ├─ backup_setup.sh oneinstack
 ├─ backup.sh oneinstack
@@ -41,6 +37,7 @@
 ├─ nvm.sh nvm安装脚本
 ├─ pureftpd_vhost.sh oneinstack
 ├─ reset_db_root_password.sh oneinstack
+├─ switch_phpenv.sh 切换php环境
 ├─ uninstall.sh oneinstack
 ├─ upgrade.sh oneinstack
 ├─ vhost.sh oneinstack
@@ -50,7 +47,7 @@
 首先运行 sudo ./install.sh 安装开发环境服务 然后再运行其它脚本
 
 
-### Thinks
+### Thinksz
 
 [Oneinstack](https://github.com/oneinstack/oneinstack)
 
