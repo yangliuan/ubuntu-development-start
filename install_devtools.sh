@@ -28,7 +28,7 @@ echo "Ubuntu Version ${Ubuntu_Ver}"
 
 # check set develop config
 while :; do echo
-    read -e -p "Do you want to set develop config? [y/n]: " develop_config_flag
+    read -e -p "Do you want to set develop config? [y/n](n): " develop_config_flag
     develop_config_flag=${develop_config_flag:-n}
     if [[ ! ${develop_config_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -39,7 +39,7 @@ done
 
 # check service desktop
 while :; do echo
-    read -e -p "Do you want to install service desktop? [y/n]: " service_desktop_flag
+    read -e -p "Do you want to install service desktop? [y/n](n): " service_desktop_flag
     service_desktop_flag=${service_desktop_flag:-n}
     if [[ ! ${service_desktop_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -48,9 +48,21 @@ while :; do echo
     fi
 done
 
+# check switchhost
+while :; do echo
+    read -e -p "Do you want to install switchhost? [y/n](y): " switchhost_flag
+    switchhost_flag=${switchhost_flag:-y}
+    if [[ ! ${switchhost_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${switchhost_flag}" == 'y' -a -e "/opt/switchhost/SwitchHosts_linux_x86_64.AppImage" ] && { echo "${CWARNING}switchhost already installed! ${CEND}"; unset switchhost_flag; }
+        break;
+    fi
+done
+
 # check redis-desktop-manager
 while :; do echo
-    read -e -p "Do you want to install redis-desktop-manager? [y/n]: " redis_desktop_manager_flag
+    read -e -p "Do you want to install redis-desktop-manager? [y/n](y): " redis_desktop_manager_flag
     redis_desktop_manager_flag=${redis_desktop_manager_flag:-y}
     if [[ ! ${redis_desktop_manager_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -62,7 +74,7 @@ done
 
 # check navicat preminu
 while :; do echo
-    read -e -p "Do you want to install navicat preminu? [y/n]: " navicat_preminu_flag
+    read -e -p "Do you want to install navicat preminu? [y/n](y): " navicat_preminu_flag
     navicat_preminu_flag=${navicat_preminu_flag:-y}
     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -74,7 +86,7 @@ done
 
 # check mysql workbench
 while :; do echo
-    read -e -p "Do you want to install mysql workbench? [y/n]: " mysql_workbench_flag
+    read -e -p "Do you want to install mysql workbench? [y/n](y): " mysql_workbench_flag
     mysql_workbench_flag=${mysql_workbench_flag:-y}
     if [[ ! ${mysql_workbench_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -86,7 +98,7 @@ done
 
 # check install remmina
 while :; do echo
-    read -e -p "Do you want to install remmina? [y/n]: " remmina_flag
+    read -e -p "Do you want to install remmina? [y/n](y): " remmina_flag
     remmina_flag=${remmina_flag:-y}
     if [[ ! ${remmina_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -98,7 +110,7 @@ done
 
 # check install wireshark
 while :; do echo
-    read -e -p "Do you want to install wireshark? [y/n]: " wireshark_flag
+    read -e -p "Do you want to install wireshark? [y/n](y): " wireshark_flag
     wireshark_flag=${wireshark_flag:-y}
     if [[ ! ${wireshark_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -110,7 +122,7 @@ done
 
 # check install postman
 while :; do echo
-    read -e -p "Do you want to install postman? [y/n]: " postman_flag
+    read -e -p "Do you want to install postman? [y/n](y): " postman_flag
     postman_flag=${postman_flag:-y}
     if [[ ! ${postman_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -122,7 +134,7 @@ done
 
 # check install runapi
 while :; do echo
-    read -e -p "Do you want to install runapi? [y/n]: " runapi_flag
+    read -e -p "Do you want to install runapi? [y/n](y): " runapi_flag
     runapi_flag=${runapi_flag:-y}
     if [[ ! ${runapi_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -134,7 +146,7 @@ done
 
 # check install oss-browser
 while :; do echo
-    read -e -p "Do you want to install oss-browser? [y/n]: " ossbrowser_flag
+    read -e -p "Do you want to install oss-browser? [y/n](y): " ossbrowser_flag
     ossbrowser_flag=${ossbrowser_flag:-y}
     if [[ ! ${ossbrowser_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -146,7 +158,7 @@ done
 
 # check install virtualbox
 while :; do echo
-    read -e -p "Do you want to install virtualbox? [y/n]: " virtualbox_flag
+    read -e -p "Do you want to install virtualbox? [y/n](y): " virtualbox_flag
     virtualbox_flag=${virtualbox_flag:-y}
     if [[ ! ${virtualbox_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -158,7 +170,7 @@ done
 
 # check install filezilla
 while :; do echo
-    read -e -p "Do you want to install filezilla? [y/n]: " filezilla_flag
+    read -e -p "Do you want to install filezilla? [y/n](y): " filezilla_flag
     filezilla_flag=${filezilla_flag:-y}
     if [[ ! ${filezilla_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -170,7 +182,7 @@ done
 
 # check install jmeter
 while :; do echo
-    read -e -p "Do you want to install jmeter? [y/n]: " jmeter_flag
+    read -e -p "Do you want to install jmeter? [y/n](y): " jmeter_flag
     jmeter_flag=${jmeter_flag:-y}
     if [[ ! ${jmeter_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -198,10 +210,10 @@ done
 # check install or upgrade vscode
 while :; do echo
     if [ -e "/usr/bin/code" ];then 
-        read -e -p "Do you want to upgrade vscode? [y/n]: " vscode_flag
+        read -e -p "Do you want to upgrade vscode? [y/n](n): " vscode_flag
         vscode_flag=${vscode_flag:-n}
     else
-        read -e -p "Do you want to install vscode? [y/n]: " vscode_flag
+        read -e -p "Do you want to install vscode? [y/n](y): " vscode_flag
         vscode_flag=${vscode_flag:-y}
     fi
     if [[ ! ${vscode_flag} =~ ^[y,n]$ ]]; then
@@ -213,7 +225,7 @@ done
 
 # check install obs studio
 while :; do echo
-    read -e -p "Do you want to install or obs studio ? [y/n]: " obs_studio_flag
+    read -e -p "Do you want to install or obs studio ? [y/n](y): " obs_studio_flag
     obs_studio_flag=${obs_studio_flag:-y}
     if [[ ! ${obs_studio_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -240,6 +252,12 @@ fi
 if [ "${service_desktop_flag}" == 'y' ]; then
     . include/devtools/service_desktop.sh
     Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+#install switchhost
+if [ "${switchhost_flag}" == 'y' ]; then
+    . include/devtools/switchhost.sh
+    Install_SwitchHost 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install redis-desktop-manager

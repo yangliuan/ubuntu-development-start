@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=SwitchHost
+Comment=host manage tool
+Exec=/opt/switchhost/SwitchHosts_linux_x86_64.AppImage
+Icon=/opt/switchhost/switchhost.png
+Type=Application
+Categories=Development;
+Keywords=SwitchHost;
