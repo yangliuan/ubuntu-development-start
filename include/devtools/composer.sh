@@ -35,7 +35,8 @@ Switch_Composer_Mirrors(){
     composer_mirrors[0]="https://mirrors.aliyun.com/composer/"
     composer_mirrors[1]="https://mirrors.cloud.tencent.com/composer/"
     composer_mirrors[2]="https://mirrors.huaweicloud.com/repository/php/"
-    composer_mirrors[3]="https://packagist.org/"
+    composer_mirrors[3]="https://packagist.phpcomposer.com"
+    composer_mirrors[4]="https://packagist.org"
     for i in ${!composer_mirrors[@]};do echo
         echo $i ${composer_mirrors[i]}
     done
