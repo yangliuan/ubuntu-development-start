@@ -19,7 +19,9 @@
 |  |  |─ runapi.sh 远程终端工具
 |  |  |─ service_desktop.sh 发布服务快捷方式
 |  |  |─ virtualbox.sh 虚拟机
-|  |  |─ vscode.sh IDE
+|  |  |─ switchhost.sh host管理工具
+|  |  |─ vscode.sh IDE工具Vscode
+|  |  |─ wireshark.sh 抓包工具
 ├─ start 启动服务
 │  ├─ elasticsearch_start.sh 启动 elasticsearch
 │  ├─ httpd_start.sh 启动 apache
