@@ -20,7 +20,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 
-
+ARG_NUM=$#
 # check elasticsearch
 while :; do echo
     read -e -p "Do you want to install elasticsearch? [y/n]: " elasticsearch_flag
@@ -78,6 +78,7 @@ if [ ${ARG_NUM} == 0 ]; then
   while :; do echo
     echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
     read -e -p "Do you want to restart OS ? [y/n]: " reboot_flag
+    reboot_flag=${reboot_flag:-n}
     if [[ ! "${reboot_flag}" =~ ^[y,n]$ ]]; then
       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
@@ -85,4 +86,9 @@ if [ ${ARG_NUM} == 0 ]; then
     fi
   done
 fi
-[ "${reboot_flag}" == 'y' ] && reboot
+
+if [ "${reboot_flag}" == 'y' ];then
+    reboot
+else
+    exit
+fi
