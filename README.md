@@ -1,4 +1,4 @@
-# ubuntu 开发环境安装脚本
+# ubuntu20.04 开发环境安装脚本
 
 集成Oneinstack Nvm Elasticsearch 和常用开发工具，快速搭建开发环境
 
