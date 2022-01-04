@@ -45,6 +45,18 @@ while :; do echo
     fi
 done
 
+# check nvm
+while :; do echo
+    read -e -p "Do you want to install nvm? [y/n]: " nvm_flag
+    nvm_flag=${nvm_flag:-y}
+    if [[ ! ${nvm_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${nvm_flag}" == 'y' -a -e "/home/${run_user}/.nvm" ] && { echo "${CWARNING}nvm already installed! ${CEND}"; unset nvm_flag; }
+        break
+    fi
+done
+
 if [ "${elasticsearch_flag}" == 'y' ]; then  
     . include/elasticsearch.sh
     Install_Elasticsearch 2>&1 | tee -a ${oneinstack_dir}/install.log
@@ -55,5 +67,22 @@ if [ "${ffmpeg_flag}" == 'y' ]; then
     Install_FFmpeg 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
+if [ "${nvm_flag}" == 'y' ]; then  
+    . include/nvm.sh  
+    Install_Nvm 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
 
     
+if [ ${ARG_NUM} == 0 ]; then
+  while :; do echo
+    echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
+    read -e -p "Do you want to restart OS ? [y/n]: " reboot_flag
+    if [[ ! "${reboot_flag}" =~ ^[y,n]$ ]]; then
+      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+      break
+    fi
+  done
+fi
+[ "${reboot_flag}" == 'y' ] && reboot
