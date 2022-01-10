@@ -7,7 +7,7 @@ Install_navicat_preminu(){
    if [ ! -e "/opt/navicat" ]; then
       mkdir /opt/navicat
    fi
-
+   
    mv -fv navicat${navicat_ver}-premium-cs.AppImage /opt/navicat/navicat-premium-cs.AppImage
    chown -Rv ${run_user}.${run_group} /opt/navicat/navicat-premium-cs.AppImage
    chmod -Rv 755 /opt/navicat/navicat-premium-cs.AppImage

@@ -80,6 +80,10 @@ while :; do echo
     else
         read -e -p "Do you want to install navicat_preminu? [y/n](y): " navicat_preminu_flag
         navicat_preminu_flag=${navicat_preminu_flag:-y}
+
+        if [ "${navicat_preminu_flag}" == 'y' ]; then
+            rm -rfv /opt/navicat
+        fi
     fi
     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
