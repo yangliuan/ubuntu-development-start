@@ -74,12 +74,16 @@ done
 
 # check navicat preminu
 while :; do echo
-    read -e -p "Do you want to install navicat preminu? [y/n](y): " navicat_preminu_flag
-    navicat_preminu_flag=${navicat_preminu_flag:-y}
+    if [ -e "/opt/navicat/navicat-premium-cs.AppImage" ];then 
+        read -e -p "Do you want to upgrade or extend use navicat_preminu? [y/n](n): " navicat_preminu_flag
+        navicat_preminu_flag=${navicat_preminu_flag:-n}
+    else
+        read -e -p "Do you want to install navicat_preminu? [y/n](y): " navicat_preminu_flag
+        navicat_preminu_flag=${navicat_preminu_flag:-y}
+    fi
     if [[ ! ${navicat_preminu_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${navicat_preminu_flag}" == 'y' -a -e "/opt/navicat/navicat-premium-cs.AppImage" ] && { echo "${CWARNING}navicat preminu already installed! ${CEND}"; unset navicat_preminu_flag; }
         break
     fi
 done
