@@ -166,8 +166,8 @@ done
 
 # check install virtualbox
 while :; do echo
-    read -e -p "Do you want to install virtualbox? [y/n](y): " virtualbox_flag
-    virtualbox_flag=${virtualbox_flag:-y}
+    read -e -p "Do you want to install virtualbox? [y/n](n): " virtualbox_flag
+    virtualbox_flag=${virtualbox_flag:-n}
     if [[ ! ${virtualbox_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
