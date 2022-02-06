@@ -17,7 +17,7 @@ Install_pecl_event() {
       phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
       src_url=https://pecl.php.net/get/event-${event_ver}.tgz && Download_src
       tar xzf event-${event_ver}.tgz
-      pushd event-${event_ver}.tgz > /dev/null
+      pushd event-${event_ver} > /dev/null
       ${php_install_dir}/bin/phpize
       ./configure --with-php-config=${php_install_dir}/bin/php-config
       make -j ${THREAD} && make install
