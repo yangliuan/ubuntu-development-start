@@ -134,17 +134,22 @@ setuptools_ver=58.0.4
 pip_ver=21.2.4
 fail2ban_ver=0.11.2
 
+# Event
+event_ver=3.0.6
+
 # elasticsearch
 elasticsearch_ver=7.x
 
 # nvm
-nvm_ver=nvm_ver=0.39.1
+nvm_ver=0.39.1
 
 # devtools
 navicat_ver=16
 filezilla_ver=3.57.0
 postman_ver=9.4.1
-virtualbox_ver=6.1.30
+virtualbox_ver_base=6.1
+virtualbox_ver=32
+virtualbox_ver_sn=149290
 jmeter_ver=5.4.1
 #必须和myql版本保持一致
 mysql_workbench_ver=8.0.27
