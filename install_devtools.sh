@@ -282,7 +282,7 @@ fi
 
 # install mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
-    . include/devtools/mysql-workbench.sh
+    . include/devtools/mysql_workbench.sh
     Mysql_Workbench 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 

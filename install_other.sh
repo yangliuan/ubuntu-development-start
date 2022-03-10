@@ -23,7 +23,7 @@ pushd ${oneinstack_dir} > /dev/null
 ARG_NUM=$#
 # check elasticsearch
 while :; do echo
-    read -e -p "Do you want to install elasticsearch? [y/n]: " elasticsearch_flag
+    read -e -p "Do you want to install elasticsearch stack? [y/n]: " elasticsearch_flag
     elasticsearch_flag=${elasticsearch_flag:-y}
     if [[ ! ${elasticsearch_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -58,7 +58,7 @@ while :; do echo
 done
 
 if [ "${elasticsearch_flag}" == 'y' ]; then  
-    . include/elasticsearch.sh
+    . include/elasticsearch_stack.sh
     Install_Elasticsearch 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
