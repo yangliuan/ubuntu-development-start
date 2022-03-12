@@ -13,19 +13,29 @@ autorefresh=1
 type=rpm-md
 EOF
       fi
-        yum install --enablerepo=elasticsearch elasticsearch && yum install --enablerepo=elasticsearch kibana
-        pushd ${oneinstack_dir}/src > /dev/null
-        echo "Download cerebo ..."
-        src_url="http://mirror.yangliuan.cn/cerebro-${cerebo_ver}-1.noarch.rpm" && Download_src
-        rpm -ivh cerebro-${cerebo_ver}-1.noarch.rpm
+        yum install --enablerepo=elasticsearch elasticsearch && yum install --enablerepo=elasticsearch kibana && yum install --enablerepo=elasticsearch logstash
     elif [ "${PM}" == "apt-get" ]; then
         wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
         apt-get install apt-transport-https
         echo "deb https://artifacts.elastic.co/packages/${elasticsearch_ver}/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
-        apt-get update && apt-get install elasticsearch && apt-get install kibana
-        pushd ${oneinstack_dir}/src > /dev/null
-        echo "Download cerebo ..."
-        src_url="http://mirror.yangliuan.cn/cerebro_${cerebo_ver}_all.deb" && Download_src
-        dpkg -i cerebro_${cerebo_ver}_all.deb
+        apt-get update && apt-get install elasticsearch && apt-get install kibana && apt-get install logstash
     fi
+}
+
+Install_Cerebro (){
+    pushd ${oneinstack_dir}/src > /dev/null
+    echo "Download cerebro ..."
+    src_url="http://mirror.yangliuan.cn/${cerebo_ver}.tgz" && Download_src
+    tar zxvf cerebro-0.9.4.tgz
+    mkdir /etc/cerebro
+    cp -r cerebro-0.9.4/conf/* /etc/cerebro
+    mv cerebro-0.9.4 /usr/share/cerebro
+    #create group and user
+    id -g cerebro >/dev/null 2>&1
+    [ $? -ne 0 ] && groupadd cerebro
+    id -u cerebro >/dev/null 2>&1
+    [ $? -ne 0 ] && useradd -g cerebro -M -s /sbin/nologin cerebro
+    #created systemd cerebro.service
+    cp ${oneinstack_dir}/init.d/cerebro.service /lib/systemd/system/
+    systemctl daemon-reload
 }
