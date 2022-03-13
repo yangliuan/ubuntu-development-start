@@ -37,5 +37,6 @@ Install_Cerebro (){
     [ $? -ne 0 ] && useradd -g cerebro -M -s /sbin/nologin cerebro
     #created systemd cerebro.service
     cp ${oneinstack_dir}/init.d/cerebro.service /lib/systemd/system/
+    chown -R cerebro.cerebro /usr/share/cerebro
     systemctl daemon-reload
 }
