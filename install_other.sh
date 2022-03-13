@@ -60,6 +60,7 @@ done
 if [ "${elasticsearch_flag}" == 'y' ]; then  
     . include/elasticsearch_stack.sh
     Install_Elasticsearch 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Cerebro 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 if [ "${ffmpeg_flag}" == 'y' ]; then  
