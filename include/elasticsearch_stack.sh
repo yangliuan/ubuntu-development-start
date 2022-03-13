@@ -25,7 +25,7 @@ EOF
 Install_Cerebro (){
     pushd ${oneinstack_dir}/src > /dev/null
     echo "Download cerebro ..."
-    src_url="http://mirror.yangliuan.cn/${cerebo_ver}.tgz" && Download_src
+    src_url="http://mirror.yangliuan.cn/cerebro-${cerebo_ver}.tgz" && Download_src
     tar zxvf cerebro-0.9.4.tgz
     mkdir /etc/cerebro
     cp -r cerebro-0.9.4/conf/* /etc/cerebro
