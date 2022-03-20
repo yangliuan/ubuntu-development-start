@@ -13,3 +13,6 @@ EOF
     popd > /dev/null
 }
 
+Uninstall_Nvm(){
+    rm -rf /home/${run_user}/.nvm
+}   
