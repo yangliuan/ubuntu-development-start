@@ -7,6 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       https://www.php.net/manual/zh/book.apcu.php
 
 Install_APCU() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then

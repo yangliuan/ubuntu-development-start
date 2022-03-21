@@ -7,6 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       https://www.cnblogs.com/xiaobo0602/p/15256131.html
 
 Install_fail2ban() {
   pushd ${oneinstack_dir}/src > /dev/null
