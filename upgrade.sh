@@ -29,13 +29,13 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_dir.sh
 . ./include/download.sh
 . ./include/get_char.sh
-. ./include/upgrade_web.sh
-. ./include/upgrade_db.sh
-. ./include/upgrade_php.sh
-. ./include/upgrade_redis.sh
-. ./include/upgrade_memcached.sh
-. ./include/upgrade_phpmyadmin.sh
-. ./include/upgrade_oneinstack.sh
+. ./include/upgrade/upgrade_web.sh
+. ./include/upgrade/upgrade_db.sh
+. ./include/upgrade/upgrade_php.sh
+. ./include/upgrade/upgrade_redis.sh
+. ./include/upgrade/upgrade_memcached.sh
+. ./include/upgrade/upgrade_phpmyadmin.sh
+. ./include/upgrade/upgrade_oneinstack.sh
 
 # get the IP information
 PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)

@@ -861,54 +861,54 @@ esac
 if [ "${apache_flag}" == 'y' ]; then
   apache_mode_option=${apache_mode_option:-1}
   apache_mpm_option=${apache_mpm_option:-1}
-  . include/apache.sh
+  . include/webserver/apache.sh
   Install_Apache 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # PHP
 case "${php_option}" in
   1)
-    . include/php-5.3.sh
+    . include/php/php-5.3.sh
     Install_PHP53 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/php-5.4.sh
+    . include/php/php-5.4.sh
     Install_PHP54 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
-    . include/php-5.5.sh
+    . include/php/php-5.5.sh
     Install_PHP55 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
-    . include/php-5.6.sh
+    . include/php/php-5.6.sh
     Install_PHP56 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   5)
-    . include/php-7.0.sh
+    . include/php/php-7.0.sh
     Install_PHP70 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   6)
-    . include/php-7.1.sh
+    . include/php/php-7.1.sh
     Install_PHP71 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   7)
-    . include/php-7.2.sh
+    . include/php/php-7.2.sh
     Install_PHP72 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   8)
-    . include/php-7.3.sh
+    . include/php/php-7.3.sh
     Install_PHP73 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   9)
-    . include/php-7.4.sh
+    . include/php/php-7.4.sh
     Install_PHP74 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   10)
-    . include/php-8.0.sh
+    . include/php/php-8.0.sh
     Install_PHP80 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   11)
-    . include/php-8.1.sh
+    . include/php/php-8.1.sh
     Install_PHP81 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
@@ -1060,7 +1060,7 @@ PHP_addons() {
 [ "${mphp_addons_flag}" != 'y' ] && PHP_addons
 
 if [ "${mphp_flag}" == 'y' ]; then
-  . include/mphp.sh
+  . include/php/mphp.sh
   Install_MPHP 2>&1 | tee -a ${oneinstack_dir}/install.log
   php_install_dir=${php_install_dir}${mphp_ver}
   PHP_addons
@@ -1119,7 +1119,7 @@ fi
 
 # phpMyAdmin
 if [ "${phpmyadmin_flag}" == 'y' ]; then
-  . include/phpmyadmin.sh
+  . include/php/phpmyadmin.sh
   Install_phpMyAdmin 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
@@ -1146,7 +1146,7 @@ fi
 
 # Python
 if [ "${python_flag}" == 'y' ]; then
-  . include/python.sh
+  . include/python/python.sh
   Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 

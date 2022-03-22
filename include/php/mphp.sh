@@ -18,47 +18,47 @@ Install_MPHP() {
       php_install_dir=${php_install_dir}${mphp_ver}
       case "${mphp_ver}" in
         53)
-          . include/php-5.3.sh
+          . include/php/php-5.3.sh
           Install_PHP53 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         54)
-          . include/php-5.4.sh
+          . include/php/php-5.4.sh
           Install_PHP54 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         55)
-          . include/php-5.5.sh
+          . include/php/php-5.5.sh
           Install_PHP55 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         56)
-          . include/php-5.6.sh
+          . include/php/php-5.6.sh
           Install_PHP56 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         70)
-          . include/php-7.0.sh
+          . include/php/php-7.0.sh
           Install_PHP70 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         71)
-          . include/php-7.1.sh
+          . include/php/php-7.1.sh
           Install_PHP71 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         72)
-          . include/php-7.2.sh
+          . include/php/php-7.2.sh
           Install_PHP72 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         73)
-          . include/php-7.3.sh
+          . include/php/php-7.3.sh
           Install_PHP73 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         74)
-          . include/php-7.4.sh
+          . include/php/php-7.4.sh
           Install_PHP74 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         80)
-          . include/php-8.0.sh
+          . include/php/php-8.0.sh
           Install_PHP80 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
         81)
-          . include/php-8.1.sh
+          . include/php/php-8.1.sh
           Install_PHP81 2>&1 | tee -a ${oneinstack_dir}/install.log
           ;;
       esac

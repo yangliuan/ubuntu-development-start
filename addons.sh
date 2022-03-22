@@ -32,9 +32,9 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 
-. ./include/composer.sh
+. ./include/php/composer.sh
 
-. ./include/python.sh
+. ./include/python/python.sh
 
 . ./include/fail2ban.sh
 

@@ -626,7 +626,7 @@ What Are You Doing?
         Uninstall_Memcached_server
         Uninstall_openssl
         Uninstall_phpMyAdmin
-        . include/python.sh; Uninstall_Python
+        . include/python/python.sh; Uninstall_Python
         . include/nodejs/node.sh; Uninstall_Node
       else
         exit
@@ -693,7 +693,7 @@ What Are You Doing?
     12)
       Print_Python
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/python.sh; Uninstall_Python; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/python/python.sh; Uninstall_Python; } || exit
       ;;
     13)
       Print_Node
@@ -748,7 +748,7 @@ else
     [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
     [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
-    [ "${python_flag}" == 'y' ] && { . include/python.sh; Uninstall_Python; }
+    [ "${python_flag}" == 'y' ] && { . include/python/python.sh; Uninstall_Python; }
     [ "${node_flag}" == 'y' ] && { . include/nodejs/node.sh; Uninstall_Node; }
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
   fi
