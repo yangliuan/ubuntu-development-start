@@ -333,10 +333,10 @@ Uninstall_ALLPHP() {
 }
 
 Uninstall_PHPcache() {
-  . include/zendopcache.sh
-  . include/xcache.sh
-  . include/apcu.sh
-  . include/eaccelerator.sh
+  . include/php/extension/zendopcache.sh
+  . include/php/extension/xcache.sh
+  . include/php/extension/apcu.sh
+  . include/php/extension/eaccelerator.sh
   Uninstall_ZendOPcache
   Uninstall_XCache
   Uninstall_APCU
@@ -350,75 +350,75 @@ Uninstall_PHPcache() {
 Uninstall_PHPext() {
   # ZendGuardLoader
   if [ "${pecl_zendguardloader}" == '1' ]; then
-    . include/ZendGuardLoader.sh
+    . include/php/extension/ZendGuardLoader.sh
     Uninstall_ZendGuardLoader
   fi
 
   # ioncube
   if [ "${pecl_ioncube}" == '1' ]; then
-    . include/ioncube.sh
+    . include/php/extension/ioncube.sh
     Uninstall_ionCube
   fi
 
   # SourceGuardian
   if [ "${pecl_sourceguardian}" == '1' ]; then
-    . include/sourceguardian.sh
+    . include/php/extension/sourceguardian.sh
     Uninstall_SourceGuardian
   fi
 
   # imagick
   if [ "${pecl_imagick}" == '1' ]; then
-    . include/ImageMagick.sh
+    . include/php/extension/ImageMagick.sh
     Uninstall_ImageMagick
     Uninstall_pecl_imagick
   fi
 
   # gmagick
   if [ "${pecl_gmagick}" == '1' ]; then
-    . include/GraphicsMagick.sh
+    . include/php/extension/GraphicsMagick.sh
     Uninstall_GraphicsMagick
     Uninstall_pecl_gmagick
   fi
 
   # fileinfo
   if [ "${pecl_fileinfo}" == '1' ]; then
-    . include/pecl_fileinfo.sh
+    . include/php/extension/pecl_fileinfo.sh
     Uninstall_pecl_fileinfo
   fi
 
   # imap
   if [ "${pecl_imap}" == '1' ]; then
-    . include/pecl_imap.sh
+    . include/php/extension/pecl_imap.sh
     Uninstall_pecl_imap
   fi
 
   # ldap
   if [ "${pecl_ldap}" == '1' ]; then
-    . include/pecl_ldap.sh
+    . include/php/extension/pecl_ldap.sh
     Uninstall_pecl_ldap
   fi
 
   # calendar
   if [ "${pecl_calendar}" == '1' ]; then
-    . include/pecl_calendar.sh
+    . include/php/extension/pecl_calendar.sh
     Uninstall_pecl_calendar
   fi
 
   # phalcon
   if [ "${pecl_phalcon}" == '1' ]; then
-    . include/pecl_phalcon.sh
+    . include/php/extension/pecl_phalcon.sh
     Uninstall_pecl_phalcon
   fi
 
   # yaf
   if [ "${pecl_yaf}" == '1' ]; then
-    . include/pecl_yaf.sh
+    . include/php/extension/pecl_yaf.sh
     Uninstall_pecl_yaf 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # yar
   if [ "${pecl_yar}" == '1' ]; then
-    . include/pecl_yar.sh
+    . include/php/extension/pecl_yar.sh
     Uninstall_pecl_yar 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
@@ -442,19 +442,19 @@ Uninstall_PHPext() {
 
   # pecl_mongodb
   if [ "${pecl_mongodb}" == '1' ]; then
-    . include/pecl_mongodb.sh
+    . include/php/extension/pecl_mongodb.sh
     Uninstall_pecl_mongodb
   fi
 
   # swoole
   if [ "${pecl_swoole}" == '1' ]; then
-    . include/pecl_swoole.sh
+    . include/php/extension/pecl_swoole.sh
     Uninstall_pecl_swoole
   fi
 
   # xdebug
   if [ "${pecl_xdebug}" == '1' ]; then
-    . include/pecl_xdebug.sh
+    . include/php/extension/pecl_xdebug.sh
     Uninstall_pecl_xdebug
   fi
 
