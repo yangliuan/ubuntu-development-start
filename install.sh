@@ -782,61 +782,61 @@ fi
 case "${db_option}" in
   1)
     [ "${LikeOS}" == 'RHEL' ] && [ ${RHEL_ver} -le 6 >/dev/null 2>&1 ] && dbinstallmethod=1 && checkDownload
-    . include/mysql-8.0.sh
+    . include/database/mysql-8.0.sh
     Install_MySQL80 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/mysql-5.7.sh
+    . include/database/mysql-5.7.sh
     Install_MySQL57 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
-    . include/mysql-5.6.sh
+    . include/database/mysql-5.6.sh
     Install_MySQL56 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
-    . include/mysql-5.5.sh
+    . include/database/mysql-5.5.sh
     Install_MySQL55 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   5)
-    . include/mariadb-10.6.sh
+    . include/database/mariadb-10.6.sh
     Install_MariaDB106 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   6)
-    . include/mariadb-10.5.sh
+    . include/database/mariadb-10.5.sh
     Install_MariaDB105 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   7)
-    . include/mariadb-10.4.sh
+    . include/database/mariadb-10.4.sh
     Install_MariaDB104 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   8)
-    . include/mariadb-5.5.sh
+    . include/database/mariadb-5.5.sh
     Install_MariaDB55 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   9)
     [ "${LikeOS}" == 'RHEL' ] && [ ${RHEL_ver} -le 6 >/dev/null 2>&1 ] && dbinstallmethod=1 && checkDownload
     [ "${LikeOS}" == 'RHEL' ] && [ "${RHEL_ver}" == '8' ] && dbinstallmethod=2 && checkDownload
-    . include/percona-8.0.sh
+    . include/database/percona-8.0.sh
     Install_Percona80 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   10)
-    . include/percona-5.7.sh
+    . include/database/percona-5.7.sh
     Install_Percona57 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   11)
-    . include/percona-5.6.sh
+    . include/database/percona-5.6.sh
     Install_Percona56 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   12)
-    . include/percona-5.5.sh
+    . include/database/percona-5.5.sh
     Install_Percona55 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   13)
-    . include/postgresql.sh
+    . include/database/postgresql.sh
     Install_PostgreSQL 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   14)
-    . include/mongodb.sh
+    . include/database/mongodb.sh
     Install_MongoDB 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
@@ -1010,19 +1010,19 @@ PHP_addons() {
 
   # pecl_memcached
   if [ "${pecl_memcached}" == '1' ]; then
-    . include/memcached.sh
+    . include/database/cache/memcached.sh
     Install_pecl_memcached 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # pecl_memcache
   if [ "${pecl_memcache}" == '1' ]; then
-    . include/memcached.sh
+    . include/database/cache/memcached.sh
     Install_pecl_memcache 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # pecl_redis
   if [ "${pecl_redis}" == '1' ]; then
-    . include/redis.sh
+    . include/database/cache/redis.sh
     Install_pecl_redis 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
@@ -1069,19 +1069,19 @@ fi
 # JDK
 case "${jdk_option}" in
   1)
-    . include/jdk-11.0.sh
+    . include/java/jdk/jdk-11.0.sh
     Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/jdk-1.8.sh
+    . include/java/jdk/jdk-1.8.sh
     Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
-    . include/jdk-1.7.sh
+    . include/java/jdk/jdk-1.7.sh
     Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
-    . include/jdk-1.6.sh
+    . include/java/jdk/jdk-1.6.sh
     Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
@@ -1107,7 +1107,7 @@ esac
 
 # Nodejs
 if [ "${node_flag}" == 'y' ]; then
-  . include/node.sh
+  . include/nodejs/node.sh
   Install_Node 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
@@ -1125,7 +1125,7 @@ fi
 
 # redis
 if [ "${redis_flag}" == 'y' ]; then
-  . include/redis.sh
+  . include/database/cache/redis.sh
   Install_redis_server 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 

@@ -13,8 +13,8 @@ pushd ${oneinstack_dir} > /dev/null
 . ./options.conf
 . ./include/color.sh
 . ./include/get_char.sh
-. ./include/devtools/php.sh
-. ./include/devtools/composer.sh
+. ./include/develop-tools/php.sh
+. ./include/develop-tools/composer.sh
 
 
 Switch_PHP

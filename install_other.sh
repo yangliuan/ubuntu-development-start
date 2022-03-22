@@ -58,18 +58,18 @@ while :; do echo
 done
 
 if [ "${elasticsearch_flag}" == 'y' ]; then  
-    . include/elasticsearch_stack.sh
+    . include/fulltext-search/elasticsearch_stack.sh
     Install_Elasticsearch 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_Cerebro 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 if [ "${ffmpeg_flag}" == 'y' ]; then  
-    . include/ffmpeg.sh
+    . include/multimedia/ffmpeg.sh
     Install_FFmpeg 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 if [ "${nvm_flag}" == 'y' ]; then  
-    . include/nvm.sh  
+    . include/nodejs/nvm.sh  
     Install_Nvm 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 

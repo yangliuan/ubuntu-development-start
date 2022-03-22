@@ -424,19 +424,19 @@ Uninstall_PHPext() {
 
   # pecl_memcached
   if [ "${pecl_memcached}" == '1' ]; then
-    . include/memcached.sh
+    . include/database/cache/memcached.sh
     Uninstall_pecl_memcached
   fi
 
   # pecl_memcache
   if [ "${pecl_memcache}" == '1' ]; then
-    . include/memcached.sh
+    . include/database/cache/memcached.sh
     Uninstall_pecl_memcache
   fi
 
   # pecl_redis
   if [ "${pecl_redis}" == '1' ]; then
-    . include/redis.sh
+    . include/database/cache/redis.sh
     Uninstall_pecl_redis
   fi
 
@@ -627,7 +627,7 @@ What Are You Doing?
         Uninstall_openssl
         Uninstall_phpMyAdmin
         . include/python.sh; Uninstall_Python
-        . include/node.sh; Uninstall_Node
+        . include/nodejs/node.sh; Uninstall_Node
       else
         exit
       fi
@@ -698,7 +698,7 @@ What Are You Doing?
     13)
       Print_Node
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/node.sh; Uninstall_Node; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/nodejs/node.sh; Uninstall_Node; } || exit
       ;;
     q)
       exit
@@ -749,7 +749,7 @@ else
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
     [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
     [ "${python_flag}" == 'y' ] && { . include/python.sh; Uninstall_Python; }
-    [ "${node_flag}" == 'y' ] && { . include/node.sh; Uninstall_Node; }
+    [ "${node_flag}" == 'y' ] && { . include/nodejs/node.sh; Uninstall_Node; }
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
   fi
 fi

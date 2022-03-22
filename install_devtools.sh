@@ -252,116 +252,116 @@ fi
 
 #set develop config
 if [ "${develop_config_flag}" == 'y' ]; then
-    . include/devtools/develop_config.sh
+    . include/develop-tools/develop_config.sh
     Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 #publish service desktop
 if [ "${service_desktop_flag}" == 'y' ]; then
-    . include/devtools/service_desktop.sh
+    . include/develop-tools/service_desktop.sh
     Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 #install switchhost
 if [ "${switchhost_flag}" == 'y' ]; then
-    . include/devtools/switchhost.sh
+    . include/develop-tools/switchhost.sh
     Install_SwitchHost 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
-    . include/devtools/redis_desktop_manager.sh
+    . include/develop-tools/redis_desktop_manager.sh
     Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install navicat preminu
 if [ "${navicat_preminu_flag}" == 'y' ]; then
-    . include/devtools/navicat_preminu.sh
+    . include/develop-tools/navicat_preminu.sh
     Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
-    . include/devtools/mysql_workbench.sh
+    . include/develop-tools/mysql_workbench.sh
     Mysql_Workbench 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install remmina
 if [ "${remmina_flag}" == 'y' ]; then
-    . include/devtools/remmina.sh
+    . include/develop-tools/remmina.sh
     Install_Remmina 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install wireshark
 if [ "${wireshark_flag}" == 'y' ]; then
-    . include/devtools/wireshark.sh
+    . include/develop-tools/wireshark.sh
     Install_Wireshark 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install postman
 if [ "${postman_flag}" == 'y' ]; then
-    . include/devtools/postman.sh
+    . include/develop-tools/postman.sh
     Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install runapi
 if [ "${runapi_flag}" == 'y' ]; then
-    . include/devtools/runapi.sh
+    . include/develop-tools/runapi.sh
     Install_Runapi 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install oss-browser
 if [ "${ossbrowser_flag}" == 'y' ]; then
-    . include/devtools/ossbrowser.sh
+    . include/develop-tools/ossbrowser.sh
     Install_Ossbrowser 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install vitualbox
 if [ "${virtualbox_flag}" == 'y' ]; then
-    . include/devtools/virtualbox.sh
+    . include/develop-tools/virtualbox.sh
     Install_Vbox 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install filezilla
 if [ "${filezilla_flag}" == 'y' ]; then
-    . include/devtools/filezilla.sh
+    . include/develop-tools/filezilla.sh
     Install_FileZilla 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # JDK
 case "${jdk_option}" in
   1)
-    . include/jdk-11.0.sh
+    . include/java/jdk/jdk-11.0.sh
     Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/jdk-1.8.sh
+    . include/java/jdk/jdk-1.8.sh
     Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
-    . include/jdk-1.7.sh
+    . include/java/jdk/jdk-1.7.sh
     Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
-    . include/jdk-1.6.sh
+    . include/java/jdk/jdk-1.6.sh
     Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
 # install jmeter
 if [ "${jmeter_flag}" == 'y' ]; then
-    . include/devtools/jmeter.sh
+    . include/develop-tools/jmeter.sh
     Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install vscode
 if [ "${vscode_flag}" == 'y' ]; then
-    . include/devtools/vscode.sh
+    . include/develop-tools/vscode.sh
     Install_Vscode 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install obs studio
 if [ "${obs_studio_flag}" == 'y' ]; then
-    . include/devtools/obs_studio.sh
+    . include/develop-tools/obs_studio.sh
     Install_ObsStudio 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
