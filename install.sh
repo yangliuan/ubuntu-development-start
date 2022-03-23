@@ -1131,7 +1131,7 @@ fi
 
 # memcached
 if [ "${memcached_flag}" == 'y' ]; then
-  . include/memcached.sh
+  . include/database/cache/memcached.sh
   Install_memcached_server 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
