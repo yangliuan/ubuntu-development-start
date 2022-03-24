@@ -26,6 +26,18 @@ ARG_NUM=$#
 Ubuntu_Ver=$(lsb_release -r --short)
 echo "Ubuntu Version ${Ubuntu_Ver}"
 
+# check openssh-server
+while :; do echo
+    read -e -p "Do you want to install openssh-server? [y/n](n): " openssh-server_flag
+    openssh-server_flag=${openssh-server_flag:-n}
+    if [[ ! ${openssh-server_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${openssh-server_flag}" == 'y' -a -e "/usr/sbin/sshd" ] && { echo "${CWARNING}openssh-server already installed! ${CEND}"; unset openssh-server_flag; }
+        break;
+    fi
+done
+
 # check set develop config
 while :; do echo
     read -e -p "Do you want to set develop config? [y/n](n): " develop_config_flag
@@ -248,6 +260,12 @@ if [ "${jmeter_flag}" == 'y' ]; then
     . ./include/check_download.sh
     [ "${armplatform}" == "y" ] && dbinstallmethod=2
     checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+#install openssh-server
+if [ "${openssh-server_flag}" == 'y' ]; then
+    . include/develop-tools/openssh-server.sh
+    Install_OpensshServer 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 #set develop config
