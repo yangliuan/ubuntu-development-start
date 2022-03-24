@@ -265,9 +265,9 @@ if [ ${ARG_NUM} == 0 ]; then
           if [[ ! ${nginx_option} =~ ^[1-4]$ ]]; then
             echo "${CWARNING}input error! Please only input number 1~4${CEND}"
           else
-            [ "${nginx_option}" != '4' -a -e "${nginx_install_dir}/sbin/nginx" ] && { echo "${CWARNING}Nginx already installed! ${CEND}"; unset nginx_option; }
-            [ "${nginx_option}" != '4' -a -e "${tengine_install_dir}/sbin/nginx" ] && { echo "${CWARNING}Tengine already installed! ${CEND}"; unset nginx_option; }
-            [ "${nginx_option}" != '4' -a -e "${openresty_install_dir}/nginx/sbin/nginx" ] && { echo "${CWARNING}OpenResty already installed! ${CEND}"; unset nginx_option; }
+            [ "${nginx_option}" = '1' -a -e "${nginx_install_dir}/sbin/nginx" ] && { echo "${CWARNING}Nginx${nginx_option} already installed! ${CEND}"; unset nginx_option; }
+            [ "${nginx_option}" = '2' -a -e "${tengine_install_dir}/sbin/nginx" ] && { echo "${CWARNING}Tengine${nginx_option} already installed! ${CEND}"; unset nginx_option; }
+            [ "${nginx_option}" = '3' -a -e "${openresty_install_dir}/nginx/sbin/nginx" ] && { echo "${CWARNING}OpenResty${nginx_option} already installed! ${CEND}"; unset nginx_option; }
             break
           fi
         done
