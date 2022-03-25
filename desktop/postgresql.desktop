@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Mysql
+Name=PostgreSql
 Comment=relation database
-Exec=sh /opt/oneinstack/start/mysql_start.sh
-Icon=/opt/oneinstack/icon/mysql.jpeg
+Exec=sh /opt/oneinstack/start/postgresql_start.sh
+Icon=/opt/oneinstack/icon/postgresql.png
 Type=Application
-Categories=Development;Mysql;
-Keywords=Mysql;mysql
+Categories=Development;Database;
+Keywords=PostgreSql;postgresql
