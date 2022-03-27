@@ -22,6 +22,8 @@ pushd ${oneinstack_dir} > /dev/null
 
 xcachepwd=`< /dev/urandom tr -dc A-Za-z0-9 | head -c8`
 
+ARG_NUM=$#
+
 # choice php
 while :; do echo
 read -e -p "Do you want to install PHP? [y/n]: " php_flag
@@ -457,3 +459,32 @@ if [ "${mphp_flag}" == 'y' ]; then
   php_install_dir=${php_install_dir}${mphp_ver}
   PHP_addons
 fi
+
+
+endTime=`date +%s`
+((installTime=($endTime-$startTime)/60))
+echo "####################Congratulations########################"
+echo "Total OneinStack Install Time: ${CQUESTION}${installTime}${CEND} minutes"
+[[ "${php_option}" =~ ^[1-9]$|^1[0-1]$ ]] && echo -e "\n$(printf "%-32s" "PHP install dir:")${CMSG}${php_install_dir}${CEND}"
+[ "${phpcache_option}" == '1' ] && echo "$(printf "%-32s" "Opcache Control Panel URL:")${CMSG}http://${IPADDR}/ocp.php${CEND}"
+[ "${phpcache_option}" == '2' ] && echo "$(printf "%-32s" "APC Control Panel URL:")${CMSG}http://${IPADDR}/apc.php${CEND}"
+[ "${phpcache_option}" == '3' -a -e "${php_install_dir}/etc/php.d/04-xcache.ini" ] && echo "$(printf "%-32s" "xcache Control Panel URL:")${CMSG}http://${IPADDR}/xcache${CEND}"
+[ "${phpcache_option}" == '3' -a -e "${php_install_dir}/etc/php.d/04-xcache.ini" ] && echo "$(printf "%-32s" "xcache user:")${CMSG}admin${CEND}"
+[ "${phpcache_option}" == '3' -a -e "${php_install_dir}/etc/php.d/04-xcache.ini" ] && echo "$(printf "%-32s" "xcache password:")${CMSG}${xcachepwd}${CEND}"
+[ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator Control Panel URL:")${CMSG}http://${IPADDR}/control.php${CEND}"
+[ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator user:")${CMSG}admin${CEND}"
+[ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator password:")${CMSG}eAccelerator${CEND}"
+
+if [ ${ARG_NUM} == 0 ]; then
+  while :; do echo
+    echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
+    read -e -p "Do you want to restart OS ? [y/n]: " reboot_flag
+    if [[ ! "${reboot_flag}" =~ ^[y,n]$ ]]; then
+      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+      break
+    fi
+  done
+fi
+
+[ "${reboot_flag}" == 'y' ] && reboot
