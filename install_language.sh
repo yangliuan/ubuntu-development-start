@@ -228,25 +228,25 @@ while :; do echo
     if [[ ! ${nodejs_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${nodejs_flag}" == 'y' -a -e "${node_install_dir}/bin/node" ] && { echo "${CWARNING}Nodejs already installed! ${CEND}"; unset nodejs_flag; }
+        # choice Nodejs install method
+        if [ "${nodejs_flag}" == 'y' ]; then
+            while :; do echo
+                echo 'Please select method:'
+                echo -e "\t${CMSG}1${CEND}. official install"
+                echo -e "\t${CMSG}2${CEND}. use nvm"
+                read -e -p "Please input a number:(Default 1 press Enter) " nodejs_method
+                nodejs_method=${nodejs_method:-1}
+                if [[ ! ${nodejs_method} =~ ^[1-2]$ ]]; then
+                    echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+                else
+                    break
+                fi
+            done
+        fi
         break
     fi
 done
-# choice Nodejs install method
-if [ "${nodejs_flag}" == 'y' ]; then
-    while :; do echo
-        echo 'Please select method:'
-        echo -e "\t${CMSG}1${CEND}. official"
-        echo -e "\t${CMSG}2${CEND}. nvm"
-        read -e -p "Please input a number:(Default 1 press Enter) " nodejs_method
-        nodejs_method=${nodejs_method:-1}
-        if [[ ! ${nodejs_method} =~ ^[1-2]$ ]]; then
-            echo "${CWARNING}input error! Please only input number 1~2${CEND}"
-        else
-            break
-        fi
-    done
-fi
+
 
 # check go
 while :; do echo
@@ -254,7 +254,31 @@ while :; do echo
     if [[ ! ${go_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${go_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}Go already installed! ${CEND}"; unset go_flag; }
+        # choice go install method
+        if [ "${go_flag}" == 'y' ]; then
+            while :; do echo
+                echo 'Please select method:'
+                echo -e "\t${CMSG}1${CEND}. official install"
+                echo -e "\t${CMSG}2${CEND}. use gvm"
+                read -e -p "Please input a number:(Default 1 press Enter) " go_method
+                go_method=${go_method:-1}
+                if [[ ! ${go_method} =~ ^[1-2]$ ]]; then
+                    echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+                else
+                    break
+                fi
+            done
+        fi
+        break
+    fi
+done
+
+# check python
+while :; do echo
+    read -e -p "Do you want to install python? [y/n]: " python_flag
+    if [[ ! ${python_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
         break
     fi
 done
@@ -307,6 +331,7 @@ case "${php_option}" in
     ;;
 esac
 
+# PHP addons
 PHP_addons() {
   # PHP opcode cache
   case "${phpcache_option}" in
@@ -453,11 +478,42 @@ PHP_addons() {
 
 [ "${mphp_addons_flag}" != 'y' ] && PHP_addons
 
+# mphp
 if [ "${mphp_flag}" == 'y' ]; then
   . include/php/mphp.sh
   Install_MPHP 2>&1 | tee -a ${oneinstack_dir}/install.log
   php_install_dir=${php_install_dir}${mphp_ver}
   PHP_addons
+fi
+
+# nodejs
+case "${nodejs_method}" in
+  1)
+    . include/nodejs/node.sh
+    Install_Node 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  2)
+    . include/nodejs/nvm.sh
+    Install_Nvm 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+esac
+
+# go
+case "${go_method}" in
+  1)
+    . include/go/go.sh
+    Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  2)
+    . include/go/gvm.sh
+    Install_Gvm 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+esac
+
+# python
+if [ "${python}" == 'y']; then
+  . include/python/python.sh
+  Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 
@@ -474,6 +530,8 @@ echo "Total OneinStack Install Time: ${CQUESTION}${installTime}${CEND} minutes"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator Control Panel URL:")${CMSG}http://${IPADDR}/control.php${CEND}"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator user:")${CMSG}admin${CEND}"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator password:")${CMSG}eAccelerator${CEND}"
+[ "${python}" == 'y'] && echo -e "\n$(printf "%-32s" "python install dir:")${CMSG}${python_install_dir}${CEND}"
+
 
 if [ ${ARG_NUM} == 0 ]; then
   while :; do echo
