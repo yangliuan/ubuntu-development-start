@@ -1,8 +1,9 @@
 #!/bin/bash
-Install_Go(){
 
+Install_Go() {
+    echo 'install go'
 }
 
-Uninstall_Go(){
+Uninstall_Go() {
     
 }

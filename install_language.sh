@@ -515,7 +515,7 @@ case "${go_method}" in
 esac
 
 # python
-if [ "${python}" == 'y']; then
+if [ "${python_flag}" == 'y' ]; then
   . include/python/python.sh
   Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
