@@ -372,9 +372,6 @@ if [ ${ARG_NUM} == 0 ]; then
   done
 fi
 
-#清楚上一次安装的日志
-echo > ${oneinstack_dir}/install.log
-
 if [[ ${nginx_option} =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${tomcat_option} =~ ^[1-4]$ ]]; then
   [ ! -d ${wwwroot_dir}/default ] && mkdir -p ${wwwroot_dir}/default
   [ ! -d ${wwwlogs_dir} ] && mkdir -p ${wwwlogs_dir}
@@ -392,9 +389,12 @@ if [ ! -e ~/.oneinstack ]; then
 fi
 
 # get the IP information
-IPADDR=$(./include/get_ipaddr.py)
-PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)
-IPADDR_COUNTRY=$(./include/get_ipaddr_state.py ${PUBLIC_IPADDR})
+# IPADDR=$(./include/get_ipaddr.py)
+# PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)
+# IPADDR_COUNTRY=$(./include/get_ipaddr_state.py ${PUBLIC_IPADDR})
+
+#clear latest install.log
+echo > ${oneinstack_dir}/install.log
 
 # Check download source packages
 . ./include/check_download.sh
