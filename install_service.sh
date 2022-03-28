@@ -330,6 +330,33 @@ if [ ${ARG_NUM} == 0 ]; then
     fi
   done
 
+  # check message queue
+  while :; do echo
+    read -e -p "Do you want to install message queue? [y/n]: " message_queue_flag
+    if [[ ! ${message_queue_flag} =~ ^[y,n]$ ]]; then
+      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+      if [ "${message_queue_flag}" == 'y' ]; then
+        while :; do echo
+          echo 'Please select message queue:'
+          echo -e "\t${CMSG}1${CEND}. Install Kafka"
+          echo -e "\t${CMSG}2${CEND}. Install Rabbitmq"
+          echo -e "\t${CMSG}3${CEND}. Install Rocketmq"
+          echo -e "\t${CMSG}4${CEND}. Do not install"
+          read -e -p "Please input a number:(Default 1 press Enter) " message_queue_option
+          message_queue_option=${message_queue_option:-1}
+          if [[ ! ${message_queue_option} =~ ^[1-4]$ ]]; then
+            echo "${CWARNING}input error! Please only input number 1~4${CEND}"
+          else
+            [ "${message_queue_option}" = '1' -a -e "${kafka_install_dir}" ] && { echo "${CWARNING}Kafka${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
+            [ "${message_queue_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
+            [ "${message_queue_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
+            break
+          fi
+      fi
+    fi
+  done
+
   # check ffmpeg
   while :; do echo
     read -e -p "Do you want to install ffmpeg? [y/n]: " ffmpeg_flag
