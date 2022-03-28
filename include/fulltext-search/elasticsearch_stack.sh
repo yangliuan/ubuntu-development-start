@@ -22,7 +22,7 @@ EOF
     fi
 }
 
-Install_Cerebro (){
+Install_Cerebro() {
     pushd ${oneinstack_dir}/src > /dev/null
     echo "Download cerebro ..."
     src_url="http://mirror.yangliuan.cn/cerebro-${cerebo_ver}.tgz" && Download_src
@@ -39,4 +39,12 @@ Install_Cerebro (){
     cp ${oneinstack_dir}/init.d/cerebro.service /lib/systemd/system/
     chown -R cerebro.cerebro /usr/share/cerebro
     systemctl daemon-reload
+}
+
+Uninstall_Elasticsearch() {
+
+}
+
+Uninstall_Cerebro() {
+
 }

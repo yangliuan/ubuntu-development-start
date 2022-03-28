@@ -372,6 +372,9 @@ if [ ${ARG_NUM} == 0 ]; then
   done
 fi
 
+#清楚上一次安装的日志
+echo > ${oneinstack_dir}/install.log
+
 if [[ ${nginx_option} =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${tomcat_option} =~ ^[1-4]$ ]]; then
   [ ! -d ${wwwroot_dir}/default ] && mkdir -p ${wwwroot_dir}/default
   [ ! -d ${wwwlogs_dir} ] && mkdir -p ${wwwlogs_dir}
