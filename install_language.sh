@@ -283,6 +283,10 @@ while :; do echo
     fi
 done
 
+. ./include/check_download.sh
+checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
+
+
 # PHP
 case "${php_option}" in
   1)
