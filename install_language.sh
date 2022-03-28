@@ -239,7 +239,8 @@ while :; do echo
                 if [[ ! ${nodejs_method} =~ ^[1-2]$ ]]; then
                     echo "${CWARNING}input error! Please only input number 1~2${CEND}"
                 else
-                    break
+                  [ "${nodejs_method}" = "1" -a -e "${node_install_dir}/bin/node" ] && { echo "${CWARNING}Nodejs already installed! ${CEND}"; unset nodejs_method; break; }
+                  break
                 fi
             done
         fi
@@ -286,6 +287,8 @@ done
 . ./include/check_download.sh
 checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
 
+# start Time
+startTime=`date +%s`
 
 # PHP
 case "${php_option}" in
@@ -534,19 +537,4 @@ echo "Total OneinStack Install Time: ${CQUESTION}${installTime}${CEND} minutes"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator Control Panel URL:")${CMSG}http://${IPADDR}/control.php${CEND}"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator user:")${CMSG}admin${CEND}"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator password:")${CMSG}eAccelerator${CEND}"
-[ "${python}" == 'y'] && echo -e "\n$(printf "%-32s" "python install dir:")${CMSG}${python_install_dir}${CEND}"
-
-
-if [ ${ARG_NUM} == 0 ]; then
-  while :; do echo
-    echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
-    read -e -p "Do you want to restart OS ? [y/n]: " reboot_flag
-    if [[ ! "${reboot_flag}" =~ ^[y,n]$ ]]; then
-      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-      break
-    fi
-  done
-fi
-
-[ "${reboot_flag}" == 'y' ] && reboot
+[ "${python_flag}" == 'y' -a -e "${python_install_dir}" ] && echo -e "\n$(printf "%-32s" "python install dir:")${CMSG}${python_install_dir}${CEND}"
