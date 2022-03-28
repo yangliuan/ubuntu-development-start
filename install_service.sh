@@ -348,12 +348,14 @@ if [ ${ARG_NUM} == 0 ]; then
           if [[ ! ${message_queue_option} =~ ^[1-4]$ ]]; then
             echo "${CWARNING}input error! Please only input number 1~4${CEND}"
           else
-            [ "${message_queue_option}" = '1' -a -e "${kafka_install_dir}" ] && { echo "${CWARNING}Kafka${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
+             [ "${message_queue_option}" = '1' -a -e "${kafka_install_dir}" ] && { echo "${CWARNING}Kafka${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             [ "${message_queue_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             [ "${message_queue_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             break
           fi
+        done
       fi
+      break
     fi
   done
 
@@ -368,6 +370,60 @@ if [ ${ARG_NUM} == 0 ]; then
         break
     fi
   done
+fi
+
+if [[ ${nginx_option} =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${tomcat_option} =~ ^[1-4]$ ]]; then
+  [ ! -d ${wwwroot_dir}/default ] && mkdir -p ${wwwroot_dir}/default
+  [ ! -d ${wwwlogs_dir} ] && mkdir -p ${wwwlogs_dir}
+fi
+[ -d /data ] && chmod 755 /data
+
+# install wget gcc curl python
+if [ ! -e ~/.oneinstack ]; then
+  downloadDepsSrc=1
+  [ "${PM}" == 'apt-get' ] && apt-get -y update > /dev/null
+  [ "${PM}" == 'yum' ] && yum clean all
+  ${PM} -y install wget gcc curl python
+  [ "${RHEL_ver}" == '8' ] && { yum -y install python36; sudo alternatives --set python /usr/bin/python3; }
+  clear
+fi
+
+# get the IP information
+IPADDR=$(./include/get_ipaddr.py)
+PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)
+IPADDR_COUNTRY=$(./include/get_ipaddr_state.py ${PUBLIC_IPADDR})
+
+# Check download source packages
+. ./include/check_download.sh
+[ "${armplatform}" == "y" ] && dbinstallmethod=2
+checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
+
+# del openssl for jcloud
+[ -e "/usr/local/bin/openssl" ] && rm -rf /usr/local/bin/openssl
+[ -e "/usr/local/include/openssl" ] && rm -rf /usr/local/include/openssl
+
+# get OS Memory
+. ./include/memory.sh
+
+if [ ! -e ~/.oneinstack ]; then
+  # Check binary dependencies packages
+  . ./include/check_sw.sh
+  case "${LikeOS}" in
+    "RHEL")
+      installDepsRHEL 2>&1 | tee ${oneinstack_dir}/install.log
+      . include/init_RHEL.sh 2>&1 | tee -a ${oneinstack_dir}/install.log
+      ;;
+    "Debian")
+      installDepsDebian 2>&1 | tee ${oneinstack_dir}/install.log
+      . include/init_Debian.sh 2>&1 | tee -a ${oneinstack_dir}/install.log
+      ;;
+    "Ubuntu")
+      installDepsUbuntu 2>&1 | tee ${oneinstack_dir}/install.log
+      . include/init_Ubuntu.sh 2>&1 | tee -a ${oneinstack_dir}/install.log
+      ;;
+  esac
+  # Install dependencies from source package
+  installDepsBySrc 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # start Time
