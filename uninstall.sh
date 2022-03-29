@@ -50,11 +50,12 @@ Show_Help() {
   --phpmyadmin                  Uninstall phpMyAdmin
   --python                      Uninstall Python (PATH: ${python_install_dir})
   --node                        Uninstall Nodejs (PATH: ${node_install_dir})
+  --nvm                         Uninstall Nvm 
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,redis,memcached,phpmyadmin,python,node -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,redis,memcached,phpmyadmin,python,node,nvm -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -131,6 +132,9 @@ while :; do
       ;;
     --node)
       node_flag=y; shift 1
+      ;;
+    --nvm)
+      nvm_flag=y; shift 1
       ;;
     --pureftpd)
       pureftpd_flag=y; shift 1
@@ -574,6 +578,10 @@ Print_Node() {
   [ -e "/etc/profile.d/node.sh" ] && echo /etc/profile.d/node.sh
 }
 
+Print_Nvm() {
+  [ -d "/home/${run_user}/.nvm" ] && echo "/home/${run_user}/.nvm"
+}
+
 Menu() {
 while :; do
   printf "
@@ -592,12 +600,13 @@ What Are You Doing?
 \t${CMSG}11${CEND}. Uninstall phpMyAdmin
 \t${CMSG}12${CEND}. Uninstall Python (PATH: ${python_install_dir})
 \t${CMSG}13${CEND}. Uninstall Nodejs (PATH: ${node_install_dir})
+\t${CMSG}14${CEND}. Uninstall nvm
 \t${CMSG} q${CEND}. Exit
 "
   echo
   read -e -p "Please input the correct option: " Number
-  if [[ ! "${Number}" =~ ^[0-9,q]$|^1[0-3]$ ]]; then
-    echo "${CWARNING}input error! Please only input 0~13 and q${CEND}"
+  if [[ ! "${Number}" =~ ^[0-9,q]$|^1[0-4]$ ]]; then
+    echo "${CWARNING}input error! Please only input 0~14 and q${CEND}"
   else
     case "$Number" in
     0)
@@ -614,6 +623,7 @@ What Are You Doing?
       Print_phpMyAdmin
       Print_Python
       Print_Node
+      Print_Nvm
       Uninstall_status
       if [ "${uninstall_flag}" == 'y' ]; then
         Uninstall_Web
@@ -628,6 +638,7 @@ What Are You Doing?
         Uninstall_phpMyAdmin
         . include/python/python.sh; Uninstall_Python
         . include/nodejs/node.sh; Uninstall_Node
+        . include/nodejs/nvm.sh; Uninstall_Nvm
       else
         exit
       fi
@@ -700,6 +711,11 @@ What Are You Doing?
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && { . include/nodejs/node.sh; Uninstall_Node; } || exit
       ;;
+    14)
+      Print_Nvm
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && { . include/nodejs/nvm.sh; Uninstall_Nvm; } || exit
+      ;;
     q)
       exit
       ;;
@@ -750,6 +766,7 @@ else
     [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
     [ "${python_flag}" == 'y' ] && { . include/python/python.sh; Uninstall_Python; }
     [ "${node_flag}" == 'y' ] && { . include/nodejs/node.sh; Uninstall_Node; }
+    [ "${nvm_flag}" == 'y' ] && { . include/nodejs/nvm.sh; Uninstall_Nvm; }
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
   fi
 fi
