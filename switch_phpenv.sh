@@ -29,10 +29,6 @@ while :; do echo
     fi
 done
 
-if [ "${switch_composer_flag}" == 'y' ]; then
-    Switch_Composer
-fi
-
 while :; do echo
     read -e -p "Do you want to switch composer mirrors? [y/n](n): " switch_mirrors_flag
     switch_mirrors_flag=${switch_mirrors_flag:-n}
@@ -42,6 +38,10 @@ while :; do echo
         break;
     fi
 done
+
+if [ "${switch_composer_flag}" == 'y' ]; then
+    Switch_Composer
+fi
 
 if [ "${switch_mirrors_flag}" == 'y' ]; then
     Switch_Composer_Mirrors
