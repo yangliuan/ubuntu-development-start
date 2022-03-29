@@ -21,8 +21,4 @@ EOF
 
 Uninstall_Nvm(){
     rm -rf /home/${run_user}/.nvm
-    sed -i "s/[ -s "$NVM_DIR\/nvm.sh" ]//g" /home/${run_user}/.bashrc
-    sed -i "s/xtNVMDIRHOME//g" /home/${run_user}/.bashrc
-    sed -i "s/NVMDIRNVMDIR//g" /home/${run_user}/.bashrc
-    sed -i "s/NVMDIRtNVMDIRt//g" /home/${run_user}/.bashrc
 }   
