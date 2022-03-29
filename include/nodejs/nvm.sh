@@ -2,8 +2,12 @@
 Install_Nvm(){
     #DOC:https://github.com/nvm-sh/nvm#git-install
     pushd /home/${run_user}/ > /dev/null
+    
+    if [ ! -e "/usr/bin/git" ]; then
+        sudo apt-get install git
+    fi
 
-    sudo -u ${run_user} git clone -b v${nvm_ver} git@github.com:nvm-sh/nvm.git .nvm
+    sudo -u ${run_user} git clone -b v${nvm_ver} --depth=1 https://github.com/nvm-sh/nvm.git .nvm
     #add command
     cat >> /home/${run_user}/.bashrc <<EOF
 export NVM_DIR="\$HOME/.nvm"
