@@ -389,9 +389,9 @@ if [ ! -e ~/.oneinstack ]; then
 fi
 
 # get the IP information
-# IPADDR=$(./include/get_ipaddr.py)
-# PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)
-# IPADDR_COUNTRY=$(./include/get_ipaddr_state.py ${PUBLIC_IPADDR})
+IPADDR=$(./include/get_ipaddr.py)
+PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)
+IPADDR_COUNTRY=$(./include/get_ipaddr_state.py ${PUBLIC_IPADDR})
 
 #clear latest install.log
 echo > ${oneinstack_dir}/install.log
