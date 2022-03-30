@@ -26,10 +26,10 @@ Install_Cerebro() {
     pushd ${oneinstack_dir}/src > /dev/null
     echo "Download cerebro ..."
     src_url="http://mirror.yangliuan.cn/cerebro-${cerebo_ver}.tgz" && Download_src
-    tar zxvf cerebro-0.9.4.tgz
+    tar zxvf cerebro-${cerebo_ver}.tgz
     mkdir /etc/cerebro
-    cp -r cerebro-0.9.4/conf/* /etc/cerebro
-    mv cerebro-0.9.4 /usr/share/cerebro
+    cp -r cerebro-${cerebo_ver}/conf/* /etc/cerebro
+    mv cerebro-${cerebo_ver} /usr/share/cerebro
     #create group and user
     id -g cerebro >/dev/null 2>&1
     [ $? -ne 0 ] && groupadd cerebro
