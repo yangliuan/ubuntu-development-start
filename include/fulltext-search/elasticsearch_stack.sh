@@ -1,25 +1,9 @@
 #!/bin/bash
 Install_Elasticsearch() {
-    if [ "${PM}" == "yum" ]; then
-      if [ ! -e "/etc/yum.repos.d/elasticsearch.repo" ]; then
-        cat > /etc/yum.repos.d/elasticsearch.repo <<EOF
-[elasticsearch]
-name=Elasticsearch repository for ${elasticsearch_ver} packages
-baseurl=https://artifacts.elastic.co/packages/${elasticsearch_ver}/yum
-gpgcheck=1
-gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
-enabled=0
-autorefresh=1
-type=rpm-md
-EOF
-      fi
-        yum install --enablerepo=elasticsearch elasticsearch && yum install --enablerepo=elasticsearch kibana && yum install --enablerepo=elasticsearch logstash
-    elif [ "${PM}" == "apt-get" ]; then
-        wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-        apt-get install apt-transport-https
-        echo "deb https://artifacts.elastic.co/packages/${elasticsearch_ver}/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
-        apt-get update && apt-get install elasticsearch && apt-get install kibana && apt-get install logstash
-    fi
+    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+    apt-get install apt-transport-https
+    echo "deb https://artifacts.elastic.co/packages/${elasticsearch_ver}/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
+    apt-get update && apt-get install elasticsearch && apt-get install kibana && apt-get install logstash
 }
 
 Install_Cerebro() {
@@ -42,9 +26,13 @@ Install_Cerebro() {
 }
 
 Uninstall_Elasticsearch() {
-
+    apt-get autoremove elasticsearch kibana logstash
+    rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
+    rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list.save
 }
 
 Uninstall_Cerebro() {
-
+    rm -rf /lib/systemd/system/cerebro.service
+    rm -rf /usr/share/cerebro
+    systemctl daemon-reload
 }
