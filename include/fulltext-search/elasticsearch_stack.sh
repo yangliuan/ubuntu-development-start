@@ -29,6 +29,7 @@ Uninstall_Elasticsearch() {
     apt-get autoremove elasticsearch kibana logstash
     rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
     rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list.save
+    apt-get update
 }
 
 Uninstall_Cerebro() {

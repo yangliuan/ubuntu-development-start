@@ -1,5 +1,5 @@
 #!/bin/bash
-Install_FileZilla(){
+Install_FileZilla() {
     pushd ${oneinstack_dir}/src > /dev/null
     echo "Download filezilla ftp client ..."
     src_url="http://mirror.yangliuan.cn/FileZilla_${filezilla_ver}_x86_64-linux-gnu.tar.bz2" && Download_src
@@ -10,4 +10,9 @@ Install_FileZilla(){
     chmod -Rv 755 /opt/filezilla3
     rm -rfv FileZilla_${filezilla_ver}_x86_64-linux-gnu.tar.bz2
     popd > /dev/null
+}
+
+Uninstall_FileZilla() {
+    rm -rfv /opt/filezilla3
+    rm -rfv /usr/share/applications/filezilla3.desktop
 }

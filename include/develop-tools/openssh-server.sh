@@ -6,3 +6,7 @@ Install_OpensshServer(){
     service sshd start
     service sshd status
 }
+
+Uninstall_OpensshServer(){
+    apt-get autoremove openssh-server
+}

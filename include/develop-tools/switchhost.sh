@@ -1,5 +1,5 @@
 #!/bin/bash
-Install_SwitchHost(){
+Install_SwitchHost() {
     #https://github.com/oldj/SwitchHosts
     #host管理工具
     pushd ${oneinstack_dir}/src > /dev/null
@@ -17,4 +17,9 @@ Install_SwitchHost(){
     chmod -Rv 755 /opt/switchhost
 
     popd > /dev/null
+}
+
+Uninstall_SwitchHost() {
+    rm -rfv /opt/switchhost/
+    rm -rfv /usr/share/applications/switchhost.desktop 
 }

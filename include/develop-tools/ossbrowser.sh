@@ -1,5 +1,5 @@
 #!/bin/bash
-Install_Ossbrowser(){
+Install_Ossbrowser() {
     pushd ${oneinstack_dir}/src > /dev/null
     echo "Download ossbrowser..."    
     src_url="https://gosspublic.alicdn.com/oss-browser/1.16.0/oss-browser-linux-x64.zip?spm=a2c4g.11186623.0.0.4c296404EQSSj3&file=oss-browser-linux-x64.zip" && Download_src
@@ -11,4 +11,9 @@ Install_Ossbrowser(){
     cp -rfv ${oneinstack_dir}/desktop/oss-browser.desktop /usr/share/applications/
     sudo apt-get install libgconf-2-4
     popd > /dev/null
+}
+
+Uninstall_Ossbrowser() {
+    rm -rfv /opt/oss-browser
+    rm -rfv /usr/share/applications/oss-browser.desktop
 }
