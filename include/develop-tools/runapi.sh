@@ -1,5 +1,5 @@
 #!/bin/bash
-Install_Runapi(){
+Install_Runapi() {
     pushd ${oneinstack_dir}/src > /dev/null
     echo "Download runapi..."    
     src_url="https://www.showdoc.cc/server/api/common/visitfile/sign/0e73b106b92346fcd7809de0ee71f0ff?showdoc=.zip" && Download_src
@@ -14,4 +14,9 @@ Install_Runapi(){
     cp -rfv ${oneinstack_dir}/desktop/runapi.desktop /usr/share/applications/
     chmod -Rv 777 /opt/runapi/runapi.png
     popd > /dev/null
+}
+
+Uninstall_Runapi() {
+    rm -rfv /opt/runapi/
+    rm -rfv /usr/share/applications/runapi.desktop
 }
