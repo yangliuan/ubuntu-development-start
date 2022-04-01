@@ -1,4 +1,4 @@
 #!/bin/sh
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:
-service php-fpm start
-service php-fpm status
+systemctl start php-fpm.service 
+systemctl status php-fpm.service

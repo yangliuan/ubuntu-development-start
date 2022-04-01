@@ -38,28 +38,6 @@ while :; do echo
     fi
 done
 
-# check set develop config
-while :; do echo
-    read -e -p "Do you want to set develop config? [y/n](n): " develop_config_flag
-    develop_config_flag=${develop_config_flag:-n}
-    if [[ ! ${develop_config_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-        break;
-    fi
-done
-
-# check service desktop
-while :; do echo
-    read -e -p "Do you want to install service desktop? [y/n](n): " service_desktop_flag
-    service_desktop_flag=${service_desktop_flag:-n}
-    if [[ ! ${service_desktop_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-        break;
-    fi
-done
-
 # check switchhost
 while :; do echo
     read -e -p "Do you want to install switchhost? [y/n](y): " switchhost_flag
