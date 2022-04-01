@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=LAMP
+Comment=PHP Web Environment 
+Exec=sh /opt/oneinstack/start/lamp_start.sh
+Icon=/opt/oneinstack/icon/lamp.png
+Type=Application
+Categories=Development;PHP Web;
+Keywords=LAMP;lamp

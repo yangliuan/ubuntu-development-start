@@ -10,7 +10,7 @@ Install_Vscode() {
     popd > /dev/null
 }
 
-Unstall_Vscode() {
+Uninstall_Vscode() {
    dpkg -P code
    apt-get autoclean
 }

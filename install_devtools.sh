@@ -279,7 +279,7 @@ fi
 # install mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
     . include/develop-tools/mysql_workbench.sh
-    Mysql_Workbench 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_MysqlWorkbench 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install remmina

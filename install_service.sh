@@ -370,6 +370,18 @@ if [ ${ARG_NUM} == 0 ]; then
         break
     fi
   done
+
+  # check webp
+  while :; do echo
+    read -e -p "Do you want to install webp? [y/n]: " webp_flag
+    webp_flag=${webp_flag:-y}
+    if [[ ! ${webp_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${webp_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}webp already installed! ${CEND}"; unset webp_flag; }
+        break
+    fi
+  done
 fi
 
 if [[ ${nginx_option} =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${tomcat_option} =~ ^[1-4]$ ]]; then
@@ -379,14 +391,9 @@ fi
 [ -d /data ] && chmod 755 /data
 
 # install wget gcc curl python
-if [ ! -e ~/.oneinstack ]; then
-  downloadDepsSrc=1
-  [ "${PM}" == 'apt-get' ] && apt-get -y update > /dev/null
-  [ "${PM}" == 'yum' ] && yum clean all
-  ${PM} -y install wget gcc curl python
-  [ "${RHEL_ver}" == '8' ] && { yum -y install python36; sudo alternatives --set python /usr/bin/python3; }
-  clear
-fi
+downloadDepsSrc=1
+apt-get -y install wget gcc curl python
+clear
 
 # get the IP information
 IPADDR=$(./include/get_ipaddr.py)
@@ -542,6 +549,12 @@ fi
 if [ "${ffmpeg_flag}" == 'y' ]; then  
     . include/multimedia/ffmpeg.sh
     Install_FFmpeg 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# webp
+if [ "${webp_flag}" == 'y' ]; then  
+    . include/multimedia/webp.sh
+    Install_Webp 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 

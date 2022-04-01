@@ -5,7 +5,7 @@ Install_Wireshark() {
     apt-get install wireshark
 }
 
-Unstall_Wireshark() {
+Uninstall_Wireshark() {
     apt-get autoremove wireshark
     rm -rfv /etc/apt/sources.list.d/wireshark-dev-ubuntu-stable-focal.list
     rm -rfv /etc/apt/sources.list.d/wireshark-dev-ubuntu-stable-focal.list.save

@@ -1,6 +1,7 @@
 #!/bin/bash
 Install_Jmeter() {
     pushd ${oneinstack_dir}/src > /dev/null
+
     echo "Download jmeter ..."
     src_url="http://mirror.yangliuan.cn/apache-jmeter-${jmeter_ver}.zip" && Download_src
     unzip apache-jmeter-${jmeter_ver}.zip
@@ -9,6 +10,7 @@ Install_Jmeter() {
     chown -Rv ${run_user}.${run_group} /opt/jmeter
     chmod -Rv 755 /opt/jmeter
     rm -rfv apache-jmeter-${jmeter_ver}.zip
+    
     popd > /dev/null
 }
 

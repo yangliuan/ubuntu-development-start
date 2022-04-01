@@ -6,6 +6,6 @@ Install_Remmina() {
     apt-get install remmina remmina-plugin-rdp remmina-plugin-secret
 }
 
-Unstall_Remmina() {
+Uninstall_Remmina() {
     apt-get autoremove remmina remmina-plugin-rdp remmina-plugin-secret
 }
