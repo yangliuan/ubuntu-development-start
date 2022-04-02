@@ -287,6 +287,9 @@ done
 . ./include/check_download.sh
 checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
 
+# get OS Memory
+. ./include/memory.sh
+
 # start Time
 startTime=`date +%s`
 

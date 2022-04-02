@@ -232,6 +232,11 @@ Print_MongoDB() {
   [ -e "/etc/mongod.conf" ] && echo /etc/mongod.conf
 }
 
+Print_ElasticsearchStack() {
+  [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && echo /usr/share/elasticsearch/bin/elasticsearch
+  sudo -u ${run_user} /usr/share/elasticsearch/bin/elasticsearch -version
+}
+
 Uninstall_MySQL() {
   # uninstall mysql,mariadb,percona
   if [ -d "${db_install_dir}/support-files" ]; then
@@ -591,16 +596,25 @@ What Are You Doing?
 \t${CMSG} 2${CEND}. Uninstall MySQL/MariaDB/Percona
 \t${CMSG} 3${CEND}. Uninstall PostgreSQL
 \t${CMSG} 4${CEND}. Uninstall MongoDB
-\t${CMSG} 5${CEND}. Uninstall all PHP
-\t${CMSG} 6${CEND}. Uninstall PHP opcode cache
-\t${CMSG} 7${CEND}. Uninstall PHP extensions
-\t${CMSG} 8${CEND}. Uninstall PureFtpd
-\t${CMSG} 9${CEND}. Uninstall Redis
-\t${CMSG}10${CEND}. Uninstall Memcached
-\t${CMSG}11${CEND}. Uninstall phpMyAdmin
-\t${CMSG}12${CEND}. Uninstall Python (PATH: ${python_install_dir})
-\t${CMSG}13${CEND}. Uninstall Nodejs (PATH: ${node_install_dir})
-\t${CMSG}14${CEND}. Uninstall nvm
+\t${CMSG} 5${CEND}. Uninstall ElasticsearchStack
+\t${CMSG} 6${CEND}. Uninstall all Message Queue
+\t${CMSG} 7${CEND}. Uninstall Kafka
+\t${CMSG} 8${CEND}. Uninstall Rabbitmq
+\t${CMSG} 9${CEND}. Uninstall Rocketmq
+\t${CMSG} 10${CEND}. Uninstall PureFtpd
+\t${CMSG} 11${CEND}. Uninstall Redis
+\t${CMSG} 12${CEND}. Uninstall Memcached
+\t${CMSG} 13${CEND}. Uninstall ffmpeg
+\t${CMSG} 14${CEND}. Uninstall webp
+\t${CMSG} 15${CEND}. Uninstall all PHP
+\t${CMSG} 16${CEND}. Uninstall PHP opcode cache
+\t${CMSG} 17${CEND}. Uninstall PHP extensions
+\t${CMSG} 18${CEND}. Uninstall phpMyAdmin
+\t${CMSG} 19${CEND}. Uninstall Python (PATH: ${python_install_dir})
+\t${CMSG} 20${CEND}. Uninstall Nodejs (PATH: ${node_install_dir})
+\t${CMSG} 21${CEND}. Uninstall nvm
+\t${CMSG} 22${CEND}. Uninstall Go
+\t${CMSG} 23${CEND}. Uninstall gvm
 \t${CMSG} q${CEND}. Exit
 "
   echo

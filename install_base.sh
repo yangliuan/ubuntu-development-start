@@ -4,7 +4,7 @@ export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
 ####################################################################
-                  install language develop environment      
+                  install base develop environment      
 ####################################################################
 "
 # Check if user is root
@@ -48,17 +48,15 @@ if [ -e "/etc/ssh/sshd_config" ]; then
 fi
 
 if [ ${ARG_NUM} == 0 ]; then
-  if [ ! -e ~/.oneinstack ]; then
-    # check iptables
-    while :; do echo
-      read -e -p "Do you want to enable iptables? [y/n]: " iptables_flag
-      if [[ ! ${iptables_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-      else
-        break
-      fi
-    done
-  fi
+  # check iptables
+  while :; do echo
+    read -e -p "Do you want to enable iptables? [y/n]: " iptables_flag
+    if [[ ! ${iptables_flag} =~ ^[y,n]$ ]]; then
+      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+      break
+    fi
+  done
 
   # check Web server
   while :; do echo
@@ -295,18 +293,6 @@ if [ ${ARG_NUM} == 0 ]; then
     fi
   done
 
-  # check phpMyAdmin
-  if [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]] || [ -e "${php_install_dir}/bin/phpize" ]; then
-    while :; do echo
-      read -e -p "Do you want to install phpMyAdmin? [y/n]: " phpmyadmin_flag
-      if [[ ! ${phpmyadmin_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-      else
-        [ "${phpmyadmin_flag}" == 'y' -a -d "${wwwroot_dir}/default/phpMyAdmin" ] && { echo "${CWARNING}phpMyAdmin already installed! ${CEND}"; unset phpmyadmin_flag; }
-        break
-      fi
-    done
-  fi
 
   # check redis
   while :; do echo
@@ -390,10 +376,12 @@ if [[ ${nginx_option} =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${tomca
 fi
 [ -d /data ] && chmod 755 /data
 
-# install wget gcc curl python
-downloadDepsSrc=1
-apt-get -y install wget gcc curl python
-clear
+if [ ! -e ~/.oneinstack ]; then
+  # install wget gcc curl python
+  downloadDepsSrc=1
+  apt-get -y install wget gcc curl python
+  clear
+fi
 
 # get the IP information
 IPADDR=$(./include/get_ipaddr.py)
@@ -414,24 +402,11 @@ checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
 
 # get OS Memory
 . ./include/memory.sh
-
 if [ ! -e ~/.oneinstack ]; then
   # Check binary dependencies packages
   . ./include/check_sw.sh
-  case "${LikeOS}" in
-    "RHEL")
-      installDepsRHEL 2>&1 | tee ${oneinstack_dir}/install.log
-      . include/init_RHEL.sh 2>&1 | tee -a ${oneinstack_dir}/install.log
-      ;;
-    "Debian")
-      installDepsDebian 2>&1 | tee ${oneinstack_dir}/install.log
-      . include/init_Debian.sh 2>&1 | tee -a ${oneinstack_dir}/install.log
-      ;;
-    "Ubuntu")
-      installDepsUbuntu 2>&1 | tee ${oneinstack_dir}/install.log
-      . include/init_Ubuntu.sh 2>&1 | tee -a ${oneinstack_dir}/install.log
-      ;;
-  esac
+  installDepsUbuntu 2>&1 | tee ${oneinstack_dir}/install.log
+  . include/init_Ubuntu.sh 2>&1 | tee -a ${oneinstack_dir}/install.log
   # Install dependencies from source package
   installDepsBySrc 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
@@ -544,6 +519,79 @@ if [ "${apache_flag}" == 'y' ]; then
   . include/webserver/apache.sh
   Install_Apache 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
+
+# JDK
+case "${jdk_option}" in
+  1)
+    . include/jdk-11.0.sh
+    Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  2)
+    . include/jdk-1.8.sh
+    Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  3)
+    . include/jdk-1.7.sh
+    Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  4)
+    . include/jdk-1.6.sh
+    Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+esac
+
+case "${tomcat_option}" in
+  1)
+    . include/tomcat-10.sh
+    Install_Tomcat10 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  2)
+    . include/tomcat-9.sh
+    Install_Tomcat9 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  3)
+    . include/tomcat-8.sh
+    Install_Tomcat8 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  4)
+    . include/tomcat-7.sh
+    Install_Tomcat7 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+esac
+
+# Pure-FTPd
+if [ "${pureftpd_flag}" == 'y' ]; then
+  . include/pureftpd.sh
+  Install_PureFTPd 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# redis
+if [ "${redis_flag}" == 'y' ]; then
+  . include/redis.sh
+  Install_redis_server 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# memcached
+if [ "${memcached_flag}" == 'y' ]; then
+  . include/memcached.sh
+  Install_memcached_server 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# message queue
+case "${message_queue_option}" in
+  1)
+    . include/message-queue/kafka.sh
+    Install_Kafka 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  2)
+    . include/message-queue/rabbitmq.sh
+    Install_RabbitMQ 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  3)
+    . include/message-queue/rocketmq.sh
+    Install_RocketMQ 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+esac
 
 # ffmpeg
 if [ "${ffmpeg_flag}" == 'y' ]; then  
