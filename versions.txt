@@ -139,6 +139,10 @@ fail2ban_ver=0.11.2
 elasticsearch_ver=7.x
 cerebo_ver=0.9.4
 
+# message queue
+kafka_scala_ver=2.13
+kafka_ver=3.1.0
+
 # nvm
 nvm_ver=0.39.1
 

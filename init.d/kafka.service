@@ -1,0 +1,15 @@
+[Unit]
+Description=kafkaservice
+After=network.target
+
+[Service]
+WorkingDirectory=/usr/local/kafka
+ExecStart=/usr/local/kafka/bin/kafka-server-start.sh config/server.properties
+ExecStop=/usr/local/kafka/bin/kafka-server-stop.sh
+User=kafka
+Group=kafka
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

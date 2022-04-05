@@ -606,8 +606,6 @@ if [ "${webp_flag}" == 'y' ]; then
 fi
 
 
-
-
 endTime=`date +%s`
 ((installTime=($endTime-$startTime)/60))
 echo "####################Congratulations########################"
