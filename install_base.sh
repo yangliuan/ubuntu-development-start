@@ -523,38 +523,38 @@ fi
 # JDK
 case "${jdk_option}" in
   1)
-    . include/jdk-11.0.sh
+    . include/java/jdk/jdk-11.0.sh
     Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/jdk-1.8.sh
+    . include/java/jdk/jdk-1.8.sh
     Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
-    . include/jdk-1.7.sh
+    . include/java/jdk/jdk-1.7.sh
     Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
-    . include/jdk-1.6.sh
+    . include/java/jdk/jdk-1.6.sh
     Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
 case "${tomcat_option}" in
   1)
-    . include/tomcat-10.sh
+    . include/webserver/tomcat-10.sh
     Install_Tomcat10 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/tomcat-9.sh
+    . include/webserver/tomcat-9.sh
     Install_Tomcat9 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
-    . include/tomcat-8.sh
+    . include/webserver/tomcat-8.sh
     Install_Tomcat8 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
-    . include/tomcat-7.sh
+    . include/webserver/tomcat-7.sh
     Install_Tomcat7 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
@@ -567,13 +567,13 @@ fi
 
 # redis
 if [ "${redis_flag}" == 'y' ]; then
-  . include/redis.sh
+  . include/database/cache/redis.sh
   Install_redis_server 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # memcached
 if [ "${memcached_flag}" == 'y' ]; then
-  . include/memcached.sh
+  . include/database/cache/memcached.sh
   Install_memcached_server 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
