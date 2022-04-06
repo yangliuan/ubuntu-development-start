@@ -7,8 +7,10 @@ Install_Kafka() {
     src_url="https://dlcdn.apache.org/kafka/${kafka_scala_ver}/kafka_${kafka_ver}-${kafka_scala_ver}.tgz" && Download_src
     tar xzf kafka_${kafka_ver}-${kafka_scala_ver}.tgz
     mv kafka_${kafka_ver}-${kafka_scala_ver} ${kafka_install_dir}
-    sed -i "s#/tmp/zookeeper#${zookeeper_data_dir}#g" ${kafka_install_dir}
-    
+    sed -i "s#/tmp/zookeeper#${zookeeper_data_dir}#g" ${kafka_install_dir}/config/zookeeper.properties
+    sed -i "s/#advertised.listeners=PLAINTEXT:\/\/your.host.name:9092/advertised.listeners=PLAINTEXT:\/\/127.0.0.1:9092/g" ${kafka_install_dir}/config/server.properties
+    sed -i "s#/tmp/kafka-logs#${kafka_data_dir}#g" ${kafka_install_dir}/config/server.properties
+
     id -u kafka >/dev/null 2>&1
     [ $? -ne 0 ] && useradd -M -s /sbin/nologin redis
 
