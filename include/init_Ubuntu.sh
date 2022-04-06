@@ -135,6 +135,7 @@ EOF
   ip6tables-restore < /etc/iptables/rules.v6
   ip6tables-save > /etc/iptables/rules.v6 
 fi
+
 service rsyslog restart
 service ssh restart
 
