@@ -414,6 +414,12 @@ fi
 # start Time
 startTime=`date +%s`
 
+# iptables
+if [ "${iptables_flag}" == "y" ]; then
+  ./include/iptables.sh
+  Install_Iptables 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
 # Jemalloc
 if [[ ${nginx_option} =~ ^[1-3]$ ]] || [[ "${db_option}" =~ ^[1-9]$|^1[0-2]$ ]]; then
   . include/jemalloc.sh

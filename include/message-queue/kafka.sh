@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# DOC https://kafka.apachecn.org/quickstart.html
+# DOC https://kafka.apache.org/30/documentation.html#quickstart
 Install_Kafka() {
     pushd ${oneinstack_dir}/src > /dev/null
 
@@ -12,12 +13,12 @@ Install_Kafka() {
     sed -i "s#/tmp/kafka-logs#${kafka_data_dir}#g" ${kafka_install_dir}/config/server.properties
 
     id -u kafka >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -M -s /sbin/nologin redis
+    [ $? -ne 0 ] && useradd -M -s /sbin/nologin kafka
 
     cp zookeeper.service /lib/systemd/system/
     cp kafka.service /lib/systemd/system/
     systemctl daemon-reload
-    systemctl start zookeeper.service 
+    systemctl start zookeeper.service
     systemctl start kafka.service
 }
 
