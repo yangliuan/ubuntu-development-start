@@ -5,5 +5,5 @@ Install_Go() {
 }
 
 Uninstall_Go() {
-    
+    echo 'uninstall go'
 }

@@ -232,11 +232,6 @@ Print_MongoDB() {
   [ -e "/etc/mongod.conf" ] && echo /etc/mongod.conf
 }
 
-Print_ElasticsearchStack() {
-  [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && echo /usr/share/elasticsearch/bin/elasticsearch
-  sudo -u ${run_user} /usr/share/elasticsearch/bin/elasticsearch -version
-}
-
 Uninstall_MySQL() {
   # uninstall mysql,mariadb,percona
   if [ -d "${db_install_dir}/support-files" ]; then
@@ -279,6 +274,37 @@ Uninstall_MongoDB() {
     sed -i "s@${mongo_install_dir}/bin:@@" /etc/profile
     echo "${CMSG}MongoDB uninstall completed! ${CEND}"
   fi
+}
+
+Print_ElasticsearchStack() {
+  [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && echo /usr/share/elasticsearch/bin/elasticsearch
+  sudo -u ${run_user} /usr/share/elasticsearch/bin/elasticsearch -version
+}
+
+Print_AllMessageQueue() {
+  Print_Kafka
+  Print_Rabbitmq
+  Print_Rocketmq
+}
+
+Uninstall_AllMessageQueue() {
+  . include/message-queue/kafka.sh; Uninstall_Kafka
+  . include/message-queue/rabbitmq.sh; Unstall_RabbitMQ
+  . include/message-queue/rocketmq.sh; Unstall_RocketMQ
+}
+
+Print_Kafka() {
+  [ -e "${kafka_install_dir}" ] && echo ${kafka_install_dir}
+  [ -e "/lib/systemd/system/zookeeper.service"] && /lib/systemd/system/zookeeper.service
+  [ -e "/lib/systemd/system/kafka.service"] && /lib/systemd/system/kafka.service
+}
+
+Print_Rabbitmq() {
+  [ -e "${rabbitmq_install_dir}" ] && echo ${rabbitmq_install_dir}
+}
+
+Print_Rocketmq() {
+  [ -e "${rocketmq_install_dir}" ] && echo ${rocketmq_install_dir}
 }
 
 Print_PHP() {
@@ -558,6 +584,14 @@ Uninstall_Memcached_server() {
   [ -e "${memcached_install_dir}" ] && { service memcached stop > /dev/null 2>&1; rm -rf ${memcached_install_dir} /etc/init.d/memcached /usr/bin/memcached; echo "${CMSG}Memcached uninstall completed! ${CEND}"; }
 }
 
+Print_FFmpeg() {
+  ffmpeg -v
+}
+
+Print_Webp() {
+  webpinfo -version
+}
+
 Print_phpMyAdmin() {
   [ -d "${wwwroot_dir}/default/phpMyAdmin" ] && echo ${wwwroot_dir}/default/phpMyAdmin
 }
@@ -587,6 +621,14 @@ Print_Nvm() {
   [ -d "/home/${run_user}/.nvm" ] && echo "/home/${run_user}/.nvm"
 }
 
+Print_Go() {
+
+}
+
+Print_Gvm() {
+  
+}
+
 Menu() {
 while :; do
   printf "
@@ -597,7 +639,7 @@ What Are You Doing?
 \t${CMSG} 3${CEND}. Uninstall PostgreSQL
 \t${CMSG} 4${CEND}. Uninstall MongoDB
 \t${CMSG} 5${CEND}. Uninstall ElasticsearchStack
-\t${CMSG} 6${CEND}. Uninstall all Message Queue
+\t${CMSG} 6${CEND}. Uninstall All Message Queue
 \t${CMSG} 7${CEND}. Uninstall Kafka
 \t${CMSG} 8${CEND}. Uninstall Rabbitmq
 \t${CMSG} 9${CEND}. Uninstall Rocketmq
@@ -629,30 +671,42 @@ What Are You Doing?
       Print_MySQL
       Print_PostgreSQL
       Print_MongoDB
+      Print_ElasticsearchStack
+      Print_AllMessageQueue
       Print_ALLPHP
       Print_PureFtpd
       Print_Redis_server
       Print_Memcached_server
+      Print_FFmpeg
+      Print_Webp
       Print_openssl
       Print_phpMyAdmin
       Print_Python
       Print_Node
       Print_Nvm
+      Print_Go
+      Print_Gvm
       Uninstall_status
       if [ "${uninstall_flag}" == 'y' ]; then
         Uninstall_Web
         Uninstall_MySQL
         Uninstall_PostgreSQL
         Uninstall_MongoDB
+        . include/fulltext-search/elasticsearch_stack.sh; Uninstall_Elasticsearch
+        Uninstall_AllMessageQueue
         Uninstall_ALLPHP
         Uninstall_PureFtpd
         Uninstall_Redis_server
         Uninstall_Memcached_server
+        . include/multimedia/ffmpeg.sh; Uninstall_FFmpeg
+        . include/multimedia/webp.sh; Uninstall_Webp
         Uninstall_openssl
         Uninstall_phpMyAdmin
         . include/python/python.sh; Uninstall_Python
         . include/nodejs/node.sh; Uninstall_Node
         . include/nodejs/nvm.sh; Uninstall_Nvm
+        . include/go/go.sh; Uninstall_Go;
+        . include/go/gvm.sh; Uninstall_Gvm;
       else
         exit
       fi
@@ -682,53 +736,93 @@ What Are You Doing?
       [ "${uninstall_flag}" == 'y' ] && Uninstall_MongoDB || exit
       ;;
     5)
-      Print_ALLPHP
+      Print_Warn
+      Print_ElasticsearchStack
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_ALLPHP || exit
+      [ "${uninstall_flag}" == 'y' ] && . include/fulltext-search/elasticsearch_stack.sh; Uninstall_Elasticsearch; Uninstall_Cerebro || exit
       ;;
     6)
+      Print_Warn
+      Print_AllMessageQueue
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPcache || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_AllMessageQueue || exit
       ;;
     7)
-      Menu_PHPext
-      [ "${phpext_option}" != '0' ] && Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPext || exit
+      Print_Warn
+      Print_Kafka
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/kafka.sh;Uninstall_Kafka || exit
       ;;
     8)
+      Print_Warn
+      Print_Rabbitmq
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rabbitmq.sh;Unstall_RabbitMQ || exit
+      ;;
+    9)
+      Print_Warn
+      Print_Rocketmq
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rocketmq.sh;Unstall_RocketMQ || exit
+      ;;
+    10)
       Print_PureFtpd
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_PureFtpd || exit
       ;;
-    9)
+    11)
       Print_Redis_server
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Redis_server || exit
       ;;
-    10)
+    12)
       Print_Memcached_server
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Memcached_server || exit
       ;;
-    11)
+    15)
+      Print_ALLPHP
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_ALLPHP || exit
+      ;;
+    16)
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPcache || exit
+      ;;
+    17)
+      Menu_PHPext
+      [ "${phpext_option}" != '0' ] && Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPext || exit
+      ;;
+    18)
       Print_phpMyAdmin
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_phpMyAdmin || exit
       ;;
-    12)
+    19)
       Print_Python
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && { . include/python/python.sh; Uninstall_Python; } || exit
       ;;
-    13)
+    20)
       Print_Node
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && { . include/nodejs/node.sh; Uninstall_Node; } || exit
       ;;
-    14)
+    21)
       Print_Nvm
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && { . include/nodejs/nvm.sh; Uninstall_Nvm; } || exit
+      ;;
+    22)
+      Print_Go
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && { . include/go/go.sh; Uninstall_Go; } || exit
+      ;;
+    23)
+      Print_Gvm
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && { . include/go/gvm.sh; Uninstall_Gvm; } || exit
       ;;
     q)
       exit
