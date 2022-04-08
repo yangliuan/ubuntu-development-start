@@ -278,7 +278,7 @@ Uninstall_MongoDB() {
 
 Print_ElasticsearchStack() {
   [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && echo /usr/share/elasticsearch/bin/elasticsearch
-  sudo -u ${run_user} /usr/share/elasticsearch/bin/elasticsearch -version
+  /usr/share/elasticsearch/bin/elasticsearch -version
 }
 
 Print_AllMessageQueue() {
@@ -295,8 +295,8 @@ Uninstall_AllMessageQueue() {
 
 Print_Kafka() {
   [ -e "${kafka_install_dir}" ] && echo ${kafka_install_dir}
-  [ -e "/lib/systemd/system/zookeeper.service"] && /lib/systemd/system/zookeeper.service
-  [ -e "/lib/systemd/system/kafka.service"] && /lib/systemd/system/kafka.service
+  [ -e "/lib/systemd/system/zookeeper.service" ] && /lib/systemd/system/zookeeper.service
+  [ -e "/lib/systemd/system/kafka.service" ] && /lib/systemd/system/kafka.service
 }
 
 Print_Rabbitmq() {
@@ -585,7 +585,7 @@ Uninstall_Memcached_server() {
 }
 
 Print_FFmpeg() {
-  ffmpeg -v
+  ffmpeg -version
 }
 
 Print_Webp() {
@@ -622,11 +622,11 @@ Print_Nvm() {
 }
 
 Print_Go() {
-
+  echo 'go'
 }
 
 Print_Gvm() {
-  
+  echo 'gvm'
 }
 
 Menu() {
