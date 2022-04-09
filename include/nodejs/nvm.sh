@@ -10,13 +10,11 @@ Install_Nvm(){
     sudo -u ${run_user} git clone -b v${nvm_ver} --depth=1 https://github.com/nvm-sh/nvm.git .nvm
     #add command
     cat >> /home/${run_user}/.bashrc <<EOF
-##nvm
-export NVM_DIR="\$HOME/.nvm"##nvm
-[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"##nvm
-[ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion"##nvm
+###nvm
+export NVM_DIR="\$HOME/.nvm" ###nvm
+[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh" ###nvm
+[ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion" ###nvm
 EOF
-
-    source /etc/profile.d/
     source /home/${run_user}/.bashrc
     popd > /dev/null
 }
@@ -24,5 +22,6 @@ EOF
 Uninstall_Nvm(){
     #delete env
     sed -i '/##nvm$/d' /home/${run_user}/.bashrc
+    source /home/${run_user}/.bashrc
     rm -rf /home/${run_user}/.nvm
 }
