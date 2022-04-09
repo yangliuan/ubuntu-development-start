@@ -20,40 +20,59 @@ while :; do echo
     if [[ ! ${switch_php_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        while :; do echo
-            read -e -p "Do you want to switch composer ? [y/n](n): " switch_composer_flag
-            switch_composer_flag=${switch_composer_flag:-n}
-            if [[ ! ${switch_composer_flag} =~ ^[y,n]$ ]]; then
-                echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-            else
-                break;
-            fi
-        done
+        if [ "${switch_php_flag}" == 'y' ]; then
+            while :; do echo
+                read -e -p "Do you want to switch composer ? [y/n](n): " switch_composer_flag
+                switch_composer_flag=${switch_composer_flag:-n}
+                if [[ ! ${switch_composer_flag} =~ ^[y,n]$ ]]; then
+                    echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+                else
+                    break;
+                fi
+            done
 
-        while :; do echo
-            read -e -p "Do you want to switch composer mirrors? [y/n](n): " switch_mirrors_flag
-            switch_mirrors_flag=${switch_mirrors_flag:-n}
-            if [[ ! ${switch_mirrors_flag} =~ ^[y,n]$ ]]; then
-                echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-            else
-                break;
-            fi
-        done
+            while :; do echo
+                read -e -p "Do you want to switch composer mirrors? [y/n](n): " switch_mirrors_flag
+                switch_mirrors_flag=${switch_mirrors_flag:-n}
+                if [[ ! ${switch_mirrors_flag} =~ ^[y,n]$ ]]; then
+                    echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+                else
+                    break;
+                fi
+            done
+        fi
+        break;
+    fi
+done
+
+
+
+while :; do echo
+    read -e -p "Do you want to switch npm registry? [y/n](n): " switch_registry_flag
+    switch_registry_flag=${switch_registry_flag:-n}
+    if [[ ! ${switch_registry_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
         break;
     fi
 done
 
 if [ "${switch_php_flag}" == 'y' ]; then
-    ./include/php/switch_php.sh
+    . include/php/switch_php.sh
     Switch_Composer
 fi
 
 if [ "${switch_composer_flag}" == 'y' ]; then
-    ./include/php/switch_composer.sh
+    . include/php/switch_composer.sh
     Switch_Composer
 fi
 
 if [ "${switch_mirrors_flag}" == 'y' ]; then
-    ./include/php/switch_composer.sh
+    . include/php/switch_composer.sh
     Switch_Composer_Mirrors
+fi
+
+if [ "${switch_registry_flag}" == 'y' ]; then
+    . include/nodejs/switch_npm_registry.sh
+    Switch_NpmRegistry
 fi
