@@ -278,7 +278,7 @@ Uninstall_MongoDB() {
 
 Print_ElasticsearchStack() {
   [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && echo /usr/share/elasticsearch/bin/elasticsearch
-  /usr/share/elasticsearch/bin/elasticsearch -version
+  [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && /usr/share/elasticsearch/bin/elasticsearch -version
 }
 
 Print_AllMessageQueue() {
@@ -585,11 +585,11 @@ Uninstall_Memcached_server() {
 }
 
 Print_FFmpeg() {
-  ffmpeg -version
+  [ -e "/usr/bin/ffmpeg" ] && ffmpeg -version
 }
 
 Print_Webp() {
-  webpinfo -version
+  [ -e "/usr/bin/webpinfo" ] && webpinfo -version
 }
 
 Print_phpMyAdmin() {

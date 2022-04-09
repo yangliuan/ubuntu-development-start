@@ -1,9 +1,8 @@
 #!/bin/bash
-
 Install_RabbitMQ(){
-
+    echo 'install rabbitmq';
 }
 
-Unstall_RabbitMQ(){
-    
+Uninstall_RabbitMQ(){
+    echo 'uninstall rabbitmq';
 }

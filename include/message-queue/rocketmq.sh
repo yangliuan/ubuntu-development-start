@@ -1,9 +1,8 @@
 #!/bin/bash
-
 Install_RocketMQ(){
-
+    echo 'install rocketmq';
 }
 
-Unstall_RocketMQ(){
-    
+Uninstall_RocketMQ(){
+    echo 'uninstall rocketmq';
 }
