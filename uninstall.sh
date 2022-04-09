@@ -661,8 +661,8 @@ What Are You Doing?
 "
   echo
   read -e -p "Please input the correct option: " Number
-  if [[ ! "${Number}" =~ ^[0-9,q]$|^1[0-4]$ ]]; then
-    echo "${CWARNING}input error! Please only input 0~14 and q${CEND}"
+  if [[ ! "${Number}" =~ ^[0-9,q]$|^1[0-9]|^2[0-3]$ ]]; then
+    echo "${CWARNING}input error! Please only input 0~23 and q${CEND}"
   else
     case "$Number" in
     0)
@@ -757,13 +757,13 @@ What Are You Doing?
       Print_Warn
       Print_Rabbitmq
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rabbitmq.sh;Unstall_RabbitMQ || exit
+      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rabbitmq.sh;Uninstall_RabbitMQ || exit
       ;;
     9)
       Print_Warn
       Print_Rocketmq
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rocketmq.sh;Unstall_RocketMQ || exit
+      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rocketmq.sh;Uninstall_RocketMQ || exit
       ;;
     10)
       Print_PureFtpd
