@@ -23,5 +23,5 @@ Uninstall_Nvm(){
     #delete env
     sed -i '/##nvm$/d' /home/${run_user}/.bashrc
     source /home/${run_user}/.bashrc
-    rm -rf /home/${run_user}/.nvm
+    rm -rf /home/${run_user}/.nvm /home/${run_user}/.npm
 }
