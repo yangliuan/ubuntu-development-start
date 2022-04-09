@@ -14,6 +14,6 @@ Switch_NpmRegistry() {
     if [[ ! ${registry_option} =~ ^[0-9]$|^6$ ]]; then
         echo "input error! Please only input number 0~${i}:"
     fi
-
+    
     npm config set registry ${npm_registry[${registry_option}]}
 }
