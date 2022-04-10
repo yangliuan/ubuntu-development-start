@@ -5,5 +5,6 @@ Config_Current() {
     #切换成当前安装版本
     rm -rf /usr/local/php
     ln -s $php_install_dir /usr/local/php
+    source /etc/profile
 }
 
