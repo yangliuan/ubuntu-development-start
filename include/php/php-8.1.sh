@@ -134,7 +134,7 @@ Install_PHP81() {
     kill -9 $$; exit 1;
   fi
 
-  . ./config_env.sh
+  . ${oneinstack_dir}/include/php/config_env.sh; Config_Current
   . /etc/profile
 
   # wget -c http://pear.php.net/go-pear.phar

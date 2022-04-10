@@ -396,7 +396,7 @@ if [ ${ARG_NUM} == 0 ]; then
               echo "${CWARNING}input error! Please only input number 1~11${CEND}"
           else
               #环境变量路径
-              php_env_dir=php_install_dir
+              php_env_dir=$php_install_dir
               #根据选项增加php安装目录后缀
               php_install_dir="${php_install_dir}${php_suffix[$php_option]}"
               [ -e "${php_install_dir}/bin/phpize" ] && { echo "${CWARNING}PHP already installed! ${CEND}"; unset php_option; break; }
