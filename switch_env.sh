@@ -59,7 +59,7 @@ done
 
 if [ "${switch_php_flag}" == 'y' ]; then
     . include/php/switch_php.sh
-    Switch_Composer
+    Switch_PHP
 fi
 
 if [ "${switch_composer_flag}" == 'y' ]; then

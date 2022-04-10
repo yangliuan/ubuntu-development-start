@@ -85,14 +85,7 @@ Install_PHP74() {
   [ -z "`grep /usr/local/lib /etc/ld.so.conf.d/*.conf`" ] && echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
   ldconfig
 
-  if [ "${PM}" == 'yum' ]; then
-    if [ "${OS_BIT}" == '64' ]; then
-      [ ! -e "/lib64/libpcre.so.1" ] && ln -s /lib64/libpcre.so.0.0.1 /lib64/libpcre.so.1
-      [ ! -e "/usr/lib/libc-client.so" ] && ln -s /usr/lib64/libc-client.so /usr/lib/libc-client.so
-    else
-      [ ! -e "/lib/libpcre.so.1" ] && ln -s /lib/libpcre.so.0.0.1 /lib/libpcre.so.1
-    fi
-  fi
+  
 
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}
@@ -140,14 +133,13 @@ Install_PHP74() {
     kill -9 $$; exit 1;
   fi
 
-  [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo "export PATH=${php_install_dir}/bin:\$PATH" >> /etc/profile
-  [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep ${php_install_dir} /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${php_install_dir}/bin:\1@" /etc/profile
+  . ./config_env.sh
   . /etc/profile
 
   # wget -c http://pear.php.net/go-pear.phar
   # ${php_install_dir}/bin/php go-pear.phar
 
-  /bin/cp php.ini-production ${php_install_dir}/etc/php.ini
+  /bin/cp php.ini-development ${php_install_dir}/etc/php.ini
 
   sed -i "s@^memory_limit.*@memory_limit = ${Memory_limit}M@" ${php_install_dir}/etc/php.ini
   sed -i 's@^output_buffering =@output_buffering = On\noutput_buffering =@' ${php_install_dir}/etc/php.ini
@@ -188,11 +180,10 @@ EOF
     if [ -e /bin/systemctl ]; then
       /bin/cp ${oneinstack_dir}/init.d/php-fpm.service /lib/systemd/system/
       sed -i "s@/usr/local/php@${php_install_dir}@g" /lib/systemd/system/php-fpm.service
-      systemctl enable php-fpm
+      ##systemctl enable php-fpm
     else
       /bin/cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
       chmod +x /etc/init.d/php-fpm
-      [ "${PM}" == 'yum' ] && { chkconfig --add php-fpm; chkconfig php-fpm on; }
       [ "${PM}" == 'apt-get' ] && update-rc.d php-fpm defaults
     fi
 
@@ -229,15 +220,11 @@ listen.mode = 0666
 user = ${run_user}
 group = ${run_group}
 
-pm = dynamic
-pm.max_children = 12
-pm.start_servers = 8
-pm.min_spare_servers = 6
-pm.max_spare_servers = 12
-pm.max_requests = 2048
-pm.process_idle_timeout = 10s
-request_terminate_timeout = 120
-request_slowlog_timeout = 0
+pm = static
+pm.max_children = ${THREAD}
+pm.max_requests = 1000
+request_terminate_timeout = 60
+request_slowlog_timeout = 5
 
 pm.status_path = /php-fpm_status
 slowlog = var/log/slow.log
@@ -251,34 +238,6 @@ env[TMP] = /tmp
 env[TMPDIR] = /tmp
 env[TEMP] = /tmp
 EOF
-
-    if [ $Mem -le 3000 ]; then
-      sed -i "s@^pm.max_children.*@pm.max_children = $(($Mem/3/20))@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.start_servers.*@pm.start_servers = $(($Mem/3/30))@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.min_spare_servers.*@pm.min_spare_servers = $(($Mem/3/40))@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.max_spare_servers.*@pm.max_spare_servers = $(($Mem/3/20))@" ${php_install_dir}/etc/php-fpm.conf
-    elif [ $Mem -gt 3000 -a $Mem -le 4500 ]; then
-      sed -i "s@^pm.max_children.*@pm.max_children = 50@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.start_servers.*@pm.start_servers = 30@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.min_spare_servers.*@pm.min_spare_servers = 20@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.max_spare_servers.*@pm.max_spare_servers = 50@" ${php_install_dir}/etc/php-fpm.conf
-    elif [ $Mem -gt 4500 -a $Mem -le 6500 ]; then
-      sed -i "s@^pm.max_children.*@pm.max_children = 60@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.start_servers.*@pm.start_servers = 40@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.min_spare_servers.*@pm.min_spare_servers = 30@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.max_spare_servers.*@pm.max_spare_servers = 60@" ${php_install_dir}/etc/php-fpm.conf
-    elif [ $Mem -gt 6500 -a $Mem -le 8500 ]; then
-      sed -i "s@^pm.max_children.*@pm.max_children = 70@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.start_servers.*@pm.start_servers = 50@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.min_spare_servers.*@pm.min_spare_servers = 40@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.max_spare_servers.*@pm.max_spare_servers = 70@" ${php_install_dir}/etc/php-fpm.conf
-    elif [ $Mem -gt 8500 ]; then
-      sed -i "s@^pm.max_children.*@pm.max_children = 80@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.start_servers.*@pm.start_servers = 60@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.min_spare_servers.*@pm.min_spare_servers = 50@" ${php_install_dir}/etc/php-fpm.conf
-      sed -i "s@^pm.max_spare_servers.*@pm.max_spare_servers = 80@" ${php_install_dir}/etc/php-fpm.conf
-    fi
-
     service php-fpm start
 
   elif [ "${Apache_main_ver}" == '22' ] || [ "${apache_mode_option}" == '2' ]; then
