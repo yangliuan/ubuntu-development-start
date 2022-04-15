@@ -14,11 +14,11 @@ Install_ImageMagick() {
   else
     pushd ${oneinstack_dir}/src > /dev/null
     tar xzf ImageMagick-${imagemagick_ver}.tar.gz
-    #if [ "${PM}" == 'yum' ]; then
-    #  yum -y install libwebp-devel
-    #else if [ "${PM}" == 'apt-get' ]; then
-    #  yum -y install libwebp-dev
-    #fi
+    if [ "${PM}" == 'yum' ]; then
+     yum -y install libwebp-devel
+    else if [ "${PM}" == 'apt-get' ]; then
+     apt-get install webp
+    fi
     pushd ImageMagick-${imagemagick_ver} > /dev/null
     ./configure --prefix=${imagick_install_dir} --enable-shared --enable-static
     make -j ${THREAD} && make install
