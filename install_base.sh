@@ -337,6 +337,22 @@ if [ ${ARG_NUM} == 0 ]; then
              [ "${message_queue_option}" = '1' -a -e "${kafka_install_dir}" ] && { echo "${CWARNING}Kafka${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             [ "${message_queue_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             [ "${message_queue_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
+
+            if [ ${message_queue_option} =~ ^[1-3]$ ]; then
+              while :; do echo
+                echo 'Please select JDK version:'
+                echo -e "\t${CMSG}1${CEND}. Install JDK-11.0"
+                echo -e "\t${CMSG}2${CEND}. Install JDK-1.8"
+                read -e -p "Please input a number:(Default 2 press Enter) " jdk_option
+                jdk_option=${jdk_option:-2}
+                if [[ ! ${jdk_option} =~ ^[1-3]$ ]]; then
+                  echo "${CWARNING}input error! Please only input number 1~3${CEND}"
+                else
+                  break
+                fi
+              done
+            fi
+
             break
           fi
         done

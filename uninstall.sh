@@ -295,8 +295,8 @@ Uninstall_AllMessageQueue() {
 
 Print_Kafka() {
   [ -e "${kafka_install_dir}" ] && echo ${kafka_install_dir}
-  [ -e "/lib/systemd/system/zookeeper.service" ] && /lib/systemd/system/zookeeper.service
-  [ -e "/lib/systemd/system/kafka.service" ] && /lib/systemd/system/kafka.service
+  [ -e "/lib/systemd/system/zookeeper.service" ] && echo "/lib/systemd/system/zookeeper.service"
+  [ -e "/lib/systemd/system/kafka.service" ] && echo "/lib/systemd/system/kafka.service"
 }
 
 Print_Rabbitmq() {
