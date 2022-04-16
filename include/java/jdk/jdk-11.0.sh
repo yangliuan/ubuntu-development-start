@@ -25,6 +25,8 @@ Install_JDK110() {
     [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep '$JAVA_HOME/bin' /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=\$JAVA_HOME/bin:\1@" /etc/profile
     [ -z "`grep ^'export PATH=' /etc/profile | grep '$JAVA_HOME/bin'`" ] && echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
     . /etc/profile
+    rm -rf /usr/bin/java
+    ln -s ${JDK_PATH}/bin/java /usr/bin
     echo "${CSUCCESS}$JDK_NAME installed successfully! ${CEND}"
   else
     echo "${CFAILURE}JDK install failed, Please contact the author! ${CEND}" && lsb_release -a

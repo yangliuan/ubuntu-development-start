@@ -178,6 +178,16 @@ Print_Warn() {
   echo "${CWARNING}You will uninstall OneinStack, Please backup your configure files and DB data! ${CEND}"
 }
 
+Print_JDK() {
+  [ -d "/usr/java" ] && echo /usr/java
+  [ -h "/usr/bin/java" ] && echo /usr/bin/java
+}
+
+Uninstall_JDK() {
+  [ -d "/usr/java" ] && { rm -rf /usr/java; sed -i '/export JAVA_HOME=/d' /etc/profile; sed -i '/export CLASSPATH=/d' /etc/profile; sed -i 's@\$JAVA_HOME/bin:@@' /etc/profile; }
+  [ -h "/usr/bin/java" ] && rm -rf /usr/bin/java
+}
+
 Print_web() {
   [ -d "${nginx_install_dir}" ] && echo ${nginx_install_dir}
   [ -d "${tengine_install_dir}" ] && echo ${tengine_install_dir}
@@ -194,7 +204,6 @@ Print_web() {
   [ -d "${tomcat_install_dir}" ] && echo ${tomcat_install_dir}
   [ -e "/etc/init.d/tomcat" ] && echo /etc/init.d/tomcat
   [ -e "/etc/logrotate.d/tomcat" ] && echo /etc/logrotate.d/tomcat
-  [ -d "/usr/java" ] && echo /usr/java
   [ -d "${apr_install_dir}" ] && echo ${apr_install_dir}
 }
 
@@ -206,7 +215,6 @@ Uninstall_Web() {
   [ -d "${apache_install_dir}" ] && { service httpd stop > /dev/null 2>&1; rm -rf ${apache_install_dir} /etc/init.d/httpd /etc/logrotate.d/apache; sed -i "s@${apache_install_dir}/bin:@@" /etc/profile; echo "${CMSG}Apache uninstall completed! ${CEND}"; }
   [ -e "/lib/systemd/system/httpd.service" ] && { systemctl disable httpd > /dev/null 2>&1; rm -f /lib/systemd/system/httpd.service; }
   [ -d "${tomcat_install_dir}" ] && { killall java > /dev/null 2>&1; rm -rf ${tomcat_install_dir} /etc/init.d/tomcat /etc/logrotate.d/tomcat; echo "${CMSG}Tomcat uninstall completed! ${CEND}"; }
-  [ -d "/usr/java" ] && { rm -rf /usr/java; sed -i '/export JAVA_HOME=/d' /etc/profile; sed -i '/export CLASSPATH=/d' /etc/profile; sed -i 's@\$JAVA_HOME/bin:@@' /etc/profile; }
   [ -e "${wwwroot_dir}" ] && /bin/mv ${wwwroot_dir}{,$(date +%Y%m%d%H)}
   sed -i 's@^website_name=.*@website_name=@' ./options.conf
   sed -i 's@^backup_content=.*@backup_content=@' ./options.conf
@@ -646,17 +654,18 @@ What Are You Doing?
 \t${CMSG} 10${CEND}. Uninstall PureFtpd
 \t${CMSG} 11${CEND}. Uninstall Redis
 \t${CMSG} 12${CEND}. Uninstall Memcached
-\t${CMSG} 13${CEND}. Uninstall ffmpeg
-\t${CMSG} 14${CEND}. Uninstall webp
-\t${CMSG} 15${CEND}. Uninstall all PHP
+\t${CMSG} 13${CEND}. Uninstall FFmpeg
+\t${CMSG} 14${CEND}. Uninstall Webp
+\t${CMSG} 15${CEND}. Uninstall All PHP
 \t${CMSG} 16${CEND}. Uninstall PHP opcode cache
 \t${CMSG} 17${CEND}. Uninstall PHP extensions
-\t${CMSG} 18${CEND}. Uninstall phpMyAdmin
+\t${CMSG} 18${CEND}. Uninstall PHPMyAdmin
 \t${CMSG} 19${CEND}. Uninstall Python (PATH: ${python_install_dir})
 \t${CMSG} 20${CEND}. Uninstall Nodejs (PATH: ${node_install_dir})
-\t${CMSG} 21${CEND}. Uninstall nvm
+\t${CMSG} 21${CEND}. Uninstall Nvm
 \t${CMSG} 22${CEND}. Uninstall Go
-\t${CMSG} 23${CEND}. Uninstall gvm
+\t${CMSG} 23${CEND}. Uninstall Gvm
+\t${CMSG} 24${CEND}. Uninstall JDK
 \t${CMSG} q${CEND}. Exit
 "
   echo
@@ -686,6 +695,7 @@ What Are You Doing?
       Print_Nvm
       Print_Go
       Print_Gvm
+      Print_JDK
       Uninstall_status
       if [ "${uninstall_flag}" == 'y' ]; then
         Uninstall_Web
@@ -707,6 +717,7 @@ What Are You Doing?
         . include/nodejs/nvm.sh; Uninstall_Nvm
         . include/go/go.sh; Uninstall_Go;
         . include/go/gvm.sh; Uninstall_Gvm;
+        Uninstall_JDK
       else
         exit
       fi
@@ -824,6 +835,10 @@ What Are You Doing?
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && { . include/go/gvm.sh; Uninstall_Gvm; } || exit
       ;;
+    24)
+      Print_JDK
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_JDK || exit
     q)
       exit
       ;;
