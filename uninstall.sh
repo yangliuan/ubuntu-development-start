@@ -839,6 +839,7 @@ What Are You Doing?
       Print_JDK
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_JDK || exit
+      ;;
     q)
       exit
       ;;
