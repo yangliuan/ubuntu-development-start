@@ -1,3 +1,4 @@
 install.log
 src/
 src/*
+!src/adoptopenjdk.key
