@@ -23,6 +23,7 @@ Install_Kafka() {
     id -u kafka >/dev/null 2>&1
     [ $? -ne 0 ] && useradd -M -s /sbin/nologin kafka
     chown -R kafka.kafka ${kafka_install_dir} ${zookeeper_data_dir} ${kafka_data_dir}
+    chmod -R 755 ${kafka_install_dir} ${zookeeper_data_dir} ${kafka_data_dir}
     
     cp ${oneinstack_dir}/init.d/zookeeper.service /lib/systemd/system/
     cp ${oneinstack_dir}/init.d/kafka.service /lib/systemd/system/

@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/usr/local/kafka
-ExecStart=/usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config
+ExecStart=/usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties
 ExecStop=/usr/local/kafka/bin/kafka-server-stop.sh
 User=kafka
 Group=kafka
