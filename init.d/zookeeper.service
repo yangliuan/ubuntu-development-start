@@ -3,7 +3,7 @@ Description=zookeeperservice
 After=network.target
 
 [Service]
-WorkingDirectory=/home/data/zookeeper
+WorkingDirectory=/usr/local/kafka
 ExecStart=/usr/local/kafka/bin/zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties
 ExecStop=/usr/local/kafka/bin/zookeeper-server-start.sh stop
 User=kafka
