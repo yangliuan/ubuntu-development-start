@@ -149,7 +149,7 @@ nvm_ver=0.39.1
 # devtools
 # mysql_workbench_ver必须和myql版本保持一致
 navicat_ver=16
-filezilla_ver=3.58.0
+filezilla_ver=3.59.0
 postman_ver=9.4.1
 virtualbox_ver_base=6.1
 virtualbox_ver=32
