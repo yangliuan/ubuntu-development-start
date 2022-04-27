@@ -1122,6 +1122,9 @@ if [ "${python_flag}" == 'y' ]; then
   Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
+. include/develop-tools/develop_config.sh
+Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
+
 
 endTime=`date +%s`
 ((installTime=($endTime-$startTime)/60))
