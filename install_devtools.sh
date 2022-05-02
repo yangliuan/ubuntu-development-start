@@ -251,12 +251,6 @@ if [ "${develop_config_flag}" == 'y' ]; then
     Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-#publish service desktop
-if [ "${service_desktop_flag}" == 'y' ]; then
-    . include/develop-tools/service_desktop.sh
-    Service_Desktop 2>&1 | tee -a ${oneinstack_dir}/install.log
-fi
-
 #install switchhost
 if [ "${switchhost_flag}" == 'y' ]; then
     . include/develop-tools/switchhost.sh

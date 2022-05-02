@@ -22,7 +22,7 @@ Uninstall_ServiceDesktop() {
     rm -rfv /usr/share/applications/redis.desktop
 }
 
-Install_PHPService() {
+Install_PHPServiceDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
 
     cp -rfv lnmp-start.desktop /usr/share/applications
@@ -32,11 +32,10 @@ Install_PHPService() {
     popd > /dev/null
 }
 
-Uninstall_PHPService() {
+Uninstall_PHPServiceDesktop() {
     rm -rfv /usr/share/applications/lnmp-start.desktop
     rm -rfv /usr/share/applications/lamp-start.desktop
     rm -rfv /usr/share/applications/php-fpm.desktop
 }
-
 
 

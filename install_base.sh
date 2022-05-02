@@ -373,14 +373,14 @@ if [ ${ARG_NUM} == 0 ]; then
     fi
   done
 
-  # check webp
+  # check supervisord
   while :; do echo
-    read -e -p "Do you want to install webp? [y/n]: " webp_flag
-    webp_flag=${webp_flag:-y}
-    if [[ ! ${webp_flag} =~ ^[y,n]$ ]]; then
+    read -e -p "Do you want to install supervisord? [y/n]: " supervisord_flag
+    supervisord_flag=${supervisord_flag:-y}
+    if [[ ! ${supervisord_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${webp_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}webp already installed! ${CEND}"; unset webp_flag; }
+        #[ "${supervisord_flag}" == 'y' -a -e "/usr/bin/supervisord" ] && { echo "${CWARNING}supervisord already installed! ${CEND}"; unset supervisord_flag; }
         break
     fi
   done
@@ -883,10 +883,10 @@ if [ "${ffmpeg_flag}" == 'y' ]; then
     Install_FFmpeg 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-# webp
-if [ "${webp_flag}" == 'y' ]; then  
-    . include/multimedia/webp.sh
-    Install_Webp 2>&1 | tee -a ${oneinstack_dir}/install.log
+# ffmpeg
+if [ "${supervisord_flag}" == 'y' ]; then
+    . include/python/supervisor.sh
+    Install_Supervisor 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # PHP
