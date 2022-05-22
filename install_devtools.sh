@@ -141,6 +141,18 @@ while :; do echo
     fi
 done
 
+# check install apifox
+while :; do echo
+    read -e -p "Do you want to install apifox? [y/n](y): " apifox_flag
+    apifox_flag=${apifox_flag:-y}
+    if [[ ! ${apifox_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${apifox_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}apifox already installed! ${CEND}"; unset apifox_flag; }
+        break
+    fi
+done
+
 # check install oss-browser
 while :; do echo
     read -e -p "Do you want to install oss-browser? [y/n](y): " ossbrowser_flag
@@ -297,6 +309,12 @@ fi
 if [ "${runapi_flag}" == 'y' ]; then
     . include/develop-tools/runapi.sh
     Install_Runapi 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# install apifox
+if [ "${apifox_flag}" == 'y' ]; then
+    . include/develop-tools/apifox.sh
+    Install_Apifox 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # install oss-browser

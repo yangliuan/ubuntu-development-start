@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Apifox
+Exec=/opt/Apifox/apifox %U
+Terminal=false
+Type=Application
+Icon=/opt/Apifox/resources/app/dist/assets/logo.png
+StartupWMClass=Apifox
+Comment=Apifox = Postman + Swagger + Mock
+Categories=Utility;
