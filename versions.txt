@@ -134,6 +134,7 @@ python_ver=3.6.13
 setuptools_ver=58.0.4
 pip_ver=21.2.4
 fail2ban_ver=0.11.2
+libmaxminddb_ver=1.6.0
 
 
 # elasticsearch

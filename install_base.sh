@@ -380,7 +380,19 @@ if [ ${ARG_NUM} == 0 ]; then
     if [[ ! ${supervisord_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        #[ "${supervisord_flag}" == 'y' -a -e "/usr/bin/supervisord" ] && { echo "${CWARNING}supervisord already installed! ${CEND}"; unset supervisord_flag; }
+        [ "${supervisord_flag}" == 'y' -a -e "/usr/bin/supervisord" ] && { echo "${CWARNING}supervisord already installed! ${CEND}"; unset supervisord_flag; }
+        break
+    fi
+  done
+
+  # check 
+  while :; do echo
+    read -e -p "Do you want to install libmaxminddb? [y/n]: " libmaxminddb_flag
+    libmaxminddb_flag=${libmaxminddb_flag:-y}
+    if [[ ! ${libmaxminddb_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        [ "${libmaxminddb_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}libmaxminddb already installed! ${CEND}"; unset libmaxminddb_flag; }
         break
     fi
   done
@@ -883,10 +895,16 @@ if [ "${ffmpeg_flag}" == 'y' ]; then
     Install_FFmpeg 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-# ffmpeg
+# supervisord
 if [ "${supervisord_flag}" == 'y' ]; then
     . include/python/supervisor.sh
     Install_Supervisor 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# libmaxminddb
+if [ "${libmaxminddb_flag}" == 'y' ]; then
+    . include/lbs/libmaxminddb.sh
+    Install_libmaxminddb 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # PHP
@@ -1121,6 +1139,7 @@ if [ "${python_flag}" == 'y' ]; then
   . include/python/python.sh
   Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
+
 
 . include/develop-tools/develop_config.sh
 Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
