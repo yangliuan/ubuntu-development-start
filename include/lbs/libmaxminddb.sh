@@ -2,7 +2,7 @@
 Install_libmaxminddb() {
     pushd ${oneinstack_dir}/src > /dev/null
     
-    if [ -f "libmaxminddb-${libmaxminddb_ver}.tar.gz" ]; then
+    if [ ! -f "libmaxminddb-${libmaxminddb_ver}.tar.gz" ]; then
         src_url=https://github.com/maxmind/libmaxminddb/releases/download/${libmaxminddb_ver}/libmaxminddb-${libmaxminddb_ver}.tar.gz && Download_src
     fi
 
