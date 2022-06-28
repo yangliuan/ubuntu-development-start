@@ -138,8 +138,8 @@ EOF
     sed -i "s@JAVA_HOME=.*@JAVA_HOME=${JAVA_HOME}@" /etc/init.d/tomcat
     sed -i "s@^CATALINA_HOME=.*@CATALINA_HOME=${tomcat_install_dir}@" /etc/init.d/tomcat
     sed -i "s@^TOMCAT_USER=.*@TOMCAT_USER=${run_user}@" /etc/init.d/tomcat
-    [ "${PM}" == 'yum' ] && { chkconfig --add tomcat; chkconfig tomcat on; }
-    [ "${PM}" == 'apt-get' ] && update-rc.d tomcat defaults
+    #[ "${PM}" == 'yum' ] && { chkconfig --add tomcat; chkconfig tomcat on; }
+    #[ "${PM}" == 'apt-get' ] && update-rc.d tomcat defaults
     echo "${CSUCCESS}Tomcat installed successfully! ${CEND}"
     rm -rf apache-tomcat-${tomcat9_ver}
   else

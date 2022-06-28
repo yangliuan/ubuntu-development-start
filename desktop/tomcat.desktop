@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=tomcat
+Comment=web server
+Exec=sh /opt/oneinstack/start/tomcat_start.sh
+Icon=/opt/oneinstack/icon/tomcat.png
+Type=Application
+Categories=Development;
+Keywords=tomcat;tomcat;
