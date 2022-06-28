@@ -19,6 +19,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_dir.sh
 . ./include/download.sh
 . ./include/get_char.sh
+. ./include/base_desktop.sh
 
 dbrootpwd=`< /dev/urandom tr -dc A-Za-z0-9 | head -c8`
 dbpostgrespwd=`< /dev/urandom tr -dc A-Za-z0-9 | head -c8`
@@ -728,18 +729,22 @@ case "${db_option}" in
     [ "${LikeOS}" == 'RHEL' ] && [ ${RHEL_ver} -le 6 >/dev/null 2>&1 ] && dbinstallmethod=1 && checkDownload
     . include/database/mysql-8.0.sh
     Install_MySQL80 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_MysqlDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
     . include/database/mysql-5.7.sh
     Install_MySQL57 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_MysqlDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
     . include/database/mysql-5.6.sh
     Install_MySQL56 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_MysqlDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
     . include/database/mysql-5.5.sh
     Install_MySQL55 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_MysqlDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   5)
     . include/database/mariadb-10.6.sh
@@ -778,10 +783,12 @@ case "${db_option}" in
   13)
     . include/database/postgresql.sh
     Install_PostgreSQL 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_PostgresqlDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   14)
     . include/database/mongodb.sh
     Install_MongoDB 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_MongoDBDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
@@ -790,6 +797,7 @@ if [ "${elasticsearch_flag}" == 'y' ]; then
   . include/fulltext-search/elasticsearch_stack.sh
   Install_Elasticsearch 2>&1 | tee -a ${oneinstack_dir}/install.log
   Install_Cerebro 2>&1 | tee -a ${oneinstack_dir}/install.log
+  Install_ElasticsearchDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # Nginx server
@@ -797,14 +805,17 @@ case "${nginx_option}" in
   1)
     . include/webserver/nginx.sh
     Install_Nginx 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_NginxDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
     . include/webserver/tengine.sh
     Install_Tengine 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_NginxDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
     . include/webserver/openresty.sh
     Install_OpenResty 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_NginxDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
@@ -814,6 +825,7 @@ if [ "${apache_flag}" == 'y' ]; then
   apache_mpm_option=${apache_mpm_option:-1}
   . include/webserver/apache.sh
   Install_Apache 2>&1 | tee -a ${oneinstack_dir}/install.log
+  Install_ApacheHttpdDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # JDK
@@ -840,18 +852,22 @@ case "${tomcat_option}" in
   1)
     . include/webserver/tomcat-10.sh
     Install_Tomcat10 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_TomcatDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
     . include/webserver/tomcat-9.sh
     Install_Tomcat9 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_TomcatDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
     . include/webserver/tomcat-8.sh
     Install_Tomcat8 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_TomcatDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
     . include/webserver/tomcat-7.sh
     Install_Tomcat7 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_TomcatDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
@@ -859,18 +875,21 @@ esac
 if [ "${pureftpd_flag}" == 'y' ]; then
   . include/ftp/pureftpd.sh
   Install_PureFTPd 2>&1 | tee -a ${oneinstack_dir}/install.log
+  Install_PureFtpDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # redis
 if [ "${redis_flag}" == 'y' ]; then
   . include/database/cache/redis.sh
   Install_redis_server 2>&1 | tee -a ${oneinstack_dir}/install.log
+  Install_RedisDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # memcached
 if [ "${memcached_flag}" == 'y' ]; then
   . include/database/cache/memcached.sh
   Install_memcached_server 2>&1 | tee -a ${oneinstack_dir}/install.log
+  Install_MemcachedDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # message queue
@@ -899,6 +918,7 @@ fi
 if [ "${supervisord_flag}" == 'y' ]; then
     . include/python/supervisor.sh
     Install_Supervisor 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_SupervisorDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # libmaxminddb
