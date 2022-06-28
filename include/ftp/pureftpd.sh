@@ -25,13 +25,13 @@ Install_PureFTPd() {
     if [ -e /bin/systemctl ]; then
       /bin/cp ../init.d/pureftpd.service /lib/systemd/system/
       sed -i "s@/usr/local/pureftpd@${pureftpd_install_dir}@g" /lib/systemd/system/pureftpd.service
-      systemctl enable pureftpd
+      #systemctl enable pureftpd
     else
       /bin/cp ../init.d/Pureftpd-init /etc/init.d/pureftpd
       sed -i "s@/usr/local/pureftpd@${pureftpd_install_dir}@g" /etc/init.d/pureftpd
       chmod +x /etc/init.d/pureftpd
-      [ "${PM}" == 'yum' ] && { chkconfig --add pureftpd; chkconfig pureftpd on; }
-      [ "${PM}" == 'apt-get' ] && { sed -i 's@^. /etc/rc.d/init.d/functions@. /lib/lsb/init-functions@' /etc/init.d/pureftpd; update-rc.d pureftpd defaults; }
+      #[ "${PM}" == 'yum' ] && { chkconfig --add pureftpd; chkconfig pureftpd on; }
+      #[ "${PM}" == 'apt-get' ] && { sed -i 's@^. /etc/rc.d/init.d/functions@. /lib/lsb/init-functions@' /etc/init.d/pureftpd; update-rc.d pureftpd defaults; }
     fi
 
     [ ! -e "${pureftpd_install_dir}/etc" ] && mkdir ${pureftpd_install_dir}/etc

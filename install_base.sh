@@ -857,7 +857,7 @@ esac
 
 # Pure-FTPd
 if [ "${pureftpd_flag}" == 'y' ]; then
-  . include/pureftpd.sh
+  . include/ftp/pureftpd.sh
   Install_PureFTPd 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
