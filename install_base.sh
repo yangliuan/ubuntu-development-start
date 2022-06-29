@@ -975,6 +975,9 @@ case "${php_option}" in
     ;;
 esac
 
+[ "${apache_flag}" == 'y' ] && [ "${php_option}" ] && [ Install_LAMPDesktop ]
+[ "${nginx_option}" == 'y' ] && [ "${php_option}" ] && [ Install_LNMPDesktop ]
+
 # PHP addons
 PHP_addons() {
   # PHP opcode cache
@@ -1139,6 +1142,7 @@ case "${nodejs_method}" in
   2)
     . include/nodejs/nvm.sh
     Install_Nvm 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Wine 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 

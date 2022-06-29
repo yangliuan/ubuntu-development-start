@@ -25,3 +25,7 @@ Uninstall_Nvm(){
     source /home/${run_user}/.bashrc
     rm -rf /home/${run_user}/.nvm /home/${run_user}/.npm
 }
+
+Install_Wine() {
+    apt install wine
+}
