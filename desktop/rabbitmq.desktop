@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Rabbitmq
+Exec=sh /opt/oneinstack/start/rabbitmq_start.sh %U
+Terminal=false
+Type=Service
+Icon=/opt/oneinstack/icon/kafka.png
+StartupWMClass=Rabbitmq
+Comment=message queue
+Categories=Development;

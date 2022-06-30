@@ -1,7 +1,5 @@
 #!/bin/bash
-
 chmod -R 777 /usr/share/applications
-
 
 ##database and nosql#####################################################
 Install_ElasticsearchDesktop() {
@@ -146,4 +144,25 @@ Install_SupervisorDesktop() {
 
 Uninstall_SupervisorDesktop() {
     rm -rfv /usr/share/applications/supervisord.desktop
+}
+
+##message queue########################################
+Install_KafkaDesktop() {
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv kafka.desktop /usr/share/applications
+    popd > /dev/null
+}
+
+Uninstall_KafkaDesktop() {
+    rm -rfv /usr/share/applications/kafka.desktop
+}
+
+Install_RabbitmqDesktop() {
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv rabbitmq.desktop /usr/share/applications
+    popd > /dev/null
+}
+
+Uninstall_RabbitmqDesktop() {
+    rm -rfv /usr/share/applications/rabbitmq.desktop
 }
