@@ -930,47 +930,47 @@ fi
 # PHP
 case "${php_option}" in
   1)
-    . include/php/php-5.3.sh
+    . include/language/php/php-5.3.sh
     Install_PHP53 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/php/php-5.4.sh
+    . include/language/php/php-5.4.sh
     Install_PHP54 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
-    . include/php/php-5.5.sh
+    . include/language/php/php-5.5.sh
     Install_PHP55 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
-    . include/php/php-5.6.sh
+    . include/language/php/php-5.6.sh
     Install_PHP56 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   5)
-    . include/php/php-7.0.sh
+    . include/language/php/php-7.0.sh
     Install_PHP70 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   6)
-    . include/php/php-7.1.sh
+    . include/language/php/php-7.1.sh
     Install_PHP71 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   7)
-    . include/php/php-7.2.sh
+    . include/language/php/php-7.2.sh
     Install_PHP72 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   8)
-    . include/php/php-7.3.sh
+    . include/language/php/php-7.3.sh
     Install_PHP73 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   9)
-    . include/php/php-7.4.sh
+    . include/language/php/php-7.4.sh
     Install_PHP74 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   10)
-    . include/php/php-8.0.sh
+    . include/language/php/php-8.0.sh
     Install_PHP80 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   11)
-    . include/php/php-8.1.sh
+    . include/language/php/php-8.1.sh
     Install_PHP81 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
@@ -983,94 +983,94 @@ PHP_addons() {
   # PHP opcode cache
   case "${phpcache_option}" in
     1)
-      . include/php/extension/zendopcache.sh
+      . include/language/php/extension/zendopcache.sh
       Install_ZendOPcache 2>&1 | tee -a ${oneinstack_dir}/install.log
       ;;
     2)
-      . include/php/extension/apcu.sh
+      . include/language/php/extension/apcu.sh
       Install_APCU 2>&1 | tee -a ${oneinstack_dir}/install.log
       ;;
     3)
-      . include/php/extension/xcache.sh
+      . include/language/php/extension/xcache.sh
       Install_XCache 2>&1 | tee -a ${oneinstack_dir}/install.log
       ;;
     4)
-      . include/php/extension/eaccelerator.sh
+      . include/language/php/extension/eaccelerator.sh
       Install_eAccelerator 2>&1 | tee -a ${oneinstack_dir}/install.log
       ;;
   esac
 
   # ZendGuardLoader
   if [ "${pecl_zendguardloader}" == '1' ]; then
-    . include/php/extension/ZendGuardLoader.sh
+    . include/language/php/extension/ZendGuardLoader.sh
     Install_ZendGuardLoader 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # ioncube
   if [ "${pecl_ioncube}" == '1' ]; then
-    . include/php/extension/ioncube.sh
+    . include/language/php/extension/ioncube.sh
     Install_ionCube 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # SourceGuardian
   if [ "${pecl_sourceguardian}" == '1' ]; then
-    . include/php/extension/sourceguardian.sh
+    . include/language/php/extension/sourceguardian.sh
     Install_SourceGuardian 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # imagick
   if [ "${pecl_imagick}" == '1' ]; then
-    . include/php/extension/ImageMagick.sh
+    . include/language/php/extension/ImageMagick.sh
     Install_ImageMagick 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_pecl_imagick 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # gmagick
   if [ "${pecl_gmagick}" == '1' ]; then
-    . include/php/extension/GraphicsMagick.sh
+    . include/language/php/extension/GraphicsMagick.sh
     Install_GraphicsMagick 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_pecl_gmagick 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # fileinfo
   if [ "${pecl_fileinfo}" == '1' ]; then
-    . include/php/extension/pecl_fileinfo.sh
+    . include/language/php/extension/pecl_fileinfo.sh
     Install_pecl_fileinfo 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # imap
   if [ "${pecl_imap}" == '1' ]; then
-    . include/php/extension/pecl_imap.sh
+    . include/language/php/extension/pecl_imap.sh
     Install_pecl_imap 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # ldap
   if [ "${pecl_ldap}" == '1' ]; then
-    . include/php/extension/pecl_ldap.sh
+    . include/language/php/extension/pecl_ldap.sh
     Install_pecl_ldap 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # calendar
   if [ "${pecl_calendar}" == '1' ]; then
-    . include/php/extension/pecl_calendar.sh
+    . include/language/php/extension/pecl_calendar.sh
     Install_pecl_calendar 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # phalcon
   if [ "${pecl_phalcon}" == '1' ]; then
-    . include/php/extension/pecl_phalcon.sh
+    . include/language/php/extension/pecl_phalcon.sh
     Install_pecl_phalcon 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # yaf
   if [ "${pecl_yaf}" == '1' ]; then
-    . include/php/extension/pecl_yaf.sh
+    . include/language/php/extension/pecl_yaf.sh
     Install_pecl_yaf 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # yar
   if [ "${pecl_yar}" == '1' ]; then
-    . include/php/extension/pecl_yar.sh
+    . include/language/php/extension/pecl_yar.sh
     Install_pecl_yar 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
@@ -1094,31 +1094,31 @@ PHP_addons() {
 
   # pecl_mongodb
   if [ "${pecl_mongodb}" == '1' ]; then
-    . include/php/extension/pecl_mongodb.sh
+    . include/language/php/extension/pecl_mongodb.sh
     Install_pecl_mongodb 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # swoole
   if [ "${pecl_swoole}" == '1' ]; then
-    . include/php/extension/pecl_swoole.sh
+    . include/language/php/extension/pecl_swoole.sh
     Install_pecl_swoole 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # xdebug
   if [ "${pecl_xdebug}" == '1' ]; then
-    . include/php/extension/pecl_xdebug.sh
+    . include/language/php/extension/pecl_xdebug.sh
     Install_pecl_xdebug 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # event
   if [ "${pecl_event}" == '1' ]; then
-    . include/php/extension/pecl_event.sh
+    . include/language/php/extension/pecl_event.sh
     Install_pecl_event 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # pecl_pgsql
   if [ -e "${pgsql_install_dir}/bin/psql" ]; then
-    . include/php/extension/pecl_pgsql.sh
+    . include/language/php/extension/pecl_pgsql.sh
     Install_pecl_pgsql 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 }
@@ -1127,7 +1127,7 @@ PHP_addons() {
 
 # mphp
 if [ "${mphp_flag}" == 'y' ]; then
-  . include/php/mphp.sh
+  . include/language/php/mphp.sh
   Install_MPHP 2>&1 | tee -a ${oneinstack_dir}/install.log
   php_install_dir=${php_install_dir}${mphp_ver}
   PHP_addons
@@ -1136,11 +1136,11 @@ fi
 # nodejs
 case "${nodejs_method}" in
   1)
-    . include/nodejs/node.sh
+    . include/language/nodejs/node.sh
     Install_Node 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/nodejs/nvm.sh
+    . include/language/nodejs/nvm.sh
     Install_Nvm 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_Wine 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
@@ -1149,18 +1149,18 @@ esac
 # go
 case "${go_method}" in
   1)
-    . include/go/go.sh
+    . include/language/go/go.sh
     Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/go/gvm.sh
+    . include/language/go/gvm.sh
     Install_Gvm 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
 # python
 if [ "${python_flag}" == 'y' ]; then
-  . include/python/python.sh
+  . include/language/python/python.sh
   Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 Install_RabbitMQ(){
+    
     echo 'install rabbitmq';
 }
 
