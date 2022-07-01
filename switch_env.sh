@@ -3,7 +3,7 @@ export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:
 clear
 printf "
 #######################################################################
-                      Switch PHP Develop Environment
+                      Switch Develop Environment
 #######################################################################
 "
 [ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }
@@ -25,7 +25,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long php,composer,composer_mirrors,npm,nginx -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long php,composer,composer_mirrors,npm_registry,nginx -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do

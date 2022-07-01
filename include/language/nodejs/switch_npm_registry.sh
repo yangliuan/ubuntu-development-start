@@ -14,5 +14,5 @@ Switch_NpmRegistry() {
         echo "input error! Please only input number 0~${i}:"
     fi
 
-    npm config set registry ${npm_registry[${registry_option}]}
+    su -c "npm config set registry ${npm_registry[${registry_option}]}" -s /bin/sh ${run_user}
 }
