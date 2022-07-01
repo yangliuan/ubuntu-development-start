@@ -11,7 +11,7 @@ Set_Develop_Config(){
 
     #修改tengine权限，让运行用户有权限操作指令
     if [ -e "${tengine_install_dir}" ];then
-        pushd ${tengine_install_dir}/nginx/sbin > /dev/null 
+        pushd ${tengine_install_dir}/sbin > /dev/null 
         chown -Rv root.${run_user} nginx
         chmod -Rv 750 nginx
         chmod -Rv u+s nginx
