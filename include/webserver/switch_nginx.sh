@@ -20,12 +20,11 @@ Switch_Nginx() {
     #更新systemd配置文件
     rm -rf /lib/systemd/system/nginx.service
     /bin/cp ${oneinstack_dir}/init.d/nginx.service /lib/systemd/system/
-    systemctl daemon-reload
-
+    
     #环境变量中原有的路径替换为空
-    sed -i "s@${nginx_install_dir}:@@g" /etc/profile
-    sed -i "s@${openresty_install_dir}:@@g" /etc/profile
-    sed -i "s@${tengine_install_dir}:@@g" /etc/profile
+    sed -i "s@${nginx_install_dir}/sbin:@@g" /etc/profile
+    sed -i "s@${openresty_install_dir}/nginx/sbin:@@g" /etc/profile
+    sed -i "s@${tengine_install_dir}/sbin:@@g" /etc/profile
 
     case "${nginx_option}" in
     0)
@@ -47,4 +46,10 @@ Switch_Nginx() {
       . /etc/profile
       ;;
     esac
+
+    nginx -v
+    
+    systemctl daemon-reload
+    systemctl start nginx.service
+    systemctl status nginx.service
 }
