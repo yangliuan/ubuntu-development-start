@@ -43,7 +43,6 @@ Install_OpenResty() {
   if [ -e /bin/systemctl ]; then
     /bin/cp ../init.d/nginx.service /lib/systemd/system/
     sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /lib/systemd/system/nginx.service
-    #systemctl enable nginx
   else
     [ "${PM}" == 'yum' ] && { /bin/cp ../init.d/Nginx-init-RHEL /etc/init.d/nginx; sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /etc/init.d/nginx; chkconfig --add nginx; chkconfig nginx on; }
     [ "${PM}" == 'apt-get' ] && { /bin/cp ../init.d/Nginx-init-Ubuntu /etc/init.d/nginx; sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /etc/init.d/nginx; update-rc.d nginx defaults; }

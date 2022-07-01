@@ -57,22 +57,37 @@ while :; do echo
     fi
 done
 
+while :; do echo
+    read -e -p "Do you want to switch nginx? [y/n](n): " switch_nginx_flag
+    switch_nginx_flag=${switch_nginx_flag:-n}
+    if [[ ! ${switch_nginx_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        break;
+    fi
+done
+
 if [ "${switch_php_flag}" == 'y' ]; then
-    . include/php/switch_php.sh
+    . include/language/php/switch_php.sh
     Switch_PHP
 fi
 
 if [ "${switch_composer_flag}" == 'y' ]; then
-    . include/php/switch_composer.sh
+    . include/language/php/switch_composer.sh
     Switch_Composer
 fi
 
 if [ "${switch_mirrors_flag}" == 'y' ]; then
-    . include/php/switch_composer.sh
+    . include/language/php/switch_composer.sh
     Switch_Composer_Mirrors
 fi
 
 if [ "${switch_registry_flag}" == 'y' ]; then
-    . include/nodejs/switch_npm_registry.sh
+    . include/language/nodejs/switch_npm_registry.sh
     Switch_NpmRegistry
+fi
+
+if [ "${switch_nginx_flag}" == 'y' ]; then
+    . include/webserver/switch_nginx.sh
+    Switch_Nginx
 fi
