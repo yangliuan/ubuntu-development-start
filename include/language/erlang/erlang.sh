@@ -5,10 +5,12 @@ Install_Erlang() {
    echo "Download erlang ..."
    src_url="https://github.com/erlang/otp/releases/download/OTP-${erlang_ver}/otp_src_${erlang_ver}.tar.gz" && Download_src
    tar -zxf otp_src_${erlang_ver}.tar.gz
-   cd otp_src_${erlang_ver}.tar.gz
+   cd otp_src_${erlang_ver}
    ./configure
    make -j ${THREAD} && make install
    erl -version
+   echo "erlang install success!";
+   popd > /dev/null
 }
 
 Uninstall_Erlang() {

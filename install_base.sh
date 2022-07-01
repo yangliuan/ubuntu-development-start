@@ -831,19 +831,19 @@ fi
 # JDK
 case "${jdk_option}" in
   1)
-    . include/java/jdk/jdk-11.0.sh
+    . include/language/java/jdk/jdk-11.0.sh
     Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/java/jdk/jdk-1.8.sh
+    . include/language/java/jdk/jdk-1.8.sh
     Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
-    . include/java/jdk/jdk-1.7.sh
+    . include/language/java/jdk/jdk-1.7.sh
     Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   4)
-    . include/java/jdk/jdk-1.6.sh
+    . include/language/java/jdk/jdk-1.6.sh
     Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
@@ -899,6 +899,10 @@ case "${message_queue_option}" in
     Install_Kafka 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
+    if [ ! -L "/usr/local/bin/erl" ]; then
+      . include/language/erlang/erlang.sh
+      Install_Erlang 2>&1 | tee -a ${oneinstack_dir}/install.log
+    fi
     . include/message-queue/rabbitmq.sh
     Install_RabbitMQ 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
@@ -916,7 +920,7 @@ fi
 
 # supervisord
 if [ "${supervisord_flag}" == 'y' ]; then
-    . include/python/supervisor.sh
+    . include/language/python/supervisor.sh
     Install_Supervisor 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_SupervisorDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
