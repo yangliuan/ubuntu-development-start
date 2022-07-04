@@ -9,6 +9,7 @@ Install_Erlang() {
    ./configure
    make -j ${THREAD} && make install
    erl -version
+   rm -rfv otp_src_${erlang_ver}
    echo "erlang install success!";
    popd > /dev/null
 }
