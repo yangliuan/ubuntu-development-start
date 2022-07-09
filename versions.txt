@@ -18,7 +18,7 @@ apr_util_ver=1.6.1
 nghttp2_ver=1.42.0
 
 # DB
-mysql80_ver=8.0.28
+mysql80_ver=8.0.29
 mysql57_ver=5.7.37
 mysql56_ver=5.6.50
 mysql55_ver=5.5.62
@@ -33,7 +33,7 @@ percona57_ver=5.7.35-38
 percona56_ver=5.6.51-91.0
 percona55_ver=5.5.62-38.14
 
-pgsql_ver=12.7
+pgsql_ver=14.4
 
 mongodb_ver=4.0.26
 
