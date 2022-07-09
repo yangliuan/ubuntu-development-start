@@ -52,9 +52,9 @@ php70_ver=7.0.33
 php71_ver=7.1.33
 php72_ver=7.2.34
 php73_ver=7.3.33
-php74_ver=7.4.29
-php80_ver=8.0.18
-php81_ver=8.1.5
+php74_ver=7.4.30
+php80_ver=8.0.21
+php81_ver=8.1.8
 
 # Nodejs
 node_ver=16.14.2
