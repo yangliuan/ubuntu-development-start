@@ -23,8 +23,9 @@ Switch_PHP(){
     echo
     /usr/local/php/bin/php -v
     echo
-    service php-fpm restart
-    service php-fpm status
+    systemctl daemon-reload
+    systemctl start php-fpm.service
+    systemctl status php-fpm.service
     echo
     echo 'switch php success!'
 }

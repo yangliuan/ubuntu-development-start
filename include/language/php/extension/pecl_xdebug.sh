@@ -37,14 +37,25 @@ Install_pecl_xdebug() {
         chown -R ${run_user}:${run_group} ${wwwroot_dir}/default/webgrind
         sed -i 's@static $storageDir.*@static $storageDir = "/tmp/webgrind";@' ${wwwroot_dir}/default/webgrind/config.php
         sed -i 's@static $profilerDir.*@static $profilerDir = "/tmp/xdebug";@' ${wwwroot_dir}/default/webgrind/config.php
-        cat > ${php_install_dir}/etc/php.d/08-xdebug.ini << EOF
+
+        if [ [ "${PHP_main_ver}" =~ ^7.[0-1]$ ] ]; then 
+            cat > ${php_install_dir}/etc/php.d/08-xdebug.ini << EOF
 [xdebug]
 zend_extension=xdebug.so
 xdebug.trace_output_dir=/tmp/xdebug
 xdebug.profiler_output_dir = /tmp/xdebug
 xdebug.profiler_enable = On
 xdebug.profiler_enable_trigger = 1
-EOF
+EOF     
+        else
+            cat > ${php_install_dir}/etc/php.d/08-xdebug.ini << EOF
+[xdebug]
+zend_extension=xdebug.so
+xdebug.mode=debug
+xdebug.xdebug.output_dir=/tmp/xdebug
+EOF             
+        fi
+
         echo "${CSUCCESS}PHP xdebug module installed successfully! ${CEND}"
         echo; echo "Webgrind URL: ${CMSG}http://{Public IP}/webgrind ${CEND}"
         rm -rf xdebug-${xdebug_ver} xdebug-${xdebug_oldver}
