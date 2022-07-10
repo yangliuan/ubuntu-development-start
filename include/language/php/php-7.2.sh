@@ -123,7 +123,7 @@ Install_PHP72() {
     kill -9 $$; exit 1;
   fi
 
-  . ${oneinstack_dir}/include/php/config_env.sh; Config_Current
+  . ${oneinstack_dir}/include/language/php/config_env.sh; Config_Current
   . /etc/profile
 
   # wget -c http://pear.php.net/go-pear.phar
