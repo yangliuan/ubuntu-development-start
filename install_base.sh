@@ -705,6 +705,9 @@ fi
 # start Time
 startTime=`date +%s`
 
+. include/system-lib/libevent.sh
+Install_Libevent | tee -a ${oneinstack_dir}/install.log
+
 # iptables
 if [ "${iptables_flag}" == "y" ]; then
   ./include/firewall/iptables.sh

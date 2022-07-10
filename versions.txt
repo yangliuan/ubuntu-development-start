@@ -59,6 +59,7 @@ php81_ver=8.1.8
 # Nodejs
 node_ver=16.14.2
 
+libevent_ver=2.1.12
 libiconv_ver=1.16
 curl_ver=7.82.0
 libmcrypt_ver=2.5.8

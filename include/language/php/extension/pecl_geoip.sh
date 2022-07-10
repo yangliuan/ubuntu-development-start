@@ -12,7 +12,7 @@ Install_pecl_geoip() {
         PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
         PHP_main_ver=${PHP_detail_ver%.*}
         pushd ${oneinstack_dir}/src > /dev/null
-        src_url=wget https://pecl.php.net/get/geoip-${pecl_geoip_ver}.tgz && Download_src
+        src_url=https://pecl.php.net/get/geoip-${pecl_geoip_ver}.tgz && Download_src
         tar xzf geoip-${pecl_geoip_ver}.tgz
         geoip-${pecl_geoip_ver}.tgz  > /dev/null
         ${php_install_dir}/bin/phpize

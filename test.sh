@@ -21,5 +21,8 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/get_char.sh
 . ./include/base_desktop.sh
 
-. include/language/php/extension/yasd_debug.sh
-Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log
+# . include/language/php/extension/yasd_debug.sh
+# Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log
+
+. include/system-lib/libevent.sh
+Install_Libevent 2>&1 | tee -a ${oneinstack_dir}/install.log
