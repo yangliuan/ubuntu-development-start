@@ -22,7 +22,7 @@ Install_pecl_fileinfo() {
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/fileinfo.so" ]; then
-      echo 'extension=fileinfo.so' > ${php_install_dir}/etc/php.d/04-fileinfo.ini
+      echo 'extension=fileinfo.so' > ${php_install_dir}/etc/php.d/fileinfo.ini
       echo "${CSUCCESS}PHP fileinfo module installed successfully! ${CEND}"
       rm -rf php-${PHP_detail_ver}
     else
@@ -33,8 +33,8 @@ Install_pecl_fileinfo() {
 }
 
 Uninstall_pecl_fileinfo() {
-  if [ -e "${php_install_dir}/etc/php.d/04-fileinfo.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/04-fileinfo.ini
+  if [ -e "${php_install_dir}/etc/php.d/fileinfo.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/fileinfo.ini
     echo; echo "${CMSG}PHP fileinfo module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP fileinfo module does not exist! ${CEND}"

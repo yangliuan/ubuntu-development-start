@@ -23,7 +23,7 @@ Install_pecl_yar() {
       make -j ${THREAD} && make install
       popd > /dev/null
       if [ -f "${phpExtensionDir}/yar.so" ]; then
-        echo 'extension=yar.so' > ${php_install_dir}/etc/php.d/04-yar.ini
+        echo 'extension=yar.so' > ${php_install_dir}/etc/php.d/yar.ini
         echo "${CSUCCESS}PHP yar module installed successfully! ${CEND}"
         rm -rf yar-${yar_ver}
       else
@@ -37,8 +37,8 @@ Install_pecl_yar() {
 }
 
 Uninstall_pecl_yar() {
-  if [ -e "${php_install_dir}/etc/php.d/04-yar.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/04-yar.ini
+  if [ -e "${php_install_dir}/etc/php.d/yar.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/yar.ini
     echo; echo "${CMSG}PHP yar module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP yar module does not exist! ${CEND}"

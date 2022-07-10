@@ -7,6 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       https://www.ioncube.com/  php代码加密
 
 Install_ionCube() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
@@ -25,7 +26,7 @@ Install_ionCube() {
     fi
 
     if [ -f "${zend_extension}" ]; then
-      echo "zend_extension=${zend_extension}" > ${php_install_dir}/etc/php.d/00-ioncube.ini
+      echo "zend_extension=${zend_extension}" > ${php_install_dir}/etc/php.d/ioncube.ini
       echo "${CSUCCESS}PHP ionCube module installed successfully! ${CEND}"
       rm -rf ioncube
     fi
@@ -34,8 +35,8 @@ Install_ionCube() {
 }
 
 Uninstall_ionCube() {
-  if [ -e "${php_install_dir}/etc/php.d/00-ioncube.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/00-ioncube.ini
+  if [ -e "${php_install_dir}/etc/php.d/ioncube.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/ioncube.ini
     echo; echo "${CMSG}PHP ionCube module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP ionCube module does not exist! ${CEND}"

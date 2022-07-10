@@ -23,7 +23,7 @@ Install_pecl_yaf() {
       make -j ${THREAD} && make install
       popd > /dev/null
       if [ -f "${phpExtensionDir}/yaf.so" ]; then
-        echo 'extension=yaf.so' > ${php_install_dir}/etc/php.d/04-yaf.ini
+        echo 'extension=yaf.so' > ${php_install_dir}/etc/php.d/yaf.ini
         echo "${CSUCCESS}PHP yaf module installed successfully! ${CEND}"
         rm -rf yaf-${yaf_ver}
       else
@@ -37,8 +37,8 @@ Install_pecl_yaf() {
 }
 
 Uninstall_pecl_yaf() {
-  if [ -e "${php_install_dir}/etc/php.d/04-yaf.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/04-yaf.ini
+  if [ -e "${php_install_dir}/etc/php.d/yaf.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/yaf.ini
     echo; echo "${CMSG}PHP yaf module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP yaf module does not exist! ${CEND}"

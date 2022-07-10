@@ -27,7 +27,7 @@ Install_XCache() {
         touch /tmp/xcache;chown ${run_user}:${run_group} /tmp/xcache
         let xcacheCount="${CPU}+1"
         let xcacheSize="${Memory_limit}/2"
-        cat > ${php_install_dir}/etc/php.d/04-xcache.ini << EOF
+        cat > ${php_install_dir}/etc/php.d/xcache.ini << EOF
 [xcache-common]
 extension=xcache.so
 [xcache.admin]
@@ -77,8 +77,8 @@ EOF
 }
 
 Uninstall_XCache() {
-  if [ -e "${php_install_dir}/etc/php.d/04-xcache.ini" ]; then
-    rm -rf ${php_install_dir}/etc/php.d/04-xcache.ini ${wwwroot_dir}/default/xcache /tmp/xcache
+  if [ -e "${php_install_dir}/etc/php.d/xcache.ini" ]; then
+    rm -rf ${php_install_dir}/etc/php.d/xcache.ini ${wwwroot_dir}/default/xcache /tmp/xcache
     echo; echo "${CMSG}PHP xcache module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP xcache module does not exist! ${CEND}"

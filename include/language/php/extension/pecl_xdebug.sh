@@ -39,7 +39,7 @@ Install_pecl_xdebug() {
         sed -i 's@static $profilerDir.*@static $profilerDir = "/tmp/xdebug";@' ${wwwroot_dir}/default/webgrind/config.php
 
         if [ [ "${PHP_main_ver}" =~ ^7.[0-1]$ ] ]; then 
-            cat > ${php_install_dir}/etc/php.d/08-xdebug.ini << EOF
+            cat > ${php_install_dir}/etc/php.d/xdebug.ini << EOF
 [xdebug]
 zend_extension=xdebug.so
 xdebug.trace_output_dir=/tmp/xdebug
@@ -48,7 +48,7 @@ xdebug.profiler_enable = On
 xdebug.profiler_enable_trigger = 1
 EOF     
         else
-            cat > ${php_install_dir}/etc/php.d/08-xdebug.ini << EOF
+            cat > ${php_install_dir}/etc/php.d/xdebug.ini << EOF
 [xdebug]
 zend_extension=xdebug.so
 xdebug.mode=debug
@@ -70,8 +70,8 @@ EOF
 }
 
 Uninstall_pecl_xdebug() {
-  if [ -e "${php_install_dir}/etc/php.d/08-xdebug.ini" ]; then
-    rm -rf ${php_install_dir}/etc/php.d/08-xdebug.ini /tmp/{xdebug,webgrind} ${wwwroot_dir}/default/webgrind
+  if [ -e "${php_install_dir}/etc/php.d/xdebug.ini" ]; then
+    rm -rf ${php_install_dir}/etc/php.d/xdebug.ini /tmp/{xdebug,webgrind} ${wwwroot_dir}/default/webgrind
     echo; echo "${CMSG}PHP xdebug module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP xdebug module does not exist! ${CEND}"

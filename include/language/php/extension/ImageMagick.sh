@@ -7,6 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       https://www.php.net/manual/zh/intro.imagick.php 图片处理扩展
 
 Install_ImageMagick() {
   if [ -d "${imagick_install_dir}" ]; then
@@ -16,6 +17,7 @@ Install_ImageMagick() {
     tar xzf ImageMagick-${imagemagick_ver}.tar.gz
     apt-get install libwebp-dev
     pushd ImageMagick-${imagemagick_ver} > /dev/null
+    #启用webp格式支持
     ./configure --prefix=${imagick_install_dir} --enable-shared --enable-static --with-webp
     make -j ${THREAD} && make install
     popd > /dev/null
@@ -50,7 +52,7 @@ Install_pecl_imagick() {
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/imagick.so" ]; then
-      echo 'extension=imagick.so' > ${php_install_dir}/etc/php.d/03-imagick.ini
+      echo 'extension=imagick.so' > ${php_install_dir}/etc/php.d/imagick.ini
       echo "${CSUCCESS}PHP imagick module installed successfully! ${CEND}"
       rm -rf imagick-${imagick_ver} imagick-${imagick_oldver}
     else
@@ -61,8 +63,8 @@ Install_pecl_imagick() {
 }
 
 Uninstall_pecl_imagick() {
-  if [ -e "${php_install_dir}/etc/php.d/03-imagick.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/03-imagick.ini
+  if [ -e "${php_install_dir}/etc/php.d/imagick.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/imagick.ini
     echo; echo "${CMSG}PHP imagick module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP imagick module does not exist! ${CEND}"

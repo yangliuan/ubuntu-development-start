@@ -34,7 +34,7 @@ Install_pecl_phalcon() {
       echo "${CWARNING}Your php ${PHP_detail_ver} does not support phalcon! ${CEND}"
     fi
     if [ -f "${phpExtensionDir}/phalcon.so" ]; then
-      echo 'extension=phalcon.so' > ${php_install_dir}/etc/php.d/04-phalcon.ini
+      echo 'extension=phalcon.so' > ${php_install_dir}/etc/php.d/phalcon.ini
       echo "${CSUCCESS}PHP phalcon module installed successfully! ${CEND}"
       rm -rf cphalcon-${phalcon_oldver} phalcon-${phalcon_ver}
     else
@@ -45,8 +45,8 @@ Install_pecl_phalcon() {
 }
 
 Uninstall_pecl_phalcon() {
-  if [ -e "${php_install_dir}/etc/php.d/04-phalcon.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/04-phalcon.ini
+  if [ -e "${php_install_dir}/etc/php.d/phalcon.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/phalcon.ini
     echo; echo "${CMSG}PHP phalcon module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP phalcon module does not exist! ${CEND}"

@@ -7,6 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       https://www.php.net/manual/zh/calendar.installation.php 日历函数库，也可以不单独安装编译时增加选项 --enable-calendar
 
 Install_pecl_calendar() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
@@ -21,7 +22,7 @@ Install_pecl_calendar() {
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/calendar.so" ]; then
-      echo 'extension=calendar.so' > ${php_install_dir}/etc/php.d/04-calendar.ini
+      echo 'extension=calendar.so' > ${php_install_dir}/etc/php.d/calendar.ini
       echo "${CSUCCESS}PHP calendar module installed successfully! ${CEND}"
       rm -rf php-${PHP_detail_ver}
     else
@@ -32,8 +33,8 @@ Install_pecl_calendar() {
 }
 
 Uninstall_pecl_calendar() {
-  if [ -e "${php_install_dir}/etc/php.d/04-calendar.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/04-calendar.ini
+  if [ -e "${php_install_dir}/etc/php.d/calendar.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/calendar.ini
     echo; echo "${CMSG}PHP calendar module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP calendar module does not exist! ${CEND}"

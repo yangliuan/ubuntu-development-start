@@ -85,10 +85,11 @@ phalcon_oldver=3.4.5
 yaf_ver=3.3.2
 yar_ver=2.2.0
 swoole_ver=4.8.10
-swoole_oldver=4.8.8
+swoole_oldver=4.5.2
 xdebug_ver=3.1.5
 xdebug_oldver=2.9.8
 event_ver=3.0.8
+yasd_ver=0.3.9
 
 # Ftp
 pureftpd_ver=1.0.49

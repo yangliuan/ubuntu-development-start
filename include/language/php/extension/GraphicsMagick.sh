@@ -7,6 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       https://www.php.net/manual/zh/intro.gmagick.php
 
 Install_GraphicsMagick() {
   if [ -d "${gmagick_install_dir}" ]; then
@@ -47,7 +48,7 @@ Install_pecl_gmagick() {
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/gmagick.so" ]; then
-      echo 'extension=gmagick.so' > ${php_install_dir}/etc/php.d/03-gmagick.ini
+      echo 'extension=gmagick.so' > ${php_install_dir}/etc/php.d/gmagick.ini
       echo "${CSUCCESS}PHP gmagick module installed successfully! ${CEND}"
       rm -rf gmagick-${gmagick_ver} gmagick-${gmagick_oldver}
     else
@@ -58,8 +59,8 @@ Install_pecl_gmagick() {
 }
 
 Uninstall_pecl_gmagick() {
-  if [ -e "${php_install_dir}/etc/php.d/03-gmagick.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/03-gmagick.ini
+  if [ -e "${php_install_dir}/etc/php.d/gmagick.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/gmagick.ini
     echo; echo "${CMSG}PHP gmagick module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP gmagick module does not exist! ${CEND}"

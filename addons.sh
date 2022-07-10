@@ -40,8 +40,6 @@ pushd ${oneinstack_dir} > /dev/null
 
 . ./include/webserver/ngx_lua_waf.sh
 
-. ./include/panel.sh
-
 # shellcheck disable=SC2154
 Show_Help() {
   echo
@@ -57,7 +55,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hiu --long help,install,uninstall,composer,fail2ban,ngx_lua_waf,python,panel -- "$@" 2>/dev/null`
+TEMP=`getopt -o hiu --long help,install,uninstall,composer,fail2ban,ngx_lua_waf,python-- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -83,9 +81,6 @@ while :; do
       ;;
     --python)
       python_flag=y; shift 1
-      ;;
-    --panel)
-      panel_flag=y; shift 1
       ;;
     --)
       shift
@@ -166,15 +161,6 @@ What Are You Doing?
             Uninstall_Python
           fi
           ;;
-        5)
-          ACTION_FUN
-          if [ "${install_flag}" = 'y' ]; then
-            Install_Python
-            Install_Panel
-          elif [ "${uninstall_flag}" = 'y' ]; then
-            Uninstall_Panel
-          fi
-          ;;
         q)
           exit
           ;;
@@ -215,14 +201,6 @@ else
       Install_Python
     elif [ "${uninstall_flag}" = 'y' ]; then
       Uninstall_Python
-    fi
-  fi
-  if [ "${panel_flag}" == 'y' ]; then
-    if [ "${install_flag}" = 'y' ]; then
-      Install_Python
-      Install_Panel
-    elif [ "${uninstall_flag}" = 'y' ]; then
-      Uninstall_Panel
     fi
   fi
 fi

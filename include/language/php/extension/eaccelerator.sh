@@ -7,6 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       http://eaccelerator.net/ 代码缓存加速器
 
 Install_eAccelerator() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
@@ -29,7 +30,7 @@ Install_eAccelerator() {
       popd > /dev/null
       if [ -f "${phpExtensionDir}/eaccelerator.so" ]; then
         mkdir /var/eaccelerator_cache;chown -R ${run_user}:${run_group} /var/eaccelerator_cache
-        cat > ${php_install_dir}/etc/php.d/02-eaccelerator.ini << EOF
+        cat > ${php_install_dir}/etc/php.d/eaccelerator.ini << EOF
 [eaccelerator]
 zend_extension=${phpExtensionDir}/eaccelerator.so
 eaccelerator.shm_size=64
@@ -64,8 +65,8 @@ EOF
 }
 
 Uninstall_eAccelerator() {
-  if [ -e "${php_install_dir}/etc/php.d/02-eaccelerator.ini" ]; then
-    rm -rf ${php_install_dir}/etc/php.d/02-eaccelerator.ini /var/eaccelerator_cache
+  if [ -e "${php_install_dir}/etc/php.d/eaccelerator.ini" ]; then
+    rm -rf ${php_install_dir}/etc/php.d/eaccelerator.ini /var/eaccelerator_cache
     echo; echo "${CMSG}PHP eaccelerator module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP eaccelerator module does not exist! ${CEND}"

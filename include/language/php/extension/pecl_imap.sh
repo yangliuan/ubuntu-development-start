@@ -27,7 +27,7 @@ Install_pecl_imap() {
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/imap.so" ]; then
-      echo 'extension=imap.so' > ${php_install_dir}/etc/php.d/04-imap.ini
+      echo 'extension=imap.so' > ${php_install_dir}/etc/php.d/imap.ini
       echo "${CSUCCESS}PHP imap module installed successfully! ${CEND}"
       rm -rf php-${PHP_detail_ver}
     else
@@ -38,8 +38,8 @@ Install_pecl_imap() {
 }
 
 Uninstall_pecl_imap() {
-  if [ -e "${php_install_dir}/etc/php.d/04-imap.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/04-imap.ini
+  if [ -e "${php_install_dir}/etc/php.d/imap.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/imap.ini
     echo; echo "${CMSG}PHP imap module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP imap module does not exist! ${CEND}"

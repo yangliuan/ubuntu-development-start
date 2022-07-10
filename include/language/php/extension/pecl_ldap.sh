@@ -29,7 +29,7 @@ Install_pecl_ldap() {
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/ldap.so" ]; then
-      echo 'extension=ldap.so' > ${php_install_dir}/etc/php.d/04-ldap.ini
+      echo 'extension=ldap.so' > ${php_install_dir}/etc/php.d/ldap.ini
       echo "${CSUCCESS}PHP ldap module installed successfully! ${CEND}"
       rm -rf php-${PHP_detail_ver}
     else
@@ -40,8 +40,8 @@ Install_pecl_ldap() {
 }
 
 Uninstall_pecl_ldap() {
-  if [ -e "${php_install_dir}/etc/php.d/04-ldap.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/04-ldap.ini
+  if [ -e "${php_install_dir}/etc/php.d/ldap.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/ldap.ini
     echo; echo "${CMSG}PHP ldap module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP ldap module does not exist! ${CEND}"

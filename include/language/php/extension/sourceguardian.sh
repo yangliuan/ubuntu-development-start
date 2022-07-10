@@ -28,7 +28,7 @@ Install_SourceGuardian() {
       fi
 
       if [ -f "${phpExtensionDir}/ixed.${PHP_main_ver}.lin" ]; then
-        echo "extension=${extension}" > ${php_install_dir}/etc/php.d/02-sourceguardian.ini
+        echo "extension=${extension}" > ${php_install_dir}/etc/php.d/sourceguardian.ini
         echo "${CSUCCESS}PHP SourceGuardian module installed successfully! ${CEND}"
         rm -rf sourceguardian
       fi
@@ -40,8 +40,8 @@ Install_SourceGuardian() {
 }
 
 Uninstall_SourceGuardian() {
-  if [ -e "${php_install_dir}/etc/php.d/02-sourceguardian.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/02-sourceguardian.ini
+  if [ -e "${php_install_dir}/etc/php.d/sourceguardian.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/sourceguardian.ini
     echo; echo "${CMSG}PHP SourceGuardian module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP SourceGuardian module does not exist! ${CEND}"

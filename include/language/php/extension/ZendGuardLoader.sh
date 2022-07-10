@@ -7,6 +7,8 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       https://www.zend.com/downloads/zend-guard-loader
+#       php文件加密扩展
 
 Install_ZendGuardLoader() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
@@ -44,7 +46,7 @@ Install_ZendGuardLoader() {
 
       if [ -f "${phpExtensionDir}/ZendGuardLoader.so" ]; then
         chmod 644 ${phpExtensionDir}/ZendGuardLoader.so
-        cat > ${php_install_dir}/etc/php.d/01-ZendGuardLoader.ini<< EOF
+        cat > ${php_install_dir}/etc/php.d/ZendGuardLoader.ini<< EOF
 [Zend Guard Loader]
 zend_extension=${phpExtensionDir}/ZendGuardLoader.so
 zend_loader.enable=1
@@ -61,8 +63,8 @@ EOF
 }
 
 Uninstall_ZendGuardLoader() {
-  if [ -e "${php_install_dir}/etc/php.d/01-ZendGuardLoader.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/01-ZendGuardLoader.ini
+  if [ -e "${php_install_dir}/etc/php.d/ZendGuardLoader.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/ZendGuardLoader.ini
     echo; echo "${CMSG}PHP ZendGuardLoader module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP ZendGuardLoader module does not exist! ${CEND}"

@@ -42,7 +42,7 @@ Install_pecl_mongodb() {
       make -j ${THREAD} && make install
       popd > /dev/null
       if [ -f "${phpExtensionDir}/mongodb.so" ]; then
-        echo 'extension=mongodb.so' > ${php_install_dir}/etc/php.d/07-mongodb.ini
+        echo 'extension=mongodb.so' > ${php_install_dir}/etc/php.d/mongodb.ini
         echo "${CSUCCESS}PHP mongodb module installed successfully! ${CEND}"
         rm -rf mongodb-${pecl_mongodb_oldver} mongodb-${pecl_mongodb_ver}
       else
@@ -54,14 +54,14 @@ Install_pecl_mongodb() {
 }
 
 Uninstall_pecl_mongodb() {
-  if [ -e "${php_install_dir}/etc/php.d/07-mongo.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/07-mongo.ini
+  if [ -e "${php_install_dir}/etc/php.d/mongo.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/mongo.ini
     echo; echo "${CMSG}PHP mongo module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP mongo module does not exist! ${CEND}"
   fi
-  if [ -e "${php_install_dir}/etc/php.d/07-mongodb.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/07-mongodb.ini
+  if [ -e "${php_install_dir}/etc/php.d/mongodb.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/mongodb.ini
     echo; echo "${CMSG}PHP mongodb module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP mongodb module does not exist! ${CEND}"

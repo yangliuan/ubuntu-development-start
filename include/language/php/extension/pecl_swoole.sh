@@ -7,6 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
+#       suport version https://github.com/swoole/swoole-src/blob/master/SUPPORTED.md 
 
 Install_pecl_swoole() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
@@ -32,7 +33,7 @@ Install_pecl_swoole() {
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/swoole.so" ]; then
-      echo 'extension=swoole.so' > ${php_install_dir}/etc/php.d/06-swoole.ini
+      echo 'extension=swoole.so' > ${php_install_dir}/etc/php.d/swoole.ini
       echo "${CSUCCESS}PHP swoole module installed successfully! ${CEND}"
       rm -rf swoole-${swoole_ver} swoole-${swoole_oldver}
     else
@@ -43,8 +44,8 @@ Install_pecl_swoole() {
 }
 
 Uninstall_pecl_swoole() {
-  if [ -e "${php_install_dir}/etc/php.d/06-swoole.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/06-swoole.ini
+  if [ -e "${php_install_dir}/etc/php.d/swoole.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/swoole.ini
     echo; echo "${CMSG}PHP swoole module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP swoole module does not exist! ${CEND}"

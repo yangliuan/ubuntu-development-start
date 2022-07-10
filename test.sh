@@ -4,7 +4,7 @@ export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
 ####################################################################
-                             test      
+                            develop test      
 ####################################################################
 "
 # Check if user is root
@@ -20,3 +20,6 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 . ./include/base_desktop.sh
+
+. include/language/php/extension/yasd_debug.sh
+Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log

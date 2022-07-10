@@ -7,7 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
-#       https://www.php.net/manual/zh/book.apcu.php
+#       https://www.php.net/manual/zh/book.apcu.php 用户缓存
 
 Install_APCU() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
@@ -24,7 +24,7 @@ Install_APCU() {
     ./configure --with-php-config=${php_install_dir}/bin/php-config
     make -j ${THREAD} && make install
     if [ -f "${phpExtensionDir}/apcu.so" ]; then
-      cat > ${php_install_dir}/etc/php.d/02-apcu.ini << EOF
+      cat > ${php_install_dir}/etc/php.d/apcu.ini << EOF
 [apcu]
 extension=apcu.so
 apc.enabled=1
@@ -44,8 +44,8 @@ EOF
 }
 
 Uninstall_APCU() {
-  if [ -e "${php_install_dir}/etc/php.d/02-apcu.ini" ]; then
-    rm -rf ${php_install_dir}/etc/php.d/02-apcu.ini ${wwwroot_dir}/default/apc.php
+  if [ -e "${php_install_dir}/etc/php.d/apcu.ini" ]; then
+    rm -rf ${php_install_dir}/etc/php.d/apcu.ini ${wwwroot_dir}/default/apc.php
     echo; echo "${CMSG}PHP apcu module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP apcu module does not exist! ${CEND}"
