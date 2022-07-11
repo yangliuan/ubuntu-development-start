@@ -24,7 +24,7 @@ Install_PostgreSQL() {
     /bin/cp ${oneinstack_dir}/init.d/postgresql.service /lib/systemd/system/
     sed -i "s@=/usr/local/pgsql@=${pgsql_install_dir}@g" /lib/systemd/system/postgresql.service
     sed -i "s@PGDATA=.*@PGDATA=${pgsql_data_dir}@" /lib/systemd/system/postgresql.service
-    systemctl enable postgresql
+    #systemctl enable postgresql
   else
     /bin/cp ./contrib/start-scripts/linux /etc/init.d/postgresql
     sed -i "s@^prefix=.*@prefix=${pgsql_install_dir}@" /etc/init.d/postgresql
