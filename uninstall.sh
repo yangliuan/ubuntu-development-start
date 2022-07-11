@@ -620,7 +620,7 @@ Uninstall_phpMyAdmin() {
   [ -d "${wwwroot_dir}/default/phpMyAdmin" ] && rm -rf ${wwwroot_dir}/default/phpMyAdmin
 }
 
-Print_supervisord() {
+Print_Supervisord() {
   [ -d "/usr/bin/supervisord" ] && echo /usr/bin/supervisord
 }
 
@@ -687,8 +687,8 @@ What Are You Doing?
 "
   echo
   read -e -p "Please input the correct option: " Number
-  if [[ ! "${Number}" =~ ^[0-9,q]$|^1[0-9]|^2[0-3]$ ]]; then
-    echo "${CWARNING}input error! Please only input 0~23 and q${CEND}"
+  if [[ ! "${Number}" =~ ^[0-9,q]$|^1[0-9]|^2[0-5]$ ]]; then
+    echo "${CWARNING}input error! Please only input 0~25 and q${CEND}"
   else
     case "$Number" in
     0)
@@ -707,14 +707,13 @@ What Are You Doing?
       Print_Webp
       Print_openssl
       Print_phpMyAdmin
-      Print_Sur
+      Print_Supervisord
       Print_Python
       Print_Node
       Print_Nvm
       Print_Go
       Print_Gvm
       Print_JDK
-      Print_supervisord
       Uninstall_status
       if [ "${uninstall_flag}" == 'y' ]; then
         Uninstall_Web
@@ -860,10 +859,10 @@ What Are You Doing?
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_JDK || exit
       ;;
-    24)
-      Print_supervisord
+    25)
+      Print_Supervisord
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/language/python/supervisord.sh;Uninstall_Supervisor; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/language/python/supervisor.sh;Uninstall_Supervisor; } || exit
       ;;
     q)
       exit
