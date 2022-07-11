@@ -50,12 +50,15 @@ Show_Help() {
   --phpmyadmin                  Uninstall phpMyAdmin
   --python                      Uninstall Python (PATH: ${python_install_dir})
   --node                        Uninstall Nodejs (PATH: ${node_install_dir})
-  --nvm                         Uninstall Nvm 
+  --nvm                         Uninstall Nvm
+  --go                          Uninstall Go
+  --gvm                         Uninstall Gvm
+  --supervisord                 Uninstall Supervisord 
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,redis,memcached,phpmyadmin,python,node,nvm -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,redis,memcached,phpmyadmin,python,node,nvm,go,gvm,supervisord -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -150,6 +153,15 @@ while :; do
       ;;
     --python)
       python_flag=y; shift 1
+      ;;
+    --go)
+      go_flag=y; shift 1
+      ;;
+    --gvm)
+      gvm_flag=y; shift 1
+      ;;
+    --supervisord)
+      supervisord_flag=y; shift 1
       ;;
     --)
       shift
@@ -608,6 +620,10 @@ Uninstall_phpMyAdmin() {
   [ -d "${wwwroot_dir}/default/phpMyAdmin" ] && rm -rf ${wwwroot_dir}/default/phpMyAdmin
 }
 
+Print_supervisord() {
+  [ -d "/usr/bin/supervisord" ] && echo /usr/bin/supervisord
+}
+
 Print_openssl() {
   [ -d "${openssl_install_dir}" ] && echo ${openssl_install_dir}
 }
@@ -666,6 +682,7 @@ What Are You Doing?
 \t${CMSG} 22${CEND}. Uninstall Go
 \t${CMSG} 23${CEND}. Uninstall Gvm
 \t${CMSG} 24${CEND}. Uninstall JDK
+\t${CMSG} 25${CEND}. Uninstall Supervisord
 \t${CMSG} q${CEND}. Exit
 "
   echo
@@ -690,12 +707,14 @@ What Are You Doing?
       Print_Webp
       Print_openssl
       Print_phpMyAdmin
+      Print_Sur
       Print_Python
       Print_Node
       Print_Nvm
       Print_Go
       Print_Gvm
       Print_JDK
+      Print_supervisord
       Uninstall_status
       if [ "${uninstall_flag}" == 'y' ]; then
         Uninstall_Web
@@ -718,6 +737,7 @@ What Are You Doing?
         . include/language/go/go.sh; Uninstall_Go;
         . include/language/go/gvm.sh; Uninstall_Gvm;
         Uninstall_JDK
+        . include/language/python/supervisord.sh;Uninstall_Supervisor;
       else
         exit
       fi
@@ -840,6 +860,11 @@ What Are You Doing?
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_JDK || exit
       ;;
+    24)
+      Print_supervisord
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && { . include/language/python/supervisord.sh;Uninstall_Supervisor; } || exit
+      ;;
     q)
       exit
       ;;
@@ -855,12 +880,14 @@ else
   [ "${mysql_flag}" == 'y' ] && Print_MySQL
   [ "${postgresql_flag}" == 'y' ] && Print_PostgreSQL
   [ "${mongodb_flag}" == 'y' ] && Print_MongoDB
+
   if [ "${allphp_flag}" == 'y' ]; then
     Print_ALLPHP
   else
     [ "${php_flag}" == 'y' ] && Print_PHP
     [ "${mphp_flag}" == 'y' ] && [ "${phpcache_flag}" != 'y' ] && [ -z "${php_extensions}" ] && Print_MPHP
   fi
+
   [ "${pureftpd_flag}" == 'y' ] && Print_PureFtpd
   [ "${redis_flag}" == 'y' ] && Print_Redis_server
   [ "${memcached_flag}" == 'y' ] && Print_Memcached_server
@@ -869,11 +896,13 @@ else
   [ "${node_flag}" == 'y' ] && Print_Node
   [ "${all_flag}" == 'y' ] && Print_openssl
   Uninstall_status
+
   if [ "${uninstall_flag}" == 'y' ]; then
     [ "${web_flag}" == 'y' ] && Uninstall_Web
     [ "${mysql_flag}" == 'y' ] && Uninstall_MySQL
     [ "${postgresql_flag}" == 'y' ] && Uninstall_PostgreSQL
     [ "${mongodb_flag}" == 'y' ] && Uninstall_MongoDB
+
     if [ "${allphp_flag}" == 'y' ]; then
       Uninstall_ALLPHP
     else
@@ -884,6 +913,7 @@ else
       [ "${mphp_flag}" == 'y' ] && [ "${phpcache_flag}" == 'y' ] && { php_install_dir=${php_install_dir}${mphp_ver}; Uninstall_PHPcache; }
       [ "${mphp_flag}" == 'y' ] && [ -n "${php_extensions}" ] && { php_install_dir=${php_install_dir}${mphp_ver}; Uninstall_PHPext; }
     fi
+
     [ "${pureftpd_flag}" == 'y' ] && Uninstall_PureFtpd
     [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
@@ -892,5 +922,9 @@ else
     [ "${node_flag}" == 'y' ] && { . include/language/nodejs/node.sh; Uninstall_Node; }
     [ "${nvm_flag}" == 'y' ] && { . include/language/nodejs/nvm.sh; Uninstall_Nvm; }
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
+    [ "${go_flag}" == 'y' ] && { . include/language/go/go.sh; Uninstall_Go; } 
+    [ "${gvm_flag}" == 'y' ] && { . include/language/go/gvm_flag; Uninstall_Gvm; } 
+    [ "${supervisord_flag}" == 'y' ] && { . include/language/python/supervisor_flag; Uninstall_Supervisor; } 
+
   fi
 fi
