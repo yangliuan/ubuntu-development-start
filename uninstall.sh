@@ -26,6 +26,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/color.sh
 . ./include/get_char.sh
 . ./include/check_dir.sh
+. include/base_desktop.sh
 
 Show_Help() {
   echo
@@ -187,6 +188,10 @@ Uninstall_status() {
   fi
 }
 
+Uninstall_alldesktop() {
+    Uninstall_ElasticsearchDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;
+}
+
 Print_Warn() {
   echo
   echo "${CWARNING}You will uninstall OneinStack, Please backup your configure files and DB data! ${CEND}"
@@ -263,6 +268,7 @@ Uninstall_MySQL() {
     [ -e "${db_data_dir}" ] && /bin/mv ${db_data_dir}{,$(date +%Y%m%d%H)}
     sed -i 's@^dbrootpwd=.*@dbrootpwd=@' ./options.conf
     sed -i "s@${db_install_dir}/bin:@@" /etc/profile
+    Uninstall_MysqlDesktop
     echo "${CMSG}MySQL uninstall completed! ${CEND}"
   fi
 }
@@ -278,6 +284,7 @@ Uninstall_PostgreSQL() {
     [ -e "${pgsql_data_dir}" ] && /bin/mv ${pgsql_data_dir}{,$(date +%Y%m%d%H)}
     sed -i 's@^dbpostgrespwd=.*@dbpostgrespwd=@' ./options.conf
     sed -i "s@${pgsql_install_dir}/bin:@@" /etc/profile
+    Uninstall_PostgresqlDesktop
     echo "${CMSG}PostgreSQL uninstall completed! ${CEND}"
   fi
 }
@@ -294,6 +301,7 @@ Uninstall_MongoDB() {
     [ -e "${mongo_data_dir}" ] && /bin/mv ${mongo_data_dir}{,$(date +%Y%m%d%H)}
     sed -i 's@^dbmongopwd=.*@dbmongopwd=@' ./options.conf
     sed -i "s@${mongo_install_dir}/bin:@@" /etc/profile
+    Uninstall_MongoDBDesktop
     echo "${CMSG}MongoDB uninstall completed! ${CEND}"
   fi
 }
@@ -313,6 +321,7 @@ Uninstall_AllMessageQueue() {
   . include/message-queue/kafka.sh; Uninstall_Kafka
   . include/message-queue/rabbitmq.sh; Uninstall_RabbitMQ
   . include/message-queue/rocketmq.sh; Uninstall_RocketMQ
+  Uninstall_RabbitmqDesktop;Uninstall_KafkaDesktop;
 }
 
 Print_Kafka() {
@@ -363,6 +372,7 @@ Uninstall_PHP() {
   [ -e "${apache_install_dir}/conf/httpd.conf" ] && [ -n "`grep libphp ${apache_install_dir}/conf/httpd.conf`" ] && sed -i '/libphp/d' ${apache_install_dir}/conf/httpd.conf
   [ -e "${php_install_dir}" ] && { rm -rf ${php_install_dir}; echo "${CMSG}PHP uninstall completed! ${CEND}"; }
   sed -i "s@${php_install_dir}/bin:@@" /etc/profile
+  Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;
 }
 
 Uninstall_MPHP() {
@@ -387,6 +397,7 @@ Uninstall_ALLPHP() {
   [ -e "${curl_install_dir}" ] && rm -rf ${curl_install_dir}
   [ -e "${freetype_install_dir}" ] && rm -rf ${freetype_install_dir}
   [ -e "${libiconv_install_dir}" ] && rm -rf ${libiconv_install_dir}
+  Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;
 }
 
 Uninstall_PHPcache() {
@@ -602,6 +613,7 @@ Print_PureFtpd() {
 Uninstall_PureFtpd() {
   [ -e "${pureftpd_install_dir}" ] && { service pureftpd stop > /dev/null 2>&1; rm -rf ${pureftpd_install_dir} /etc/init.d/pureftpd; echo "${CMSG}Pureftpd uninstall completed! ${CEND}"; }
   [ -e "/lib/systemd/system/pureftpd.service" ] && { systemctl disable pureftpd > /dev/null 2>&1; rm -f /lib/systemd/system/pureftpd.service; }
+  Uninstall_PureFtpDesktop;
 }
 
 Print_Redis_server() {
@@ -613,6 +625,7 @@ Print_Redis_server() {
 Uninstall_Redis_server() {
   [ -e "${redis_install_dir}" ] && { service redis-server stop > /dev/null 2>&1; rm -rf ${redis_install_dir} /etc/init.d/redis-server /usr/local/bin/redis-*; echo "${CMSG}Redis uninstall completed! ${CEND}"; }
   [ -e "/lib/systemd/system/redis-server.service" ] && { systemctl disable redis-server > /dev/null 2>&1; rm -f /lib/systemd/system/redis-server.service; }
+  Uninstall_RedisDesktop;
 }
 
 Print_Memcached_server() {
@@ -623,6 +636,7 @@ Print_Memcached_server() {
 
 Uninstall_Memcached_server() {
   [ -e "${memcached_install_dir}" ] && { service memcached stop > /dev/null 2>&1; rm -rf ${memcached_install_dir} /etc/init.d/memcached /usr/bin/memcached; echo "${CMSG}Memcached uninstall completed! ${CEND}"; }
+  Uninstall_MemcachedDesktop;
 }
 
 Print_FFmpeg() {
@@ -768,6 +782,7 @@ What Are You Doing?
         . include/language/go/gvm.sh; Uninstall_Gvm;
         Uninstall_JDK
         . include/language/python/supervisord.sh;Uninstall_Supervisor;
+        Uninstall_alldesktop;
       else
         exit
       fi
@@ -812,13 +827,13 @@ What Are You Doing?
       Print_Warn
       Print_Kafka
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/kafka.sh;Uninstall_Kafka || exit
+      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/kafka.sh;Uninstall_Kafka;Uninstall_KafkaDesktop || exit
       ;;
     8)
       Print_Warn
       Print_Rabbitmq
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rabbitmq.sh;Uninstall_RabbitMQ || exit
+      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rabbitmq.sh;Uninstall_RabbitMQ;Uninstall_RabbitmqDesktop || exit
       ;;
     9)
       Print_Warn
@@ -829,17 +844,17 @@ What Are You Doing?
     10)
       Print_PureFtpd
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_PureFtpd || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_PureFtpd;Uninstall_PureFtpDesktop || exit
       ;;
     11)
       Print_Redis_server
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_Redis_server || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Redis_server;Uninstall_RedisDesktop || exit
       ;;
     12)
       Print_Memcached_server
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_Memcached_server || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Memcached_server;Uninstall_MemcachedDesktop || exit
       ;;
     15)
       Print_ALLPHP
@@ -893,7 +908,7 @@ What Are You Doing?
     25)
       Print_Supervisord
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/language/python/supervisor.sh;Uninstall_Supervisor; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/language/python/supervisor.sh;Uninstall_Supervisor;Uninstall_SupervisorDesktop; } || exit
       ;;
     q)
       exit

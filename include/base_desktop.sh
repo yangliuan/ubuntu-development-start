@@ -111,7 +111,7 @@ Install_PHPFPMDesktop() {
     popd > /dev/null
 }
 
-uninstall_PHPFPMDesktop() {
+Uninstall_PHPFPMDesktop() {
     rm -rfv /usr/share/applications/php-fpm.desktop
 }
 
