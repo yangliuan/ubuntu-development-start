@@ -42,10 +42,8 @@ Install_pecl_event() {
         echo "${CFAILURE}PHP event module install failed, Please contact the author! ${CEND}" && lsb_release -a
       fi
 
-    else
-      echo "${CWARNING}Your php ${PHP_detail_ver} does not support event or libevent! ${CEND}";
     fi
-
+    
     popd > /dev/null
   fi
 }
