@@ -29,13 +29,16 @@ Set_Develop_Config(){
 
     #修改所有版本php配置文件权限为777方便用编辑器编辑
     php_dir=(`find /usr/local -maxdepth 1 -type d -name "php*" | sort`)
-    for i in ${!php_dir[@]};do echo
-        chmod -Rv 777 ${php_dir[i]}/etc/
-    done
-    
 
-    #首次运行设置php默认版本
-    if [ ! -L "/usr/local/php" ];then
-        ln -sv ${php_dir[i]} /usr/local/php
+    if [ ${#php_dir[*]} -gt 0 ];then
+        for i in ${!php_dir[@]};do echo
+            chmod -Rv 777 ${php_dir[i]}/etc/
+        done
+        
+        #首次运行设置php默认版本
+        if [ ! -L "/usr/local/php" ];then
+            ln -sv ${php_dir[i]} /usr/local/php
+        fi
     fi
+    
 }
