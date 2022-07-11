@@ -31,7 +31,7 @@ Install_ZendOPcache() {
       # write opcache configs
       if [[ "${PHP_main_ver}" =~ ^5.[3-4]$ ]]; then
         # For php 5.3 5.4
-        cat > ${php_install_dir}/etc/php.d/02-opcache.ini << EOF
+        cat > ${php_install_dir}/etc/php.d/opcache.ini << EOF
 [opcache]
 zend_extension=${phpExtensionDir}/opcache.so
 opcache.enable=1
@@ -47,7 +47,7 @@ EOF
         rm -rf zendopcache-${zendopcache_ver}
       else
         # For php 5.5+
-        cat > ${php_install_dir}/etc/php.d/02-opcache.ini << EOF
+        cat > ${php_install_dir}/etc/php.d/opcache.ini << EOF
 [opcache]
 zend_extension=opcache.so
 opcache.enable=1
@@ -76,8 +76,8 @@ EOF
 }
 
 Uninstall_ZendOPcache() {
-  if [ -e "${php_install_dir}/etc/php.d/02-opcache.ini" ]; then
-    rm -f ${php_install_dir}/etc/php.d/02-opcache.ini
+  if [ -e "${php_install_dir}/etc/php.d/opcache.ini" ]; then
+    rm -f ${php_install_dir}/etc/php.d/opcache.ini
     echo; echo "${CMSG}PHP opcache module uninstall completed${CEND}"
   else
     echo; echo "${CWARNING}PHP opcache module does not exist! ${CEND}"

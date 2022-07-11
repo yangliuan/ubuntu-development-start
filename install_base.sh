@@ -1079,19 +1079,19 @@ PHP_addons() {
 
   # pecl_memcached
   if [ "${pecl_memcached}" == '1' ]; then
-    . include/database/cache/memcached.sh
+    . include/language/php/extension/pecl_memcached.sh
     Install_pecl_memcached 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # pecl_memcache
   if [ "${pecl_memcache}" == '1' ]; then
-    . include/database/cache/memcached.sh
+    . include/language/php/extension/pecl_memcache.sh
     Install_pecl_memcache 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # pecl_redis
   if [ "${pecl_redis}" == '1' ]; then
-    . include/database/cache/redis.sh
+    . include/language/php/extension/pecl_redis.sh
     Install_pecl_redis 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 

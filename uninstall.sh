@@ -43,7 +43,7 @@ Show_Help() {
   --phpcache                    Uninstall PHP opcode cache
   --php_extensions [ext name]   Uninstall PHP extensions, include zendguardloader,ioncube,
                                 sourceguardian,imagick,gmagick,fileinfo,imap,ldap,calendar,phalcon,
-                                yaf,yar,redis,memcached,memcache,mongodb,swoole,xdebug
+                                yaf,yar,redis,memcached,memcache,mongodb,swoole,event,xdebug,yasd_debug
   --pureftpd                    Uninstall PureFtpd
   --redis                       Uninstall Redis-server
   --memcached                   Uninstall Memcached-server
@@ -131,7 +131,9 @@ while :; do
       [ -n "`echo ${php_extensions} | grep -w memcache`" ] && pecl_memcache=1
       [ -n "`echo ${php_extensions} | grep -w mongodb`" ] && pecl_mongodb=1
       [ -n "`echo ${php_extensions} | grep -w swoole`" ] && pecl_swoole=1
+      [ -n "`echo ${php_extensions} | grep -w event`" ] && pecl_event=1
       [ -n "`echo ${php_extensions} | grep -w xdebug`" ] && pecl_xdebug=1
+      [ -n "`echo ${php_extensions} | grep -w yasd_debug`" ] && yasd_debug=1
       ;;
     --node)
       node_flag=y; shift 1
@@ -479,19 +481,19 @@ Uninstall_PHPext() {
 
   # pecl_memcached
   if [ "${pecl_memcached}" == '1' ]; then
-    . include/database/cache/memcached.sh
+    . include/language/php/extension/pecl_memcached.sh
     Uninstall_pecl_memcached
   fi
 
   # pecl_memcache
   if [ "${pecl_memcache}" == '1' ]; then
-    . include/database/cache/memcached.sh
+    . include/language/php/extension/pecl_memcache.sh
     Uninstall_pecl_memcache
   fi
 
   # pecl_redis
   if [ "${pecl_redis}" == '1' ]; then
-    . include/database/cache/redis.sh
+    . include/language/php/extension/pecl_redis.sh
     Uninstall_pecl_redis
   fi
 
@@ -507,10 +509,22 @@ Uninstall_PHPext() {
     Uninstall_pecl_swoole
   fi
 
+  # event
+  if [ "${pecl_swoole}" == '1' ]; then
+    . include/language/php/extension/pecl_event.sh
+    Uninstall_pecl_event
+  fi
+
   # xdebug
   if [ "${pecl_xdebug}" == '1' ]; then
     . include/language/php/extension/pecl_xdebug.sh
     Uninstall_pecl_xdebug
+  fi
+
+  # yasd_debug
+  if [ "${yasd_debug}" == '1' ]; then
+    . include/language/php/extension/yasd_debug.sh
+    Uninstall_Yasd
   fi
 
   # reload php
@@ -532,17 +546,20 @@ Menu_PHPext() {
     echo -e "\t${CMSG} 7${CEND}. Uninstall imap"
     echo -e "\t${CMSG} 8${CEND}. Uninstall ldap"
     echo -e "\t${CMSG} 9${CEND}. Uninstall phalcon(PHP>=5.5)"
-    echo -e "\t${CMSG}10${CEND}. Uninstall redis"
-    echo -e "\t${CMSG}11${CEND}. Uninstall memcached"
-    echo -e "\t${CMSG}12${CEND}. Uninstall memcache"
-    echo -e "\t${CMSG}13${CEND}. Uninstall mongodb"
-    echo -e "\t${CMSG}14${CEND}. Uninstall swoole"
-    echo -e "\t${CMSG}15${CEND}. Uninstall xdebug(PHP>=5.5)"
+    echo -e "\t${CMSG}10${CEND}. Install yaf(PHP>=7.0)"
+    echo -e "\t${CMSG}11${CEND}. Uninstall redis"
+    echo -e "\t${CMSG}12${CEND}. Uninstall memcached"
+    echo -e "\t${CMSG}13${CEND}. Uninstall memcache"
+    echo -e "\t${CMSG}14${CEND}. Uninstall mongodb"
+    echo -e "\t${CMSG}15${CEND}. Uninstall swoole"
+    echo -e "\t${CMSG}16${CEND}. Uninstall event(PHP>=5.4)"
+    echo -e "\t${CMSG}17${CEND}. Uninstall xdebug(PHP>=5.5)"
+    echo -e "\t${CMSG}18${CEND}. Uninstall yasd_xdebug(PHP>=7.2)"
     read -e -p "Please input a number:(Default 0 press Enter) " phpext_option
     phpext_option=${phpext_option:-0}
     [ "${phpext_option}" == '0' ] && break
     array_phpext=(${phpext_option})
-    array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+    array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18)
     for v in ${array_phpext[@]}
     do
       [ -z "`echo ${array_all[@]} | grep -w ${v}`" ] && phpext_flag=1
@@ -561,12 +578,16 @@ Menu_PHPext() {
       [ -n "`echo ${array_phpext[@]} | grep -w 7`" ] && pecl_imap=1
       [ -n "`echo ${array_phpext[@]} | grep -w 8`" ] && pecl_ldap=1
       [ -n "`echo ${array_phpext[@]} | grep -w 9`" ] && pecl_phalcon=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 10`" ] && pecl_redis=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 11`" ] && pecl_memcached=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 12`" ] && pecl_memcache=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 13`" ] && pecl_mongodb=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 14`" ] && pecl_swoole=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 15`" ] && pecl_xdebug=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 10`" ] && pecl_yaf=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 11`" ] && pecl_redis=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 12`" ] && pecl_memcached=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 13`" ] && pecl_memcache=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 14`" ] && pecl_mongodb=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 15`" ] && pecl_swoole=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 16`" ] && pecl_event=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_xdebug=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && yasd_xdebug=1
+      
       break
     fi
   done

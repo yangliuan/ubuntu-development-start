@@ -106,8 +106,8 @@ memcached_ver=1.6.12
 libmemcached_ver=1.0.18
 pecl_memcached_ver=3.1.5
 pecl_memcached_oldver=2.2.0
-pecl_memcache_ver=4.0.5.2
-pecl_memcache_oldver=3.0.8
+pecl_memcache_ver=8.0
+pecl_memcache_oldver=4.0.5.2
 
 # MongoDB
 pecl_mongodb_ver=1.11.0

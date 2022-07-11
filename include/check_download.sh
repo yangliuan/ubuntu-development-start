@@ -689,7 +689,7 @@ checkDownload() {
       echo "Download pecl_memcached for php..."
       src_url=https://pecl.php.net/get/memcached-${pecl_memcached_oldver}.tgz && Download_src
     else
-      echo "Download pecl_memcached for php 7.x..."
+      echo "Download pecl_memcached for php 7.x 8.x..."
       src_url=https://pecl.php.net/get/memcached-${pecl_memcached_ver}.tgz && Download_src
     fi
   fi
@@ -698,10 +698,12 @@ checkDownload() {
   if [ "${pecl_memcache}" == '1' ]; then
     if [[ "${php_option}" =~ ^[1-4]$ ]]; then
       echo "Download pecl_memcache for php..."
-      src_url=https://pecl.php.net/get/memcache-${pecl_memcache_oldver}.tgz && Download_src
-    else
+      src_url=https://pecl.php.net/get/memcache-3.0.8.tgz && Download_src
+    elif [[ "${php_option}" =~ ^[5-9]$ ]]
       echo "Download pecl_memcache for php 7.x..."
       # src_url=https://codeload.github.com/websupport-sk/pecl-memcache/zip/php7 && Download_src
+      src_url=https://pecl.php.net/get/memcache-${pecl_memcache_oldver}.tgz && Download_src
+    else
       src_url=https://pecl.php.net/get/memcache-${pecl_memcache_ver}.tgz && Download_src
     fi
   fi
