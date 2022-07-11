@@ -161,7 +161,7 @@ Install_PHP81() {
   #启用所有函数
   sed -i "s@^disable_functions =@;disable_functions =@" ${php_install_dir}/etc/php.ini
 
-  [ "${phpcache_option}" == '1' ] && cat > ${php_install_dir}/etc/php.d/02-opcache.ini << EOF
+  [ "${phpcache_option}" == '1' ] && cat > ${php_install_dir}/etc/php.d/opcache.ini << EOF
 [opcache]
 zend_extension=opcache.so
 opcache.enable=1
