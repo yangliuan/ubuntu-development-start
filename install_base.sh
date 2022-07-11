@@ -51,7 +51,7 @@ fi
 if [ ${ARG_NUM} == 0 ]; then
   # check iptables
   while :; do echo
-    read -e -p "Do you want to enable iptables? [y/n]: " iptables_flag
+    read -e -p "Do you want to enable iptables? [y/n](default:n): " iptables_flag
     iptables_flag=${iptables_flag:-n}
     if [[ ! ${iptables_flag} =~ ^[y,n]$ ]]; then
       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
@@ -1128,7 +1128,6 @@ PHP_addons() {
 
   # yasd debug
   if [ "${yasd_xdebug}" == '1' ]; then
-  echo 11
     . include/language/php/extension/yasd_debug.sh
     Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi

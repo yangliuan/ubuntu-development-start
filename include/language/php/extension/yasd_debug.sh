@@ -14,8 +14,7 @@ Install_Yasd() {
         pushd ${oneinstack_dir}/src > /dev/null
         phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
         PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
-
-        if [ [ "${PHP_main_ver}" =~ ^7.[2-4]$|^8.[0-1]$ ] ]; then
+        if [[ "${PHP_main_ver}" =~ ^7.[2-4]$|^8.[0-1]$ ]]; then
             src_url=https://github.com/swoole/yasd/archive/refs/tags/v${yasd_ver}.tar.gz && Download_src
             tar -zxvf v${yasd_ver}.tar.gz
             pushd yasd-${yasd_ver} > /dev/null
@@ -24,7 +23,7 @@ Install_Yasd() {
             make -j ${THREAD} && make install
 
             if [ -f "${phpExtensionDir}/yasd.so" ]; then
-            cat > ${php_install_dir}/etc/php.d/yasd.ini << EOF
+              cat > ${php_install_dir}/etc/php.d/yasd.ini << EOF
 [yasd]
 zend_extension=yasd
 yasd.debug_mode=remote
@@ -36,9 +35,10 @@ EOF
             else
                 echo "${CFAILURE}PHP yasd module install failed, Please contact the author! ${CEND}" && lsb_release -a
             fi
+        else
+            echo "${CWARNING}Your php ${PHP_detail_ver} does not support yasd! ${CEND}";
         fi
 
-        echo "${CWARNING}Your php ${PHP_detail_ver} does not support yasd! ${CEND}";
         popd > /dev/null
     fi
 }

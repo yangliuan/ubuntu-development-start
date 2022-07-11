@@ -4,7 +4,7 @@
 # REF: https://www.cnblogs.com/WindSun/p/12142656.html
 Install_Libevent() {
     if [ -e "${libevent_install_dir}/lib/libevent-2.1.so.7" ]; then
-        echo "${CWARNING}libevent has already installed!"
+        echo "${CWARNING}libevent has already installed!${CEND}"
     else
         pushd ${oneinstack_dir}/src > /dev/null
         src_url=https://github.com/libevent/libevent/releases/download/release-${libevent_ver}-stable/libevent-${libevent_ver}-stable.tar.gz && Download_src
@@ -16,7 +16,7 @@ Install_Libevent() {
         popd > /dev/null
 
         if [ -e "${libevent_install_dir}/lib/libevent-2.1.so.7" ]; then
-            echo "${CSUCCESS}libevent installed successfully!" 
+            echo "${CSUCCESS}libevent installed successfully!${CEND}" 
             rm -rf libevent-${libevent_ver}-stable
         else
             echo "${CFAILURE}libevent install failed, Please contact the author! ${CEND}" && lsb_release -a
