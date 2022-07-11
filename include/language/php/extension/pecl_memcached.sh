@@ -30,7 +30,7 @@ Install_pecl_memcached() {
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/memcached.so" ]; then
-      cat > ${php_install_dir}/etc/php.d/05-memcached.ini << EOF
+      cat > ${php_install_dir}/etc/php.d/memcached.ini << EOF
 extension=memcached.so
 memcached.use_sasl=1
 EOF
