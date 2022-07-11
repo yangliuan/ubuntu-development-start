@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Nginx
+Name=Openrestry
 Comment=Web http server
 Exec=sh /opt/oneinstack/start/nginx_start.sh
-Icon=/opt/oneinstack/icon/nginx.jpeg
+Icon=/opt/oneinstack/icon/openrestry.png
 Type=Application
 Categories=Development;Web Server;
-Keywords=Nginx;nginx
+Keywords=Nginx;Openrestry;openrestry;

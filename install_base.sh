@@ -814,7 +814,7 @@ case "${nginx_option}" in
   3)
     . include/webserver/openresty.sh
     Install_OpenResty 2>&1 | tee -a ${oneinstack_dir}/install.log
-    Install_NginxDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_OpenrestryDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
@@ -1182,7 +1182,7 @@ endTime=`date +%s`
 ((installTime=($endTime-$startTime)/60))
 echo "####################Congratulations########################"
 echo "Total OneinStack Install Time: ${CQUESTION}${installTime}${CEND} minutes"
-[[ "${nginx_option}" =~ ^[1-3]$ ]] && echo -e "\n$(printf "%-32s" "Nginx install dir":)${CMSG}${web_install_dir}${CEND}"
+[[ "${nginx_option}" =~ ^[1-3]$ ]] && echo -e "\n$(printf "%-32s" "Nginx install dir":)${CMSG}${nginx_install_dir}${CEND}"
 [ "${apache_flag}" == 'y' ] && echo -e "\n$(printf "%-32s" "Apache install dir":)${CMSG}${apache_install_dir}${CEND}"
 [[ "${tomcat_option}" =~ ^[1-4]$ ]] && echo -e "\n$(printf "%-32s" "Tomcat install dir":)${CMSG}${tomcat_install_dir}${CEND}"
 [[ "${db_option}" =~ ^[1-9]$|^1[0-2]$ ]] && echo -e "\n$(printf "%-32s" "Database install dir:")${CMSG}${db_install_dir}${CEND}"

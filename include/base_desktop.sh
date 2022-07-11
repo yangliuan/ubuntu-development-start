@@ -83,6 +83,16 @@ Uninstall_NginxDesktop() {
     rm -rfv /usr/share/applications/nginx.desktop
 }
 
+Install_OpenrestryDesktop() {
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv openrestry.desktop /usr/share/applications
+    popd > /dev/null
+}
+
+Uninstall_OpenrestryDesktop() {
+    rm -rfv /usr/share/applications/openrestry.desktop
+}
+
 Install_TomcatDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv tomcat.desktop /usr/share/applications
