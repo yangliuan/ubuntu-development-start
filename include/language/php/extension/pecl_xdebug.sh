@@ -38,7 +38,7 @@ Install_pecl_xdebug() {
         sed -i 's@static $storageDir.*@static $storageDir = "/tmp/webgrind";@' ${wwwroot_dir}/default/webgrind/config.php
         sed -i 's@static $profilerDir.*@static $profilerDir = "/tmp/xdebug";@' ${wwwroot_dir}/default/webgrind/config.php
 
-        if [ [ "${PHP_main_ver}" =~ ^7.[0-1]$ ] ]; then 
+        if [[ "${PHP_main_ver}" =~ ^7.[0-1]$ ]]; then 
           cat > ${php_install_dir}/etc/php.d/xdebug.ini << EOF
 [xdebug]
 zend_extension=xdebug.so
