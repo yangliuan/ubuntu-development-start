@@ -259,7 +259,7 @@ Uninstall_PostgreSQL() {
     service postgresql stop > /dev/null 2>&1
     rm -rf ${pgsql_install_dir} /etc/init.d/postgresql
     [ -e "/lib/systemd/system/postgresql.service" ] && { systemctl disable postgresql > /dev/null 2>&1; rm -f /lib/systemd/system/postgresql.service; }
-    [ -e "${php_install_dir}/etc/php.d/07-pgsql.ini" ] && rm -f ${php_install_dir}/etc/php.d/07-pgsql.ini
+    [ -e "${php_install_dir}/etc/php.d/pgsql.ini" ] && rm -f ${php_install_dir}/etc/php.d/pgsql.ini
     id -u postgres >/dev/null 2>&1 ; [ $? -eq 0 ] && userdel postgres
     [ -e "${pgsql_data_dir}" ] && /bin/mv ${pgsql_data_dir}{,$(date +%Y%m%d%H)}
     sed -i 's@^dbpostgrespwd=.*@dbpostgrespwd=@' ./options.conf
@@ -274,8 +274,8 @@ Uninstall_MongoDB() {
     service mongod stop > /dev/null 2>&1
     rm -rf ${mongo_install_dir} /etc/mongod.conf /etc/init.d/mongod /tmp/mongo*.sock
     [ -e "/lib/systemd/system/mongod.service" ] && { systemctl disable mongod > /dev/null 2>&1; rm -f /lib/systemd/system/mongod.service; }
-    [ -e "${php_install_dir}/etc/php.d/07-mongo.ini" ] && rm -f ${php_install_dir}/etc/php.d/07-mongo.ini
-    [ -e "${php_install_dir}/etc/php.d/07-mongodb.ini" ] && rm -f ${php_install_dir}/etc/php.d/07-mongodb.ini
+    [ -e "${php_install_dir}/etc/php.d/mongo.ini" ] && rm -f ${php_install_dir}/etc/php.d/mongo.ini
+    [ -e "${php_install_dir}/etc/php.d/mongodb.ini" ] && rm -f ${php_install_dir}/etc/php.d/mongodb.ini
     id -u mongod > /dev/null 2>&1 ; [ $? -eq 0 ] && userdel mongod
     [ -e "${mongo_data_dir}" ] && /bin/mv ${mongo_data_dir}{,$(date +%Y%m%d%H)}
     sed -i 's@^dbmongopwd=.*@dbmongopwd=@' ./options.conf
@@ -297,8 +297,8 @@ Print_AllMessageQueue() {
 
 Uninstall_AllMessageQueue() {
   . include/message-queue/kafka.sh; Uninstall_Kafka
-  . include/message-queue/rabbitmq.sh; Unstall_RabbitMQ
-  . include/message-queue/rocketmq.sh; Unstall_RocketMQ
+  . include/message-queue/rabbitmq.sh; Uninstall_RabbitMQ
+  . include/message-queue/rocketmq.sh; Uninstall_RocketMQ
 }
 
 Print_Kafka() {
@@ -376,10 +376,10 @@ Uninstall_ALLPHP() {
 }
 
 Uninstall_PHPcache() {
-  . include/php/extension/zendopcache.sh
-  . include/php/extension/xcache.sh
-  . include/php/extension/apcu.sh
-  . include/php/extension/eaccelerator.sh
+  . include/language/php/extension/zendopcache.sh
+  . include/language/php/extension/xcache.sh
+  . include/language/php/extension/apcu.sh
+  . include/language/php/extension/eaccelerator.sh
   Uninstall_ZendOPcache
   Uninstall_XCache
   Uninstall_APCU
@@ -393,75 +393,75 @@ Uninstall_PHPcache() {
 Uninstall_PHPext() {
   # ZendGuardLoader
   if [ "${pecl_zendguardloader}" == '1' ]; then
-    . include/php/extension/ZendGuardLoader.sh
+    . include/language/php/extension/ZendGuardLoader.sh
     Uninstall_ZendGuardLoader
   fi
 
   # ioncube
   if [ "${pecl_ioncube}" == '1' ]; then
-    . include/php/extension/ioncube.sh
+    . include/language/php/extension/ioncube.sh
     Uninstall_ionCube
   fi
 
   # SourceGuardian
   if [ "${pecl_sourceguardian}" == '1' ]; then
-    . include/php/extension/sourceguardian.sh
+    . include/language/php/extension/sourceguardian.sh
     Uninstall_SourceGuardian
   fi
 
   # imagick
   if [ "${pecl_imagick}" == '1' ]; then
-    . include/php/extension/ImageMagick.sh
+    . include/language/php/extension/ImageMagick.sh
     Uninstall_ImageMagick
     Uninstall_pecl_imagick
   fi
 
   # gmagick
   if [ "${pecl_gmagick}" == '1' ]; then
-    . include/php/extension/GraphicsMagick.sh
+    . include/language/php/extension/GraphicsMagick.sh
     Uninstall_GraphicsMagick
     Uninstall_pecl_gmagick
   fi
 
   # fileinfo
   if [ "${pecl_fileinfo}" == '1' ]; then
-    . include/php/extension/pecl_fileinfo.sh
+    . include/language/php/extension/pecl_fileinfo.sh
     Uninstall_pecl_fileinfo
   fi
 
   # imap
   if [ "${pecl_imap}" == '1' ]; then
-    . include/php/extension/pecl_imap.sh
+    . include/language/php/extension/pecl_imap.sh
     Uninstall_pecl_imap
   fi
 
   # ldap
   if [ "${pecl_ldap}" == '1' ]; then
-    . include/php/extension/pecl_ldap.sh
+    . include/language/php/extension/pecl_ldap.sh
     Uninstall_pecl_ldap
   fi
 
   # calendar
   if [ "${pecl_calendar}" == '1' ]; then
-    . include/php/extension/pecl_calendar.sh
+    . include/language/php/extension/pecl_calendar.sh
     Uninstall_pecl_calendar
   fi
 
   # phalcon
   if [ "${pecl_phalcon}" == '1' ]; then
-    . include/php/extension/pecl_phalcon.sh
+    . include/language/php/extension/pecl_phalcon.sh
     Uninstall_pecl_phalcon
   fi
 
   # yaf
   if [ "${pecl_yaf}" == '1' ]; then
-    . include/php/extension/pecl_yaf.sh
+    . include/language/php/extension/pecl_yaf.sh
     Uninstall_pecl_yaf 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # yar
   if [ "${pecl_yar}" == '1' ]; then
-    . include/php/extension/pecl_yar.sh
+    . include/language/php/extension/pecl_yar.sh
     Uninstall_pecl_yar 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
@@ -485,19 +485,19 @@ Uninstall_PHPext() {
 
   # pecl_mongodb
   if [ "${pecl_mongodb}" == '1' ]; then
-    . include/php/extension/pecl_mongodb.sh
+    . include/language/php/extension/pecl_mongodb.sh
     Uninstall_pecl_mongodb
   fi
 
   # swoole
   if [ "${pecl_swoole}" == '1' ]; then
-    . include/php/extension/pecl_swoole.sh
+    . include/language/php/extension/pecl_swoole.sh
     Uninstall_pecl_swoole
   fi
 
   # xdebug
   if [ "${pecl_xdebug}" == '1' ]; then
-    . include/php/extension/pecl_xdebug.sh
+    . include/language/php/extension/pecl_xdebug.sh
     Uninstall_pecl_xdebug
   fi
 
@@ -712,11 +712,11 @@ What Are You Doing?
         . include/multimedia/webp.sh; Uninstall_Webp
         Uninstall_openssl
         Uninstall_phpMyAdmin
-        . include/python/python.sh; Uninstall_Python
-        . include/nodejs/node.sh; Uninstall_Node
-        . include/nodejs/nvm.sh; Uninstall_Nvm
-        . include/go/go.sh; Uninstall_Go;
-        . include/go/gvm.sh; Uninstall_Gvm;
+        . include/language/python/python.sh; Uninstall_Python
+        . include/language/nodejs/node.sh; Uninstall_Node
+        . include/language/nodejs/nvm.sh; Uninstall_Nvm
+        . include/language/go/go.sh; Uninstall_Go;
+        . include/language/go/gvm.sh; Uninstall_Gvm;
         Uninstall_JDK
       else
         exit
@@ -813,27 +813,27 @@ What Are You Doing?
     19)
       Print_Python
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/python/python.sh; Uninstall_Python; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/language/python/python.sh; Uninstall_Python; } || exit
       ;;
     20)
       Print_Node
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/nodejs/node.sh; Uninstall_Node; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/language/nodejs/node.sh; Uninstall_Node; } || exit
       ;;
     21)
       Print_Nvm
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/nodejs/nvm.sh; Uninstall_Nvm; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/language/nodejs/nvm.sh; Uninstall_Nvm; } || exit
       ;;
     22)
       Print_Go
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/go/go.sh; Uninstall_Go; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/language/go/go.sh; Uninstall_Go; } || exit
       ;;
     23)
       Print_Gvm
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/go/gvm.sh; Uninstall_Gvm; } || exit
+      [ "${uninstall_flag}" == 'y' ] && { . include/language/go/gvm.sh; Uninstall_Gvm; } || exit
       ;;
     24)
       Print_JDK
@@ -888,9 +888,9 @@ else
     [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
     [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
-    [ "${python_flag}" == 'y' ] && { . include/python/python.sh; Uninstall_Python; }
-    [ "${node_flag}" == 'y' ] && { . include/nodejs/node.sh; Uninstall_Node; }
-    [ "${nvm_flag}" == 'y' ] && { . include/nodejs/nvm.sh; Uninstall_Nvm; }
+    [ "${python_flag}" == 'y' ] && { . include/language/python/python.sh; Uninstall_Python; }
+    [ "${node_flag}" == 'y' ] && { . include/language/nodejs/node.sh; Uninstall_Node; }
+    [ "${nvm_flag}" == 'y' ] && { . include/language/nodejs/nvm.sh; Uninstall_Nvm; }
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
   fi
 fi

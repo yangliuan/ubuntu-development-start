@@ -23,6 +23,8 @@ Install_RabbitMQ(){
 }
 
 Uninstall_RabbitMQ(){
-    rm -rfv ${rabbitmq_install_dir} /lib/systemd/system/rabbitmq-server.service
-    systemctl daemon-reload
+    if [ -d "${rabbitmq_install_dir}" ]; then
+        rm -rfv ${rabbitmq_install_dir} /lib/systemd/system/rabbitmq-server.service
+        systemctl daemon-reload
+    fi
 }   

@@ -35,8 +35,10 @@ Install_Kafka() {
 }
 
 Uninstall_Kafka() {
-    rm -rf ${kafka_install_dir}
-    rm -rf /lib/systemd/system/zookeeper.service
-    rm -rf /lib/systemd/system/kafka.service
-    systemctl daemon-reload
+    if [ -d "${kafka_install_dir}" ]; then
+        rm -rf ${kafka_install_dir}
+        rm -rf /lib/systemd/system/zookeeper.service
+        rm -rf /lib/systemd/system/kafka.service
+        systemctl daemon-reload
+    fi
 }
