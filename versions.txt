@@ -162,4 +162,4 @@ virtualbox_ver_base=6.1
 virtualbox_ver=34
 virtualbox_ver_sn=150636.1
 jmeter_ver=5.4.1
-mysql_workbench_ver=8.0.28
+mysql_workbench_ver=8.0.29
