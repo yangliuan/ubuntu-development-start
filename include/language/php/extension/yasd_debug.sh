@@ -15,12 +15,12 @@ Install_Yasd() {
         phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
         PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
         if [[ "${PHP_main_ver}" =~ ^7.[2-4]$|^8.[0-1]$ ]]; then
-            src_url=https://github.com/swoole/yasd/archive/refs/tags/v${yasd_ver}.tar.gz && Download_src
-            tar -zxvf v${yasd_ver}.tar.gz
-            pushd yasd-${yasd_ver} > /dev/null
+            git clone https://github.com/swoole/yasd.git
+            pushd yasd > /dev/null
+            ${php_install_dir}/bin/phpize --clean
             ${php_install_dir}/bin/phpize
             ./configure --with-php-config=${php_install_dir}/bin/php-config
-            make -j ${THREAD} && make install
+            make clean && make -j ${THREAD} && make install
 
             if [ -f "${phpExtensionDir}/yasd.so" ]; then
               cat > ${php_install_dir}/etc/php.d/yasd.ini << EOF
@@ -31,7 +31,7 @@ yasd.remote_host=127.0.0.1
 yasd.remote_port=9000
 EOF
                 echo "${CSUCCESS}PHP yasd module installed successfully! ${CEND}"
-                rm -rf yasd-${yasd_ver}
+                rm -rf yasd
             else
                 echo "${CFAILURE}PHP yasd module install failed, Please contact the author! ${CEND}" && lsb_release -a
             fi
