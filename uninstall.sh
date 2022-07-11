@@ -782,7 +782,7 @@ What Are You Doing?
         . include/language/go/go.sh; Uninstall_Go;
         . include/language/go/gvm.sh; Uninstall_Gvm;
         Uninstall_JDK
-        . include/language/python/supervisord.sh;Uninstall_Supervisor;
+        . include/language/python/supervisor.sh;Uninstall_Supervisor;
         Uninstall_alldesktop;
       else
         exit
