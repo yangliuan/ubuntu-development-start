@@ -560,13 +560,14 @@ if [ ${ARG_NUM} == 0 ]; then
       echo -e "\t${CMSG}13${CEND}. Install memcache"
       echo -e "\t${CMSG}14${CEND}. Install mongodb"
       echo -e "\t${CMSG}15${CEND}. Install swoole"
-      echo -e "\t${CMSG}16${CEND}. Install xdebug(PHP>=5.5)"
-      echo -e "\t${CMSG}17${CEND}. Install event(PHP>=5.4)"
+      echo -e "\t${CMSG}16${CEND}. Install event(PHP>=5.4)"
+      echo -e "\t${CMSG}17${CEND}. Install xdebug(PHP>=5.5)"
+      echo -e "\t${CMSG}18${CEND}. Install yasd_xdebug(PHP>=7.2)"
       read -e -p "Please input numbers:(Default '4 6 11 12' press Enter) " phpext_option
       phpext_option=${phpext_option:-'4 6 11 12'}
       [ "${phpext_option}" == '0' ] && break
       array_phpext=(${phpext_option})
-      array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17)
+      array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18)
       for v in ${array_phpext[@]}
       do
       [ -z "`echo ${array_all[@]} | grep -w ${v}`" ] && phpext_flag=1
@@ -591,8 +592,9 @@ if [ ${ARG_NUM} == 0 ]; then
       [ -n "`echo ${array_phpext[@]} | grep -w 13`" ] && pecl_memcache=1
       [ -n "`echo ${array_phpext[@]} | grep -w 14`" ] && pecl_mongodb=1
       [ -n "`echo ${array_phpext[@]} | grep -w 15`" ] && pecl_swoole=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 16`" ] && pecl_xdebug=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_event=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 16`" ] && pecl_event=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_xdebug=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && yasd_debug=1
       break
       fi
   done
@@ -660,12 +662,6 @@ if [ ${ARG_NUM} == 0 ]; then
       fi
   done
 fi
-
-if [[ ${nginx_option} =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${tomcat_option} =~ ^[1-4]$ ]]; then
-  [ ! -d ${wwwroot_dir}/default ] && mkdir -p ${wwwroot_dir}/default
-  [ ! -d ${wwwlogs_dir} ] && mkdir -p ${wwwlogs_dir}
-fi
-[ -d /data ] && chmod 755 /data
 
 if [ ! -e ~/.oneinstack ]; then
   # install wget gcc curl python
@@ -1105,16 +1101,16 @@ PHP_addons() {
     Install_pecl_mongodb 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
+  # pecl_pgsql
+  if [ -e "${pgsql_install_dir}/bin/psql" ]; then
+    . include/language/php/extension/pecl_pgsql.sh
+    Install_pecl_pgsql 2>&1 | tee -a ${oneinstack_dir}/install.log
+  fi
+
   # swoole
   if [ "${pecl_swoole}" == '1' ]; then
     . include/language/php/extension/pecl_swoole.sh
     Install_pecl_swoole 2>&1 | tee -a ${oneinstack_dir}/install.log
-  fi
-
-  # xdebug
-  if [ "${pecl_xdebug}" == '1' ]; then
-    . include/language/php/extension/pecl_xdebug.sh
-    Install_pecl_xdebug 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # event
@@ -1123,10 +1119,16 @@ PHP_addons() {
     Install_pecl_event 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
-  # pecl_pgsql
-  if [ -e "${pgsql_install_dir}/bin/psql" ]; then
-    . include/language/php/extension/pecl_pgsql.sh
-    Install_pecl_pgsql 2>&1 | tee -a ${oneinstack_dir}/install.log
+  # xdebug
+  if [ "${pecl_xdebug}" == '1' ]; then
+    . include/language/php/extension/pecl_xdebug.sh
+    Install_pecl_xdebug 2>&1 | tee -a ${oneinstack_dir}/install.log
+  fi
+
+  # yasd debug
+  if [ "${yasd_xdebug}" == '1' ]; then
+    . include/language/php/extension/yasd_debug.sh
+    Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 }
 
