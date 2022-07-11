@@ -40,5 +40,5 @@ EOF
 }
 
 Uninstall_Iptables() {
-    
+    apt-get autoremove iptables-persistent
 }

@@ -31,7 +31,6 @@ yasd.debug_mode=remote
 yasd.remote_host=127.0.0.1
 yasd.remote_port=9000
 EOF
-
                 echo "${CSUCCESS}PHP yasd module installed successfully! ${CEND}"
                 rm -rf yasd-${yasd_ver}
             else
