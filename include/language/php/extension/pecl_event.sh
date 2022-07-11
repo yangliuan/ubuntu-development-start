@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#REF:https://www.cnblogs.com/tinywan/p/7551533.html
 Install_pecl_event() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
     pushd ${oneinstack_dir}/src > /dev/null
@@ -30,7 +30,7 @@ Install_pecl_event() {
       tar xzf event-${event_ver}.tgz
       pushd event-${event_ver} > /dev/null
       ${php_install_dir}/bin/phpize
-      ./configure --with-php-config=${php_install_dir}/bin/php-config
+      ./configure --with-php-config=${php_install_dir}/bin/php-config  --with-event-libevent-dir=/usr/local/libevent
       make -j ${THREAD} && make install
       popd > /dev/null
 
@@ -43,7 +43,7 @@ Install_pecl_event() {
       fi
 
     fi
-    
+
     popd > /dev/null
   fi
 }
