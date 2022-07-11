@@ -558,7 +558,7 @@ Menu_PHPext() {
     echo -e "\t${CMSG} 7${CEND}. Uninstall imap"
     echo -e "\t${CMSG} 8${CEND}. Uninstall ldap"
     echo -e "\t${CMSG} 9${CEND}. Uninstall phalcon(PHP>=5.5)"
-    echo -e "\t${CMSG}10${CEND}. Install yaf(PHP>=7.0)"
+    echo -e "\t${CMSG}10${CEND}. Uninstall yaf(PHP>=7.0)"
     echo -e "\t${CMSG}11${CEND}. Uninstall redis"
     echo -e "\t${CMSG}12${CEND}. Uninstall memcached"
     echo -e "\t${CMSG}13${CEND}. Uninstall memcache"
