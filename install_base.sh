@@ -52,6 +52,7 @@ if [ ${ARG_NUM} == 0 ]; then
   # check iptables
   while :; do echo
     read -e -p "Do you want to enable iptables? [y/n]: " iptables_flag
+    iptables_flag=${iptables_flag:-n}
     if [[ ! ${iptables_flag} =~ ^[y,n]$ ]]; then
       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
