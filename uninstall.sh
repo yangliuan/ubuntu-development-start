@@ -632,6 +632,14 @@ Uninstall_openssl() {
   [ -d "${openssl_install_dir}" ] && rm -rf ${openssl_install_dir}
 }
 
+Print_libevent() {
+  [ -d "${libevent_install_dir}" ] && echo ${libevent_install_dir}
+}
+
+Uninstall_libevent() {
+  [ -d "${libevent_install_dir}" ] && rm -rf ${libevent_install_dir} /usr/lib64/libevent-2.1.so.7
+}
+
 Print_Python() {
   [ -d "${python_install_dir}" ] && echo ${python_install_dir}
 }
@@ -706,6 +714,7 @@ What Are You Doing?
       Print_FFmpeg
       Print_Webp
       Print_openssl
+      Print_libevent
       Print_phpMyAdmin
       Print_Supervisord
       Print_Python
@@ -729,6 +738,7 @@ What Are You Doing?
         . include/multimedia/ffmpeg.sh; Uninstall_FFmpeg
         . include/multimedia/webp.sh; Uninstall_Webp
         Uninstall_openssl
+        Uninstall_libevent
         Uninstall_phpMyAdmin
         . include/language/python/python.sh; Uninstall_Python
         . include/language/nodejs/node.sh; Uninstall_Node

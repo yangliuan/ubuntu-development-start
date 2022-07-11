@@ -20,6 +20,7 @@ Install_openSSL() {
     make depend
     make -j ${THREAD} && make install
     popd > /dev/null
+
     if [ -f "${openssl_install_dir}/lib/libcrypto.a" ]; then
       echo "${CSUCCESS}openSSL installed successfully! ${CEND}"
       /bin/cp cacert.pem ${openssl_install_dir}/cert.pem
@@ -28,6 +29,7 @@ Install_openSSL() {
       echo "${CFAILURE}openSSL install failed, Please contact the author! ${CEND}" && lsb_release -a
       kill -9 $$; exit 1;
     fi
+    
     popd > /dev/null
   fi
 }
