@@ -1,12 +1,15 @@
-# ubuntu20.04 开发环境安装脚本
+# ubuntu20.04+ 开发环境安装脚本
 
 集成Oneinstack Nvm 等常用开发工具脚本，快速搭建开发环境
 
 ### 使用方法
 
 复制配置文件，修改配置项和版本，具体参考oneinstack
+cd /opt
 
-修改 options.conf versions.txt  配置文件
+git clone git@github.com:yangliuan/ubuntu-development-start.git oneinstack
+
+修改 options.conf versions.txt 配置文件，将run_user和run_group改成自己的用户
 
 首先运行 sudo ./install_base.sh 安装开发环境
 
