@@ -5,6 +5,7 @@
 ### 使用方法
 
 复制配置文件，修改配置项和版本，具体参考oneinstack
+
 cd /opt
 
 git clone git@github.com:yangliuan/ubuntu-development-start.git oneinstack
