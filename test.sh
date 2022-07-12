@@ -26,3 +26,6 @@ pushd ${oneinstack_dir} > /dev/null
 
 # . include/system-lib/libevent.sh
 # Install_Libevent 2>&1 | tee -a ${oneinstack_dir}/install.log
+
+. include/language/php/switch_extension.sh
+Switch_Extension

@@ -1,5 +1,5 @@
 #!/bin/bash
-Switch_PHP(){
+Switch_PHP() {
     #读取目录下名字为php*的目录，存为数组
     php_dir=(`find /usr/local -maxdepth 1 -type d -name "php*" | sort`)
     echo

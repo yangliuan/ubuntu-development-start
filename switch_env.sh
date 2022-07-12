@@ -17,6 +17,7 @@ pushd ${oneinstack_dir} > /dev/null
 Show_Help() {
   echo "Usage: $0  command ...[parameters]....
   --php                 switch php version
+  --php_extension       switch php extension
   --composer            switch composer version
   --composer_mirrors    switch composer mirrors
   --npm_registry        switch npm registry
@@ -25,7 +26,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long php,composer,composer_mirrors,npm_registry,nginx -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long php,php_extension,composer,composer_mirrors,npm_registry,nginx -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -33,6 +34,9 @@ while :; do
   case "$1" in
     --php)
       switch_php_flag=y; shift 1
+      ;;
+    --php_extension)
+      switch_php_extension_flag=y; shift 1
       ;;
     --composer)
       switch_composer_flag=y; shift 1
@@ -56,6 +60,7 @@ while :; do
 done
 
 if [ ${ARG_NUM} == 0 ]; then
+    #switch php
     while :; do echo
         read -e -p "Do you want to switch php ? [y/n](n): " switch_php_flag
         switch_php_flag=${switch_php_flag:-n}
@@ -87,6 +92,18 @@ if [ ${ARG_NUM} == 0 ]; then
         fi
     done
 
+    #switch php extension
+    while :; do echo
+        read -e -p "Do you want to switch php extension? [y/n](n): " switch_php_extension_flag
+        switch_php_extension_flag=${switch_php_extension_flag:-n}
+        if [[ ! ${switch_php_extension_flag} =~ ^[y,n]$ ]]; then
+            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+        else
+            break;
+        fi
+    done
+
+    #switch npm registry
     while :; do echo
         read -e -p "Do you want to switch npm registry? [y/n](n): " switch_registry_flag
         switch_registry_flag=${switch_registry_flag:-n}
@@ -97,6 +114,7 @@ if [ ${ARG_NUM} == 0 ]; then
         fi
     done
 
+    #switch nginx
     while :; do echo
         read -e -p "Do you want to switch nginx? [y/n](n): " switch_nginx_flag
         switch_nginx_flag=${switch_nginx_flag:-n}
@@ -112,6 +130,12 @@ if [ "${switch_php_flag}" == 'y' ]; then
     . include/language/php/switch_php.sh
     Switch_PHP
 fi
+
+if [ "${switch_php_extension_flag}" == 'y' ]; then
+    . include/language/php/switch_extension.sh
+    Switch_Extension
+fi
+
 
 if [ "${switch_composer_flag}" == 'y' ]; then
     . include/language/php/switch_composer.sh
