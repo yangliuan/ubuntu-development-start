@@ -1,5 +1,7 @@
 #!/bin/bash
-
+clear
+# Check if user is root
+[ $(id -u) = "0" ] && { echo "${CFAILURE}Error: You must not be root to run this script${CEND}"; exit 1; }
 #是否创建php框架项目
 while :; do echo
     read -e -p "Do you want to create php project? [y/n]: " php_project

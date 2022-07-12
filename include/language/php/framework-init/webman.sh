@@ -1,8 +1,8 @@
 #!/bin/bash
 Install_Webman() {
-    pushd $framework_dir
+    pushd ${framework_dir} > /dev/null
     composer create-project workerman/webman
-    pushd webman
+    pushd webman > /dev/null
     composer require webman/console -vvv
     composer require robmorgan/phinx -vvv
     composer require webman/cors -vvv
