@@ -1,7 +1,17 @@
 #!/bin/bash
 clear
+printf "
+####################################################################
+                choose php framework create project       
+####################################################################
+"
 # Check if user is root
 [ $(id -u) = "0" ] && { echo "${CFAILURE}Error: You must not be root to run this script${CEND}"; exit 1; }
+oneinstack_dir=$(dirname "`readlink -f $0`")
+pushd ${oneinstack_dir} > /dev/null
+. ./include/color.sh
+. ./include/get_char.sh
+
 #是否创建php框架项目
 while :; do echo
     read -e -p "Do you want to create php project? [y/n]: " php_project
