@@ -24,9 +24,11 @@ Install_Webman() {
     composer require webman/console -vvv
     cp -rfv ${oneinstack_dir}/include/language/php/framework-init/webman-config/phinx.php ./
     composer require webman/cors -vvv
-    composer require illuminate/events -vvv
+    composer require illuminate/database -vvv
     composer require illuminate/pagination -vvv
     composer require illuminate/collections -vvv
+    composer require illuminate/events -vvv
+    composer require symfony/var-dumper -vvv
     composer require illuminate/redis -vvv
     composer require symfony/cache -vvv
 
