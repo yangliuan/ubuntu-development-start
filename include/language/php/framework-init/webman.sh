@@ -10,6 +10,13 @@ Install_Webman() {
     composer require friendsofphp/php-cs-fixer --dev -vvv
     cp -rfv ${oneinstack_dir}/include/language/php/framework-init/webman-config/webman.php-cs-fixer.php ./.php-cs-fixer.php
     composer require robmorgan/phinx -W -vvv
+
+    if [[ ! -d "${framework_dir}/webman/database" ]]; then
+        mkdir ${framework_dir}/webman/database
+        mkdir ${framework_dir}/webman/database/migrations
+        mkdir ${framework_dir}/webman/database/seeds
+    fi
+
     composer require vlucas/phpdotenv -vvv
     cp -rfv ${oneinstack_dir}/include/language/php/framework-init/webman-config/env.webman ./.env
     composer require webman/console -vvv
@@ -20,6 +27,7 @@ Install_Webman() {
     composer require illuminate/collections -vvv
     composer require illuminate/redis -vvv
     composer require symfony/cache -vvv
+
     cat >> ./.gitignore <<EOF
 public/uploads
 .php-cs-fixer.cache
