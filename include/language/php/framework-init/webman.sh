@@ -11,6 +11,7 @@ Install_Webman() {
     cp -rfv ${oneinstack_dir}/include/language/php/framework-init/webman-config/webman.php-cs-fixer.php ./.php-cs-fixer.php
     composer require kriss/webman-eloquent-ide-helper --dev -vvv
     composer require robmorgan/phinx -W -vvv
+    composer require fakerphp/faker --dev -vvv
 
     if [[ ! -d "${framework_dir}/webman/database" ]]; then
         mkdir ${framework_dir}/webman/database
