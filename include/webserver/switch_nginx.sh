@@ -17,6 +17,8 @@ Switch_Nginx() {
         echo "input error! Please only input number 0~${i}:"
     fi
     
+    systemctl stop nginx.service
+
     #更新systemd配置文件
     rm -rf /lib/systemd/system/nginx.service
     /bin/cp ${oneinstack_dir}/init.d/nginx.service /lib/systemd/system/
