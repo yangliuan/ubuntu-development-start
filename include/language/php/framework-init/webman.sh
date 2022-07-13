@@ -1,5 +1,6 @@
 #!/bin/bash
 Install_Webman() {
+
     pushd ${framework_dir} > /dev/null
     composer create-project workerman/webman
     pushd webman > /dev/null
@@ -17,5 +18,9 @@ Install_Webman() {
     composer require illuminate/collections -vvv
     composer require illuminate/redis -vvv
     composer require symfony/cache -vvv
-    
+    cat >> ./.gitignore <<EOF
+public/uploads
+.php-cs-fixer.cache
+EOF
+
 }
