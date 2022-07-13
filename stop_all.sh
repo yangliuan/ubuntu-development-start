@@ -4,7 +4,7 @@ export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
 ####################################################################
-                  install base develop environment      
+                          stop all service      
 ####################################################################
 "
 # Check if user is root
@@ -47,3 +47,4 @@ if [[ -e "/lib/systemd/system/postgresql.service" ]]; then
     systemctl stop postgresql.service
 fi
 
+echo "stop all service successed!"
