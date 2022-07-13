@@ -9,6 +9,7 @@ Install_Webman() {
     composer require psr/container ^1.1.1 php-di/php-di doctrine/annotations -vvv
     composer require friendsofphp/php-cs-fixer --dev -vvv
     cp -rfv ${oneinstack_dir}/include/language/php/framework-init/webman-config/webman.php-cs-fixer.php ./.php-cs-fixer.php
+    composer require kriss/webman-eloquent-ide-helper --dev -vvv
     composer require robmorgan/phinx -W -vvv
 
     if [[ ! -d "${framework_dir}/webman/database" ]]; then
@@ -32,5 +33,7 @@ Install_Webman() {
 public/uploads
 .php-cs-fixer.cache
 EOF
+
+    php webman ide-helper:models
 
 }
