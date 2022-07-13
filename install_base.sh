@@ -1162,9 +1162,6 @@ case "${php_option}" in
     ;;
 esac
 
-[ "${apache_flag}" == 'y' ] && [ "${php_option}" ] && [ Install_LAMPDesktop ]
-[ "${nginx_option}" == 'y' ] && [ "${php_option}" ] && [ Install_LNMPDesktop ]
-
 # PHP addons
 PHP_addons() {
   # PHP opcode cache
@@ -1360,6 +1357,8 @@ fi
 
 . include/develop-tools/develop_config.sh
 Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
+Install_LNMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+Install_LAMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 
 
 endTime=`date +%s`

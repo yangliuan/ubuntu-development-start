@@ -27,5 +27,23 @@ pushd ${oneinstack_dir} > /dev/null
 # . include/system-lib/libevent.sh
 # Install_Libevent 2>&1 | tee -a ${oneinstack_dir}/install.log
 
-. include/language/php/switch_extension.sh
-Switch_Extension
+# . include/language/php/switch_extension.sh
+# Switch_Extension
+
+if [[ -e "${nginx_install_dir}/sbin/nginx" ]]; then
+    nginx_flag=true
+elif [[ -e "${tengine_install_dir}/sbin/nginx" ]]; then
+    nginx_flag=true
+elif [[ -e "${openresty_install_dir}/nginx/sbin/nginx" ]]; then
+    nginx_flag=true
+else
+    nginx_flag=false
+fi
+
+if [[ $nginx_flag == true ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
+    echo "lnmp install"
+fi
+
+if [[ -e "${apache_install_dir}/bin/httpd" ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
+    echo "lamp install"
+fi

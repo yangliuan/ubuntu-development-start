@@ -126,9 +126,21 @@ Uninstall_PHPFPMDesktop() {
 }
 
 Install_LNMPDesktop() {
-    pushd ${oneinstack_dir}/desktop > /dev/null
-    cp -rfv lnmp-start.desktop /usr/share/applications
-    popd > /dev/null
+    if [[ -e "${nginx_install_dir}/sbin/nginx" ]]; then
+        nginx_flag=true
+    elif [[ -e "${tengine_install_dir}/sbin/nginx" ]]; then
+        nginx_flag=true
+    elif [[ -e "${openresty_install_dir}/nginx/sbin/nginx" ]]; then
+        nginx_flag=true
+    else
+        nginx_flag=false
+    fi
+
+    if [[ $nginx_flag == true ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
+        pushd ${oneinstack_dir}/desktop > /dev/null
+        cp -rfv lnmp-start.desktop /usr/share/applications
+        popd > /dev/null
+    fi
 }
 
 Uninstall_LNMPDesktop() {
@@ -136,9 +148,11 @@ Uninstall_LNMPDesktop() {
 }
 
 Install_LAMPDesktop() {
-    pushd ${oneinstack_dir}/desktop > /dev/null
-    cp -rfv lnmp-start.desktop /usr/share/applications
-    popd > /dev/null
+    if [[ -e "${apache_install_dir}/bin/httpd" ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
+        pushd ${oneinstack_dir}/desktop > /dev/null
+        cp -rfv lnmp-start.desktop /usr/share/applications
+        popd > /dev/null
+    fi
 }
 
 Uninstall_LAMPDesktop() {
