@@ -34,7 +34,6 @@ percona56_ver=5.6.51-91.0
 percona55_ver=5.5.62-38.14
 
 pgsql_ver=12.7
-
 mongodb_ver=4.0.26
 
 # JDK
@@ -58,6 +57,11 @@ php81_ver=8.1.8
 
 # Nodejs
 node_ver=16.15.1
+nvm_ver=0.39.1
+
+# go
+go_ver=1.18.4
+gvm_ver=1
 
 libevent_ver=2.1.12
 libiconv_ver=1.16
@@ -138,7 +142,6 @@ pip_ver=22.0.4
 fail2ban_ver=0.11.2
 libmaxminddb_ver=1.6.0
 
-
 # elasticsearch
 elasticsearch_ver=7.x
 cerebo_ver=0.9.4
@@ -148,9 +151,6 @@ kafka_scala_ver=2.13
 kafka_ver=3.1.0
 erlang_ver=24.3.4.2
 rabbitmq_ver=3.10.5
-
-# nvm
-nvm_ver=0.39.1
 
 # devtools
 # mysql_workbench_ver必须和myql版本保持一致
