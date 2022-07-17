@@ -17,7 +17,7 @@ EOF
 
 Uninstall_Nvm(){
     #delete env
-    rm -rf /home/${run_user}/.nvm /home/${run_user}/.npm /etc/profile.d/nvm.sh
+    rm -rfv ${nvm_install_dir} /etc/profile.d/nvm.sh
 }
 
 Install_Wine() {
