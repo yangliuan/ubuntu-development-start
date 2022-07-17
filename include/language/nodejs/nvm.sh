@@ -5,6 +5,7 @@ Install_Nvm() {
     src_url=http://mirror.yangliuan.cn/nvm-${nvm_ver}.tar.gz && Download_src
     tar -zxvf nvm-${nvm_ver}.tar.gz
     mv -fv nvm-${nvm_ver} /home/${run_user}/.nvm
+    chown -Rv ${run_user}.${run_user} /home/${run_user}/.nvm
     #add env
     cat >> /home/${run_user}/.bashrc <<EOF
 ###nvm
