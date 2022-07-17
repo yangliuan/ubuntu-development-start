@@ -4,7 +4,7 @@ Install_Nvm() {
     pushd ${oneinstack_dir}/src > /dev/null
     src_url=http://mirror.yangliuan.cn/nvm-${nvm_ver}.tar.gz && Download_src
     tar -zxvf nvm-${nvm_ver}.tar.gz
-    mv -fv nvm-${nvm_ver} ${nvm_install_dir}
+    mv -fv nvm-${nvm_ver} /home/${run_user}/.nvm
     #add env
     cat >> /home/${run_user}/.bashrc <<EOF
 ###nvm
@@ -19,7 +19,8 @@ EOF
 Uninstall_Nvm(){
     #delete env
     sed -i '/##nvm$/d' /home/${run_user}/.bashrc
-    rm -rfv ${nvm_install_dir} /etc/profile.d/nvm.sh
+    #delete nvm npm
+    rm -rfv /home/${run_user}/.nvm /home/${run_user}/.npm
 }
 
 Install_Wine() {
