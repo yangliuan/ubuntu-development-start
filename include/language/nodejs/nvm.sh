@@ -1,29 +1,23 @@
 #!/bin/bash
-Install_Nvm(){
+Install_Nvm() {
     #DOC:https://github.com/nvm-sh/nvm#git-install
-    pushd /home/${run_user}/ > /dev/null
-    
-    if [ ! -e "/usr/bin/git" ]; then
-        sudo apt-get install git
-    fi
-
-    sudo -u ${run_user} git clone -b v${nvm_ver} --depth=1 https://github.com/nvm-sh/nvm.git .nvm
-    #add command
-    cat >> /home/${run_user}/.bashrc <<EOF
-###nvm
-export NVM_DIR="\$HOME/.nvm" ###nvm
+    pushd ${oneinstack_dir}/src > /dev/null
+    src_url=http://mirror.yangliuan.cn/nvm-${nvm_ver}.tar.gz && Download_src
+    tar -zxvf nvm-${nvm_ver}.tar.gz
+    mv -rfv nvm-${nvm_ver} ${nvm_install_dir}
+    #add env
+    cat >> /etc/profile.d/nvm.sh <<EOF
+export NVM_DIR="${nvm_install_dir}" ###nvm
 [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh" ###nvm
 [ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion" ###nvm
 EOF
-    source /home/${run_user}/.bashrc
+    source /etc/profile.d/nvm.sh
     popd > /dev/null
 }
 
 Uninstall_Nvm(){
     #delete env
-    sed -i '/##nvm$/d' /home/${run_user}/.bashrc
-    source /home/${run_user}/.bashrc
-    rm -rf /home/${run_user}/.nvm /home/${run_user}/.npm
+    rm -rf /home/${run_user}/.nvm /home/${run_user}/.npm /etc/profile.d/nvm.sh
 }
 
 Install_Wine() {

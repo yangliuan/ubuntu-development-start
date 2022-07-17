@@ -828,12 +828,12 @@ if [ ${ARG_NUM} == 0 ]; then
           # choice go install method
           if [ "${go_flag}" == 'y' ]; then
               while :; do echo
-                  echo 'Please select method:'
-                  echo -e "\t${CMSG}1${CEND}. official install"
-                  echo -e "\t${CMSG}2${CEND}. use gvm"
-                  read -e -p "Please input a number:(Default 1 press Enter) " go_method
-                  go_method=${go_method:-1}
-                  if [[ ! ${go_method} =~ ^[1-2]$ ]]; then
+                  echo 'Please select go version:'
+                  echo -e "\t${CMSG}1${CEND}. 1.18"
+                  echo -e "\t${CMSG}2${CEND}. 1.17"
+                  read -e -p "Please input a number:(Default 1 press Enter) " go_option
+                  go_option=${go_option:-1}
+                  if [[ ! ${go_option} =~ ^[1-2]$ ]]; then
                       echo "${CWARNING}input error! Please only input number 1~2${CEND}"
                   else
                       break
@@ -1345,14 +1345,16 @@ case "${nodejs_method}" in
 esac
 
 # go
-case "${go_method}" in
+case "${go_option}" in
   1)
+     go_ver="${go118_ver}"
     . include/language/go/go.sh
     Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/language/go/gvm.sh
-    Install_Gvm 2>&1 | tee -a ${oneinstack_dir}/install.log
+  go_ver="${go117_ver}"
+    . include/language/go/go.sh
+    Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
