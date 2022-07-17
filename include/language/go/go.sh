@@ -3,7 +3,7 @@
 Install_Go() {
     echo 'install go'
     pushd ${oneinstack_dir}/src > /dev/null
-    src_url=https://golang.google.cn/dl/go${go_ver}.linux-amd64.tar.gz && Download_src
+    src_url=http://mirror.yangliuan.cn/dl/go${go_ver}.linux-amd64.tar.gz && Download_src
     
     if [ ! -d "$HOME/go" ];then
         mkdir -p $HOME/go
