@@ -13,6 +13,7 @@ Switch_NpmRegistry() {
     if [[ ! ${registry_option} =~ ^[0-1]$ ]]; then
         echo "input error! Please only input number 0~${i}:"
     fi
-
-    su -c "npm config set registry ${npm_registry[${registry_option}]}" -s /bin/sh ${run_user}
+    
+    nvm use default
+    npm config set registry ${npm_registry[${registry_option}]}
 }

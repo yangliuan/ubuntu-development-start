@@ -6,7 +6,7 @@ printf "
                       Switch Develop Environment
 #######################################################################
 "
-[ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }
+
 oneinstack_dir=$(dirname "`readlink -f $0`")
 pushd ${oneinstack_dir} > /dev/null
 . ./versions.txt
