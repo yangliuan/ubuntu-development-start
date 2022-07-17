@@ -1,8 +1,8 @@
 #!/bin/bash
 Switch_NpmRegistry() {
     #镜像数组
-    npm_registry[0]="https://registry.npm.taobao.org"
-    npm_registry[1]="http://www.npmjs.org"
+    npm_registry[0]="https://registry.npmmirror.com/"
+    npm_registry[1]="http://www.npmjs.org/"
     for i in ${!npm_registry[@]};do echo
         echo $i ${npm_registry[i]}
     done
@@ -13,7 +13,4 @@ Switch_NpmRegistry() {
     if [[ ! ${registry_option} =~ ^[0-1]$ ]]; then
         echo "input error! Please only input number 0~${i}:"
     fi
-    
-    nvm use default
-    npm config set registry ${npm_registry[${registry_option}]}
 }

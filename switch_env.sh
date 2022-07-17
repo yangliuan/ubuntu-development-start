@@ -44,9 +44,9 @@ while :; do
     --composer_mirrors)
       switch_mirrors_flag=y; shift 1
       ;;
-    --npm_registry)
-      switch_registry_flag=y; shift 1
-      ;;
+    # --npm_registry)
+    #   switch_registry_flag=y; shift 1
+    #   ;;
     --nginx)
       switch_nginx_flag=y; shift 1
       ;;
@@ -104,15 +104,15 @@ if [ ${ARG_NUM} == 0 ]; then
     done
 
     #switch npm registry
-    while :; do echo
-        read -e -p "Do you want to switch npm registry? [y/n](n): " switch_registry_flag
-        switch_registry_flag=${switch_registry_flag:-n}
-        if [[ ! ${switch_registry_flag} =~ ^[y,n]$ ]]; then
-            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-        else
-            break;
-        fi
-    done
+    # while :; do echo
+    #     read -e -p "Do you want to switch npm registry? [y/n](n): " switch_registry_flag
+    #     switch_registry_flag=${switch_registry_flag:-n}
+    #     if [[ ! ${switch_registry_flag} =~ ^[y,n]$ ]]; then
+    #         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    #     else
+    #         break;
+    #     fi
+    # done
 
     #switch nginx
     while :; do echo
@@ -147,10 +147,10 @@ if [ "${switch_mirrors_flag}" == 'y' ]; then
     Switch_Composer_Mirrors
 fi
 
-if [ "${switch_registry_flag}" == 'y' ]; then
-    . include/language/nodejs/switch_npm_registry.sh
-    Switch_NpmRegistry
-fi
+# if [ "${switch_registry_flag}" == 'y' ]; then
+#     . include/language/nodejs/switch_npm_registry.sh
+#     Switch_NpmRegistry
+# fi
 
 if [ "${switch_nginx_flag}" == 'y' ]; then
     . include/webserver/switch_nginx.sh
