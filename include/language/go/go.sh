@@ -10,24 +10,10 @@ Install_Go() {
         rm -rf /usr/local/go
     fi
 
-    ln -s ${go_install_dir}${go_ver} /usr/local/go
-
-    tee -a /home/${run_user}/.bashrc <<'EOF'
-# Go envs
-export GOROOT=$GO_INSTALL_DIR/$GOVERSION #GOROOT 设置 ##Go
-export GOPATH=$WORKSPACE/golang #GOPATH 设置 ##Go
-export PATH=$GOROOT/bin:$GOPATH/bin:$PATH #将Go语言自带的和通过 go install 安装的二进制文件加入到 PATH 路径中 ##Go
-export GO111MODULE="on" #开启 Go moudles 特性 ##Go
-export GOPROXY=https://goproxy.cn,direct #安装Go模块时，代理服务器设置 ##Go
-export GOPRIVATE=  #指定不走代理的go包域名 ##Go
-export GOSUMDB=off #关闭校验Go依赖包的哈希值 ##Go
-EOF
-   source /home/${run_user}/.bashrc
-#    go version
-#    mkdir -p $GOPATH && cd $GOPATH
-#    go work init
-#    go env GOWORK #执行此命令，查看 go.work 工作区文件路径
-   echo "install Go successed!"
+    ln -s ${go_install_dir}${go_ver} ${go_install_dir}
+    sed -i "s@export PATH@export GOROOT="${go_install_dir}" #GOROOT 设置 ##Go\nexport GOPATH=$WORKSPACE/golang #GOPATH 设置 ##Go\nexport GO111MODULE=\"on\" #开启 Go moudles 特性 ##Go\nexport GOPROXY=https://goproxy.cn,direct #安装Go模块时，代理服务器设置 ##Go\nexport GOPRIVATE=  #指定不走代理的go包域名 ##Go\nexport GOSUMDB=off #关闭校验Go依赖包的哈希值 ##Go\nexport PATH@" /etc/profile
+    
+    echo "install Go successed!"
 }
 
 Uninstall_Go() {

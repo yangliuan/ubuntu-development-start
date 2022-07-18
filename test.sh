@@ -21,29 +21,9 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/get_char.sh
 . ./include/base_desktop.sh
 
-# . include/language/php/extension/yasd_debug.sh
-# Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log
+# [ -z "`grep ^'export GOROOT=' /etc/profile`" ] && { [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo  "export GOROOT=${go_install_dir}" >> /etc/profile || sed -i "s@^export PATH=@export GOROOT=${go_install_dir}\nexport PATH=@" /etc/profile; } || sed -i "s@^export GOROOT=.*@export GOROOT=${JDK_PATH}@" /etc/profile
 
-# . include/system-lib/libevent.sh
-# Install_Libevent 2>&1 | tee -a ${oneinstack_dir}/install.log
+# sed -i "s@export PATH@export GOROOT="${go_install_dir}" #GOROOT 设置 ##Go\nexport GOPATH=$WORKSPACE/golang #GOPATH 设置 ##Go\nexport GO111MODULE=\"on\" #开启 Go moudles 特性 ##Go\nexport GOPROXY=https://goproxy.cn,direct #安装Go模块时，代理服务器设置 ##Go\nexport GOPRIVATE=  #指定不走代理的go包域名 ##Go\nexport GOSUMDB=off #关闭校验Go依赖包的哈希值 ##Go\nexport PATH@" /etc/profile
 
-# . include/language/php/switch_extension.sh
-# Switch_Extension
-
-if [[ -e "${nginx_install_dir}/sbin/nginx" ]]; then
-    nginx_flag=true
-elif [[ -e "${tengine_install_dir}/sbin/nginx" ]]; then
-    nginx_flag=true
-elif [[ -e "${openresty_install_dir}/nginx/sbin/nginx" ]]; then
-    nginx_flag=true
-else
-    nginx_flag=false
-fi
-
-if [[ $nginx_flag == true ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
-    echo "lnmp install"
-fi
-
-if [[ -e "${apache_install_dir}/bin/httpd" ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
-    echo "lamp install"
-fi
+[ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep '$GOROOT/bin' /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=\$JAVA_HOME/bin:\1@" /etc/profile
+[ -z "`grep ^'export PATH=' /etc/profile | grep '$JAVA_HOME/bin'`" ] && echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
