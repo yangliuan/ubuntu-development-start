@@ -29,6 +29,7 @@ Uninstall_Go() {
     sed -i '/##Go$/d' /home/${run_user}/.bashrc
     source /home/${run_user}/.bashrc
     rm -rf /home/${run_user}/go/
-
+    sed -i 's@$GOPATH/bin:@@' /etc/profile
+    sed -i 's@$GOROOT/bin:@@' /etc/profile
     echo "uninstall Go successed!"
 }
