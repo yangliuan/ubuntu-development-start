@@ -59,8 +59,7 @@ Show_Help() {
   --memcached                 Install Memcached
   --phpmyadmin                Install phpMyAdmin
   --python                    Install Python (PATH: ${python_install_dir})
-  --go
-  --gvm
+  --go                        install go lasted
   --ssh_port [No.]            SSH port
   --iptables                  Enable iptables
   --reboot                    Restart the server after installation
@@ -68,7 +67,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,pureftpd,redis,memcached,phpmyadmin,python,go,gvm,ssh_port:,iptables,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,pureftpd,redis,memcached,phpmyadmin,python,go,ssh_port:,iptables,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -195,9 +194,6 @@ while :; do
       ;;
     --go)
       go_option=1; shift 1
-      ;;
-    --gvm)
-      go_option=2; shift 1
       ;;
     --ssh_port)
       ssh_port=$2; shift 2
