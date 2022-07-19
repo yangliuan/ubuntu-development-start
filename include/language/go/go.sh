@@ -21,7 +21,7 @@ Install_Go() {
 ##Go env
 export GOROOT=${go_install_dir} #GOROOT 设置 ##Go
 export GOPATH=${go_path} #GOPATH 设置 ##Go
-export GO111MODULE="on" #开启 Go moudles 特性 ##Go
+export GO111MODULE="auto" #开启 Go moudles 特性 ##Go
 export GOPROXY=https://goproxy.cn,direct #安装Go模块时，代理服务器设置 ##Go
 export GOPRIVATE=  #指定不走代理的go包域名 ##Go
 export GOSUMDB=off #关闭校验Go依赖包的哈希值 ##Go
