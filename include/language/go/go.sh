@@ -4,7 +4,7 @@ Install_Go() {
     pushd ${oneinstack_dir}/src > /dev/null
     src_url=http://mirror.yangliuan.cn/go${go_ver}.linux-amd64.tar.gz && Download_src
     tar -xvzf go${go_ver}.linux-amd64.tar.gz
-    mv -rfv go ${go_install_dir}${go_ver}
+    mv -fv go ${go_install_dir}${go_ver}
     
     if [ -L /usr/local/go ]; then
         rm -rf /usr/local/go
@@ -34,7 +34,6 @@ EOF
     # [ -z "`grep ^'export PATH=' /home/${run_user}/.bashrc | grep '$GOROOT/bin'`" ] && echo 'export PATH=$GOROOT/bin:$PATH' >> /home/${run_user}/.bashrc
     # [ -n "`grep ^'export PATH=' /home/${run_user}/.bashrc`" -a -z "`grep '$GOPATH/bin' /home/${run_user}/.bashrc`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=\$GOPATH/bin:\1@" /home/${run_user}/.bashrc
     # [ -z "`grep ^'export PATH=' /home/${run_user}/.bashrc | grep '$GOPATH/bin'`" ] && echo 'export PATH=$GOPATH/bin:$PATH' >> /home/${run_user}/.bashrc
-    
    
     source /home/${run_user}/.bashrc
     echo "install Go successed!"
@@ -45,8 +44,8 @@ Uninstall_Go() {
     sed -i 's@$GOPATH/bin:@@' /home/${run_user}/.bashrc
     sed -i 's@$GOROOT/bin:@@' /home/${run_user}/.bashrc
     rm -rfv ${go_install_dir}
-    rm -rfv ${go_path}
     rm -rfv ${go_install_dir}${go118_ver}
     rm -rfv ${go_install_dir}${go117_ver}
+    rm -rfv ${go_path}
     echo "uninstall Go successed!"
 }
