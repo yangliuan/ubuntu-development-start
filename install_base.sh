@@ -194,10 +194,10 @@ while :; do
       python_flag=y; shift 1
       ;;
     --go)
-      go_method=1; shift 1
+      go_option=1; shift 1
       ;;
     --gvm)
-      go_method=2; shift 1
+      go_option=2; shift 1
       ;;
     --ssh_port)
       ssh_port=$2; shift 2

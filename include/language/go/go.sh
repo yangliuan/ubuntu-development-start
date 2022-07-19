@@ -22,6 +22,8 @@ Install_Go() {
     [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep '$GOPATH/bin' /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=\$GOPATH/bin:\1@" /etc/profile
     [ -z "`grep ^'export PATH=' /etc/profile | grep '$GOPATH/bin'`" ] && echo 'export PATH=$GOPATH/bin:$PATH' >> /etc/profile
     
+    . /etc/profile
+    source /etc/profile
     echo "install Go successed!"
 }
 
