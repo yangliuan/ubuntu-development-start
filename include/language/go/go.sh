@@ -20,5 +20,5 @@ Uninstall_Go() {
     sed -i '/##Go$/d' /home/${run_user}/.bashrc
     source /home/${run_user}/.bashrc
     rm -rf /home/${run_user}/go/
-    echo "uninstall Go successed!";
+    echo "uninstall Go successed!"
 }
