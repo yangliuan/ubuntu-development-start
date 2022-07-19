@@ -8,7 +8,7 @@ Install_Nvm() {
     chown -Rv ${run_user}.${run_user} /home/${run_user}/.nvm
     #add env
     cat >> /home/${run_user}/.bashrc <<EOF
-###nvm
+##nvm env
 export NVM_DIR="\$HOME/.nvm" ###nvm
 [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh" ###nvm
 [ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion" ###nvm
