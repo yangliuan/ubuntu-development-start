@@ -1,13 +1,11 @@
 #!/bin/bash
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
-
 printf "
 #######################################################################
                       install Devtools for Ubuntu                    
 #######################################################################
 "
-
 # Check if user is root
 [ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }
 
@@ -21,9 +19,20 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 
+Ubuntu_Ver=$(lsb_release -r --short)
+echo "Ubuntu Version ${Ubuntu_Ver}"
+
+version() {
+  echo "version: 1.0"
+  echo "updated date: 2022-07-11"
+}
+
 Show_Help() {
+  version
   echo "Usage: $0  command ...[parameters]....
-  --openssh-server
+  --help, -h
+  --version, -v 
+  --openssh_server
   --switchhost
   --rdm
   --navicat_preminu
@@ -37,20 +46,21 @@ Show_Help() {
   --filezilla
   --jmeter
   --vscode
-  --obs studio
+  --obs_studio
   "
 }
 
 ARG_NUM=$#
-Ubuntu_Ver=$(lsb_release -r --short)
-echo "Ubuntu Version ${Ubuntu_Ver}"
-TEMP=`getopt -o hvV --long openssh-server,switchhost,rdm,navicat_preminu,mysql_workbench_flag,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,obs_studio -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,obs_studio -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 
 while :; do
   [ -z "$1" ] && break;
   case "$1" in
+    -h|--help)
+      Show_Help; exit 0
+      ;;
     --openssh-server)
       openssh_server_flag=y; shift 1
       ;;
@@ -63,7 +73,7 @@ while :; do
     --navicat_preminu)
       navicat_preminu_flag=y; shift 1
       ;;
-    --mysql_workbench_flag)
+    --mysql_workbench)
       mysql_workbench_flag=y; shift 1
       ;;
     --postman)

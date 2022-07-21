@@ -1,5 +1,6 @@
 #!/bin/bash
 Install_Apifox() {
+    echo "install_apifox"
     pushd ${oneinstack_dir}/src > /dev/null
     src_url='https://cdn.apifox.cn/download/Apifox-linux-deb-latest.zip' && Download_src
     unzip Apifox-linux-deb-latest.zip
