@@ -56,7 +56,7 @@ checkDownload() {
   if [[ "${nginx_option}" =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ]; then
     echo "Download pcre..."
     src_url=https://sourceforge.net/projects/pcre/files/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz/download && Download_src
-    cp download pcre-${pcre_ver}.tar.gz
+    mv download pcre-${pcre_ver}.tar.gz
   fi
 
   # apache
