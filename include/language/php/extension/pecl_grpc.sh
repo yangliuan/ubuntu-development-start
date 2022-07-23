@@ -8,8 +8,7 @@ Install_pecl_grpc() {
 
         if [[ "${PHP_main_ver}" =~ 7.[0-4]$|^8.[0-1]$ ]]; then
             src_url=https://pecl.php.net/get/grpc-${grpc_ver}.tgz && Download_src
-            tar xzf grpc-${grpc_ver}
-
+            tar xzf grpc-${grpc_ver}.tgz
             pushd grpc-${grpc_ver} > /dev/null
             ${php_install_dir}/bin/phpize
             ./configure --with-php-config=${php_install_dir}/bin/php-config
