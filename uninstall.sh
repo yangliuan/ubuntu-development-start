@@ -527,6 +527,12 @@ Uninstall_PHPext() {
     Uninstall_pecl_event
   fi
 
+  # grpc
+  if [ "${pecl_swoole}" == '1' ]; then
+    . include/language/php/extension/pecl_grpc.sh
+    Uninstall_pecl_grpc
+  fi
+
   # xdebug
   if [ "${pecl_xdebug}" == '1' ]; then
     . include/language/php/extension/pecl_xdebug.sh

@@ -95,7 +95,9 @@ swoole_oldver=4.5.2
 xdebug_ver=3.1.5
 xdebug_oldver=2.9.8
 event_ver=3.0.8
+grpc_ver=1.48.0
 yasd_ver=0.3.9
+
 
 # Ftp
 pureftpd_ver=1.0.49
