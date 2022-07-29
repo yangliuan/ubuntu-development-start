@@ -569,10 +569,12 @@ Menu_PHPext() {
     echo -e "\t${CMSG}12${CEND}. Uninstall memcached"
     echo -e "\t${CMSG}13${CEND}. Uninstall memcache"
     echo -e "\t${CMSG}14${CEND}. Uninstall mongodb"
-    echo -e "\t${CMSG}15${CEND}. Uninstall swoole"
-    echo -e "\t${CMSG}16${CEND}. Uninstall event(PHP>=5.4)"
-    echo -e "\t${CMSG}17${CEND}. Uninstall xdebug(PHP>=5.5)"
-    echo -e "\t${CMSG}18${CEND}. Uninstall yasd_xdebug(PHP>=7.2)"
+    echo -e "\t${CMSG}15${CEND}. Uninstall pgsql"
+    echo -e "\t${CMSG}16${CEND}. Uninstall swoole"
+    echo -e "\t${CMSG}17${CEND}. Uninstall event(PHP>=5.4)"
+    echo -e "\t${CMSG}18${CEND}. Uninstall grpc(PHP>=7.0)"
+    echo -e "\t${CMSG}19${CEND}. Uninstall xdebug(PHP>=5.5)"
+    echo -e "\t${CMSG}20${CEND}. Uninstall yasd(PHP>=7.2)"
     read -e -p "Please input a number:(Default 0 press Enter) " phpext_option
     phpext_option=${phpext_option:-0}
     [ "${phpext_option}" == '0' ] && break
@@ -586,7 +588,7 @@ Menu_PHPext() {
       unset phpext_flag
       echo; echo "${CWARNING}input error! Please only input number 1 2 3 14 and so on${CEND}"; echo
       continue
-    else
+    else      
       [ -n "`echo ${array_phpext[@]} | grep -w 1`" ] && pecl_zendguardloader=1
       [ -n "`echo ${array_phpext[@]} | grep -w 2`" ] && pecl_ioncube=1
       [ -n "`echo ${array_phpext[@]} | grep -w 3`" ] && pecl_sourceguardian=1
@@ -601,11 +603,12 @@ Menu_PHPext() {
       [ -n "`echo ${array_phpext[@]} | grep -w 12`" ] && pecl_memcached=1
       [ -n "`echo ${array_phpext[@]} | grep -w 13`" ] && pecl_memcache=1
       [ -n "`echo ${array_phpext[@]} | grep -w 14`" ] && pecl_mongodb=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 15`" ] && pecl_swoole=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 16`" ] && pecl_event=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_xdebug=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && yasd_xdebug=1
-      
+      [ -n "`echo ${array_phpext[@]} | grep -w 15`" ] && pecl_pgsql=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 16`" ] && pecl_swoole=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_event=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && pecl_grpc=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 19`" ] && pecl_xdebug=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && yasd=1
       break
     fi
   done
