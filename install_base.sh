@@ -1376,6 +1376,7 @@ Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
 Install_LNMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 Install_LAMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 
+chmod -R 777 ${oneinstack_dir}/src
 
 endTime=`date +%s`
 ((installTime=($endTime-$startTime)/60))
