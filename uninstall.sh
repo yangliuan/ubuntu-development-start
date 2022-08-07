@@ -437,7 +437,10 @@ Uninstall_PHPext() {
 
   # imagick
   if [ "${pecl_imagick}" == '1' ]; then
-    . include/language/php/extension/ImageMagick.sh
+    . include/multimedia/libwebp.sh
+    . include/multimedia/ImageMagick.sh
+    . include/language/php/extension/pecl_imagick.sh
+    Uninstall_Libwebp
     Uninstall_ImageMagick
     Uninstall_pecl_imagick
   fi

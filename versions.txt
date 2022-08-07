@@ -53,7 +53,7 @@ php72_ver=7.2.34
 php73_ver=7.3.33
 php74_ver=7.4.30
 php80_ver=8.0.21
-php81_ver=8.1.8
+php81_ver=8.1.9
 
 # Nodejs
 node_ver=16.15.1
@@ -75,6 +75,7 @@ icu4c_ver=63_1
 libsodium_ver=1.0.18
 libzip_ver=1.2.0
 argon2_ver=20171227
+libwebp_ver=1.2.4
 imagemagick_ver=7.1.0-35
 imagick_ver=3.5.1
 imagick_oldver=3.4.4

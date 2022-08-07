@@ -1212,7 +1212,10 @@ PHP_addons() {
 
   # imagick
   if [ "${pecl_imagick}" == '1' ]; then
-    . include/language/php/extension/ImageMagick.sh
+    . include/multimedia/libwebp.sh
+    . include/multimedia/ImageMagick.sh
+    . include/language/php/extension/pecl_imagick.sh
+    Install_Libwebp 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_ImageMagick 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_pecl_imagick 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
