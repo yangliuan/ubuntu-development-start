@@ -785,7 +785,7 @@ if [ ${ARG_NUM} == 0 ]; then
       [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_event=1
       [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && pecl_grpc=1
       [ -n "`echo ${array_phpext[@]} | grep -w 19`" ] && pecl_xdebug=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && yasd=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && pecl_yasd=1
       break
       fi
   done
@@ -1324,7 +1324,7 @@ PHP_addons() {
   fi
 
   # yasd debug
-  if [ "${yasd_xdebug}" == '1' ]; then
+  if [ "${pecl_yasd}" == '1' ]; then
     . include/language/php/extension/yasd_debug.sh
     Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
