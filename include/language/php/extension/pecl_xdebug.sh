@@ -29,15 +29,17 @@ Install_pecl_xdebug() {
       make -j ${THREAD} && make install
       popd > /dev/null
       if [ -f "${phpExtensionDir}/xdebug.so" ]; then
-        src_url=http://mirrors.linuxeye.com/oneinstack/src/webgrind-master.zip && Download_src
-        unzip -q webgrind-master.zip
-        /bin/mv webgrind-master ${wwwroot_dir}/default/webgrind
-        [ ! -e /tmp/xdebug ] && { mkdir /tmp/xdebug; chown ${run_user}:${run_group} /tmp/xdebug; }
-        [ ! -e /tmp/webgrind ] && { mkdir /tmp/webgrind; chown ${run_user}:${run_group} /tmp/webgrind; }
-        chown -R ${run_user}:${run_group} ${wwwroot_dir}/default/webgrind
-        sed -i 's@static $storageDir.*@static $storageDir = "/tmp/webgrind";@' ${wwwroot_dir}/default/webgrind/config.php
-        sed -i 's@static $profilerDir.*@static $profilerDir = "/tmp/xdebug";@' ${wwwroot_dir}/default/webgrind/config.php
-
+        if [ ! -d "${wwwroot_dir}/default/webgrind" ]; then
+          src_url=http://mirrors.linuxeye.com/oneinstack/src/webgrind-master.zip && Download_src
+          unzip -q webgrind-master.zip
+          /bin/mv -fv webgrind-master ${wwwroot_dir}/default/webgrind
+          [ ! -e /tmp/xdebug ] && { mkdir /tmp/xdebug; chown ${run_user}:${run_group} /tmp/xdebug; }
+          [ ! -e /tmp/webgrind ] && { mkdir /tmp/webgrind; chown ${run_user}:${run_group} /tmp/webgrind; }
+          chown -R ${run_user}:${run_group} ${wwwroot_dir}/default/webgrind
+          sed -i 's@static $storageDir.*@static $storageDir = "/tmp/webgrind";@' ${wwwroot_dir}/default/webgrind/config.php
+          sed -i 's@static $profilerDir.*@static $profilerDir = "/tmp/xdebug";@' ${wwwroot_dir}/default/webgrind/config.php
+        fi
+        
         if [[ "${PHP_main_ver}" =~ ^7.[0-1]$ ]]; then 
           cat > ${php_install_dir}/etc/php.d/xdebug.ini << EOF
 [xdebug]

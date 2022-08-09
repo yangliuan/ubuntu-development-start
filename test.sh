@@ -20,8 +20,3 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 . ./include/base_desktop.sh
-
-
-. ./include/multimedia/libwebp.sh
-#Install_Libwebp 2>&1 | tee -a ${oneinstack_dir}/test.log
-#Uninstall_Libwebp 2>&1 | tee -a ${oneinstack_dir}/test.log

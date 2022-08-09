@@ -27,6 +27,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/get_char.sh
 . ./include/check_dir.sh
 . include/base_desktop.sh
+. include/multimedia/libwebp.sh
 
 Show_Help() {
   echo
@@ -437,10 +438,8 @@ Uninstall_PHPext() {
 
   # imagick
   if [ "${pecl_imagick}" == '1' ]; then
-    . include/multimedia/libwebp.sh
     . include/multimedia/ImageMagick.sh
     . include/language/php/extension/pecl_imagick.sh
-    Uninstall_Libwebp
     Uninstall_ImageMagick
     Uninstall_pecl_imagick
   fi
@@ -791,11 +790,12 @@ What Are You Doing?
         . include/language/python/python.sh; Uninstall_Python
         . include/language/nodejs/node.sh; Uninstall_Node
         . include/language/nodejs/nvm.sh; Uninstall_Nvm
-        . include/language/go/go.sh; Uninstall_Go;
-        . include/language/go/gvm.sh; Uninstall_Gvm;
+        . include/language/go/go.sh; Uninstall_Go
+        . include/language/go/gvm.sh; Uninstall_Gvm
         Uninstall_JDK
         . include/language/python/supervisor.sh;Uninstall_Supervisor;
         Uninstall_alldesktop;
+        Uninstall_Libwebp;
       else
         exit
       fi
@@ -983,6 +983,5 @@ else
     [ "${go_flag}" == 'y' ] && { . include/language/go/go.sh; Uninstall_Go; } 
     [ "${gvm_flag}" == 'y' ] && { . include/language/go/gvm_flag; Uninstall_Gvm; } 
     [ "${supervisord_flag}" == 'y' ] && { . include/language/python/supervisor_flag; Uninstall_Supervisor; } 
-
   fi
 fi

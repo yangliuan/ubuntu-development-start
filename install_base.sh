@@ -606,7 +606,7 @@ if [ ${ARG_NUM} == 0 ]; then
           echo -e "\t${CMSG}10${CEND}. Install php-8.0"
           echo -e "\t${CMSG}11${CEND}. Install php-8.1"
           read -e -p "Please input a number:(Default 7 press Enter) " php_option
-          php_option=${php_option:-7}
+          php_option=${php_option:-11}
           php_suffix=([1]=53 [2]=54 [3]=55 [4]=56 [5]=70 [6]=71 [7]=72 [8]=73 [9]=74 [10]=80 [11]=81)
           if [[ ! ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
               echo "${CWARNING}input error! Please only input number 1~11${CEND}"
@@ -895,6 +895,11 @@ startTime=`date +%s`
 
 . include/system-lib/libevent.sh
 Install_Libevent | tee -a ${oneinstack_dir}/install.log
+
+if [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
+  . include/multimedia/libwebp.sh
+  Install_Libwebp | tee -a ${oneinstack_dir}/install.log
+fi
 
 # iptables
 if [ "${iptables_flag}" == "y" ]; then
