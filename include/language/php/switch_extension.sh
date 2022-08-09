@@ -20,21 +20,24 @@ Switch_Extension() {
 
     #读取输入序号
     echo
-    read -e -p "Please input a number to enable or disable php extension :" extension_option
-    if [[ ! ${extension_option} =~ ^[0-9]$|^10$ ]]; then
-        echo "input error! Please only input number 0~10:"
-    fi
+    read -e -p "Please input a number to enable or disable php extension:(input example '0 1 2')" extension_option
+    array_extension_option=(${extension_option})
 
-    action="disable"
-    target_str=${extension_dir[${extension_option}]}
-    extension_name=${target_str##/*/}
-    if [[ $target_str =~ $action ]]; then
-        #启用模块
-        mv ${target_str} /usr/local/php/etc/php.d/
-        echo "${extension_name} enable success"
-    else
-        #禁用模块
-        mv ${target_str} /usr/local/php/etc/php.d/disable/
-        echo "${extension_name} disable success"
-    fi 
+    for v in ${array_extension_option[@]}; do
+        if [[ ! "${v}" =~ ^[0-9]$|^10$ ]]; then
+            echo "input error! Please only input number 0~10:"
+        fi
+        action="disable"
+        target_str=${extension_dir[${v}]}
+        extension_name=${target_str##/*/}
+        if [[ $target_str =~ $action ]]; then
+            #启用模块
+            mv ${target_str} /usr/local/php/etc/php.d/
+            echo "${extension_name} enable success"
+        else
+            #禁用模块
+            mv ${target_str} /usr/local/php/etc/php.d/disable/
+            echo "${extension_name} disable success"
+        fi
+    done
 }
