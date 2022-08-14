@@ -879,7 +879,9 @@ checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
 # del openssl for jcloud
 [ -e "/usr/local/bin/openssl" ] && rm -rf /usr/local/bin/openssl
 [ -e "/usr/local/include/openssl" ] && rm -rf /usr/local/include/openssl
-
+[ -e "/usr/bin/openssl" ] && rm -rf /usr/bin/openssl
+[ -e "/usr/include/openssl" ] && rm -rf /usr/include/openssl
+ 
 # get OS Memory
 . ./include/memory.sh
 if [ ! -e ~/.oneinstack ]; then
@@ -915,7 +917,7 @@ if [[ ${nginx_option} =~ ^[1-3]$ ]] || [[ "${db_option}" =~ ^[1-9]$|^1[0-2]$ ]];
 fi
 
 # openSSL
-if [[ ${tomcat_option} =~ ^[1-4]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]] || [[ "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^8[0-2]$ ]] || [[ "${dbinstallmethod}" == 2 ]]; then
+if [[ ${tomcat_option} =~ ^[1-4]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]] || [[ "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^8[0-2]$ ]] || [ "${dbinstallmethod}" == 2 ]; then
   . include/system-lib/openssl.sh
   Install_openSSL | tee -a ${oneinstack_dir}/install.log
 fi

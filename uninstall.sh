@@ -22,6 +22,7 @@ printf "
 
 oneinstack_dir=$(dirname "`readlink -f $0`")
 pushd ${oneinstack_dir} > /dev/null
+. ./versions.txt
 . ./options.conf
 . ./include/color.sh
 . ./include/get_char.sh
@@ -701,11 +702,13 @@ Print_Nvm() {
 }
 
 Print_Go() {
-  echo 'go'
+  [ -d "${go_install_dir}${go118_ver}" ] && echo "${go_install_dir}${go118_ver}"
+  [ -d "${go_install_dir}${go117_ver}" ] && echo "${go_install_dir}${go117_ver}"
+  [ -L "${go_install_dir}" ] && echo "${go_install_dir}"
 }
 
 Print_Gvm() {
-  echo 'gvm'
+  echo ''
 }
 
 Menu() {
@@ -793,9 +796,9 @@ What Are You Doing?
         . include/language/go/go.sh; Uninstall_Go
         . include/language/go/gvm.sh; Uninstall_Gvm
         Uninstall_JDK
-        . include/language/python/supervisor.sh;Uninstall_Supervisor;
-        Uninstall_alldesktop;
-        Uninstall_Libwebp;
+        . include/language/python/supervisor.sh;Uninstall_Supervisor
+        Uninstall_alldesktop
+        Uninstall_Libwebp
       else
         exit
       fi

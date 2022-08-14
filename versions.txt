@@ -3,10 +3,10 @@
 nginx_ver=1.23.0
 tengine_ver=2.3.3
 openresty_ver=1.21.4.1
-openssl11_ver=1.1.1o
+openssl11_ver=1.1.1q
 openssl_ver=1.0.2u
 
-tomcat10_ver=10.0.21
+tomcat10_ver=10.0.22
 tomcat9_ver=9.0.63
 tomcat8_ver=8.5.79
 tomcat7_ver=7.0.109
