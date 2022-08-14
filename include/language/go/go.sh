@@ -45,10 +45,6 @@ Uninstall_Go() {
     sed -i '/##Go$/d' /home/${run_user}/.bashrc
     sed -i 's@$GOPATH/bin:@@' /home/${run_user}/.bashrc
     sed -i 's@$GOROOT/bin:@@' /home/${run_user}/.bashrc
-    echo "${go118_ver}"
-    echo "${go117_ver}"
-    echo "${go_install_dir}${go118_ver}"
-    echo "${go_install_dir}${go117_ver}"
     rm -rfv ${go_install_dir}
     rm -rfv ${go_install_dir}${go118_ver}
     rm -rfv ${go_install_dir}${go117_ver}
