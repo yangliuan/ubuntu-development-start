@@ -988,3 +988,16 @@ else
     [ "${supervisord_flag}" == 'y' ] && { . include/language/python/supervisor_flag; Uninstall_Supervisor; } 
   fi
 fi
+
+if [ ${ARG_NUM} == 0 ]; then
+  while :; do echo
+    echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
+    read -e -p "Do you want to restart OS ? [y/n]: " reboot_flag
+    if [[ ! "${reboot_flag}" =~ ^[y,n]$ ]]; then
+      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+      break
+    fi
+  done
+fi
+[ "${reboot_flag}" == 'y' ] && reboot
