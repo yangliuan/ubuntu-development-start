@@ -44,6 +44,7 @@ checkDownload() {
       ;;
     2)
       echo "Download tengine..."
+      
       src_url=http://tengine.taobao.org/download/tengine-${tengine_ver}.tar.gz && Download_src
       ;;
     3)
@@ -55,7 +56,8 @@ checkDownload() {
   # pcre
   if [[ "${nginx_option}" =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ]; then
     echo "Download pcre..."
-    src_url=https://sourceforge.net/projects/pcre/files/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz/download && Download_src
+    #src_url="https://sourceforge.net/projects/pcre/files/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz/download" && Download_src
+    src_url="https://downloads.sourceforge.net/project/pcre/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz" && Download_src
     mv download pcre-${pcre_ver}.tar.gz
   fi
 
@@ -178,6 +180,7 @@ checkDownload() {
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download MySQL 5.7 source package..."
           FILE_NAME=mysql-${mysql57_ver}.tar.gz
+          
         fi
         # start download
         src_url=${DOWN_ADDR_MYSQL}/${FILE_NAME} && Download_src
