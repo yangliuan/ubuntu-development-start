@@ -866,7 +866,7 @@ fi
 IPADDR=$(./include/get_ipaddr.py)
 PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)
 #IPADDR_COUNTRY=$(./include/get_ipaddr_state.py ${PUBLIC_IPADDR})
-IPADDR_COUNTRY="CN"
+#IPADDR_COUNTRY="CN"
 
 #clear latest install.log
 echo > ${oneinstack_dir}/install.log
