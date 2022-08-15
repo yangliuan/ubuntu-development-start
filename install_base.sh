@@ -879,8 +879,8 @@ checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
 # del openssl for jcloud
 [ -e "/usr/local/bin/openssl" ] && rm -rf /usr/local/bin/openssl
 [ -e "/usr/local/include/openssl" ] && rm -rf /usr/local/include/openssl
-[ -e "/usr/bin/openssl" ] && rm -rf /usr/bin/openssl
-[ -e "/usr/include/openssl" ] && rm -rf /usr/include/openssl
+#[ -e "/usr/bin/openssl" ] && rm -rf /usr/bin/openssl
+#[ -e "/usr/include/openssl" ] && rm -rf /usr/include/openssl
  
 # get OS Memory
 . ./include/memory.sh
