@@ -1,3 +1,5 @@
 *
 !.gitignore
 !adoptopenjdk.key
+!patch
+!patch/*

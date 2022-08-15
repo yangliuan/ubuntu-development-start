@@ -99,6 +99,7 @@ Install_PHP80() {
   export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/:$PKG_CONFIG_PATH
   [ ! -d "${php_install_dir}" ] && mkdir -p ${php_install_dir}
   [ "${phpcache_option}" == '1' ] && phpcache_arg='--enable-opcache' || phpcache_arg='--disable-opcache'
+  [ "${isOpenSSL3}" = "y" ] && patch -p1 < ${oneinstack_dir}/src/patch/php-8.0-openssl3.0.patch
   if [ "${Apache_main_ver}" == '22' ] || [ "${apache_mode_option}" == '2' ]; then
     ./configure --prefix=${php_install_dir} --with-config-file-path=${php_install_dir}/etc \
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
