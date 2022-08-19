@@ -574,16 +574,16 @@ if [ ${ARG_NUM} == 0 ]; then
   done
 
   # check 
-  while :; do echo
-    read -e -p "Do you want to install libmaxminddb? [y/n]: " libmaxminddb_flag
-    libmaxminddb_flag=${libmaxminddb_flag:-y}
-    if [[ ! ${libmaxminddb_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-        [ "${libmaxminddb_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}libmaxminddb already installed! ${CEND}"; unset libmaxminddb_flag; }
-        break
-    fi
-  done
+  # while :; do echo
+  #   read -e -p "Do you want to install libmaxminddb? [y/n]: " libmaxminddb_flag
+  #   libmaxminddb_flag=${libmaxminddb_flag:-y}
+  #   if [[ ! ${libmaxminddb_flag} =~ ^[y,n]$ ]]; then
+  #       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+  #   else
+  #       [ "${libmaxminddb_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}libmaxminddb already installed! ${CEND}"; unset libmaxminddb_flag; }
+  #       break
+  #   fi
+  # done
 
   # choice php
   while :; do echo
@@ -1127,11 +1127,11 @@ if [ "${supervisord_flag}" == 'y' ]; then
     Install_SupervisorDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-# libmaxminddb
-if [ "${libmaxminddb_flag}" == 'y' ]; then
-    . include/lbs/libmaxminddb.sh
-    Install_libmaxminddb 2>&1 | tee -a ${oneinstack_dir}/install.log
-fi
+# # libmaxminddb
+# if [ "${libmaxminddb_flag}" == 'y' ]; then
+#     . include/lbs/libmaxminddb.sh
+#     Install_libmaxminddb 2>&1 | tee -a ${oneinstack_dir}/install.log
+# fi
 
 # PHP
 case "${php_option}" in
