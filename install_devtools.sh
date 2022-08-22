@@ -337,127 +337,127 @@ fi
 if [ "${jmeter_flag}" == 'y' ]; then
     . ./include/check_download.sh
     [ "${armplatform}" == "y" ] && dbinstallmethod=2
-    checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
+    checkDownload 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 #install openssh-server
 if [ "${openssh_server_flag}" == 'y' ]; then
     . include/develop-tools/openssh-server.sh
-    Install_OpensshServer 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_OpensshServer 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 #set develop config
 if [ "${develop_config_flag}" == 'y' ]; then
     . include/develop-tools/develop_config.sh
-    Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 #install switchhost
 if [ "${switchhost_flag}" == 'y' ]; then
     . include/develop-tools/switchhost.sh
-    Install_SwitchHost 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_SwitchHost 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
     . include/develop-tools/redis_desktop_manager.sh
-    Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install navicat preminu
 if [ "${navicat_preminu_flag}" == 'y' ]; then
     . include/develop-tools/navicat_preminu.sh
-    Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
     . include/develop-tools/mysql_workbench.sh
-    Install_MysqlWorkbench 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_MysqlWorkbench 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install remmina
 if [ "${remmina_flag}" == 'y' ]; then
     . include/develop-tools/remmina.sh
-    Install_Remmina 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Remmina 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install wireshark
 if [ "${wireshark_flag}" == 'y' ]; then
     . include/develop-tools/wireshark.sh
-    Install_Wireshark 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Wireshark 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install postman
 if [ "${postman_flag}" == 'y' ]; then
     . include/develop-tools/postman.sh
-    Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install runapi
 if [ "${runapi_flag}" == 'y' ]; then
     . include/develop-tools/runapi.sh
-    Install_Runapi 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Runapi 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install apifox
 if [ "${apifox_flag}" == 'y' ]; then
     . include/develop-tools/apifox.sh
-    Install_Apifox 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Apifox 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install oss-browser
 if [ "${ossbrowser_flag}" == 'y' ]; then
     . include/develop-tools/ossbrowser.sh
-    Install_Ossbrowser 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Ossbrowser 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install vitualbox
 if [ "${virtualbox_flag}" == 'y' ]; then
     . include/develop-tools/virtualbox.sh
-    Install_Vbox 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Vbox 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install filezilla
 if [ "${filezilla_flag}" == 'y' ]; then
     . include/develop-tools/filezilla.sh
-    Install_FileZilla 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_FileZilla 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # JDK
 case "${jdk_option}" in
   1)
     . include/java/jdk/jdk-11.0.sh
-    Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
     ;;
   2)
     . include/java/jdk/jdk-1.8.sh
-    Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
     ;;
   3)
     . include/java/jdk/jdk-1.7.sh
-    Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
     ;;
   4)
     . include/java/jdk/jdk-1.6.sh
-    Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
     ;;
 esac
 
 # install jmeter
 if [ "${jmeter_flag}" == 'y' ]; then
     . include/develop-tools/jmeter.sh
-    Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install vscode
 if [ "${vscode_flag}" == 'y' ]; then
     . include/develop-tools/vscode.sh
-    Install_Vscode 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_Vscode 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install obs studio
 if [ "${obs_studio_flag}" == 'y' ]; then
     . include/develop-tools/obs_studio.sh
-    Install_ObsStudio 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_ObsStudio 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi

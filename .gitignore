@@ -1,4 +1,5 @@
 .vscode
 .vscode/*
 install.log
+install_devtools.log
 test.log
