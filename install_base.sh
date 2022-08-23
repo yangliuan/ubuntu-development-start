@@ -896,8 +896,6 @@ fi
 # start Time
 startTime=`date +%s`
 
-Check_Openssl
-
 if [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
   . include/multimedia/libwebp.sh
   Install_Libwebp | tee -a ${oneinstack_dir}/install.log

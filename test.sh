@@ -23,3 +23,5 @@ pushd ${oneinstack_dir} > /dev/null
 
 # . ./include/language/php/switch_extension.sh
 # Switch_Extension
+# . include/develop-tools/develop_config.sh
+# Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/test.log

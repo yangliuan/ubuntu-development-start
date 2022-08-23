@@ -27,6 +27,11 @@ Set_Develop_Config(){
         popd > /dev/null
     fi
 
+    if [ ! -d "${wwwlogs_dir}" ];then
+        mkdir ${wwwlogs_dir}
+        chown -Rv ${run_user}.root ${wwwlogs_dir}
+    fi
+
     #修改所有版本php配置文件权限为777方便用编辑器编辑
     php_dir=(`find /usr/local -maxdepth 1 -type d -name "php*" | sort`)
 
