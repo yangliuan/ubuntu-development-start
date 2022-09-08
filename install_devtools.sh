@@ -236,7 +236,7 @@ if [ ${ARG_NUM} == 0 ]; then
         if [[ ! ${apifox_flag} =~ ^[y,n]$ ]]; then
             echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
         else
-            [ "${apifox_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}apifox already installed! ${CEND}"; unset apifox_flag; }
+            [ "${apifox_flag}" == 'y' -a -e "/opt/apifox/apifox" ] && { echo "${CWARNING}apifox already installed! ${CEND}"; unset apifox_flag; }
             break
         fi
     done
