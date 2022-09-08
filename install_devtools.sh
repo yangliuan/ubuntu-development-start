@@ -331,6 +331,18 @@ if [ ${ARG_NUM} == 0 ]; then
             break
         fi
     done
+
+    # check install rabbitvcs-nautilus
+    while :; do echo
+        read -e -p "Do you want to install rabbitvcs nautilus ? [y/n](y): " rabbitvcs_nautilus_flag
+        rabbitvcs_nautilus_flag=${rabbitvcs_nautilus_flag:-y}
+        if [[ ! ${rabbitvcs_nautilus_flag} =~ ^[y,n]$ ]]; then
+            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+        else
+            [ "${rabbitvcs_nautilus_flag}" == 'y' -a -e "/usr/share/nautilus-python/extensions" ] && { echo "${CWARNING}rabbitvcs nautilus already installed! ${CEND}"; unset rabbitvcs_nautilus_flag; }
+            break
+        fi
+    done
 fi
 
 # Check download source packages
@@ -460,4 +472,9 @@ fi
 if [ "${obs_studio_flag}" == 'y' ]; then
     . include/develop-tools/obs_studio.sh
     Install_ObsStudio 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+fi
+
+if [ "${obs_studio_flag}" == 'y' ]; then
+    . include/develop-tools/rabbitvcs.sh
+    rabbitvcs_nautilus_flag 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
