@@ -345,6 +345,9 @@ if [ ${ARG_NUM} == 0 ]; then
     done
 fi
 
+#clear latest install_devtools.log
+echo > ${oneinstack_dir}/install_devtools.log
+
 # Check download source packages
 if [ "${jmeter_flag}" == 'y' ]; then
     . ./include/check_download.sh
