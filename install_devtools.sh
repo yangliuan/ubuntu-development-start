@@ -474,7 +474,8 @@ if [ "${obs_studio_flag}" == 'y' ]; then
     Install_ObsStudio 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
-if [ "${obs_studio_flag}" == 'y' ]; then
+# install rabbitvcs nautilus
+if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
     . include/develop-tools/rabbitvcs.sh
     rabbitvcs_nautilus_flag 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
