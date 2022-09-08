@@ -25,3 +25,6 @@ pushd ${oneinstack_dir} > /dev/null
 # Switch_Extension
 # . include/develop-tools/develop_config.sh
 # Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/test.log
+
+# . include/develop-tools/rabbitvcs.sh
+# Install_Rabbitvcs

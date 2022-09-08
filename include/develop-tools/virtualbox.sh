@@ -2,11 +2,6 @@
 Install_Vbox() {
     pushd ${oneinstack_dir}/src > /dev/null
     echo "Download virtualbox ..."
-    if [ "${Ubuntu_ver}" == "22" ]; then
-        ubuntu_name="jammy"
-    else
-        ubuntu_name="eoan"
-    fi
     src_url="https://download.virtualbox.org/virtualbox/${virtualbox_ver_base}.${virtualbox_ver}/virtualbox-${virtualbox_ver_base}_${virtualbox_ver_base}.${virtualbox_ver}-${virtualbox_ver_sn}~Ubuntu~${ubuntu_name}_amd64.deb" && Download_src
     dpkg -i virtualbox-${virtualbox_ver_base}_${virtualbox_ver_base}.${virtualbox_ver}-${virtualbox_ver_sn}~Ubuntu~${ubuntu_name}_amd64.deb
     apt install -f
