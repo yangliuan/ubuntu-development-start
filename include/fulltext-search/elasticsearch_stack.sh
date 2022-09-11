@@ -41,4 +41,7 @@ Uninstall_Cerebro() {
 
 Install_Config() {
     echo "config"
+    #chmod -R 777 /etc/elasticsearch
+    sed -i "s/## -Xms4g/-Xms1g/g" /etc/elasticsearch/jvm.options
+    sed -i "s/## -Xmx4g/-Xmx1g/g" /etc/elasticsearch/jvm.options
 }
