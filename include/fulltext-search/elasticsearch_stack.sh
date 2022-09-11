@@ -30,6 +30,7 @@ Uninstall_Elasticsearch() {
     apt-get autoremove elasticsearch kibana logstash
     rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
     rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list.save
+    rm -rf /usr/share/application/elasticsearch.desktop
     apt-get update
 }
 
