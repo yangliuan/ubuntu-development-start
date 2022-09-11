@@ -1,8 +1,9 @@
 #!/bin/bash
+#https://www.elastic.co/guide/en/elasticsearch/reference/8.4/deb.html#deb-repo
 Install_Elasticsearch() {
-    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
     apt-get install apt-transport-https
-    echo "deb https://artifacts.elastic.co/packages/${elasticsearch_ver}/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
+    echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/${elasticsearch_ver}/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
     apt-get update && apt-get install elasticsearch && apt-get install kibana && apt-get install logstash
 }
 
@@ -29,11 +30,15 @@ Uninstall_Elasticsearch() {
     apt-get autoremove elasticsearch kibana logstash
     rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
     rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list.save
-    apt update
+    apt-get update
 }
 
 Uninstall_Cerebro() {
     rm -rf /lib/systemd/system/cerebro.service
     rm -rf /usr/share/cerebro
     systemctl daemon-reload
+}
+
+Install_Config() {
+    echo "config"
 }
