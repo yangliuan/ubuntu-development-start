@@ -25,9 +25,12 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/develop-tools/rabbitvcs.sh
 
 
-NginxDevConfig
-TengineDevConfig
-OpenRestyDevConfig
-WwwlogsDevConfig
-PhpDevConfig
+# NginxDevConfig
+# TengineDevConfig
+# OpenRestyDevConfig
+# WwwlogsDevConfig
+# PhpDevConfig
+if [ -z "`grep ^'include study/*.conf;' ${nginx_install_dir}/conf/nginx.conf`" ];then
+    echo 'asdfdsaf'
+if
 
