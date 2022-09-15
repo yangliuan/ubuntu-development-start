@@ -20,6 +20,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 . ./include/base_desktop.sh
+. ./include/develop-tools/develop_config.sh
 
 dbrootpwd=`< /dev/urandom tr -dc A-Za-z0-9 | head -c8`
 dbpostgrespwd=`< /dev/urandom tr -dc A-Za-z0-9 | head -c8`
@@ -573,18 +574,6 @@ if [ ${ARG_NUM} == 0 ]; then
     fi
   done
 
-  # check 
-  # while :; do echo
-  #   read -e -p "Do you want to install libmaxminddb? [y/n]: " libmaxminddb_flag
-  #   libmaxminddb_flag=${libmaxminddb_flag:-y}
-  #   if [[ ! ${libmaxminddb_flag} =~ ^[y,n]$ ]]; then
-  #       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-  #   else
-  #       [ "${libmaxminddb_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}libmaxminddb already installed! ${CEND}"; unset libmaxminddb_flag; }
-  #       break
-  #   fi
-  # done
-
   # choice php
   while :; do echo
   read -e -p "Do you want to install PHP? [y/n]: " php_flag
@@ -1006,16 +995,19 @@ case "${nginx_option}" in
     . include/webserver/nginx.sh
     Install_Nginx 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_NginxDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+    NginxDevConfig 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
     . include/webserver/tengine.sh
     Install_Tengine 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_NginxDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+    TengineDevConfig 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
     . include/webserver/openresty.sh
     Install_OpenResty 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_OpenrestryDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+    OpenRestyDevConfig 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
@@ -1124,12 +1116,6 @@ if [ "${supervisord_flag}" == 'y' ]; then
     Install_Supervisor 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_SupervisorDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
-
-# # libmaxminddb
-# if [ "${libmaxminddb_flag}" == 'y' ]; then
-#     . include/lbs/libmaxminddb.sh
-#     Install_libmaxminddb 2>&1 | tee -a ${oneinstack_dir}/install.log
-# fi
 
 # PHP
 case "${php_option}" in
@@ -1382,11 +1368,14 @@ if [ "${python_flag}" == 'y' ]; then
   Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
+if [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
+  #php开发配置
+  PhpDevConfig | tee -a ${oneinstack_dir}/install.log
+fi
 
-. include/develop-tools/develop_config.sh
-Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
 Install_LNMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 Install_LAMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+WwwlogsDevConfig 2>&1 | tee -a ${oneinstack_dir}/install.log
 
 chmod -R 777 ${oneinstack_dir}/src
 

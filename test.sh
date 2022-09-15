@@ -20,11 +20,14 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 . ./include/base_desktop.sh
+. ./include/develop-tools/develop_config.sh
+. ./include/language/php/switch_extension.sh
+. ./include/develop-tools/rabbitvcs.sh
 
-# . ./include/language/php/switch_extension.sh
-# Switch_Extension
-# . include/develop-tools/develop_config.sh
-# Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/test.log
 
-# . include/develop-tools/rabbitvcs.sh
-# Install_Rabbitvcs
+NginxDevConfig
+TengineDevConfig
+OpenRestyDevConfig
+WwwlogsDevConfig
+PhpDevConfig
+

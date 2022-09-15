@@ -53,8 +53,8 @@ elif [[ "${OS}" =~ ^Debian$|^Deepin$|^Uos$|^Kali$ ]]; then
 elif [[ "${OS}" =~ ^Ubuntu$|^LinuxMint$|^elementary$ ]]; then
   LikeOS=Ubuntu
   Ubuntu_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
-  echo "${Ubuntu_ver}"
-  echo "${OS}"
+  # echo "${Ubuntu_ver}"
+  # echo "${OS}"
   if [[ "${OS}" =~ ^LinuxMint$ ]]; then
     [[ "${Ubuntu_ver}" =~ ^18$ ]] && Ubuntu_ver=16
     [[ "${Ubuntu_ver}" =~ ^19$ ]] && Ubuntu_ver=18
