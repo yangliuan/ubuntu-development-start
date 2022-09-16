@@ -30,7 +30,3 @@ pushd ${oneinstack_dir} > /dev/null
 # OpenRestyDevConfig
 # WwwlogsDevConfig
 # PhpDevConfig
-if [ -z "`grep ^'include study/*.conf;' ${nginx_install_dir}/conf/nginx.conf`" ];then
-    echo 'asdfdsaf'
-if
-

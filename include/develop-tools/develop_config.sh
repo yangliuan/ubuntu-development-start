@@ -10,7 +10,7 @@ NginxDevConfig() {
         popd > /dev/null
         if [ -e "${nginx_conf_backup_dir}" ]; then
             cp -rfv ${nginx_conf_backup_dir}/* ${nginx_install_dir}/conf/
-            sed -i "s@include\ vhost\/\*.conf;@include vhost/*.conf;\n  include work/*.conf;\n  include study/*.conf;@g" ${nginx_install_dir}/conf/nginx.conf
+            [ -z "`grep 'study\/\*\.conf;' ${nginx_install_dir}/conf/nginx.conf`" ] && sed -i "s@include\ vhost\/\*.conf;@include vhost/*.conf;\n  include work/*.conf;\n  include study/*.conf;@g" ${nginx_install_dir}/conf/nginx.conf
             chmod -R 777 ${nginx_install_dir}/conf/
         fi
     fi
@@ -27,7 +27,7 @@ TengineDevConfig() {
         popd > /dev/null
         if [ -e "${nginx_conf_backup_dir}" ]; then
             cp -rfv ${nginx_conf_backup_dir}/* ${tengine_install_dir}/conf/
-            sed -i "s@include\ vhost\/\*.conf;@include vhost/*.conf;\n  include work/*.conf;\n  include study/*.conf;@g" ${tengine_install_dir}/conf/nginx.conf
+            [ -z "`grep 'study\/\*\.conf;' ${tengine_install_dir}/conf/nginx.conf`" ] && sed -i "s@include\ vhost\/\*.conf;@include vhost/*.conf;\n  include work/*.conf;\n  include study/*.conf;@g" ${tengine_install_dir}/conf/nginx.conf
             chmod -R 777 ${tengine_install_dir}/conf/
         fi
     fi
@@ -44,7 +44,7 @@ OpenRestyDevConfig() {
         popd > /dev/null
         if [ -e "${nginx_conf_backup_dir}" ]; then
             cp -rfv ${nginx_conf_backup_dir}/* ${openresty_install_dir}/nginx/conf/
-            sed -i "s@include\ vhost\/\*.conf;@include vhost/*.conf;\n  include work/*.conf;\n  include study/*.conf;@g" ${openresty_install_dir}/nginx/conf/nginx.conf
+            [ -z "`grep 'study\/\*\.conf;' ${openresty_install_dir}/conf/nginx.conf`" ] && sed -i "s@include\ vhost\/\*.conf;@include vhost/*.conf;\n  include work/*.conf;\n  include study/*.conf;@g" ${openresty_install_dir}/nginx/conf/nginx.conf
             chmod -R 777 ${openresty_install_dir}/nginx/conf
         fi
     fi
