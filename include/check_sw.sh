@@ -154,11 +154,3 @@ installDepsBySrc() {
 
   popd > /dev/null
 }
-
-Check_Openssl()
-{
-    openssl version
-    if openssl version | grep -Eqi "OpenSSL 3.*"; then
-        isOpenSSL3='y'
-    fi
-}

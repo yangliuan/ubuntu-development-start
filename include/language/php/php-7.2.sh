@@ -98,8 +98,8 @@ Install_PHP72() {
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype-dir=${freetype_install_dir} --with-jpeg-dir --with-png-dir --with-webp-dir --with-zlib \
     --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --enable-inline-optimization --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --with-gd --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem --enable-inline-optimization ${php72_with_curl} --enable-mbregex \
+    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --with-gd ${php72_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --enable-intl --with-xsl \
     --with-gettext --enable-zip --enable-soap --disable-debug ${php_modules_options}
   else
@@ -109,8 +109,8 @@ Install_PHP72() {
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype-dir=${freetype_install_dir} --with-jpeg-dir --with-png-dir --with-webp-dir --with-zlib \
     --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --enable-inline-optimization --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --with-gd --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem --enable-inline-optimization ${php72_with_curl} --enable-mbregex \
+    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --with-gd ${php72_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --enable-intl --with-xsl \
     --with-gettext --enable-zip --enable-soap --disable-debug ${php_modules_options}
   fi

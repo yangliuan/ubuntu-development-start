@@ -109,8 +109,8 @@ Install_PHP80() {
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv --with-freetype --with-jpeg --with-webp --with-zlib \
     --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem ${php80_with_curl} --enable-mbregex \
+    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php80_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
     --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
   else
@@ -120,8 +120,8 @@ Install_PHP80() {
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv --with-freetype --with-jpeg --with-webp --with-zlib \
     --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem ${php80_with_curl} --enable-mbregex \
+    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php80_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
     --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
   fi

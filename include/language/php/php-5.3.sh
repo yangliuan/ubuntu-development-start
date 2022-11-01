@@ -10,10 +10,12 @@
 
 Install_PHP53() {
   pushd ${oneinstack_dir}/src > /dev/null
+  
   if [ -e "${apache_install_dir}/bin/httpd" ];then
     [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '4' ] && Apache_main_ver=24
     [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '2' ] && Apache_main_ver=22
   fi
+
   if [ ! -e "${libiconv_install_dir}/lib/libiconv.la" ]; then
     tar xzf libiconv-${libiconv_ver}.tar.gz
     pushd libiconv-${libiconv_ver} > /dev/null
@@ -111,8 +113,8 @@ Install_PHP53() {
     --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype-dir=${freetype_install_dir} --with-jpeg-dir --with-png-dir --with-webp-dir --with-zlib \
     --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --enable-inline-optimization --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem --enable-inline-optimization ${php5_with_curl} --enable-mbregex \
+    --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf ${php5_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --with-xsl ${intl_modules_options} \
     --with-gettext --enable-zip --enable-soap --disable-debug ${php_modules_options}
   else
@@ -122,8 +124,8 @@ Install_PHP53() {
     --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype-dir=${freetype_install_dir} --with-jpeg-dir --with-png-dir --with-webp-dir --with-zlib \
     --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --enable-inline-optimization --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem --enable-inline-optimization ${php5_with_curl} --enable-mbregex \
+    --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf ${php5_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --with-xsl ${intl_modules_options} \
     --with-gettext --enable-zip --enable-soap --disable-debug ${php_modules_options}
   fi
@@ -165,8 +167,6 @@ Install_PHP53() {
     # php-fpm Init Script
     if [ -e /bin/systemctl ]; then
       /bin/cp ${oneinstack_dir}/init.d/php-fpm.service /lib/systemd/system/
-      #sed -i "s@/usr/local/php@${php_install_dir}@g" /lib/systemd/system/php-fpm.service
-      #systemctl enable php-fpm
     else
       /bin/cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
       chmod +x /etc/init.d/php-fpm

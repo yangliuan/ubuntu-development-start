@@ -131,9 +131,9 @@ checkDownload() {
       1)
         # MySQL 8.0
         if [ "${IPADDR_COUNTRY}"x == "CN"x ]; then
-          DOWN_ADDR_MYSQL=http://mirrors.aliyun.com/mysql/MySQL-8.0
-          DOWN_ADDR_MYSQL_BK=http://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-8.0
-          DOWN_ADDR_MYSQL_BK2=http://repo.huaweicloud.com/mysql/Downloads/MySQL-8.0
+          DOWN_ADDR_MYSQL=https://cdn.mysql.com/Downloads/MySQL-8.0
+          DOWN_ADDR_MYSQL_BK=http://repo.huaweicloud.com/mysql/Downloads/MySQL-8.0
+          DOWN_ADDR_MYSQL_BK2=http://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-8.0
         else
           DOWN_ADDR_MYSQL=https://cdn.mysql.com/Downloads/MySQL-8.0
           DOWN_ADDR_MYSQL_BK=https://mirrors.dotsrc.org/mysql/Downloads/MySQL-8.0
@@ -141,7 +141,7 @@ checkDownload() {
 
         if [ "${dbinstallmethod}" == '1' ]; then
           echo "Download MySQL 8.0 binary package..."
-          FILE_NAME=mysql-${mysql80_ver}-linux-glibc2.12-${SYS_BIT_b}.tar.xz
+          FILE_NAME=mysql-${mysql80_ver}-linux-glibc2.12-x86_64.tar.xz
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download MySQL 8.0 source package..."
           FILE_NAME=mysql-${mysql80_ver}.tar.gz
@@ -166,9 +166,9 @@ checkDownload() {
       2)
         # MySQL 5.7
         if [ "${IPADDR_COUNTRY}"x == "CN"x ]; then
-          DOWN_ADDR_MYSQL=http://mirrors.aliyun.com/mysql/MySQL-5.7
-          DOWN_ADDR_MYSQL_BK=http://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.7
-          DOWN_ADDR_MYSQL_BK2=http://repo.huaweicloud.com/mysql/Downloads/MySQL-5.7
+          DOWN_ADDR_MYSQL=https://cdn.mysql.com/Downloads/MySQL-5.7
+          DOWN_ADDR_MYSQL_BK=http://repo.huaweicloud.com/mysql/Downloads/MySQL-5.7
+          DOWN_ADDR_MYSQL_BK2=http://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.7
         else
           DOWN_ADDR_MYSQL=https://cdn.mysql.com/Downloads/MySQL-5.7
           DOWN_ADDR_MYSQL_BK=https://mirrors.dotsrc.org/mysql/Downloads/MySQL-5.7
@@ -176,11 +176,10 @@ checkDownload() {
 
         if [ "${dbinstallmethod}" == '1' ]; then
           echo "Download MySQL 5.7 binary package..."
-          FILE_NAME=mysql-${mysql57_ver}-linux-glibc2.12-${SYS_BIT_b}.tar.gz
+          FILE_NAME=mysql-${mysql57_ver}-linux-glibc2.12-x86_64.tar.gz
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download MySQL 5.7 source package..."
           FILE_NAME=mysql-${mysql57_ver}.tar.gz
-          
         fi
         # start download
         src_url=${DOWN_ADDR_MYSQL}/${FILE_NAME} && Download_src
@@ -212,7 +211,7 @@ checkDownload() {
 
         if [ "${dbinstallmethod}" == '1' ]; then
           echo "Download MySQL 5.6 binary package..."
-          FILE_NAME=mysql-${mysql56_ver}-linux-glibc2.12-${SYS_BIT_b}.tar.gz
+          FILE_NAME=mysql-${mysql56_ver}-linux-glibc2.12-x86_64.tar.gz
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download MySQL 5.6 source package..."
           FILE_NAME=mysql-${mysql56_ver}.tar.gz
@@ -247,7 +246,7 @@ checkDownload() {
 
         if [ "${dbinstallmethod}" == '1' ]; then
           echo "Download MySQL 5.5 binary package..."
-          FILE_NAME=mysql-${mysql55_ver}-linux-glibc2.12-${SYS_BIT_b}.tar.gz
+          FILE_NAME=mysql-${mysql55_ver}-linux-glibc2.12-x86_64.tar.gz
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download MySQL 5.5 source package..."
           FILE_NAME=mysql-${mysql55_ver}.tar.gz
@@ -287,8 +286,8 @@ checkDownload() {
         esac
 
         if [ "${dbinstallmethod}" == '1' ]; then
-          FILE_NAME=mariadb-${mariadb_ver}-linux-systemd-${SYS_BIT_b}.tar.gz
-	  FILE_TYPE=bintar-linux-systemd-${SYS_BIT_a}
+          FILE_NAME=mariadb-${mariadb_ver}-linux-systemd-x86_64.tar.gz
+	  FILE_TYPE=bintar-linux-systemd-x86_64
         elif [ "${dbinstallmethod}" == '2' ]; then
           FILE_NAME=mariadb-${mariadb_ver}.tar.gz
 	  FILE_TYPE=source
@@ -327,7 +326,7 @@ checkDownload() {
         # Percona 8.0
         if [ "${dbinstallmethod}" == '1' ]; then
           echo "Download Percona 8.0 binary package..."
-          FILE_NAME=Percona-Server-${percona80_ver}-Linux.${SYS_BIT_b}.glibc2.17.tar.gz
+          FILE_NAME=Percona-Server-${percona80_ver}-Linux.x86_64.glibc2.27.tar.gz
           DOWN_ADDR_PERCONA=https://downloads.percona.com/downloads/Percona-Server-8.0/Percona-Server-${percona80_ver}/binary/tarball
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download Percona 8.0 source package..."
@@ -359,7 +358,7 @@ checkDownload() {
         # Precona 5.7
         if [ "${dbinstallmethod}" == '1' ]; then
           echo "Download Percona 5.7 binary package..."
-          FILE_NAME=Percona-Server-${percona57_ver}-Linux.${SYS_BIT_b}.glibc2.12.tar.gz
+          FILE_NAME=Percona-Server-${percona57_ver}-Linux.x86_64.glibc2.12.tar.gz
           DOWN_ADDR_PERCONA=https://downloads.percona.com/downloads/Percona-Server-5.7/Percona-Server-${percona57_ver}/binary/tarball
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download Percona 5.7 source package..."
@@ -392,7 +391,7 @@ checkDownload() {
         if [ "${dbinstallmethod}" == '1' ]; then
           echo "Download Percona 5.6 binary package..."
           perconaVerStr1=$(echo ${percona56_ver} | sed "s@-@-rel@")
-          FILE_NAME=Percona-Server-${perconaVerStr1}-Linux.${SYS_BIT_b}.${sslLibVer}.tar.gz
+          FILE_NAME=Percona-Server-${perconaVerStr1}-Linux.x86_64.${sslLibVer}.tar.gz
           DOWN_ADDR_PERCONA=https://downloads.percona.com/downloads/Percona-Server-5.6/Percona-Server-${percona56_ver}/binary/tarball
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download Percona 5.6 source package..."
@@ -425,7 +424,7 @@ checkDownload() {
         if [ "${dbinstallmethod}" == '1' ]; then
           echo "Download Percona 5.5 binary package..."
           perconaVerStr1=$(echo ${percona55_ver} | sed "s@-@-rel@")
-          FILE_NAME=Percona-Server-${perconaVerStr1}-Linux.${SYS_BIT_b}.${sslLibVer}.tar.gz
+          FILE_NAME=Percona-Server-${perconaVerStr1}-Linux.x86_64.${sslLibVer}.tar.gz
           DOWN_ADDR_PERCONA=https://downloads.percona.com/downloads/Percona-Server-5.5/Percona-Server-${percona55_ver}/binary/tarball
         elif [ "${dbinstallmethod}" == '2' ]; then
           echo "Download Percona 5.5 source package..."
@@ -480,7 +479,7 @@ checkDownload() {
       14)
         # MongoDB
         echo "Download MongoDB binary package..."
-        FILE_NAME=mongodb-linux-${SYS_BIT_b}-${mongodb_ver}.tgz
+        FILE_NAME=mongodb-linux-x86_64-${mongodb_ver}.tgz
         if [ "${IPADDR_COUNTRY}"x == "CN"x ]; then
           DOWN_ADDR_MongoDB=${mirrorLink}
         else
@@ -503,6 +502,7 @@ checkDownload() {
         ;;
     esac
   fi
+
 
   # PHP
   if [[ "${php_option}" =~ ^[1-9]$|^1[0-1]$ ]] || [[ "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^8[0-1]$ ]]; then

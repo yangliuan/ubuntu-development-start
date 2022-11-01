@@ -110,8 +110,8 @@ Install_PHP70() {
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype-dir=${freetype_install_dir} --with-jpeg-dir --with-png-dir --with-webp-dir --with-zlib \
     --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --enable-inline-optimization --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem --enable-inline-optimization ${php70_with_curl}  --enable-mbregex \
+    --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf ${php70_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --with-xsl ${intl_modules_options} \
     --with-gettext --enable-zip --enable-soap --disable-debug ${php_modules_options}
   else
@@ -121,8 +121,8 @@ Install_PHP70() {
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype-dir=${freetype_install_dir} --with-jpeg-dir --with-png-dir --with-webp-dir --with-zlib \
     --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --enable-inline-optimization --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem --enable-inline-optimization ${php70_with_curl}  --enable-mbregex \
+    --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf ${php70_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --with-xsl ${intl_modules_options} \
     --with-gettext --enable-zip --enable-soap --disable-debug ${php_modules_options}
   fi

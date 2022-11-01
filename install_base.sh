@@ -860,6 +860,9 @@ PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)
 #clear latest install.log
 echo > ${oneinstack_dir}/install.log
 
+# openSSL
+. ./include/openssl.sh
+
 # Check download source packages
 . ./include/check_download.sh
 [ "${armplatform}" == "y" ] && dbinstallmethod=2

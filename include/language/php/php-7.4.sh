@@ -10,10 +10,12 @@
 
 Install_PHP74() {
   pushd ${oneinstack_dir}/src > /dev/null
+  
   if [ -e "${apache_install_dir}/bin/httpd" ];then
     [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '4' ] && Apache_main_ver=24
     [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '2' ] && Apache_main_ver=22
   fi
+
   if [ ! -e "${libiconv_install_dir}/lib/libiconv.la" ]; then
     tar xzf libiconv-${libiconv_ver}.tar.gz
     pushd libiconv-${libiconv_ver} > /dev/null
@@ -108,8 +110,8 @@ Install_PHP74() {
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype --with-jpeg --with-webp --with-zlib \
     --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --enable-inline-optimization --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem --enable-inline-optimization ${php74_with_curl} --enable-mbregex \
+    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php74_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --enable-intl --with-xsl \
     --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
   else
@@ -119,8 +121,8 @@ Install_PHP74() {
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype --with-jpeg --with-webp --with-zlib \
     --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
-    --enable-sysvsem --enable-inline-optimization --with-curl=${curl_install_dir} --enable-mbregex \
-    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd --with-openssl-dir=${openssl_install_dir} \
+    --enable-sysvsem --enable-inline-optimization ${php74_with_curl} --enable-mbregex \
+    --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php74_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-ftp --enable-intl --with-xsl \
     --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
   fi
