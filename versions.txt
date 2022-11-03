@@ -141,9 +141,9 @@ luajit2_ver=2.1-20210510
 lua_resty_core_ver=0.1.23
 lua_resty_lrucache_ver=0.11
 lua_cjson_ver=2.1.0.10
-python_ver=3.6.15
-setuptools_ver=61.2.0
-pip_ver=22.0.4
+python_ver=3.11.0
+setuptools_ver=65.5.0
+pip_ver=22.3
 fail2ban_ver=0.11.2
 libmaxminddb_ver=1.6.0
 

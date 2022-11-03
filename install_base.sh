@@ -818,12 +818,13 @@ if [ ${ARG_NUM} == 0 ]; then
           if [ "${go_flag}" == 'y' ]; then
               while :; do echo
                   echo 'Please select go version:'
+                  echo -e "\t${CMSG}1${CEND}. 1.19"
                   echo -e "\t${CMSG}1${CEND}. 1.18"
                   echo -e "\t${CMSG}2${CEND}. 1.17"
                   read -e -p "Please input a number:(Default 1 press Enter) " go_option
                   go_option=${go_option:-1}
-                  if [[ ! ${go_option} =~ ^[1-2]$ ]]; then
-                      echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+                  if [[ ! ${go_option} =~ ^[1-3]$ ]]; then
+                      echo "${CWARNING}input error! Please only input number 1~3${CEND}"
                   else
                       break
                   fi

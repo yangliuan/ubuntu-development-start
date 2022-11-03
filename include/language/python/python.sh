@@ -29,7 +29,8 @@ Install_Python() {
 
     # Install Python3
     if [ ! -e "${python_install_dir}/bin/python" -a ! -e "${python_install_dir}/bin/python3" ] ;then
-      src_url=http://mirrors.linuxeye.com/oneinstack/src/Python-${python_ver}.tgz && Download_src
+      #src_url=http://mirrors.linuxeye.com/oneinstack/src/Python-${python_ver}.tgz && Download_src
+      src_url=https://www.python.org/ftp/python/${python_ver}/Python-${python_ver}.tgz && Download_src
       tar xzf Python-${python_ver}.tgz
       pushd Python-${python_ver} > /dev/null
       ./configure --prefix=${python_install_dir}
@@ -40,8 +41,8 @@ Install_Python() {
     fi
 
     if [ ! -e "${python_install_dir}/bin/pip" ]; then
-      src_url=http://mirrors.linuxeye.com/oneinstack/src/setuptools-${setuptools_ver}.tar.gz && Download_src
-      src_url=http://mirrors.linuxeye.com/oneinstack/src/pip-${pip_ver}.tar.gz && Download_src
+      src_url=http://mirror.yangliuan.cn/setuptools-${setuptools_ver}.tar.gz && Download_src
+      src_url=http://mirror.yangliuan.cn/pip-${pip_ver}.tar.gz && Download_src
       tar xzf setuptools-${setuptools_ver}.tar.gz
       tar xzf pip-${pip_ver}.tar.gz
       pushd setuptools-${setuptools_ver} > /dev/null
