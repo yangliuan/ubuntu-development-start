@@ -1354,11 +1354,16 @@ esac
 # go
 case "${go_option}" in
   1)
-     go_ver="${go118_ver}"
+    go_ver="${go119_ver}"
     . include/language/go/go.sh
     Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
+     go_ver="${go118_ver}"
+    . include/language/go/go.sh
+    Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  3)
     go_ver="${go117_ver}"
     . include/language/go/go.sh
     Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log

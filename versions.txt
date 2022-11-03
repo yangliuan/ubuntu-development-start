@@ -60,8 +60,9 @@ node_ver=16.17.1
 nvm_ver=0.39.2
 
 # go
-go118_ver=1.18.4
-go117_ver=1.17.11
+go119_ver=1.19.3
+go118_ver=1.18.8
+go117_ver=1.17.13
 gvm_ver=1
 
 libevent_ver=2.1.12

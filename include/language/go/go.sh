@@ -2,7 +2,7 @@
 #REF:https://time.geekbang.org/column/article/378076
 Install_Go() {
     pushd ${oneinstack_dir}/src > /dev/null
-    src_url=http://mirror.yangliuan.cn/go${go_ver}.linux-amd64.tar.gz && Download_src
+    src_url=https://golang.google.cn/dl/go${go_ver}.linux-amd64.tar.gz && Download_src
     tar -xvzf go${go_ver}.linux-amd64.tar.gz
     mv -fv go ${go_install_dir}${go_ver}
     
