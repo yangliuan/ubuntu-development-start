@@ -47,11 +47,12 @@ Show_Help() {
   --jmeter
   --vscode
   --obs_studio
+  --rabbitvcs_nautilus
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,obs_studio -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -102,6 +103,12 @@ while :; do
       ;;
     --obs_studio)
       obs_studio_flag=y; shift 1
+      ;;
+    --rabbitvcs_nautilus)
+      rabbitvcs_nautilus_flag=y; shift 1
+      ;;
+    --reboot)
+      reboot_flag=y; shift 1
       ;;
     --)
       shift
@@ -480,5 +487,5 @@ fi
 # install rabbitvcs nautilus
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
     . include/develop-tools/rabbitvcs.sh
-    rabbitvcs_nautilus_flag 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+    Install_Rabbitvcs 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
