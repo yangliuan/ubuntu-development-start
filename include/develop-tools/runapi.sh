@@ -12,6 +12,7 @@ Install_Runapi() {
     cp -rfv ${oneinstack_dir}/desktop/runapi.desktop /usr/share/applications/
     chmod -Rv 777 /opt/runapi/runapi.png
     chmod -Rv 755 runapi/runapi.AppImage
+    chown -Rv ${run_user}.${run_group} runapi
     chown -Rv ${run_user}.${run_group} runapi/runapi.AppImage
     popd > /dev/null
 }
