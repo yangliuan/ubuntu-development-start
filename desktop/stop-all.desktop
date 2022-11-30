@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Stop all service
+Comment=Develop Environment 
+Exec=sh /opt/oneinstack/start/stop_all.sh
+Icon=/opt/oneinstack/icon/stop-all.jpg
+Type=Application
+Categories=Development

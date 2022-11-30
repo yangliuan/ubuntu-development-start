@@ -30,3 +30,4 @@ pushd ${oneinstack_dir} > /dev/null
 # OpenRestyDevConfig
 # WwwlogsDevConfig
 # PhpDevConfig
+Install_StopAllDesktop

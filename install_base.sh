@@ -1384,6 +1384,7 @@ fi
 
 Install_LNMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 Install_LAMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+Install_StopAllDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 WwwlogsDevConfig 2>&1 | tee -a ${oneinstack_dir}/install.log
 
 chmod -R 777 ${oneinstack_dir}/src

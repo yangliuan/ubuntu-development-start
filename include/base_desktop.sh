@@ -190,3 +190,13 @@ Install_RabbitmqDesktop() {
 Uninstall_RabbitmqDesktop() {
     rm -rfv /usr/share/applications/rabbitmq.desktop
 }
+
+Install_StopAllDesktop() {
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv stop-all.desktop /usr/share/applications
+    popd > /dev/null
+}
+
+Uninstall_StopAllDesktop() {
+    rm -rfv /usr/share/applications/rabbitmq.desktop/stop-all.desktop
+}
