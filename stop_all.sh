@@ -8,35 +8,35 @@ printf "
 "
 
 if [ -e "/lib/systemd/system/httpd.service" ]; then
-    systemctl stop httpd.service
+    sudo systemctl stop httpd.service
 fi
 
 if [ -e "/lib/systemd/system/nginx.service" ]; then
-    systemctl stop nginx.service
+    sudo systemctl stop nginx.service
 fi
 
 if [ -e "/lib/systemd/system/php-fpm.service" ]; then
-    systemctl stop php-fpm.service
+    sudo systemctl stop php-fpm.service
 fi
 
 if [ -e "/etc/init.d/mysqld/mysql.server" ]; then
-    systemctl stop mysql.service
+    sudo systemctl stop mysql.service
 fi
 
 if [ -e "/lib/systemd/system/redis-server.service" ]; then
-    systemctl stop redis-server.service
+    sudo systemctl stop redis-server.service
 fi
 
 if [ -e "/etc/init.d/memcached" ]; then
-    systemctl stop memcached.service
+    sudo systemctl stop memcached.service
 fi
 
 if [ -e "/lib/systemd/system/mongod.service" ]; then
-    systemctl stop mongod.service
+    sudo systemctl stop mongod.service
 fi
 
 if [ -e "/lib/systemd/system/postgresql.service" ]; then
-    systemctl stop postgresql.service
+    sudo systemctl stop postgresql.service
 fi
 
 if [ -e "/usr/bin/supervisorctl" ]; then
@@ -44,23 +44,27 @@ if [ -e "/usr/bin/supervisorctl" ]; then
 fi
 
 if [ -e "/lib/systemd/system/supervisor.service" ]; then
-    systemctl stop supervisor.service
+    sudo systemctl stop supervisor.service
 fi
 
 if [ -e "/lib/systemd/system/pureftpd.service" ]; then
-    systemctl stop pureftpd.service
+    sudo systemctl stop pureftpd.service
 fi
 
 if [ -e "/lib/systemd/system/cerebro.service" ]; then
-    systemctl stop cerebro.service
+    sudo systemctl stop cerebro.service
 fi
 
 if [ -e "/lib/systemd/system/kafka.service" ]; then
-    systemctl stop kafka.service
+    sudo systemctl stop kafka.service
 fi
 
 if [ -e "/lib/systemd/system/rabbitmq-server.service" ]; then
-    systemctl stop rabbitmq-server.service
+    sudo systemctl stop rabbitmq-server.service
+fi
+
+if [ -e "/usr/local/php/bin/php" ]; then
+    sudo killall -9 php
 fi
 
 echo "stop all service successed!"
