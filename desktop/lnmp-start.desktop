@@ -4,5 +4,6 @@ Comment=PHP Web Environment
 Exec=sh /opt/oneinstack/start/lnmp_start.sh
 Icon=/opt/oneinstack/icon/lnmp.jpeg
 Type=Application
+Terminal=true
 Categories=Development;PHP Web;
 Keywords=LNMP;lnmp

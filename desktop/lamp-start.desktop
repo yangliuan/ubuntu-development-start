@@ -4,5 +4,6 @@ Comment=PHP Web Environment
 Exec=sh /opt/oneinstack/start/lamp_start.sh
 Icon=/opt/oneinstack/icon/lamp.png
 Type=Application
+Terminal=true
 Categories=Development;PHP Web;
 Keywords=LAMP;lamp
