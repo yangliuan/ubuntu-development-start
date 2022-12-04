@@ -1,5 +1,11 @@
 #!/bin/bash
-export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+clear
+printf "
+####################################################################
+                          start tomcat
+####################################################################
+"
 
-service start tomcat 
-service status tomcat
+sudo service start tomcat 
+sudo service status tomcat

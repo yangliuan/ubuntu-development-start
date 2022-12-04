@@ -4,5 +4,6 @@ Comment=search database
 Exec=sh /opt/oneinstack/start/elasticsearch_start.sh
 Icon=/opt/oneinstack/icon/elasticsearch.svg
 Type=Application
+Terminal=true
 Categories=Development;Elasticsearch;
 Keywords=Elasticsearch;elasticsearch;ES;es;

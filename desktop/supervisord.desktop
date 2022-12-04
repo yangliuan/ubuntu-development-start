@@ -4,5 +4,6 @@ Comment=进程管理工具
 Exec=sh /opt/oneinstack/start/supervisord_start.sh
 Icon=/opt/oneinstack/icon/supervisord.png
 Type=Application
+Terminal=true
 Categories=Development;
 Keywords=Supervisord;supervisord;

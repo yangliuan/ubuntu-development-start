@@ -4,6 +4,7 @@ Exec=sh /opt/oneinstack/start/kafka_start.sh %U
 Terminal=false
 Type=Service
 Icon=/opt/oneinstack/icon/kafka.png
+Terminal=true
 StartupWMClass=Kafka
 Comment=message queue
 Categories=Development;

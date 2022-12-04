@@ -1,5 +1,11 @@
 #!/bin/bash
-export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+clear
+printf "
+####################################################################
+                          start mongodb
+####################################################################
+"
 
-systemctl start mongodb.service
-systemctl status mongodb.service
+sudo systemctl start mongodb.service
+sudo systemctl status mongodb.service

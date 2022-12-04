@@ -4,5 +4,6 @@ Comment=document database
 Exec=sh /opt/oneinstack/start/mongodb_start.sh
 Icon=/opt/oneinstack/icon/mongodb.png
 Type=Application
+Terminal=true
 Categories=Development;Mongodb;
 Keywords=mongodb;Mongodb

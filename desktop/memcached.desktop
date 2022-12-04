@@ -4,5 +4,6 @@ Comment=Memcached is an in-memory key-value store
 Exec=sh /opt/oneinstack/start/memcached_start.sh
 Icon=/opt/oneinstack/icon/memcached.jpg
 Type=Application
+Terminal=true
 Categories=Development;Memcached;
 Keywords=Memcached;memcached

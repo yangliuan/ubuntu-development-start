@@ -4,5 +4,6 @@ Comment=redis in-memory data structure store
 Exec=sh /opt/oneinstack/start/redis_start.sh
 Icon=/opt/oneinstack/icon/redis.png
 Type=Application
+Terminal=true
 Categories=Development;Redis;
 Keywords=Redis;redis

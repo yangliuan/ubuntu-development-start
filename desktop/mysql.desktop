@@ -4,5 +4,6 @@ Comment=relation database
 Exec=sh /opt/oneinstack/start/mysql_start.sh
 Icon=/opt/oneinstack/icon/mysql.jpeg
 Type=Application
+Terminal=true
 Categories=Development;Mysql;
 Keywords=Mysql;mysql

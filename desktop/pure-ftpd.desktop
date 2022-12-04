@@ -4,5 +4,6 @@ Comment=ftp服务端工具
 Exec=sh /opt/oneinstack/start/pure-ftpd_start.sh
 Icon=/opt/oneinstack/icon/pure-ftpd.png
 Type=Application
+Terminal=true
 Categories=Development;
 Keywords=ftpd;

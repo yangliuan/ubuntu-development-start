@@ -4,5 +4,6 @@ Comment=relation database
 Exec=sh /opt/oneinstack/start/postgresql_start.sh
 Icon=/opt/oneinstack/icon/postgresql.png
 Type=Application
+Terminal=true
 Categories=Development;Database;
 Keywords=PostgreSql;postgresql

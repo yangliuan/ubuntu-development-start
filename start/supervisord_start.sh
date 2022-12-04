@@ -1,5 +1,11 @@
 #!/bin/bash
-export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+clear
+printf "
+####################################################################
+                          start supervisor
+####################################################################
+"
 
-systemctl start supervisor.service
-systemctl status supervisor.service
+sudo systemctl start supervisor.service
+sudo systemctl status supervisor.service

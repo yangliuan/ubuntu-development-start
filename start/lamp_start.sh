@@ -7,6 +7,6 @@ printf "
 ####################################################################
 "
 
-systemctl start httpd.service
-systemctl start php-fpm.service
-systemctl start mysqld.service
+sudo systemctl start httpd.service
+sudo systemctl start php-fpm.service
+sudo systemctl start mysqld.service
