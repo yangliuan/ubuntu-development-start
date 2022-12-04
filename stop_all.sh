@@ -39,8 +39,11 @@ if [ -e "/lib/systemd/system/postgresql.service" ]; then
     systemctl stop postgresql.service
 fi
 
+if [ -e "/usr/bin/supervisorctl" ]; then
+    supervisorctl stop all
+fi
+
 if [ -e "/lib/systemd/system/supervisor.service" ]; then
-    sudo supervisorctl stop all
     systemctl stop supervisor.service
 fi
 
