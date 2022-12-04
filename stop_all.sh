@@ -40,7 +40,7 @@ if [ -e "/lib/systemd/system/postgresql.service" ]; then
 fi
 
 if [ -e "/usr/bin/supervisorctl" ]; then
-    supervisorctl stop all
+    sudo supervisorctl stop all
 fi
 
 if [ -e "/lib/systemd/system/supervisor.service" ]; then
