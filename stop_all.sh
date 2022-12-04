@@ -7,6 +7,10 @@ printf "
 ####################################################################
 "
 
+if [ -e "/lib/systemd/system/httpd.service" ]; then
+    systemctl stop httpd.service
+fi
+
 if [ -e "/lib/systemd/system/nginx.service" ]; then
     systemctl stop nginx.service
 fi
@@ -33,6 +37,26 @@ fi
 
 if [ -e "/lib/systemd/system/postgresql.service" ]; then
     systemctl stop postgresql.service
+fi
+
+if [ -e "/lib/systemd/system/supervisor.service" ]; then
+    systemctl stop supervisor.service
+fi
+
+if [ -e "/lib/systemd/system/pureftpd.service" ]; then
+    systemctl stop pureftpd.service
+fi
+
+if [ -e "/lib/systemd/system/cerebro.service" ]; then
+    systemctl stop cerebro.service
+fi
+
+if [ -e "/lib/systemd/system/kafka.service" ]; then
+    systemctl stop kafka.service
+fi
+
+if [ -e "/lib/systemd/system/rabbitmq-server.service" ]; then
+    systemctl stop rabbitmq-server.service
 fi
 
 echo "stop all service successed!"
