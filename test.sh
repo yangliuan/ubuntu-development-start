@@ -23,6 +23,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/develop-tools/develop_config.sh
 . ./include/language/php/switch_extension.sh
 . ./include/develop-tools/rabbitvcs.sh
+. ./include/develop-tools/gitlab.sh
 
 
 # NginxDevConfig
@@ -30,4 +31,6 @@ pushd ${oneinstack_dir} > /dev/null
 # OpenRestyDevConfig
 # WwwlogsDevConfig
 # PhpDevConfig
-Install_StopAllDesktop
+# Install_StopAllDesktop
+# Install_Gitlab
+# Uninstall_Gitlab
