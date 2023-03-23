@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Cursor
+Exec=/opt/cursor/Cursor.AppImage
+Terminal=false
+Type=Application
+Icon=/opt/cursor/cursor.svg
+StartupWMClass=cursor
+Comment=ai code edit
+Categories=develop tools;

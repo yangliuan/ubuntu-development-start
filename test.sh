@@ -24,6 +24,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/language/php/switch_extension.sh
 . ./include/develop-tools/rabbitvcs.sh
 . ./include/develop-tools/gitlab.sh
+. ./include/develop-tools/cursor.sh
 
 
 # NginxDevConfig
@@ -34,3 +35,4 @@ pushd ${oneinstack_dir} > /dev/null
 # Install_StopAllDesktop
 # Install_Gitlab
 # Uninstall_Gitlab
+# Uninstall_Cursor

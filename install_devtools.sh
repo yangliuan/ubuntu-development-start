@@ -46,13 +46,14 @@ Show_Help() {
   --filezilla
   --jmeter
   --vscode
+  --cursor
   --obs_studio
   --rabbitvcs_nautilus
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -100,6 +101,9 @@ while :; do
       ;;
     --vscode)
       vscode_flag=y; shift 1
+      ;;
+    --cursor)
+      cursor_flag=y; shift 1
       ;;
     --obs_studio)
       obs_studio_flag=y; shift 1
@@ -476,6 +480,12 @@ fi
 if [ "${vscode_flag}" == 'y' ]; then
     . include/develop-tools/vscode.sh
     Install_Vscode 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+fi
+
+# install cursor
+if [ "${cursor_flag}" == 'y' ]; then
+    . include/develop-tools/cursor.sh
+    Install_Cursor 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install obs studio
