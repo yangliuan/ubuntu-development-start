@@ -594,10 +594,11 @@ if [ ${ARG_NUM} == 0 ]; then
           echo -e "\t${CMSG} 9${CEND}. Install php-7.4"
           echo -e "\t${CMSG}10${CEND}. Install php-8.0"
           echo -e "\t${CMSG}11${CEND}. Install php-8.1"
+          echo -e "\t${CMSG}12${CEND}. Install php-8.2"
           read -e -p "Please input a number:(Default 7 press Enter) " php_option
           php_option=${php_option:-11}
-          php_suffix=([1]=53 [2]=54 [3]=55 [4]=56 [5]=70 [6]=71 [7]=72 [8]=73 [9]=74 [10]=80 [11]=81)
-          if [[ ! ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
+          php_suffix=([1]=53 [2]=54 [3]=55 [4]=56 [5]=70 [6]=71 [7]=72 [8]=73 [9]=74 [10]=80 [11]=81 [12]=82)
+          if [[ ! ${php_option} =~ ^[1-9]$|^1[0-2]$ ]]; then
               echo "${CWARNING}input error! Please only input number 1~11${CEND}"
           else
               #环境变量路径
@@ -1166,6 +1167,10 @@ case "${php_option}" in
   11)
     . include/language/php/php-8.1.sh
     Install_PHP81 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  12)
+    . include/language/php/php-8.2.sh
+    Install_PHP82 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
