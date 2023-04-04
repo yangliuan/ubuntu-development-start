@@ -52,8 +52,9 @@ php71_ver=7.1.33
 php72_ver=7.2.34
 php73_ver=7.3.33
 php74_ver=7.4.33
-php80_ver=8.0.26
-php81_ver=8.1.13
+php80_ver=8.0.28
+php81_ver=8.1.17
+php82_ver=8.2.4
 
 # Nodejs
 node_ver=16.17.1
@@ -99,6 +100,7 @@ xdebug_oldver=2.9.8
 event_ver=3.0.8
 grpc_ver=1.48.0
 yasd_ver=0.3.9
+parallel_ver=1.21
 
 
 # Ftp
