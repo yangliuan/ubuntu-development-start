@@ -30,6 +30,7 @@ Install_PHP81() {
     [ -e "/usr/local/lib/libnghttp2.so" ] && with_nghttp2='--with-nghttp2=/usr/local'
     ./configure --prefix=${curl_install_dir} ${php81_with_ssl} ${with_nghttp2}
     make -j ${THREAD} && make install
+    [ -d /usr/lib/pkgconfig ] && /bin/cp ${curl_install_dir}/lib/pkgconfig/libcurl.pc /usr/lib/pkgconfig/
     popd > /dev/null
     rm -rf curl-${curl_ver}
   fi
@@ -103,7 +104,7 @@ Install_PHP81() {
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
     --with-apxs2=${apache_install_dir}/bin/apxs ${phpcache_arg} --disable-fileinfo \
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
-    --with-iconv --with-freetype --with-jpeg --with-webp --with-zlib \
+    --with-iconv=${libiconv_install_dir} --with-freetype --with-jpeg --with-webp --with-zlib \
     --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
     --enable-sysvsem --enable-sysvshm --enable-sysvmsg ${php81_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php81_with_openssl} \
@@ -114,7 +115,7 @@ Install_PHP81() {
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
     --with-fpm-user=${run_user} --with-fpm-group=${run_group} --enable-fpm ${phpcache_arg} --disable-fileinfo \
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
-    --with-iconv --with-freetype --with-jpeg --with-webp --with-zlib \
+    --with-iconv=${libiconv_install_dir} --with-freetype --with-jpeg --with-webp --with-zlib \
     --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
     --enable-sysvsem --enable-sysvshm --enable-sysvmsg ${php81_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php81_with_openssl} \
