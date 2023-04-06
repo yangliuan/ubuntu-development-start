@@ -107,7 +107,7 @@ Install_PHP80() {
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
     --with-apxs2=${apache_install_dir}/bin/apxs ${phpcache_arg} --disable-fileinfo \
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
-    --with-iconv --with-freetype --with-jpeg --with-webp --with-zlib \
+    --with-iconv=${libiconv_install_dir} --with-freetype --with-jpeg --with-webp --with-zlib \
     --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
     --enable-sysvsem ${php80_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php80_with_openssl} \
@@ -118,7 +118,7 @@ Install_PHP80() {
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
     --with-fpm-user=${run_user} --with-fpm-group=${run_group} --enable-fpm ${phpcache_arg} --disable-fileinfo \
     --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
-    --with-iconv --with-freetype --with-jpeg --with-webp --with-zlib \
+    --with-iconv=${libiconv_install_dir} --with-freetype --with-jpeg --with-webp --with-zlib \
     --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-exif \
     --enable-sysvsem ${php80_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php80_with_openssl} \
