@@ -1,4 +1,6 @@
 #!/bin/bash
+#https://www.php.net/manual/zh/intro.event.php
+#https://pecl.php.net/package/event
 #REF:https://www.cnblogs.com/tinywan/p/7551533.html
 Install_pecl_event() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
