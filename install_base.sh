@@ -41,7 +41,7 @@ Show_Help() {
   --apache                    Install Apache
   --apache_mode_option [1-2]  Apache2.4 mode, 1(default): php-fpm, 2: mod_php
   --apache_mpm_option [1-3]   Apache2.4 MPM, 1(default): event, 2: prefork, 3: worker
-  --php_option [1-11]         Install PHP version
+  --php_option [1-12]         Install PHP version
   --mphp_ver [53~81]          Install another PHP version (PATH: ${php_install_dir}\${mphp_ver})
   --mphp_addons               Only install another PHP addons
   --phpcache_option [1-4]     Install PHP opcode cache, default: 1 opcache
@@ -133,7 +133,10 @@ while :; do
       [ -n "`echo ${php_extensions} | grep -w memcache`" ] && pecl_memcache=1
       [ -n "`echo ${php_extensions} | grep -w mongodb`" ] && pecl_mongodb=1
       [ -n "`echo ${php_extensions} | grep -w swoole`" ] && pecl_swoole=1
+      [ -n "`echo ${php_extensions} | grep -w event`" ] && pecl_event=1
       [ -n "`echo ${php_extensions} | grep -w xdebug`" ] && pecl_xdebug=1
+      [ -n "`echo ${php_extensions} | grep -w yasd`" ] && pecl_yasd=1
+      [ -n "`echo ${php_extensions} | grep -w parallel`" ] && pecl_parallel=1
       ;;
     --nodejs)
       nodejs_method=1; shift 1
@@ -742,11 +745,12 @@ if [ ${ARG_NUM} == 0 ]; then
       echo -e "\t${CMSG}18${CEND}. Install grpc(PHP>=7.0)"
       echo -e "\t${CMSG}19${CEND}. Install xdebug(PHP>=5.5)"
       echo -e "\t${CMSG}20${CEND}. Install yasd(PHP>=7.2)"
+      echo -e "\t${CMSG}21${CEND}. Install parallel(PHP>=7.2)"
       read -e -p "Please input numbers:(Default '4 6 11 16 17' press Enter) " phpext_option
       phpext_option=${phpext_option:-'4 6 11 16 17'}
       [ "${phpext_option}" == '0' ] && break
       array_phpext=(${phpext_option})
-      array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20)
+      array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21)
       for v in ${array_phpext[@]}
       do
       [ -z "`echo ${array_all[@]} | grep -w ${v}`" ] && phpext_flag=1
@@ -776,6 +780,7 @@ if [ ${ARG_NUM} == 0 ]; then
       [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && pecl_grpc=1
       [ -n "`echo ${array_phpext[@]} | grep -w 19`" ] && pecl_xdebug=1
       [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && pecl_yasd=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 21`" ] && pecl_parallel=1
       break
       fi
   done
@@ -1331,6 +1336,12 @@ PHP_addons() {
   if [ "${pecl_yasd}" == '1' ]; then
     . include/language/php/extension/yasd_debug.sh
     Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log
+  fi
+
+  # parallel
+  if [ "${pecl_parallel}" == '1' ]; then
+    . include/language/php/extension/pecl_parallel.sh
+    Install_Parallel 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 }
 

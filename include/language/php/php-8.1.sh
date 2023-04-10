@@ -109,7 +109,7 @@ Install_PHP81() {
     --enable-sysvsem --enable-sysvshm --enable-sysvmsg ${php81_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php81_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
-    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
+    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug --enable-zts ${php_modules_options}
   else
     ./configure --prefix=${php_install_dir} --with-config-file-path=${php_install_dir}/etc \
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
@@ -120,7 +120,7 @@ Install_PHP81() {
     --enable-sysvsem --enable-sysvshm --enable-sysvmsg ${php81_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php81_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
-    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
+    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug --enable-zts ${php_modules_options}
   fi
   make ZEND_EXTRA_LIBS="-L${libiconv_install_dir}/lib/ -liconv" -j ${THREAD}
   make install

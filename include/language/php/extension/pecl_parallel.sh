@@ -18,10 +18,10 @@ Install_Parallel() {
             ./configure --with-php-config=${php_install_dir}/bin/php-config
             make -j ${THREAD} && make install
             popd > /dev/null
-        elif [[ "${PHP_main_ver}" =~ 8.[0-1]$ ]];then
+        elif [[ "${PHP_main_ver}" =~ 8.[0-2]$ ]];then
             src_url=https://pecl.php.net/get/parallel-${parallel_ver}.tgz && Download_src
             tar xzf parallel-${parallel_ver}.tgz
-            pushd parallel-${parallel_ver}.tgz
+            pushd parallel-${parallel_ver}
             ${php_install_dir}/bin/phpize
             ./configure --with-php-config=${php_install_dir}/bin/php-config
             make -j ${THREAD} && make install

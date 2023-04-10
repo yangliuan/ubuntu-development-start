@@ -548,6 +548,12 @@ Uninstall_PHPext() {
     Uninstall_Yasd
   fi
 
+  # pecl_parallel
+  if [ "${pecl_parallel}" == '1' ]; then
+    . include/language/php/extension/pecl_parallel.sh
+    Uninstall_Parallel
+  fi
+
   # reload php
   [ -e "${php_install_dir}/sbin/php-fpm" ] && { [ -e "/bin/systemctl" ] && systemctl reload php-fpm || service php-fpm reload; }
   [ -n "${mphp_ver}" -a -e "${php_install_dir}${mphp_ver}/sbin/php-fpm" ] && { [ -e "/bin/systemctl" ] && systemctl reload php${mphp_ver}-fpm || service php${mphp_ver}-fpm reload; }
@@ -578,11 +584,12 @@ Menu_PHPext() {
     echo -e "\t${CMSG}18${CEND}. Uninstall grpc(PHP>=7.0)"
     echo -e "\t${CMSG}19${CEND}. Uninstall xdebug(PHP>=5.5)"
     echo -e "\t${CMSG}20${CEND}. Uninstall yasd(PHP>=7.2)"
+    echo -e "\t${CMSG}21${CEND}. Uninstall parallel(PHP>=7.2)"
     read -e -p "Please input a number:(Default 0 press Enter) " phpext_option
     phpext_option=${phpext_option:-0}
     [ "${phpext_option}" == '0' ] && break
     array_phpext=(${phpext_option})
-    array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18)
+    array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21)
     for v in ${array_phpext[@]}
     do
       [ -z "`echo ${array_all[@]} | grep -w ${v}`" ] && phpext_flag=1
@@ -612,6 +619,7 @@ Menu_PHPext() {
       [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && pecl_grpc=1
       [ -n "`echo ${array_phpext[@]} | grep -w 19`" ] && pecl_xdebug=1
       [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && yasd=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 21`" ] && pecl_parallel=1
       break
     fi
   done
