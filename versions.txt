@@ -162,7 +162,7 @@ rabbitmq_ver=3.10.5
 # devtools
 # mysql_workbench_ver必须和myql版本保持一致
 navicat_ver=16
-filezilla_ver=3.62.2
+filezilla_ver=3.63.1
 virtualbox_ver_base=7.0
 virtualbox_ver=6
 virtualbox_ver_sn=155176
