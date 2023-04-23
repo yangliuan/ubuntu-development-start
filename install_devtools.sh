@@ -63,6 +63,9 @@ while :; do
     -h|--help)
       Show_Help; exit 0
       ;;
+    -v|-V|--version)
+      version; exit 0
+      ;;
     --openssh-server)
       openssh_server_flag=y; shift 1
       ;;

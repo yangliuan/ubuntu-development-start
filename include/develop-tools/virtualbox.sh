@@ -13,5 +13,5 @@ Install_Vbox() {
 
 Uninstall_Vbox() {
     dpkg -P  virtualbox-${virtualbox_ver_base}
-    apt-get autoremove
+    apt autoremove
 }

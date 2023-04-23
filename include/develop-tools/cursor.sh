@@ -14,5 +14,5 @@ Install_Cursor() {
 }
 
 Uninstall_Cursor() {
-    rm -rf /opt/cursor /usr/share/applications/cursor.desktop
+    rm -rfv /opt/cursor /usr/share/applications/cursor.desktop
 }

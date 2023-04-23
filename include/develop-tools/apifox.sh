@@ -15,6 +15,6 @@ Install_Apifox() {
 }
 
 Uninstall_Apifox() {
-    rm -rf /opt/apifox /usr/share/applications/apifox.desktop
+    rm -rfv /opt/apifox /usr/share/applications/apifox.desktop
 }
 
