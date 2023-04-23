@@ -192,67 +192,67 @@ if [ "${wireshark_flag}" == 'y' ]; then
     Uninstall_Wireshark
 fi
 
-# install postman
+# uninstall postman
 if [ "${postman_flag}" == 'y' ]; then
     . include/develop-tools/postman.sh
     Uninstall_Postman
 fi
 
-# install runapi
+# uninstall runapi
 if [ "${runapi_flag}" == 'y' ]; then
     . include/develop-tools/runapi.sh
     Uninstall_Runapi
 fi
 
-# install apifox
+# uninstall apifox
 if [ "${apifox_flag}" == 'y' ]; then
     . include/develop-tools/apifox.sh
     Uninstall_Apifox
 fi
 
-# install oss-browser
-if [ "${ossbrowser_flag}" == 'y' ]; then
+# uninstall oss-browser
+if [ "${oss_browser_flag}" == 'y' ]; then
     . include/develop-tools/ossbrowser.sh
     Uninstall_Ossbrowser
 fi
 
-# install vitualbox
+# uninstall vitualbox
 if [ "${virtualbox_flag}" == 'y' ]; then
     . include/develop-tools/virtualbox.sh
     Uninstall_Vbox
 fi
 
-# install filezilla
+# uninstall filezilla
 if [ "${filezilla_flag}" == 'y' ]; then
     . include/develop-tools/filezilla.sh
     Uninstall_FileZilla
 fi
 
-# install jmeter
+# uninstall jmeter
 if [ "${jmeter_flag}" == 'y' ]; then
     . include/develop-tools/jmeter.sh
     Uninstall_Jmeter
 fi
 
-# install vscode
+# uninstall vscode
 if [ "${vscode_flag}" == 'y' ]; then
     . include/develop-tools/vscode.sh
     Uninstall_Vscode
 fi
 
-# install cursor
+# uninstall cursor
 if [ "${cursor_flag}" == 'y' ]; then
     . include/develop-tools/cursor.sh
     Uninstall_Cursor
 fi
 
-# install obs studio
+# uninstall obs studio
 if [ "${obs_studio_flag}" == 'y' ]; then
     . include/develop-tools/obs_studio.sh
     Unintall_ObsStudio
 fi
 
-# install rabbitvcs nautilus
+# uninstall rabbitvcs nautilus
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
     . include/develop-tools/rabbitvcs.sh
     Uninstall_rabbitbvcs
