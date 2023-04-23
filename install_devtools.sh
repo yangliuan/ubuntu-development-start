@@ -32,6 +32,7 @@ Show_Help() {
   echo "Usage: $0  command ...[parameters]....
   --help, -h
   --version, -v 
+  --all
   --openssh_server
   --switchhost
   --rdm
@@ -80,6 +81,9 @@ while :; do
       ;;
     --mysql_workbench)
       mysql_workbench_flag=y; shift 1
+      ;;
+    --remmina)
+      remmina_flag=y; shift 1
       ;;
     --postman)
       postman_flag=y; shift 1
