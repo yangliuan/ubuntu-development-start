@@ -102,6 +102,8 @@ while :; do
     --php_option)
       php_option=$2; shift 2
       [[ ! ${php_option} =~ ^[1-9]$|^1[0-2]$ ]] && { echo "${CWARNING}php_option input error! Please only input number 1~12${CEND}"; exit 1; }
+      php_suffix=([1]=53 [2]=54 [3]=55 [4]=56 [5]=70 [6]=71 [7]=72 [8]=73 [9]=74 [10]=80 [11]=81 [12]=82)
+      php_install_dir="${php_install_dir}${php_suffix[$php_option]}"
       [ -e "${php_install_dir}/bin/phpize" ] && { echo "${CWARNING}PHP already installed! ${CEND}"; unset php_option; }
       ;;
     --mphp_ver)
@@ -1393,7 +1395,7 @@ if [ "${python_flag}" == 'y' ]; then
   Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-if [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
+if [[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]]; then
   #php开发配置
   PhpDevConfig | tee -a ${oneinstack_dir}/install.log
 fi

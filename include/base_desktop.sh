@@ -198,5 +198,5 @@ Install_StopAllDesktop() {
 }
 
 Uninstall_StopAllDesktop() {
-    rm -rfv /usr/share/applications/rabbitmq.desktop/stop-all.desktop
+    rm -rfv /usr/share/applications/stop-all.desktop
 }

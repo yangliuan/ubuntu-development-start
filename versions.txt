@@ -43,6 +43,7 @@ jdk17_ver=1.7.0_80
 jdk16_ver=1.6.0_45
 
 # PHP
+# https://www.php.net/ChangeLog-8.php#8.2.5
 php53_ver=5.3.29
 php54_ver=5.4.45
 php55_ver=5.5.38
@@ -53,8 +54,8 @@ php72_ver=7.2.34
 php73_ver=7.3.33
 php74_ver=7.4.33
 php80_ver=8.0.28
-php81_ver=8.1.17
-php82_ver=8.2.4
+php81_ver=8.1.18
+php82_ver=8.2.5
 
 # Nodejs
 node_ver=18.14.2
