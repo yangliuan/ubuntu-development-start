@@ -10,6 +10,22 @@
 
 Install_PHP82() {
   pushd ${oneinstack_dir}/src > /dev/null
+
+  # . include/system-lib/iconv.sh
+  # Install_Libiconv
+  # . include/system-lib/libcurl.sh
+  # Install_Libcurl
+  # . include/system-lib/libfreetype.sh
+  # Install_Libfreetype
+  # . include/system-lib/libargon2.sh
+  # Install_Libargon2
+  # . include/system-lib/libsodium.sh
+  # Install_Libsodium
+  # . include/system-lib/libzip.sh
+  # Install_Libzip
+  # . include/system-lib/mhash.sh
+  # Install_Mhash
+
   if [ ! -e "/usr/local/lib/libiconv.la" ]; then
     tar xzf libiconv-${libiconv_ver}.tar.gz
     pushd libiconv-${libiconv_ver} > /dev/null
@@ -76,7 +92,7 @@ Install_PHP82() {
     popd > /dev/null
     rm -rf mhash-${mhash_ver}
   fi
-
+ 
   [ -z "`grep /usr/local/lib /etc/ld.so.conf.d/*.conf`" ] && echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
   ldconfig
 
@@ -106,7 +122,7 @@ Install_PHP82() {
     --enable-sysvsem --enable-sysvshm --enable-sysvmsg ${php82_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php82_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
-    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
+    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug --enable-zts ${php_modules_options}
   else
     ./configure --prefix=${php_install_dir} --with-config-file-path=${php_install_dir}/etc \
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
@@ -117,7 +133,7 @@ Install_PHP82() {
     --enable-sysvsem --enable-sysvshm --enable-sysvmsg ${php82_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php82_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
-    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
+    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug --enable-zts ${php_modules_options}
   fi
   make ZEND_EXTRA_LIBS='-liconv' -j ${THREAD}
   make install

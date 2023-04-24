@@ -1177,6 +1177,13 @@ case "${php_option}" in
     ;;
   12)
     . include/language/php/php-8.2.sh
+    # . include/system-lib/iconv.sh
+    # . include/system-lib/libcurl.sh
+    # . include/system-lib/libfreetype.sh
+    # . include/system-lib/libargon2.sh
+    # . include/system-lib/libsodium.sh
+    # . include/system-lib/libzip.sh
+    # . include/system-lib/mhash.sh
     Install_PHP82 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac

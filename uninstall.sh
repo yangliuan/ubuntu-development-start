@@ -29,6 +29,17 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_dir.sh
 . include/base_desktop.sh
 . include/multimedia/libwebp.sh
+. include/fulltext-search/elasticsearch_stack.sh
+. include/multimedia/ffmpeg.sh
+. include/language/python/python.sh
+. include/language/nodejs/node.sh
+. include/language/nodejs/nvm.sh
+. include/language/go/go.sh
+. include/language/go/gvm.sh
+. include/language/python/supervisor.sh
+. include/message-queue/kafka.sh
+. include/message-queue/rabbitmq.sh
+. include/message-queue/rocketmq.sh
 
 Show_Help() {
   echo
@@ -195,7 +206,8 @@ Uninstall_status() {
 }
 
 Uninstall_alldesktop() {
-    Uninstall_ElasticsearchDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;Uninstall_StopAllDesktop
+    Uninstall_ElasticsearchDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;
+    Uninstall_StopAllDesktop
 }
 
 Print_Warn() {
@@ -394,7 +406,7 @@ Uninstall_ALLPHP() {
   [ -e "${apache_install_dir}/conf/httpd.conf" ] && [ -n "`grep libphp ${apache_install_dir}/conf/httpd.conf`" ] && sed -i '/libphp/d' ${apache_install_dir}/conf/httpd.conf
   [ -e "${php_install_dir}" ] && { rm -rf ${php_install_dir}; echo "${CMSG}PHP uninstall completed! ${CEND}"; }
   sed -i "s@${php_install_dir}/bin:@@" /etc/profile
-  for php_ver in 53 54 55 56 70 71 72 73 74 80 81; do
+  for php_ver in 53 54 55 56 70 71 72 73 74 80 81 82; do
     [ -e "/etc/init.d/php${php_ver}-fpm" ] && { service php${php_ver}-fpm stop > /dev/null 2>&1; rm -f /etc/init.d/php${php_ver}-fpm; }
     [ -e "/lib/systemd/system/php${php_ver}-fpm.service" ] && { systemctl stop php${php_ver}-fpm > /dev/null 2>&1; systemctl disable php${php_ver}-fpm > /dev/null 2>&1; rm -f /lib/systemd/system/php${php_ver}-fpm.service; }
     [ -e "${php_install_dir}${php_ver}" ] && { rm -rf ${php_install_dir}${php_ver}; echo "${CMSG}PHP${php_ver} uninstall completed! ${CEND}"; }
@@ -791,26 +803,25 @@ What Are You Doing?
         Uninstall_MySQL
         Uninstall_PostgreSQL
         Uninstall_MongoDB
-        . include/fulltext-search/elasticsearch_stack.sh; Uninstall_Elasticsearch
+        Uninstall_Elasticsearch
         Uninstall_AllMessageQueue
         Uninstall_ALLPHP
         Uninstall_PureFtpd
         Uninstall_Redis_server
         Uninstall_Memcached_server
-        . include/multimedia/ffmpeg.sh; Uninstall_FFmpeg
-        . include/multimedia/webp.sh; Uninstall_Webp
+        Uninstall_FFmpeg
+        Uninstall_Libwebp
         Uninstall_openssl
         Uninstall_libevent
         Uninstall_phpMyAdmin
-        . include/language/python/python.sh; Uninstall_Python
-        . include/language/nodejs/node.sh; Uninstall_Node
-        . include/language/nodejs/nvm.sh; Uninstall_Nvm
-        . include/language/go/go.sh; Uninstall_Go
-        . include/language/go/gvm.sh; Uninstall_Gvm
+        Uninstall_Python
+        Uninstall_Node
+        Uninstall_Nvm
+        Uninstall_Go
+        Uninstall_Gvm
         Uninstall_JDK
-        . include/language/python/supervisor.sh;Uninstall_Supervisor
+        Uninstall_Supervisor
         Uninstall_alldesktop
-        Uninstall_Libwebp
       else
         exit
       fi
@@ -843,7 +854,7 @@ What Are You Doing?
       Print_Warn
       Print_ElasticsearchStack
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && . include/fulltext-search/elasticsearch_stack.sh; Uninstall_Elasticsearch; Uninstall_Cerebro || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Elasticsearch; Uninstall_Cerebro || exit
       ;;
     6)
       Print_Warn
@@ -855,19 +866,19 @@ What Are You Doing?
       Print_Warn
       Print_Kafka
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/kafka.sh;Uninstall_Kafka;Uninstall_KafkaDesktop || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Kafka;Uninstall_KafkaDesktop || exit
       ;;
     8)
       Print_Warn
       Print_Rabbitmq
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rabbitmq.sh;Uninstall_RabbitMQ;Uninstall_RabbitmqDesktop || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_RabbitMQ;Uninstall_RabbitmqDesktop || exit
       ;;
     9)
       Print_Warn
       Print_Rocketmq
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && . include/message-queue/rocketmq.sh;Uninstall_RocketMQ || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_RocketMQ || exit
       ;;
     10)
       Print_PureFtpd
@@ -906,27 +917,27 @@ What Are You Doing?
     19)
       Print_Python
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/language/python/python.sh; Uninstall_Python; } || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Python || exit
       ;;
     20)
       Print_Node
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/language/nodejs/node.sh; Uninstall_Node; } || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Node || exit
       ;;
     21)
       Print_Nvm
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/language/nodejs/nvm.sh; Uninstall_Nvm; } || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Nvm || exit
       ;;
     22)
       Print_Go
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/language/go/go.sh; Uninstall_Go; } || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Go || exit
       ;;
     23)
       Print_Gvm
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/language/go/gvm.sh; Uninstall_Gvm; } || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Gvm || exit
       ;;
     24)
       Print_JDK
@@ -936,7 +947,7 @@ What Are You Doing?
     25)
       Print_Supervisord
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && { . include/language/python/supervisor.sh;Uninstall_Supervisor;Uninstall_SupervisorDesktop; } || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Supervisor;Uninstall_SupervisorDesktop || exit
       ;;
     q)
       exit
@@ -991,13 +1002,13 @@ else
     [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
     [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
-    [ "${python_flag}" == 'y' ] && { . include/language/python/python.sh; Uninstall_Python; }
-    [ "${node_flag}" == 'y' ] && { . include/language/nodejs/node.sh; Uninstall_Node; }
-    [ "${nvm_flag}" == 'y' ] && { . include/language/nodejs/nvm.sh; Uninstall_Nvm; }
+    [ "${python_flag}" == 'y' ] && Uninstall_Python
+    [ "${node_flag}" == 'y' ] && Uninstall_Node
+    [ "${nvm_flag}" == 'y' ] && Uninstall_Nvm
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
-    [ "${go_flag}" == 'y' ] && { . include/language/go/go.sh; Uninstall_Go; } 
-    [ "${gvm_flag}" == 'y' ] && { . include/language/go/gvm_flag; Uninstall_Gvm; } 
-    [ "${supervisord_flag}" == 'y' ] && { . include/language/python/supervisor_flag; Uninstall_Supervisor; } 
+    [ "${go_flag}" == 'y' ] && Uninstall_Go 
+    [ "${gvm_flag}" == 'y' ] && Uninstall_Gvm 
+    [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor 
   fi
 fi
 
@@ -1012,4 +1023,5 @@ if [ ${ARG_NUM} == 0 ]; then
     fi
   done
 fi
+
 [ "${reboot_flag}" == 'y' ] && reboot
