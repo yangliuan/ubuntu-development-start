@@ -95,12 +95,14 @@ Install_PHP80() {
 
   tar xzf php-${php80_ver}.tar.gz
   pushd php-${php80_ver} > /dev/null
+  if [ -e ext/openssl/openssl.c ] && ! grep -Eqi '^#ifdef RSA_SSLV23_PADDING' ext/openssl/openssl.c; then
+    sed -i '/OPENSSL_SSLV23_PADDING/i#ifdef RSA_SSLV23_PADDING' ext/openssl/openssl.c
+    sed -i '/OPENSSL_SSLV23_PADDING/a#endif' ext/openssl/openssl.c
+  fi
   make clean
   export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/:$PKG_CONFIG_PATH
   [ ! -d "${php_install_dir}" ] && mkdir -p ${php_install_dir}
   [ "${phpcache_option}" == '1' ] && phpcache_arg='--enable-opcache' || phpcache_arg='--disable-opcache'
-
-  #[ "${isOpenSSL3}" = "y" ] && patch -p1 < ${oneinstack_dir}/src/patch/php-8.0-openssl3.0.patch
 
   if [ "${Apache_main_ver}" == '22' ] || [ "${apache_mode_option}" == '2' ]; then
     ./configure --prefix=${php_install_dir} --with-config-file-path=${php_install_dir}/etc \
