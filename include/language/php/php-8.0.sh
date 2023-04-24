@@ -86,8 +86,6 @@ Install_PHP80() {
   [ -z "`grep /usr/local/lib /etc/ld.so.conf.d/*.conf`" ] && echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
   ldconfig
 
-  
-
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}
   id -u ${run_user} >/dev/null 2>&1
@@ -114,7 +112,7 @@ Install_PHP80() {
     --enable-sysvsem ${php80_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php80_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
-    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
+    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug --enable-zts ${php_modules_options}
   else
     ./configure --prefix=${php_install_dir} --with-config-file-path=${php_install_dir}/etc \
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
@@ -125,9 +123,10 @@ Install_PHP80() {
     --enable-sysvsem ${php80_with_curl} --enable-mbregex \
     --enable-mbstring --with-password-argon2 --with-sodium=/usr/local --enable-gd ${php80_with_openssl} \
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
-    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug ${php_modules_options}
+    --with-gettext --with-zip=/usr/local --enable-soap --disable-debug --enable-zts ${php_modules_options}
   fi
-  make ZEND_EXTRA_LIBS="-L${libiconv_install_dir}/lib/ -liconv" -j ${THREAD}
+  #make ZEND_EXTRA_LIBS="-L${libiconv_install_dir}/lib/ -liconv" -j ${THREAD}
+  make ZEND_EXTRA_LIBS='-liconv' -j ${THREAD}
   make install
 
   if [ -e "${php_install_dir}/bin/phpize" ]; then
