@@ -1407,6 +1407,9 @@ if [[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]]; then
   PhpDevConfig | tee -a ${oneinstack_dir}/install.log
 fi
 
+# get web_install_dir and db_install_dir
+. include/check_dir.sh
+
 Install_LNMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 Install_LAMPDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 Install_StopAllDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log

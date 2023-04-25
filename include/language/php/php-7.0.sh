@@ -162,6 +162,12 @@ Install_PHP70() {
   sed -i "s@^;curl.cainfo.*@curl.cainfo = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
   sed -i "s@^;openssl.cafile.*@openssl.cafile = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
   sed -i "s@^;openssl.capath.*@openssl.capath = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
+  if [ "${with_old_openssl_flag}" = 'y' ]; then
+    sed -i "s@^;curl.cainfo.*@curl.cainfo = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
+    sed -i "s@^;openssl.cafile.*@openssl.cafile = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
+    sed -i "s@^;openssl.capath.*@openssl.capath = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
+  fi
+  
   #启用所有函数
   sed -i "s@^disable_functions =@;disable_functions =@" ${php_install_dir}/etc/php.ini
   [ "${phpcache_option}" == '1' ] && cat > ${php_install_dir}/etc/php.d/opcache.ini << EOF

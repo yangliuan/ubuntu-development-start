@@ -17,7 +17,7 @@ checkDownload() {
   fi
 
   # General system utils
-  if [[ ${tomcat_option} =~ ^[1-4]$ ]] || [ "${apache_flag}" == 'y' ] || [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
+  if [ "${with_old_openssl_flag}" == 'y' ]; then
     echo "Download openSSL..."
     src_url=https://www.openssl.org/source/old/1.0.2/openssl-${openssl_ver}.tar.gz && Download_src
     echo "Download cacert.pem..."
@@ -56,9 +56,8 @@ checkDownload() {
   # pcre
   if [[ "${nginx_option}" =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ]; then
     echo "Download pcre..."
-    #src_url="https://sourceforge.net/projects/pcre/files/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz/download" && Download_src
     src_url="https://downloads.sourceforge.net/project/pcre/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz" && Download_src
-    mv download pcre-${pcre_ver}.tar.gz
+    #mv download pcre-${pcre_ver}.tar.gz
   fi
 
   # apache
@@ -113,6 +112,12 @@ checkDownload() {
         ;;
     esac
     src_url=http://mirrors.linuxeye.com/jdk/${JDK_FILE} && Download_src
+    echo "Download apr..."
+    src_url=http://archive.apache.org/dist/apr/apr-${apr_ver}.tar.gz && Download_src
+  fi
+
+   # jdk apr
+  if [[ "${jdk_option}"  =~ ^[1-2]$ ]]; then
     echo "Download apr..."
     src_url=http://archive.apache.org/dist/apr/apr-${apr_ver}.tar.gz && Download_src
   fi
@@ -293,7 +298,7 @@ checkDownload() {
 	  FILE_TYPE=source
         fi
 
-        if [ "${IPADDR_COUNTRY}"x == "CN"x ]; then
+        if [ "${OUTIP_STATE}"x == "China"x ]; then
           DOWN_ADDR_MARIADB=http://mirrors.tuna.tsinghua.edu.cn/mariadb/mariadb-${mariadb_ver}/${FILE_TYPE}
           DOWN_ADDR_MARIADB_BK=http://mirrors.ustc.edu.cn/mariadb/mariadb-${mariadb_ver}/${FILE_TYPE}
         else
@@ -665,10 +670,6 @@ checkDownload() {
   if [ "${redis_flag}" == 'y' ]; then
     echo "Download redis-server..."
     src_url=http://download.redis.io/releases/redis-${redis_ver}.tar.gz && Download_src
-    if [ "${PM}" == 'yum' ]; then
-      echo "Download start-stop-daemon.c for RHEL..."
-      src_url=${mirrorLink}/start-stop-daemon.c && Download_src
-    fi
   fi
 
   # pecl_redis
@@ -685,7 +686,7 @@ checkDownload() {
   # memcached-server
   if [ "${memcached_flag}" == 'y' ]; then
     echo "Download memcached-server..."
-    [ "${IPADDR_COUNTRY}"x == "CN"x ] && DOWN_ADDR=${mirrorLink} || DOWN_ADDR=http://www.memcached.org/files
+    [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR=${mirrorLink} || DOWN_ADDR=http://www.memcached.org/files
     src_url=${DOWN_ADDR}/memcached-${memcached_ver}.tar.gz && Download_src
   fi
 
@@ -709,9 +710,9 @@ checkDownload() {
       src_url=https://pecl.php.net/get/memcache-3.0.8.tgz && Download_src
     elif [[ "${php_option}" =~ ^[5-9]$ ]]; then
       echo "Download pecl_memcache for php 7.x..."
-      # src_url=https://codeload.github.com/websupport-sk/pecl-memcache/zip/php7 && Download_src
       src_url=https://pecl.php.net/get/memcache-${pecl_memcache_oldver}.tgz && Download_src
     else
+      echo "Download pecl_memcache for php 8.x..."
       src_url=https://pecl.php.net/get/memcache-${pecl_memcache_ver}.tgz && Download_src
     fi
   fi
@@ -727,7 +728,7 @@ checkDownload() {
   # nodejs
   if [ "${nodejs_flag}" == 'y' ]; then
     echo "Download Nodejs..."
-    [ "${IPADDR_COUNTRY}"x == "CN"x ] && DOWN_ADDR_NODE=https://nodejs.org/dist || DOWN_ADDR_NODE=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release
+    [ "${IPADDR_COUNTRY}"x == "China"x ] && DOWN_ADDR_NODE=https://nodejs.org/dist || DOWN_ADDR_NODE=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release
     src_url=${DOWN_ADDR_NODE}/v${node_ver}/node-v${node_ver}-linux-${SYS_BIT_n}.tar.gz && Download_src
   fi
 
@@ -745,12 +746,6 @@ checkDownload() {
     else
       src_url=https://files.phpmyadmin.net/phpMyAdmin/${phpmyadmin_ver}/phpMyAdmin-${phpmyadmin_ver}-all-languages.tar.gz && Download_src
     fi
-  fi
-
-  # autoconf for RHEL6
-  if [ "${downloadDepsSrc}" == '1' ] && [ "${RHEL_ver}" == '6' ]; then
-    echo "Download autoconf rpm for RHEL6..."
-    src_url=${mirrorLink}/autoconf-2.69-12.2.noarch.rpm && Download_src
   fi
 
   popd > /dev/null
