@@ -13,73 +13,23 @@ Install_PHP56() {
 
   . ${oneinstack_dir}/include/system-lib/iconv.sh
   Install_Libiconv
+  
+  . ${oneinstack_dir}/include/system-lib/libcurl.sh
+  Install_Libcurl_PHP5
+  
+  . ${oneinstack_dir}/include/system-lib/libfreetype.sh
+  Install_Libfreetype
 
-  if [ ! -e "${curl_install_dir}/lib/libcurl.la" ]; then
-    tar xzf curl-${curl_ver}.tar.gz
-    pushd curl-${curl_ver} > /dev/null
-    [ -e "/usr/local/lib/libnghttp2.so" ] && with_nghttp2='--with-nghttp2=/usr/local'
-    ./configure --prefix=${curl_install_dir} ${php5_with_ssl} ${with_nghttp2}
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf curl-${curl_ver}
-  fi
-
-  if [ ! -e "${freetype_install_dir}/lib/libfreetype.la" ]; then
-    tar xzf freetype-${freetype_ver}.tar.gz
-    pushd freetype-${freetype_ver} > /dev/null
-    ./configure --prefix=${freetype_install_dir} --enable-freetype-config
-    make -j ${THREAD} && make install
-    ln -sf ${freetype_install_dir}/include/freetype2/* /usr/include/
-    [ -d /usr/lib/pkgconfig ] && /bin/cp ${freetype_install_dir}/lib/pkgconfig/freetype2.pc /usr/lib/pkgconfig/
-    popd > /dev/null
-    rm -rf freetype-${freetype_ver}
-  fi
-
-  if [ ! -e "/usr/local/bin/libmcrypt-config" -a ! -e "/usr/bin/libmcrypt-config" ]; then
-    tar xzf libmcrypt-${libmcrypt_ver}.tar.gz
-    pushd libmcrypt-${libmcrypt_ver} > /dev/null
-    ./configure
-    make -j ${THREAD} && make install
-    ldconfig
-    pushd libltdl > /dev/null
-    ./configure --enable-ltdl-install
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    popd > /dev/null
-    rm -rf libmcrypt-${libmcrypt_ver}
-  fi
-
-  if [ ! -e "/usr/local/include/mhash.h" -a ! -e "/usr/include/mhash.h" ]; then
-    tar xzf mhash-${mhash_ver}.tar.gz
-    pushd mhash-${mhash_ver} > /dev/null
-    ./configure
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf mhash-${mhash_ver}
-  fi
+  . ${oneinstack_dir}/include/system-lib/mcrypt.sh
+  Install_Libmcrypt
+  
+  . ${oneinstack_dir}/include/system-lib/mhash.sh
+  Install_Mhash
 
   [ -z "`grep /usr/local/lib /etc/ld.so.conf.d/*.conf`" ] && echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
   ldconfig
 
-  if [ "${PM}" == 'yum' ]; then
-    [ ! -e "/usr/bin/libmcrypt-config" ] && ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config
-    if [ "${OS_BIT}" == '64' ]; then
-      [ ! -e "/lib64/libpcre.so.1" ] && ln -s /lib64/libpcre.so.0.0.1 /lib64/libpcre.so.1
-      [ ! -e "/usr/lib/libc-client.so" ] && ln -s /usr/lib64/libc-client.so /usr/lib/libc-client.so
-    else
-      [ ! -e "/lib/libpcre.so.1" ] && ln -s /lib/libpcre.so.0.0.1 /lib/libpcre.so.1
-    fi
-  fi
-
-  if [ ! -e "/usr/local/bin/mcrypt" -a ! -e "/usr/bin/mcrypt" ]; then
-    tar xzf mcrypt-${mcrypt_ver}.tar.gz
-    pushd mcrypt-${mcrypt_ver} > /dev/null
-    ldconfig
-    ./configure
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf mcrypt-${mcrypt_ver}
-  fi
+  Install_Mcrypt
 
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}
@@ -89,12 +39,15 @@ Install_PHP56() {
   tar xzf php-${php56_ver}.tar.gz
   pushd php-${php56_ver} > /dev/null
   make clean
+
   [ ! -d "${php_install_dir}" ] && mkdir -p ${php_install_dir}
   { [ ${Debian_ver} -ge 10 >/dev/null 2>&1 ] || [ ${Ubuntu_ver} -ge 19 >/dev/null 2>&1 ]; } || intl_modules_options='--enable-intl'
   [ "${phpcache_option}" == '1' ] && phpcache_arg='--enable-opcache' || phpcache_arg='--disable-opcache'
-  if [ "${Apache_main_ver}" == '22' ] || [ "${apache_mode_option}" == '2' ]; then
+
+  if [ -e "${apache_install_dir}/bin/apxs" ]; then
     ./configure --prefix=${php_install_dir} --with-config-file-path=${php_install_dir}/etc \
     --with-config-file-scan-dir=${php_install_dir}/etc/php.d \
+    --with-fpm-user=${run_user} --with-fpm-group=${run_group} --enable-fpm \
     --with-apxs2=${apache_install_dir}/bin/apxs ${phpcache_arg} --disable-fileinfo \
     --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
     --with-iconv-dir=${libiconv_install_dir} --with-freetype-dir=${freetype_install_dir} --with-jpeg-dir --with-png-dir --with-webp-dir --with-zlib \
@@ -126,121 +79,18 @@ Install_PHP56() {
     echo "${CFAILURE}PHP install failed, Please Contact the author! ${CEND}"
     kill -9 $$; exit 1;
   fi
+  
+  . ${oneinstack_dir}/include/language/php/extension/zendopcache.sh
+  [ "${phpcache_option}" == '1' ] && Set_OPcacheIni
 
   . ${oneinstack_dir}/include/language/php/config_env.sh; Config_Current
   . /etc/profile
 
-  # wget -c http://pear.php.net/go-pear.phar
-  # ${php_install_dir}/bin/php go-pear.phar
-
-  /bin/cp php.ini-development ${php_install_dir}/etc/php.ini
-
-  sed -i "s@^memory_limit.*@memory_limit = ${Memory_limit}M@" ${php_install_dir}/etc/php.ini
-  sed -i 's@^output_buffering =@output_buffering = On\noutput_buffering =@' ${php_install_dir}/etc/php.ini
-  #sed -i 's@^;cgi.fix_pathinfo.*@cgi.fix_pathinfo=0@' ${php_install_dir}/etc/php.ini
-  sed -i 's@^short_open_tag = Off@short_open_tag = On@' ${php_install_dir}/etc/php.ini
-  sed -i 's@^expose_php = On@expose_php = Off@' ${php_install_dir}/etc/php.ini
-  sed -i 's@^request_order.*@request_order = "CGP"@' ${php_install_dir}/etc/php.ini
-  sed -i "s@^;date.timezone.*@date.timezone = ${timezone}@" ${php_install_dir}/etc/php.ini
-  sed -i 's@^post_max_size.*@post_max_size = 100M@' ${php_install_dir}/etc/php.ini
-  sed -i 's@^upload_max_filesize.*@upload_max_filesize = 50M@' ${php_install_dir}/etc/php.ini
-  sed -i 's@^max_execution_time.*@max_execution_time = 5@' ${php_install_dir}/etc/php.ini
-  sed -i 's@^disable_functions.*@disable_functions = passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,readlink,symlink,popepassthru,stream_socket_server,fsocket,popen@' ${php_install_dir}/etc/php.ini
-  [ -e /usr/sbin/sendmail ] && sed -i 's@^;sendmail_path.*@sendmail_path = /usr/sbin/sendmail -t -i@' ${php_install_dir}/etc/php.ini
-  if [ "${with_old_openssl_flag}" = 'y' ]; then
-    sed -i "s@^;curl.cainfo.*@curl.cainfo = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
-    sed -i "s@^;openssl.cafile.*@openssl.cafile = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
-    sed -i "s@^;openssl.capath.*@openssl.capath = \"${openssl_install_dir}/cert.pem\"@" ${php_install_dir}/etc/php.ini
-  fi
-
-  #启用所有函数
-  sed -i "s@^disable_functions =@;disable_functions =@" ${php_install_dir}/etc/php.ini
-  [ "${phpcache_option}" == '1' ] && cat > ${php_install_dir}/etc/php.d/opcache.ini << EOF
-[opcache]
-zend_extension=opcache.so
-opcache.enable=1
-opcache.memory_consumption=${Memory_limit}
-opcache.interned_strings_buffer=8
-opcache.max_accelerated_files=4000
-opcache.revalidate_freq=60
-;opcache.save_comments=0
-opcache.fast_shutdown=1
-opcache.enable_cli=1
-;opcache.optimization_level=0
-EOF
-
-  if [ ! -e "${apache_install_dir}/bin/apxs" -o "${Apache_main_ver}" == '24' ] && [ "${apache_mode_option}" != '2' ]; then
-    # php-fpm Init Script
-    if [ -e /bin/systemctl ]; then
-      /bin/cp ${oneinstack_dir}/init.d/php-fpm.service /lib/systemd/system/
-      #sed -i "s@/usr/local/php@${php_install_dir}@g" /lib/systemd/system/php-fpm.service
-      #systemctl enable php-fpm
-    else
-      /bin/cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
-      chmod +x /etc/init.d/php-fpm
-      
-      [ "${PM}" == 'apt-get' ] && update-rc.d php-fpm defaults
-    fi
-
-    cat > ${php_install_dir}/etc/php-fpm.conf <<EOF
-;;;;;;;;;;;;;;;;;;;;;
-; FPM Configuration ;
-;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;
-; Global Options ;
-;;;;;;;;;;;;;;;;;;
-
-[global]
-pid = run/php-fpm.pid
-error_log = log/php-fpm.log
-log_level = warning
-
-emergency_restart_threshold = 30
-emergency_restart_interval = 60s
-process_control_timeout = 5s
-daemonize = yes
-
-;;;;;;;;;;;;;;;;;;;;
-; Pool Definitions ;
-;;;;;;;;;;;;;;;;;;;;
-
-[${run_user}]
-listen = /dev/shm/php-cgi.sock
-listen.backlog = -1
-listen.allowed_clients = 127.0.0.1
-listen.owner = ${run_user}
-listen.group = ${run_group}
-listen.mode = 0666
-user = ${run_user}
-group = ${run_group}
-
-pm = static
-pm.max_children = ${THREAD}
-pm.max_requests = 1000
-request_terminate_timeout = 60
-request_slowlog_timeout = 5
-
-pm.status_path = /php-fpm_status
-slowlog = var/log/slow.log
-rlimit_files = 51200
-rlimit_core = 0
-
-catch_workers_output = yes
-;env[HOSTNAME] = $HOSTNAME
-env[PATH] = /usr/local/bin:/usr/bin:/bin
-env[TMP] = /tmp
-env[TMPDIR] = /tmp
-env[TEMP] = /tmp
-EOF
-
-    
-
-    service php-fpm start
-
-  elif [ "${Apache_main_ver}" == '22' ] || [ "${apache_mode_option}" == '2' ]; then
-    service httpd restart
-  fi
+  #config env path php-fpm php.ini
+  Set_PhpFpm_Systemd
+  Set_PhpFpm
+  Set_PhpIni
+  
   popd > /dev/null
   [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php56_ver}
   popd > /dev/null

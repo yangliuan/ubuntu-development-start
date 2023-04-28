@@ -8,6 +8,26 @@
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
 
+Set_OPcacheIni() {
+  cat > ${php_install_dir}/etc/php.d/opcache.ini << EOF
+[opcache]
+zend_extension=opcache.so
+opcache.enable=1
+opcache.enable_cli=1
+opcache.memory_consumption=${Memory_limit}
+opcache.interned_strings_buffer=8
+opcache.max_accelerated_files=100000
+opcache.max_wasted_percentage=5
+opcache.use_cwd=1
+opcache.validate_timestamps=1
+opcache.revalidate_freq=60
+;opcache.save_comments=0
+opcache.fast_shutdown=1
+opcache.consistency_checks=0
+;opcache.optimization_level=0
+EOF
+}
+
 Install_ZendOPcache() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
     pushd ${oneinstack_dir}/src > /dev/null
@@ -47,23 +67,7 @@ EOF
         rm -rf zendopcache-${zendopcache_ver}
       else
         # For php 5.5+
-        cat > ${php_install_dir}/etc/php.d/opcache.ini << EOF
-[opcache]
-zend_extension=opcache.so
-opcache.enable=1
-opcache.enable_cli=1
-opcache.memory_consumption=${Memory_limit}
-opcache.interned_strings_buffer=8
-opcache.max_accelerated_files=100000
-opcache.max_wasted_percentage=5
-opcache.use_cwd=1
-opcache.validate_timestamps=1
-opcache.revalidate_freq=60
-;opcache.save_comments=0
-opcache.fast_shutdown=1
-opcache.consistency_checks=0
-;opcache.optimization_level=0
-EOF
+        Set_OPcacheIni
       fi
 
       echo "${CSUCCESS}PHP opcache module installed successfully! ${CEND}"

@@ -92,7 +92,7 @@ elif openssl version | grep -Eqi 'OpenSSL 3.*'; then
 
   php5_with_curl="--with-curl=${curl_install_dir}"
   php70_with_curl="--with-curl=${curl_install_dir}"
-  php71_with_curl="--with-curl"
+  php71_with_curl="--with-curl=${curl_install_dir}"
   php72_with_curl="--with-curl"
   php73_with_curl="--with-curl"
   php74_with_curl="--with-curl"

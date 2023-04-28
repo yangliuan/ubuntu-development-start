@@ -626,7 +626,7 @@ if [ ${ARG_NUM} == 0 ]; then
   fi
 
   # PHP opcode cache and extensions
-  if [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]] || [ -e "${php_install_dir}/bin/phpize" ]; then
+  if [[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]] || [ -e "${php_install_dir}/bin/phpize" ]; then
   while :; do echo
       read -e -p "Do you want to install opcode cache of the PHP? [y/n]: " phpcache_flag
       if [[ ! ${phpcache_flag} =~ ^[y,n]$ ]]; then
@@ -695,7 +695,7 @@ if [ ${ARG_NUM} == 0 ]; then
               fi
           done
           fi
-          if [[ ${php_option} =~ ^[5-9]$|^1[0-1]$ ]] || [[ "${PHP_main_ver}" =~ ^7.[0-4]$|^8.[0-1]$ ]]; then
+          if [[ ${php_option} =~ ^[5-9]$|^1[0-1]$ ]] || [[ "${PHP_main_ver}" =~ ^7.[0-4]$|^8.[0-2]$ ]]; then
           while :; do
               echo 'Please select a opcode cache of the PHP:'
               echo -e "\t${CMSG}1${CEND}. Install Zend OPcache"
@@ -867,19 +867,10 @@ OUTIP_STATE=$(./include/ois.${ARCH} ip_state)
 #clear latest install.log
 echo > ${oneinstack_dir}/install.log
 
-# openSSL
-. ./system-lib/include/openssl.sh
-
 # Check download source packages
 . ./include/check_download.sh
 [ "${armplatform}" == "y" ] && dbinstallmethod=2
 checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
-
-# del openssl for jcloud
-# [ -e "/usr/local/bin/openssl" ] && rm -rf /usr/local/bin/openssl
-# [ -e "/usr/local/include/openssl" ] && rm -rf /usr/local/include/openssl
-#[ -e "/usr/bin/openssl" ] && rm -rf /usr/bin/openssl
-#[ -e "/usr/include/openssl" ] && rm -rf /usr/include/openssl
  
 # get OS Memory
 . ./include/memory.sh
@@ -925,7 +916,6 @@ Install_Libevent | tee -a ${oneinstack_dir}/install.log
 # Database
 case "${db_option}" in
   1)
-    [ "${LikeOS}" == 'RHEL' ] && [ ${RHEL_ver} -le 6 >/dev/null 2>&1 ] && dbinstallmethod=1 && checkDownload
     . include/database/mysql-8.0.sh
     Install_MySQL80 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_MysqlDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
@@ -962,8 +952,6 @@ case "${db_option}" in
     Install_MariaDB55 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   9)
-    [ "${LikeOS}" == 'RHEL' ] && [ ${RHEL_ver} -le 6 >/dev/null 2>&1 ] && dbinstallmethod=1 && checkDownload
-    [ "${LikeOS}" == 'RHEL' ] && [ "${RHEL_ver}" == '8' ] && dbinstallmethod=2 && checkDownload
     . include/database/percona-8.0.sh
     Install_Percona80 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
