@@ -10,26 +10,16 @@
 
 Install_PHP55() {
   pushd ${oneinstack_dir}/src > /dev/null
-  if [ -e "${apache_install_dir}/bin/httpd" ];then
-    [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '4' ] && Apache_main_ver=24
-    [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '2' ] && Apache_main_ver=22
-  fi
-  if [ ! -e "${libiconv_install_dir}/lib/libiconv.la" ]; then
-    tar xzf libiconv-${libiconv_ver}.tar.gz
-    pushd libiconv-${libiconv_ver} > /dev/null
-    ./configure --prefix=${libiconv_install_dir}
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf libiconv-${libiconv_ver}
-  fi
+  
+  . ${oneinstack_dir}/include/system-lib/iconv.sh
+  Install_Libiconv
 
   if [ ! -e "${curl_install_dir}/lib/libcurl.la" ]; then
     tar xzf curl-${curl_ver}.tar.gz
     pushd curl-${curl_ver} > /dev/null
-    [ "${Debian_ver}" == '8' ] && apt-get -y remove zlib1g-dev
-    ./configure --prefix=${curl_install_dir} --with-ssl=${openssl_install_dir}
+    [ -e "/usr/local/lib/libnghttp2.so" ] && with_nghttp2='--with-nghttp2=/usr/local'
+    ./configure --prefix=${curl_install_dir} ${php5_with_ssl} ${with_nghttp2}
     make -j ${THREAD} && make install
-    [ "${Debian_ver}" == '8' ] && apt-get -y install libc-client2007e-dev libglib2.0-dev libpng12-dev libssl-dev libzip-dev zlib1g-dev
     popd > /dev/null
     rm -rf curl-${curl_ver}
   fi

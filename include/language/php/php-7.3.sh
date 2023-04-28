@@ -10,18 +10,9 @@
 
 Install_PHP73() {
   pushd ${oneinstack_dir}/src > /dev/null
-  if [ -e "${apache_install_dir}/bin/httpd" ];then
-    [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '4' ] && Apache_main_ver=24
-    [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '2' ] && Apache_main_ver=22
-  fi
-  if [ ! -e "${libiconv_install_dir}/lib/libiconv.la" ]; then
-    tar xzf libiconv-${libiconv_ver}.tar.gz
-    pushd libiconv-${libiconv_ver} > /dev/null
-    ./configure --prefix=${libiconv_install_dir}
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf libiconv-${libiconv_ver}
-  fi
+  
+  . ${oneinstack_dir}/include/system-lib/iconv.sh
+  Install_Libiconv
 
   if [ ! -e "${curl_install_dir}/lib/libcurl.la" ]; then
     tar xzf curl-${curl_ver}.tar.gz

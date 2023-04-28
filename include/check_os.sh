@@ -8,69 +8,78 @@
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
 
-if [ -e "/usr/bin/yum" ]; then
-  PM=yum
-  if [ -e /etc/yum.repos.d/CentOS-Base.repo ] && grep -Eqi "release 6." /etc/redhat-release; then
-    sed -i "s@centos/\$releasever@centos-vault/6.10@g" /etc/yum.repos.d/CentOS-Base.repo
-    sed -i 's@centos/RPM-GPG@centos-vault/RPM-GPG@g' /etc/yum.repos.d/CentOS-Base.repo
-    [ -e /etc/yum.repos.d/epel.repo ] && rm -f /etc/yum.repos.d/epel.repo
-  fi
-  if ! command -v lsb_release >/dev/null 2>&1; then
-    if [ -e "/etc/euleros-release" ]; then
-      yum -y install euleros-lsb
-    elif [ -e "/etc/openEuler-release" -o -e "/etc/openeuler-release" ]; then
-      yum -y install openeuler-lsb
-    else
-      yum -y install redhat-lsb-core
-    fi
-    clear
-  fi
+if [ -e "/etc/os-release" ]; then
+  . /etc/os-release
+else
+  echo "${CFAILURE}/etc/os-release does not exist! ${CEND}"
+  kill -9 $$; exit 1;
 fi
-
-if [ -e "/usr/bin/apt-get" ]; then
-  PM=apt-get
-  command -v lsb_release >/dev/null 2>&1 || { apt-get -y update > /dev/null; apt-get -y install lsb-release; clear; }
-fi
-
-command -v lsb_release >/dev/null 2>&1 || { echo "${CFAILURE}${PM} source failed! ${CEND}"; kill -9 $$; exit 1; }
-[ -e "/etc/anolis-release" ] && { command -v lsb_release >/dev/null 2>&1 || yum -y install system-lsb-core; }
 
 # Get OS Version
-OS=$(lsb_release -is)
-if [[ "${OS}" =~ ^CentOS$|^CentOSStream$|^RedHat$|^Rocky$|^Fedora$|^Amazon$|^AlibabaCloud$|^AlibabaCloud\(AliyunLinux\)$|^AnolisOS$|^EulerOS$|^openEuler$ ]]; then
-  LikeOS=RHEL
-  RHEL_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
-  [[ "${OS}" =~ ^Fedora$ ]] && [ ${RHEL_ver} -ge 19 >/dev/null 2>&1 ] && { RHEL_ver=7; Fedora_ver=$(lsb_release -rs); }
-  [[ "${OS}" =~ ^Amazon$|^EulerOS$|^openEuler$ ]] && RHEL_ver=7
-  [[ "${OS}" =~ ^openEuler$ ]] && [[ "${RHEL_ver}" =~ ^21$ ]] && RHEL_ver=8
-  [[ "${OS}" =~ ^AlibabaCloud$|^AlibabaCloud\(AliyunLinux\)$ ]] && [[ "${RHEL_ver}" =~ ^2$ ]] && RHEL_ver=7
-  [[ "${OS}" =~ ^AlibabaCloud$|^AlibabaCloud\(AliyunLinux\)$ ]] && [[ "${RHEL_ver}" =~ ^3$ ]] && RHEL_ver=8
-elif [[ "${OS}" =~ ^Debian$|^Deepin$|^Uos$|^Kali$ ]]; then
-  LikeOS=Debian
-  Debian_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
-  [[ "${OS}" =~ ^Deepin$|^Uos$ ]] && [[ "${Debian_ver}" =~ ^20$ ]] && Debian_ver=10
-  [[ "${OS}" =~ ^Kali$ ]] && [[ "${Debian_ver}" =~ ^202 ]] && Debian_ver=10
-elif [[ "${OS}" =~ ^Ubuntu$|^LinuxMint$|^elementary$ ]]; then
-  LikeOS=Ubuntu
-  Ubuntu_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
-  # echo "${Ubuntu_ver}"
-  # echo "${OS}"
-  if [[ "${OS}" =~ ^LinuxMint$ ]]; then
-    [[ "${Ubuntu_ver}" =~ ^18$ ]] && Ubuntu_ver=16
-    [[ "${Ubuntu_ver}" =~ ^19$ ]] && Ubuntu_ver=18
-    [[ "${Ubuntu_ver}" =~ ^20$ ]] && Ubuntu_ver=20
-    [[ "${Ubuntu_ver}" =~ ^22$ ]] && Ubuntu_ver=22
+Platform=${ID,,}
+VERSION_MAIN_ID=${VERSION_ID%%.*}
+ARCH=$(arch)
+if [[ "${Platform}" =~ ^centos$|^rhel$|^almalinux$|^rocky$|^fedora$|^amzn$|^ol$|^alinux$|^anolis$|^tencentos$|^euleros$|^openeuler$|^kylin$|^uos$|^kylinsecos$ ]]; then
+  PM=yum
+  Family=rhel
+  RHEL_ver=${VERSION_MAIN_ID}
+  if [[ "${Platform}" =~ ^centos$ ]]; then
+    if [ "${VERSION_MAIN_ID}" == '6' ]; then
+      sed -i "s@centos/\$releasever@centos-vault/6.10@g" /etc/yum.repos.d/CentOS-Base.repo
+      sed -i 's@centos/RPM-GPG@centos-vault/RPM-GPG@g' /etc/yum.repos.d/CentOS-Base.repo
+      [ -e /etc/yum.repos.d/epel.repo ] && rm -f /etc/yum.repos.d/epel.repo
+    fi
+  elif [[ "${Platform}" =~ ^fedora$ ]]; then
+    Fedora_ver=${VERSION_MAIN_ID}
+    [ ${VERSION_MAIN_ID} -ge 19 ] && [ ${VERSION_MAIN_ID} -lt 28 ] && RHEL_ver=7
+    [ ${VERSION_MAIN_ID} -ge 28 ] && [ ${VERSION_MAIN_ID} -lt 34 ] && RHEL_ver=8
+    [ ${VERSION_MAIN_ID} -ge 34 ] && RHEL_ver=9
+  elif [[ "${Platform}" =~ ^amzn$|^alinux$|^tencentos$|^euleros$ ]]; then
+    [[ "${VERSION_MAIN_ID}" =~ ^2$ ]] && RHEL_ver=7
+    [[ "${VERSION_MAIN_ID}" =~ ^3$ ]] && RHEL_ver=8
+  elif [[ "${Platform}" =~ ^openeuler$ ]]; then
+    [[ "${RHEL_ver}" =~ ^20$ ]] && RHEL_ver=7
+    [[ "${RHEL_ver}" =~ ^2[1,2]$ ]] && RHEL_ver=8
+  elif [[ "${Platform}" =~ ^kylin$ ]]; then
+    [[ "${RHEL_ver}" =~ ^V10$ ]] && RHEL_ver=7
+  elif [[ "${Platform}" =~ ^uos$ ]]; then
+    [[ "${RHEL_ver}" =~ ^20$ ]] && RHEL_ver=8
+  elif [[ "${Platform}" =~ ^kylinsecos$ ]]; then
+    [[ "${VERSION_ID}" =~ ^3.4 ]] && RHEL_ver=7
+    [[ "${VERSION_ID}" =~ ^3.5 ]] && RHEL_ver=8
   fi
-  if [[ "${OS}" =~ ^elementary$ ]]; then
-    [[ "${Ubuntu_ver}" =~ ^5$ ]] && Ubuntu_ver=18
-    [[ "${Ubuntu_ver}" =~ ^6$ ]] && Ubuntu_ver=20
-    [[ "${Ubuntu_ver}" =~ ^7$ ]] && Ubuntu_ver=22
+elif [[ "${Platform}" =~ ^debian$|^deepin$|^kali$ ]]; then
+  PM=apt-get
+  Family=debian
+  Debian_ver=${VERSION_MAIN_ID}
+  if [[ "${Platform}" =~ ^deepin$ ]]; then
+    [[ "${Debian_ver}" =~ ^20$ ]] && Debian_ver=10
+    [[ "${Debian_ver}" =~ ^23$ ]] && Debian_ver=11
+  elif [[ "${Platform}" =~ ^kali$ ]]; then
+    [[ "${Debian_ver}" =~ ^202 ]] && Debian_ver=10
   fi
+elif [[ "${Platform}" =~ ^ubuntu$|^linuxmint$|^elementary$ ]]; then
+  PM=apt-get
+  Family=ubuntu
+  Ubuntu_ver=${VERSION_MAIN_ID}
+  if [[ "${Platform}" =~ ^linuxmint$ ]]; then
+    [[ "${VERSION_MAIN_ID}" =~ ^18$ ]] && Ubuntu_ver=16
+    [[ "${VERSION_MAIN_ID}" =~ ^19$ ]] && Ubuntu_ver=18
+    [[ "${VERSION_MAIN_ID}" =~ ^20$ ]] && Ubuntu_ver=20
+    [[ "${VERSION_MAIN_ID}" =~ ^21$ ]] && Ubuntu_ver=22
+  elif [[ "${Platform}" =~ ^elementary$ ]]; then
+    [[ "${VERSION_MAIN_ID}" =~ ^5$ ]] && Ubuntu_ver=18
+    [[ "${VERSION_MAIN_ID}" =~ ^6$ ]] && Ubuntu_ver=20
+    [[ "${VERSION_MAIN_ID}" =~ ^7$ ]] && Ubuntu_ver=22
+  fi
+else
+  echo "${CFAILURE}Does not support this OS ${CEND}"
+  kill -9 $$; exit 1;
 fi
 
 # Check OS Version
-if [ ${RHEL_ver} -lt 6 >/dev/null 2>&1 ] || [ ${Debian_ver} -lt 8 >/dev/null 2>&1 ] || [ ${Ubuntu_ver} -lt 16 >/dev/null 2>&1 ]; then
-  echo "${CFAILURE}Does not support this OS, Please install CentOS 6+,Debian 8+,Ubuntu 16+ ${CEND}"
+if [ ${RHEL_ver} -lt 7 >/dev/null 2>&1 ] || [ ${Debian_ver} -lt 9 >/dev/null 2>&1 ] || [ ${Ubuntu_ver} -lt 16 >/dev/null 2>&1 ]; then
+  echo "${CFAILURE}Does not support this OS, Please install CentOS 7+,Debian 9+,Ubuntu 16+ ${CEND}"
   kill -9 $$; exit 1;
 fi
 
@@ -97,31 +106,26 @@ if [ "$(uname -r | awk -F- '{print $3}' 2>/dev/null)" == "Microsoft" ]; then
 fi
 
 if [ "$(getconf WORD_BIT)" == "32" ] && [ "$(getconf LONG_BIT)" == "64" ]; then
-  OS_BIT=64
-  SYS_BIT_j=x64 #jdk
-  SYS_BIT_a=x86_64 #mariadb
-  SYS_BIT_b=x86_64 #mariadb
-  SYS_BIT_c=x86_64 #ZendGuardLoader
-  SYS_BIT_d=x86-64 #ioncube
-  SYS_BIT_n=x64 #node
-  [ "${TARGET_ARCH}" == 'aarch64' ] && { SYS_BIT_j=aarch64; SYS_BIT_c=aarch64; SYS_BIT_d=aarch64; SYS_BIT_n=arm64; }
+  if [ "${TARGET_ARCH}" == 'aarch64' ]; then
+    SYS_ARCH=arm64
+    SYS_ARCH_i=aarch64
+    SYS_ARCH_n=arm64
+  else
+    SYS_ARCH=amd64 #openjdk
+    SYS_ARCH_i=x86-64 #ioncube
+    SYS_ARCH_n=x64 #nodejs
+  fi
 else
-  OS_BIT=32
-  SYS_BIT_j=i586
-  SYS_BIT_a=x86
-  SYS_BIT_b=i686
-  SYS_BIT_c=i386
-  SYS_BIT_d=x86
-  SYS_BIT_n=x86
-  [ "${TARGET_ARCH}" == 'armv7' ] && { SYS_BIT_j=arm32-vfp-hflt; SYS_BIT_c=armhf; SYS_BIT_d=armv7l; SYS_BIT_n=armv7l; }
+  echo "${CWARNING}32-bit OS are not supported! ${CEND}"
+  kill -9 $$; exit 1;
 fi
 
 THREAD=$(grep 'processor' /proc/cpuinfo | sort -u | wc -l)
 
-# Percona binary: https://www.percona.com/doc/percona-server/5.7/installation.html#installing-percona-server-from-a-binary-tarball
+# Percona binary: https://docs.percona.com/percona-server/5.7/installation/binary-tarball.html
 if [ ${Debian_ver} -lt 9 >/dev/null 2>&1 ]; then
   sslLibVer=ssl100
-elif [[ "${RHEL_ver}" =~ ^[6-7]$ ]] && [ "${OS}" != 'Fedora' ]; then
+elif [ "${RHEL_ver}" == '7' ] && [ "${Platform}" != 'fedora' ]; then
   sslLibVer=ssl101
 elif [ ${Debian_ver} -ge 9 >/dev/null 2>&1 ] || [ ${Ubuntu_ver} -ge 16 >/dev/null 2>&1 ]; then
   sslLibVer=ssl102

@@ -10,28 +10,21 @@
 
 Install_PHP80() {
   pushd ${oneinstack_dir}/src > /dev/null
+
   if [ -e "${apache_install_dir}/bin/httpd" ];then
     [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '4' ] && Apache_main_ver=24
     [ "$(${apache_install_dir}/bin/httpd -v | awk -F'.' /version/'{print $2}')" == '2' ] && Apache_main_ver=22
   fi
-  
-  if [ ! -e "${libiconv_install_dir}/lib/libiconv.la" ]; then
-    tar xzf libiconv-${libiconv_ver}.tar.gz
-    pushd libiconv-${libiconv_ver} > /dev/null
-    ./configure --prefix=${libiconv_install_dir}
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf libiconv-${libiconv_ver}
-    ln -s ${libiconv_install_dir}/lib/libiconv.so.2 /usr/lib64/libiconv.so.2
-  fi
 
-  if [ ! -e "${curl_install_dir}/lib/libcurl.la" ]; then
+  . ${oneinstack_dir}/include/system-lib/iconv.sh
+  Install_Libiconv
+  
+   if [ ! -e "${curl_install_dir}/lib/libcurl.la" ]; then
     tar xzf curl-${curl_ver}.tar.gz
     pushd curl-${curl_ver} > /dev/null
-    [ "${Debian_ver}" == '8' ] && apt-get -y remove zlib1g-dev
-    ./configure --prefix=${curl_install_dir} --with-ssl=${openssl_install_dir}
+    [ -e "/usr/local/lib/libnghttp2.so" ] && with_nghttp2='--with-nghttp2=/usr/local'
+    ./configure --prefix=${curl_install_dir} ${php80_with_ssl} ${with_nghttp2}
     make -j ${THREAD} && make install
-    [ "${Debian_ver}" == '8' ] && apt-get -y install libc-client2007e-dev libglib2.0-dev libpng12-dev libssl-dev libzip-dev zlib1g-dev
     popd > /dev/null
     rm -rf curl-${curl_ver}
   fi
@@ -126,8 +119,7 @@ Install_PHP80() {
     --with-mhash --enable-pcntl --enable-sockets --enable-ftp --enable-intl --with-xsl \
     --with-gettext --with-zip=/usr/local --enable-soap --disable-debug --enable-zts ${php_modules_options}
   fi
-  #make ZEND_EXTRA_LIBS="-L${libiconv_install_dir}/lib/ -liconv" -j ${THREAD}
-  make ZEND_EXTRA_LIBS='-liconv' -j ${THREAD}
+  make ZEND_EXTRA_LIBS="-L${libiconv_install_dir}/lib/ -liconv" -j ${THREAD}
   make install
 
   if [ -e "${php_install_dir}/bin/phpize" ]; then
@@ -187,17 +179,16 @@ opcache.consistency_checks=0
 ;opcache.optimization_level=0
 EOF
 
-  if [ ! -e "${apache_install_dir}/bin/apxs" -o "${Apache_main_ver}" == '24' ] && [ "${apache_mode_option}" != '2' ]; then
-    # php-fpm Init Script
-    if [ -e /bin/systemctl ]; then
-      /bin/cp ${oneinstack_dir}/init.d/php-fpm.service /lib/systemd/system/
-      #sed -i "s@/usr/local/php@${php_install_dir}@g" /lib/systemd/system/php-fpm.service
-      ##systemctl enable php-fpm
-    else
-      /bin/cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
-      chmod +x /etc/init.d/php-fpm
-      [ "${PM}" == 'apt-get' ] && update-rc.d php-fpm defaults
-    fi
+  # php-fpm Init Script
+  if [ -e /bin/systemctl ]; then
+    /bin/cp ${oneinstack_dir}/init.d/php-fpm.service /lib/systemd/system/
+    #sed -i "s@/usr/local/php@${php_install_dir}@g" /lib/systemd/system/php-fpm.service
+    ##systemctl enable php-fpm
+  else
+    /bin/cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+    chmod +x /etc/init.d/php-fpm
+    [ "${PM}" == 'apt-get' ] && update-rc.d php-fpm defaults
+  fi
 
     cat > ${php_install_dir}/etc/php-fpm.conf <<EOF
 ;;;;;;;;;;;;;;;;;;;;;
@@ -251,11 +242,6 @@ env[TMPDIR] = /tmp
 env[TEMP] = /tmp
 EOF
 
-    service php-fpm start
-
-  elif [ "${Apache_main_ver}" == '22' ] || [ "${apache_mode_option}" == '2' ]; then
-    service httpd restart
-  fi
   popd > /dev/null
   [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php80_ver}
   popd > /dev/null

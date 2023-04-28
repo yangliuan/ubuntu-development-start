@@ -11,29 +11,18 @@
 Install_PHP82() {
   pushd ${oneinstack_dir}/src > /dev/null
 
-  # . include/system-lib/iconv.sh
-  # Install_Libiconv
-  # . include/system-lib/libcurl.sh
-  # Install_Libcurl
-  # . include/system-lib/libfreetype.sh
-  # Install_Libfreetype
-  # . include/system-lib/libargon2.sh
-  # Install_Libargon2
-  # . include/system-lib/libsodium.sh
-  # Install_Libsodium
-  # . include/system-lib/libzip.sh
-  # Install_Libzip
-  # . include/system-lib/mhash.sh
-  # Install_Mhash
-
-  if [ ! -e "/usr/local/lib/libiconv.la" ]; then
-    tar xzf libiconv-${libiconv_ver}.tar.gz
-    pushd libiconv-${libiconv_ver} > /dev/null
-    ./configure
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf libiconv-${libiconv_ver}
-  fi
+  ${oneinstack_dir}/include/system-lib/iconv.sh
+  Install_Libiconv
+  . include/system-lib/libfreetype.sh
+  Install_Libfreetype
+  . include/system-lib/libargon2.sh
+  Install_Libargon2
+  . include/system-lib/libsodium.sh
+  Install_Libsodium
+  . include/system-lib/libzip.sh
+  Install_Libzip
+  . include/system-lib/mhash.sh
+  Install_Mhash
 
   if [ ! -e "${curl_install_dir}/lib/libcurl.la" ]; then
     tar xzf curl-${curl_ver}.tar.gz

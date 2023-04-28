@@ -861,16 +861,14 @@ if [ ! -e ~/.oneinstack ]; then
 fi
 
 # get the IP information
-IPADDR=$(./include/get_ipaddr.py)
-PUBLIC_IPADDR=$(./include/get_public_ipaddr.py)
-#IPADDR_COUNTRY=$(./include/get_ipaddr_state.py ${PUBLIC_IPADDR})
-#IPADDR_COUNTRY="CN"
+IPADDR=$(./include/ois.${ARCH} ip_local)
+OUTIP_STATE=$(./include/ois.${ARCH} ip_state)
 
 #clear latest install.log
 echo > ${oneinstack_dir}/install.log
 
 # openSSL
-. ./include/openssl.sh
+. ./system-lib/include/openssl.sh
 
 # Check download source packages
 . ./include/check_download.sh
@@ -878,8 +876,8 @@ echo > ${oneinstack_dir}/install.log
 checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
 
 # del openssl for jcloud
-[ -e "/usr/local/bin/openssl" ] && rm -rf /usr/local/bin/openssl
-[ -e "/usr/local/include/openssl" ] && rm -rf /usr/local/include/openssl
+# [ -e "/usr/local/bin/openssl" ] && rm -rf /usr/local/bin/openssl
+# [ -e "/usr/local/include/openssl" ] && rm -rf /usr/local/include/openssl
 #[ -e "/usr/bin/openssl" ] && rm -rf /usr/bin/openssl
 #[ -e "/usr/include/openssl" ] && rm -rf /usr/include/openssl
  
@@ -1177,13 +1175,6 @@ case "${php_option}" in
     ;;
   12)
     . include/language/php/php-8.2.sh
-    # . include/system-lib/iconv.sh
-    # . include/system-lib/libcurl.sh
-    # . include/system-lib/libfreetype.sh
-    # . include/system-lib/libargon2.sh
-    # . include/system-lib/libsodium.sh
-    # . include/system-lib/libzip.sh
-    # . include/system-lib/mhash.sh
     Install_PHP82 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
