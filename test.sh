@@ -25,7 +25,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/develop-tools/rabbitvcs.sh
 . ./include/develop-tools/gitlab.sh
 . ./include/develop-tools/cursor.sh
-
+. ./include/firewall/iptables.sh
 
 # NginxDevConfig
 # TengineDevConfig
@@ -36,3 +36,4 @@ pushd ${oneinstack_dir} > /dev/null
 # Install_Gitlab
 # Uninstall_Gitlab
 # Uninstall_Cursor
+Install_Iptables
