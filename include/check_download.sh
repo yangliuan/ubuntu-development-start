@@ -93,25 +93,6 @@ checkDownload() {
 
   # jdk
   if [[ "${jdk_option}"  =~ ^[1-4]$ ]]; then
-    case "${jdk_option}" in
-      1)
-        echo "Download JDK 11.0..."
-        JDK_FILE="jdk-${jdk110_ver}_linux-${SYS_BIT_j}_bin.tar.gz"
-        ;;
-      2)
-        echo "Download JDK 1.8..."
-        JDK_FILE="jdk-$(echo ${jdk18_ver} | awk -F. '{print $2}')u$(echo ${jdk18_ver} | awk -F_ '{print $NF}')-linux-${SYS_BIT_j}.tar.gz"
-        ;;
-      3)
-        echo "Download JDK 1.7..."
-        JDK_FILE="jdk-$(echo ${jdk17_ver} | awk -F. '{print $2}')u$(echo ${jdk17_ver} | awk -F_ '{print $NF}')-linux-${SYS_BIT_j}.tar.gz"
-        ;;
-      4)
-        echo "Download JDK 1.6..."
-        JDK_FILE="jdk-$(echo ${jdk16_ver} | awk -F. '{print $2}')u$(echo ${jdk16_ver} | awk -F_ '{print $NF}')-linux-${SYS_BIT_j}.bin"
-        ;;
-    esac
-    src_url=http://mirrors.linuxeye.com/jdk/${JDK_FILE} && Download_src
     echo "Download apr..."
     src_url=http://archive.apache.org/dist/apr/apr-${apr_ver}.tar.gz && Download_src
   fi
@@ -729,7 +710,7 @@ checkDownload() {
   if [ "${nodejs_flag}" == 'y' ]; then
     echo "Download Nodejs..."
     [ "${IPADDR_COUNTRY}"x == "China"x ] && DOWN_ADDR_NODE=https://nodejs.org/dist || DOWN_ADDR_NODE=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release
-    src_url=${DOWN_ADDR_NODE}/v${node_ver}/node-v${node_ver}-linux-${SYS_BIT_n}.tar.gz && Download_src
+    src_url=${DOWN_ADDR_NODE}/v${node_ver}/node-v${node_ver}-linux-${SYS_ARCH_n}.tar.gz && Download_src
   fi
 
   # pureftpd

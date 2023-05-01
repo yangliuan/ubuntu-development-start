@@ -2,7 +2,7 @@
 # Author:  yeho <lj2007331 AT gmail.com>
 # BLOG:  https://linuxeye.com
 #
-# Notes: OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+
+# Notes: OneinStack for CentOS/RedHat 7+ Debian 9+ and Ubuntu 16+
 #
 # Project home page:
 #       https://oneinstack.com
@@ -33,20 +33,9 @@ Install_Tomcat8() {
 
   if [ ! -e "${tomcat_install_dir}/conf/server.xml" ]; then
     rm -rf ${tomcat_install_dir}
-    echo "${CFAILURE}Tomcat install failed, Please contact the author! ${CEND}" && lsb_release -a
+    echo "${CFAILURE}Tomcat install failed, Please contact the author! ${CEND}" && grep -Ew 'NAME|ID|ID_LIKE|VERSION_ID|PRETTY_NAME' /etc/os-release
     kill -9 $$; exit 1;
   fi
-
-  /bin/cp catalina-jmx-remote.jar ${tomcat_install_dir}/lib
-  #[ ! -d "${tomcat_install_dir}/lib/catalina" ] && mkdir ${tomcat_install_dir}/lib/catalina
-  #pushd ${tomcat_install_dir}/lib/catalina
-  #jar xf ../catalina.jar
-  #sed -i 's@^server.info=.*@server.info=Tomcat@' org/apache/catalina/util/ServerInfo.properties
-  #sed -i 's@^server.number=.*@server.number=8@' org/apache/catalina/util/ServerInfo.properties
-  #sed -i "s@^server.built=.*@server.built=$(date)@" org/apache/catalina/util/ServerInfo.properties
-  #jar cf ../catalina.jar ./*
-  #popd
-  #rm -rf ${tomcat_install_dir}/lib/catalina
 
   pushd ${tomcat_install_dir}/bin > /dev/null
   tar xzf tomcat-native.tar.gz
@@ -78,25 +67,13 @@ EOF
 
     if [ ! -e "${nginx_install_dir}/sbin/nginx" -a ! -e "${tengine_install_dir}/sbin/nginx" -a ! -e "${openresty_install_dir}/nginx/sbin/nginx" -a ! -e "${apache_install_dir}/bin/httpd" ]; then
       if [ "${PM}" == 'yum' ]; then
-        if [ -n "`grep 'dport 80 ' /etc/sysconfig/iptables`" ] && [ -z "$(grep -w '8080' /etc/sysconfig/iptables)" ]; then
-          iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
-          service iptables save
-          ip6tables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
-          service ip6tables save
-        fi
+        if [ "`firewall-cmd --state`" == "running" ]; then
+          firewall-cmd --permanent --zone=public --add-port=8080/tcp
+          firewall-cmd --reload
+	fi
       elif [ "${PM}" == 'apt-get' ]; then
-        if [ -e '/etc/iptables/rules.v4' ]; then
-          if [ -n "`grep 'dport 80 ' /etc/iptables/rules.v4`" ] && [ -z "$(grep -w '8080' /etc/iptables/rules.v4)" ]; then
-            iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
-            iptables-save > /etc/iptables/rules.v4
-            ip6tables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
-            ip6tables-save > /etc/iptables/rules.v6
-          fi
-        elif [ -e '/etc/iptables.up.rules' ]; then
-          if [ -n "`grep 'dport 80 ' /etc/iptables.up.rules`" ] && [ -z "$(grep -w '8080' /etc/iptables.up.rules)" ]; then
-            iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
-            iptables-save > /etc/iptables.up.rules
-          fi
+        if ufw status | grep -wq active; then
+            ufw allow 8080/tcp
         fi
       fi
     fi
@@ -139,13 +116,13 @@ EOF
     sed -i "s@JAVA_HOME=.*@JAVA_HOME=${JAVA_HOME}@" /etc/init.d/tomcat
     sed -i "s@^CATALINA_HOME=.*@CATALINA_HOME=${tomcat_install_dir}@" /etc/init.d/tomcat
     sed -i "s@^TOMCAT_USER=.*@TOMCAT_USER=${run_user}@" /etc/init.d/tomcat
-    #[ "${PM}" == 'yum' ] && { chkconfig --add tomcat; chkconfig tomcat on; }
-    #[ "${PM}" == 'apt-get' ] && update-rc.d tomcat defaults
+    [ "${PM}" == 'yum' ] && { chkconfig --add tomcat; chkconfig tomcat on; }
+    [ "${PM}" == 'apt-get' ] && update-rc.d tomcat defaults
     echo "${CSUCCESS}Tomcat installed successfully! ${CEND}"
     rm -rf apache-tomcat-${tomcat8_ver}
   else
     popd > /dev/null
-    echo "${CFAILURE}Tomcat install failed, Please contact the author! ${CEND}" && lsb_release -a
+    echo "${CFAILURE}Tomcat install failed, Please contact the author! ${CEND}" && grep -Ew 'NAME|ID|ID_LIKE|VERSION_ID|PRETTY_NAME' /etc/os-release
   fi
   service tomcat start
   popd > /dev/null

@@ -10,8 +10,8 @@
 
 Install_Node() {
   pushd ${oneinstack_dir}/src > /dev/null
-  tar xzf node-v${node_ver}-linux-${SYS_BIT_n}.tar.gz
-  /bin/mv node-v${node_ver}-linux-${SYS_BIT_n} ${node_install_dir}
+  tar xzf node-v${node_ver}-linux-${SYS_ARCH_n}.tar.gz
+  /bin/mv node-v${node_ver}-linux-${SYS_ARCH_n} ${node_install_dir}
   if [ -e "${node_install_dir}/bin/node" ]; then
     cat > /etc/profile.d/node.sh << EOF
 export NODE_HOME=${node_install_dir}
