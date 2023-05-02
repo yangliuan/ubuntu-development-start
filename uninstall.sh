@@ -809,6 +809,7 @@ What Are You Doing?
         Uninstall_PostgreSQL
         Uninstall_MongoDB
         Uninstall_Elasticsearch
+        Uninstall_Cerebro
         Uninstall_AllMessageQueue
         Uninstall_ALLPHP
         Uninstall_PureFtpd
