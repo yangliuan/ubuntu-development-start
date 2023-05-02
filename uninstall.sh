@@ -226,6 +226,7 @@ Print_JDK() {
 Uninstall_JDK() {
   [ -d "/usr/java" ] && { rm -rf /usr/java; sed -i '/export JAVA_HOME=/d' /etc/profile; sed -i '/export CLASSPATH=/d' /etc/profile; sed -i 's@\$JAVA_HOME/bin:@@' /etc/profile; }
   [ -h "/usr/bin/java" ] && rm -rf /usr/bin/java
+  Uninstall_OpenJDK8;Uninstall_OpenJDK11
 }
 
 Print_web() {

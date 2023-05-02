@@ -194,6 +194,6 @@ EOF
     sed -i "s@LogFormat \"%h %l@LogFormat \"%h %a %l@g" ${apache_install_dir}/conf/httpd.conf
   fi
   ldconfig
-  service httpd start
+
   popd > /dev/null
 }
