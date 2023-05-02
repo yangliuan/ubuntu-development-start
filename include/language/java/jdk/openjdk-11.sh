@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_OpenJDK11() {
-  apt-get --no-install-recommends -y install openjdk-11-jdk
+  apt --no-install-recommends -y install openjdk-11-jdk
   JAVA_HOME=/usr/lib/jvm/java-11-openjdk-${SYS_ARCH}
   
   if [ -e "${JAVA_HOME}/bin/java" ]; then

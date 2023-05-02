@@ -31,13 +31,13 @@ Uninstall_Elasticsearch() {
     rm -rfv /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
     rm -rfv /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list.save
     rm -rfv /usr/share/application/elasticsearch.desktop
-    rm -rfv /etc/elasticsearch
+    rm -rfv /etc/elasticsearch /etc/kibana /etc/logstash
     apt-get update
 }
 
 Uninstall_Cerebro() {
     rm -rfv /lib/systemd/system/cerebro.service
-    rm -rfv /usr/share/cerebro
+    rm -rfv /usr/share/cerebro /etc/cerebro
     systemctl daemon-reload
 }
 

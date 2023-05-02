@@ -1057,6 +1057,7 @@ case "${message_queue_option}" in
   1)
     . include/message-queue/kafka.sh
     Install_Kafka 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_KafkaDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
     if [ ! -L "/usr/local/bin/erl" ]; then

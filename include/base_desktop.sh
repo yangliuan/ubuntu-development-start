@@ -33,13 +33,13 @@ Uninstall_PostgresqlDesktop() {
 }
 
 Install_MongoDBDesktop() {
-  pushd ${oneinstack_dir}/desktop > /dev/null
-  cp -rfv mongodb.desktop /usr/share/applications
-  popd > /dev/null
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv mongodb.desktop /usr/share/applications
+    popd > /dev/null
 }
 
 Uninstall_MongoDBDesktop() {
-  rm -rfv /usr/share/applications/mongodb.desktop
+    rm -rfv /usr/share/applications/mongodb.desktop
 }
 
 Install_MemcachedDesktop() {

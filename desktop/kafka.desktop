@@ -1,10 +1,9 @@
 [Desktop Entry]
 Name=Kafka
-Exec=sh /opt/oneinstack/start/kafka_start.sh %U
-Terminal=false
-Type=Service
-Icon=/opt/oneinstack/icon/kafka.png
-Terminal=true
-StartupWMClass=Kafka
 Comment=message queue
-Categories=Development;
+Exec=sh /opt/oneinstack/start/kafka_start.sh
+Icon=/opt/oneinstack/icon/kafka.png
+Type=Service
+Terminal=true
+Categories=Development;MessageQueue
+Keywords=Kafka
