@@ -305,16 +305,16 @@ if [ ${ARG_NUM} == 0 ]; then
             [ "${jmeter_flag}" == 'y' -a -e "/opt/jmeter/bin/ApacheJMeter.jar" ] && { echo "${CWARNING}jmeter already installed! ${CEND}"; unset jmeter_flag; }
             #install jdk 
             if [ "${jmeter_flag}" == 'y' ]; then
-                while :; do echo
+                 while :; do echo
                     echo 'Please select JDK version:'
-                    echo -e "\t${CMSG}1${CEND}. Install JDK-11.0"
-                    echo -e "\t${CMSG}2${CEND}. Install JDK-1.8"
+                    echo -e "\t${CMSG}1${CEND}. Install openjdk-8-jdk"
+                    echo -e "\t${CMSG}2${CEND}. Install openjdk-11-jdk"
                     read -e -p "Please input a number:(Default 1 press Enter) " jdk_option
                     jdk_option=${jdk_option:-1}
                     if [[ ! ${jdk_option} =~ ^[1-2]$ ]]; then
-                    echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+                        echo "${CWARNING}input error! Please only input number 1~2${CEND}"
                     else
-                    break
+                        break
                     fi
                 done
             fi
@@ -460,20 +460,12 @@ fi
 # JDK
 case "${jdk_option}" in
   1)
-    . include/java/jdk/jdk-11.0.sh
-    Install_JDK110 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+    . include/language/java/jdk/openjdk-8.sh
+    Install_OpenJDK8 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/java/jdk/jdk-1.8.sh
-    Install_JDK18 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
-    ;;
-  3)
-    . include/java/jdk/jdk-1.7.sh
-    Install_JDK17 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
-    ;;
-  4)
-    . include/java/jdk/jdk-1.6.sh
-    Install_JDK16 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+    . include/language/java/jdk/openjdk-11.sh
+    Install_OpenJDK11 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 

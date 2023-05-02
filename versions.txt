@@ -166,6 +166,6 @@ filezilla_ver=3.63.2.1
 virtualbox_ver_base=7.0
 virtualbox_ver=6
 virtualbox_ver_sn=155176
-jmeter_ver=5.4.1
+jmeter_ver=5.5
 mysql_workbench_ver=8.0.32
 cursor_ver=0.1.3

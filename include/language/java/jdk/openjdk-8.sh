@@ -13,11 +13,13 @@ Install_OpenJDK8() {
   JAVA_HOME=/usr/lib/jvm/java-8-openjdk-${SYS_ARCH}
   
   if [ -e "${JAVA_HOME}/bin/java" ]; then
-    cat > /etc/profile.d/openjdk.sh << EOF
+    if [ ! -e '/etc/profile.d/openjdk.sh' ]; then
+      cat > /etc/profile.d/openjdk.sh << EOF
 export JAVA_HOME=${JAVA_HOME}
 export CLASSPATH=\$JAVA_HOME/lib/tools.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib
 EOF
-    . /etc/profile.d/openjdk.sh
+      . /etc/profile.d/openjdk.sh
+    fi
     echo "${CSUCCESS}OpenJDK8 installed successfully! ${CEND}"
   else
     echo "${CFAILURE}OpenJDK8 install failed, Please contact the author! ${CEND}" && lsb_release -a
