@@ -9,33 +9,9 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_OpenJDK11() {
-  if [ "${LikeOS}" == 'RHEL' ]; then
-    yum -y install java-11-openjdk-devel
-    JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-  elif [ "${LikeOS}" == 'Debian' ]; then
-    if [[ "${Debian_ver}" =~ ^8$ ]]; then
-      #wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-      cat ${oneinstack_dir}/src/adoptopenjdk.key | sudo apt-key add -
-      apt-add-repository --yes https://mirrors.tuna.tsinghua.edu.cn/AdoptOpenJDK/deb
-      apt -y update
-      apt-get --no-install-recommends -y install adoptopenjdk-11-hotspot
-      JAVA_HOME=/usr/lib/jvm/adoptopenjdk-11-hotspot-${SYS_ARCH}
-    else
-      apt-get --no-install-recommends -y install openjdk-11-jdk
-      JAVA_HOME=/usr/lib/jvm/java-11-openjdk-${SYS_ARCH}
-    fi
-  elif [ "${LikeOS}" == 'Ubuntu' ]; then
-    if [[ "${Ubuntu_ver}" =~ ^16$ ]]; then
-      cat ${oneinstack_dir}/src/adoptopenjdk.key | sudo apt-key add -
-      apt-add-repository --yes https://mirrors.tuna.tsinghua.edu.cn/AdoptOpenJDK/deb
-      apt -y update
-      apt-get --no-install-recommends -y install adoptopenjdk-11-hotspot
-      JAVA_HOME=/usr/lib/jvm/adoptopenjdk-11-hotspot-${SYS_ARCH}
-    else
-      apt-get --no-install-recommends -y install openjdk-11-jdk
-      JAVA_HOME=/usr/lib/jvm/java-11-openjdk-${SYS_ARCH}
-    fi
-  fi
+  apt-get --no-install-recommends -y install openjdk-11-jdk
+  JAVA_HOME=/usr/lib/jvm/java-11-openjdk-${SYS_ARCH}
+  
   if [ -e "${JAVA_HOME}/bin/java" ]; then
     cat > /etc/profile.d/openjdk.sh << EOF
 export JAVA_HOME=${JAVA_HOME}
@@ -47,4 +23,9 @@ EOF
     echo "${CFAILURE}OpenJDK11 install failed, Please contact the author! ${CEND}" && lsb_release -a
     kill -9 $$; exit 1;
   fi
+}
+
+Uninstall_OpenJDK11() {
+  apt autoremove openjdk-11-jdk
+  rm -rfv /etc/profile.d/openjdk.sh /etc/java-11-openjdk
 }

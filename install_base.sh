@@ -998,11 +998,11 @@ fi
 # JDK
 case "${jdk_option}" in
   1)
-    . include/openjdk-8.sh
+    . include/language/java/jdk/openjdk-8.sh
     Install_OpenJDK8 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-    . include/openjdk-11.sh
+    . include/language/java/jdk/openjdk-11.sh
     Install_OpenJDK11 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac

@@ -43,7 +43,6 @@ jdk17_ver=1.7.0_80
 jdk16_ver=1.6.0_45
 
 # PHP
-# https://www.php.net/ChangeLog-8.php#8.2.5
 php53_ver=5.3.29
 php54_ver=5.4.45
 php55_ver=5.5.38
@@ -156,7 +155,7 @@ cerebo_ver=0.9.4
 
 # message queue
 kafka_scala_ver=2.13
-kafka_ver=3.1.0
+kafka_ver=3.4.0
 erlang_ver=24.3.4.2
 rabbitmq_ver=3.10.5
 

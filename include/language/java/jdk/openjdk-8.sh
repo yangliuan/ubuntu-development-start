@@ -9,25 +9,9 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_OpenJDK8() {
-  if [ "${LikeOS}" == 'RHEL' ]; then
-    yum -y install java-1.8.0-openjdk-devel
-    JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
-  elif [ "${LikeOS}" == 'Debian' ]; then
-    if [[ "${Debian_ver}" =~ ^8$|^10$|^11$ ]]; then
-      #wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-      cat ${oneinstack_dir}/src/adoptopenjdk.key | sudo apt-key add -
-      apt-add-repository --yes https://mirrors.tuna.tsinghua.edu.cn/AdoptOpenJDK/deb
-      apt -y update
-      apt-get --no-install-recommends -y install adoptopenjdk-8-hotspot
-      JAVA_HOME=/usr/lib/jvm/adoptopenjdk-8-hotspot-${SYS_ARCH}
-    elif [[ "${Debian_ver}" =~ ^9$ ]]; then
-      apt-get --no-install-recommends -y install openjdk-8-jdk
-      JAVA_HOME=/usr/lib/jvm/java-8-openjdk-${SYS_ARCH}
-    fi
-  elif [ "${LikeOS}" == 'Ubuntu' ]; then
-    apt-get --no-install-recommends -y install openjdk-8-jdk
-    JAVA_HOME=/usr/lib/jvm/java-8-openjdk-${SYS_ARCH}
-  fi
+  apt --no-install-recommends -y install openjdk-8-jdk
+  JAVA_HOME=/usr/lib/jvm/java-8-openjdk-${SYS_ARCH}
+  
   if [ -e "${JAVA_HOME}/bin/java" ]; then
     cat > /etc/profile.d/openjdk.sh << EOF
 export JAVA_HOME=${JAVA_HOME}
@@ -39,4 +23,9 @@ EOF
     echo "${CFAILURE}OpenJDK8 install failed, Please contact the author! ${CEND}" && lsb_release -a
     kill -9 $$; exit 1;
   fi
+}
+
+Uninstall_OpenJDK8() {
+  apt autoremove openjdk-8-jdk
+  rm -rfv /etc/profile.d/openjdk.sh /etc/java-8-openjdk
 }

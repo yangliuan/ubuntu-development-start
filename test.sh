@@ -25,7 +25,8 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/develop-tools/rabbitvcs.sh
 . ./include/develop-tools/gitlab.sh
 . ./include/develop-tools/cursor.sh
-. ./include/firewall/iptables.sh
+. ./include/language/java/jdk/openjdk-8.sh
+. ./include/language/java/jdk/openjdk-11.sh
 
 # NginxDevConfig
 # TengineDevConfig
@@ -36,4 +37,6 @@ pushd ${oneinstack_dir} > /dev/null
 # Install_Gitlab
 # Uninstall_Gitlab
 # Uninstall_Cursor
-Install_Iptables
+# Uninstall_OpenJDK8
+# Install_OpenJDK11
+# Uninstall_OpenJDK11

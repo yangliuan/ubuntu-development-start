@@ -36,10 +36,13 @@ pushd ${oneinstack_dir} > /dev/null
 . include/language/nodejs/nvm.sh
 . include/language/go/go.sh
 . include/language/go/gvm.sh
+. include/language/java/jdk/openjdk-8.sh
+. include/language/java/jdk/openjdk-11.sh
 . include/language/python/supervisor.sh
 . include/message-queue/kafka.sh
 . include/message-queue/rabbitmq.sh
 . include/message-queue/rocketmq.sh
+
 
 Show_Help() {
   echo
@@ -253,6 +256,7 @@ Uninstall_Web() {
   [ -e "/lib/systemd/system/httpd.service" ] && { systemctl disable httpd > /dev/null 2>&1; rm -f /lib/systemd/system/httpd.service; }
   [ -d "${tomcat_install_dir}" ] && { killall java > /dev/null 2>&1; rm -rf ${tomcat_install_dir} /etc/init.d/tomcat /etc/logrotate.d/tomcat; echo "${CMSG}Tomcat uninstall completed! ${CEND}"; }
   [ -d "/usr/java" ] && { rm -rf /usr/java; sed -i '/export JAVA_HOME=/d' /etc/profile; sed -i '/export CLASSPATH=/d' /etc/profile; sed -i 's@\$JAVA_HOME/bin:@@' /etc/profile; }
+  Uninstall_OpenJDK8;Uninstall_OpenJDK11
   sed -i 's@^website_name=.*@website_name=@' ./options.conf
   sed -i 's@^backup_content=.*@backup_content=@' ./options.conf
   [ -d "${apr_install_dir}" ] && rm -rf ${apr_install_dir}

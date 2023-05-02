@@ -1,6 +1,7 @@
 #!/bin/bash
 # DOC https://kafka.apachecn.org/quickstart.html
 # DOC https://kafka.apache.org/30/documentation.html#quickstart
+# DOC https://kafka.apache.org/downloads
 Install_Kafka() {
     pushd ${oneinstack_dir}/src > /dev/null
 
