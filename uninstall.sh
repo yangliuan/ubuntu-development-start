@@ -1011,7 +1011,7 @@ else
     [ "${nvm_flag}" == 'y' ] && Uninstall_Nvm
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
     [ "${go_flag}" == 'y' ] && Uninstall_Go 
-    [ "${gvm_flag}" == 'y' ] && Uninstall_Gvm 
+    [ "${gvm_flag}" == 'y' ] && Uninstall_Gvm
     [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor 
   fi
 fi

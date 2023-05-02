@@ -28,21 +28,21 @@ Install_Cerebro() {
 
 Uninstall_Elasticsearch() {
     apt-get autoremove elasticsearch kibana logstash
-    rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
-    rm -rf /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list.save
-    rm -rf /usr/share/application/elasticsearch.desktop
+    rm -rfv /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
+    rm -rfv /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list.save
+    rm -rfv /usr/share/application/elasticsearch.desktop
+    rm -rfv /etc/elasticsearch
     apt-get update
 }
 
 Uninstall_Cerebro() {
-    rm -rf /lib/systemd/system/cerebro.service
-    rm -rf /usr/share/cerebro
+    rm -rfv /lib/systemd/system/cerebro.service
+    rm -rfv /usr/share/cerebro
     systemctl daemon-reload
 }
 
 Install_Config() {
-    echo "config"
-    #chmod -R 777 /etc/elasticsearch
+    chmod -R 777 /etc/elasticsearch
     sed -i "s/## -Xms4g/-Xms1g/g" /etc/elasticsearch/jvm.options
     sed -i "s/## -Xmx4g/-Xmx1g/g" /etc/elasticsearch/jvm.options
 }

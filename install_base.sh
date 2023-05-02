@@ -962,6 +962,7 @@ if [ "${elasticsearch_flag}" == 'y' ]; then
   Install_Elasticsearch 2>&1 | tee -a ${oneinstack_dir}/install.log
   Install_Cerebro 2>&1 | tee -a ${oneinstack_dir}/install.log
   Install_ElasticsearchDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+  Install_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # Nginx server
