@@ -5,7 +5,7 @@ After=network.target
 [Service]
 WorkingDirectory=/usr/local/kafka
 ExecStart=/usr/local/kafka/bin/zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties
-ExecStop=/usr/local/kafka/bin/zookeeper-server-start.sh stop
+ExecStop=/usr/local/kafka/bin/zookeeper-server-stop.sh
 User=kafka
 Group=kafka
 Restart=always

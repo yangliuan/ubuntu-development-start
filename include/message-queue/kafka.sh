@@ -14,11 +14,11 @@ Install_Kafka() {
     mv kafka_${kafka_scala_ver}-${kafka_ver} ${kafka_install_dir}
 
     if [ ! -d "${zookeeper_data_dir}" ]; then
-        mkdir ${zookeeper_data_dir}
+        mkdir -p ${zookeeper_data_dir}
     fi
 
     if [ ! -d "${kafka_data_dir}" ]; then
-        mkdir ${kafka_data_dir}
+        mkdir -p ${kafka_data_dir}
     fi
 
     id -u kafka >/dev/null 2>&1
