@@ -19,6 +19,10 @@ export JAVA_HOME=${JAVA_HOME}
 export CLASSPATH=\$JAVA_HOME/lib/tools.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib
 EOF
       . /etc/profile.d/openjdk.sh
+      #resolve kafka run error
+      if [ ! -e "/etc/java-8-openjdk/management/management.properties" ]; then
+        touch /etc/java-8-openjdk/management/management.properties
+      fi
     fi
     echo "${CSUCCESS}OpenJDK8 installed successfully! ${CEND}"
   else

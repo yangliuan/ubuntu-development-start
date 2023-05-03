@@ -3,9 +3,7 @@ export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
 ####################################################################
-                     start zookeeper kafka
+                     start kafka zookeeper
 ####################################################################
 "
-
-sudo systemctl start kafka.service
-sudo systemctl status kafka.service
+sudo systemctl start zookeeper.service

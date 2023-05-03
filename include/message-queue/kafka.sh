@@ -29,8 +29,6 @@ Install_Kafka() {
     cp ${oneinstack_dir}/init.d/zookeeper.service /lib/systemd/system/
     cp ${oneinstack_dir}/init.d/kafka.service /lib/systemd/system/
     systemctl daemon-reload
-    systemctl start zookeeper.service
-    systemctl start kafka.service
     
     echo "${CSUCCESS}Kafka installed successfully! ${CEND}"
 }

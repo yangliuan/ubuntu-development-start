@@ -18,6 +18,10 @@ export JAVA_HOME=${JAVA_HOME}
 export CLASSPATH=\$JAVA_HOME/lib/tools.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib
 EOF
     . /etc/profile.d/openjdk.sh
+    #resolve kafka run error
+    if [ ! -e "/etc/java-11-openjdk/management/management.properties" ]; then
+      touch /etc/java-11-openjdk/management/management.properties
+    fi
     echo "${CSUCCESS}OpenJDK11 installed successfully! ${CEND}"
   else
     echo "${CFAILURE}OpenJDK11 install failed, Please contact the author! ${CEND}" && lsb_release -a
