@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Stop all service
+Name=StopAllService
 Comment=Develop Environment 
 Exec=sh /opt/oneinstack/stop_all.sh
 Icon=/opt/oneinstack/icon/stop-all.svg
