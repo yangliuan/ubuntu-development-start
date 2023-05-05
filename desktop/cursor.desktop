@@ -6,4 +6,4 @@ Type=Application
 Icon=/opt/cursor/cursor.svg
 StartupWMClass=cursor
 Comment=ai code edit
-Categories=develop tools;
+Categories=devtool;

@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=tomcat
+Name=Apache Tomcat
 Comment=web server
 Exec=sh /opt/oneinstack/start/tomcat_start.sh
 Icon=/opt/oneinstack/icon/apachetomcat.svg
 Type=Application
 Terminal=true
-Categories=Development;
-Keywords=tomcat;tomcat;
+Categories=service;web server
+Keywords=tomcat

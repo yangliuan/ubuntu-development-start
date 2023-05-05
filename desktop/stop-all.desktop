@@ -5,4 +5,4 @@ Exec=sh /opt/oneinstack/stop_all.sh
 Icon=/opt/oneinstack/icon/stop-all.svg
 Type=Application
 Terminal=true
-Categories=Development
+Categories=shelltool

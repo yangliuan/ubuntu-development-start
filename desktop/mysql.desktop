@@ -5,5 +5,5 @@ Exec=sh /opt/oneinstack/start/mysql_start.sh
 Icon=/opt/oneinstack/icon/mysql.svg
 Type=Application
 Terminal=true
-Categories=Development;Mysql;
+Categories=service;database
 Keywords=Mysql;mysql

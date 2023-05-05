@@ -5,5 +5,5 @@ Exec=sh /opt/oneinstack/start/lamp_start.sh
 Icon=/opt/oneinstack/icon/lamp.png
 Type=Application
 Terminal=true
-Categories=Development;PHP Web;
+Categories=service;php web;
 Keywords=LAMP;lamp

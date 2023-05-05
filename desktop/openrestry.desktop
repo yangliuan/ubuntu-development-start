@@ -5,5 +5,5 @@ Exec=sh /opt/oneinstack/start/nginx_start.sh
 Icon=/opt/oneinstack/icon/openresty.png
 Type=Application
 Terminal=true
-Categories=Development;Web Server;
-Keywords=Nginx;Openrestry;openrestry;
+Categories=service;web http server
+Keywords=openrestry

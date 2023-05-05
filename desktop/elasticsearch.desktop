@@ -5,5 +5,5 @@ Exec=sh /opt/oneinstack/start/elasticsearch_start.sh
 Icon=/opt/oneinstack/icon/elasticsearch.svg
 Type=Application
 Terminal=true
-Categories=Development;Elasticsearch;
+Categories=service;fulltext
 Keywords=Elasticsearch;elasticsearch;ES;es;

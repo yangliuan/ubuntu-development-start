@@ -5,5 +5,5 @@ Exec=sh /opt/oneinstack/start/redis_start.sh
 Icon=/opt/oneinstack/icon/redis.svg
 Type=Application
 Terminal=true
-Categories=Development;Redis;
-Keywords=Redis;redis
+Categories=service;cache
+Keywords=redis

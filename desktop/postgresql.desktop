@@ -5,5 +5,5 @@ Exec=sh /opt/oneinstack/start/postgresql_start.sh
 Icon=/opt/oneinstack/icon/postgresql.svg
 Type=Application
 Terminal=true
-Categories=Development;Database;
-Keywords=PostgreSql;postgresql
+Categories=service;database
+Keywords=postgresql

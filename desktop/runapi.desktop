@@ -4,5 +4,5 @@ Comment=showdoc runapi client
 Exec=/opt/runapi/runapi.AppImage
 Icon=/opt/runapi/runapi.png
 Type=Application
-Categories=Development;Api;
-Keywords=runapi;
+Categories=devtool;api doc
+Keywords=runapi

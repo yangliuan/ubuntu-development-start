@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=jmeter
+Name=Apache Jmeter
 Comment=Apache JMeter may be used to test performance both on static and dynamic resources, Web dynamic applications.
 Exec=/opt/jmeter/bin/jmeter
 Icon=/opt/jmeter/docs/images/jmeter_square.png
 Type=Application
-Categories=Development;
+Categories=devtool;
 Keywords=jmeter;

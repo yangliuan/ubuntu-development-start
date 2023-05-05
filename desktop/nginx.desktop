@@ -5,5 +5,5 @@ Exec=sh /opt/oneinstack/start/nginx_start.sh
 Icon=/opt/oneinstack/icon/nginx.svg
 Type=Application
 Terminal=true
-Categories=Development;Web Server;
+Categories=service;web http server
 Keywords=Nginx;nginx

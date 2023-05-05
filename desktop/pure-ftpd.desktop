@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Pure-ftpd
-Comment=ftp服务端工具
+Name=Pure Ftpd
+Comment=ftp server
 Exec=sh /opt/oneinstack/start/pure-ftpd_start.sh
 Icon=/opt/oneinstack/icon/pure-ftpd.png
 Type=Application
 Terminal=true
 Categories=Development;
-Keywords=ftpd;
+Keywords=pureftpd;

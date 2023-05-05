@@ -5,5 +5,5 @@ Exec=/opt/navicat/navicat-premium-cs.AppImage
 Icon=/opt/navicat/navicat.svg
 Type=Application
 Terminal=true
-Categories=Development;Database Tools;
+Categories=devtool;database manager tool
 Keywords=navicat;

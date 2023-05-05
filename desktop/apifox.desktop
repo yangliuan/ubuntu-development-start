@@ -6,4 +6,4 @@ Type=Application
 Icon=/opt/apifox/resources/app/dist/assets/logo.png
 StartupWMClass=Apifox
 Comment=Apifox = Postman + Swagger + Mock
-Categories=Utility;
+Categories=devtool;

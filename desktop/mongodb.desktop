@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=mongodb
+Name=Mongodb
 Comment=document database
 Exec=sh /opt/oneinstack/start/mongodb_start.sh
 Icon=/opt/oneinstack/icon/mongodb.svg
 Type=Application
 Terminal=true
-Categories=Development;Mongodb;
+Categories=service;nosql database
 Keywords=mongodb;Mongodb
