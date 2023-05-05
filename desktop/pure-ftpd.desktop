@@ -2,8 +2,8 @@
 Name=Pure Ftpd
 Comment=ftp server
 Exec=sh /opt/oneinstack/start/pure-ftpd_start.sh
-Icon=/opt/oneinstack/icon/pure-ftpd.png
+Icon=/opt/oneinstack/icon/ftpserver.svg
 Type=Application
 Terminal=true
-Categories=Development;
-Keywords=pureftpd;
+Categories=service
+Keywords=pureftpd
