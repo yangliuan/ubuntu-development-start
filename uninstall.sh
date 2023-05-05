@@ -342,10 +342,10 @@ Print_AllMessageQueue() {
 }
 
 Uninstall_AllMessageQueue() {
-  . include/message-queue/kafka.sh; Uninstall_Kafka
-  . include/message-queue/rabbitmq.sh; Uninstall_RabbitMQ
-  . include/message-queue/rocketmq.sh; Uninstall_RocketMQ
-  Uninstall_RabbitmqDesktop;Uninstall_KafkaDesktop;
+  . include/message-queue/kafka.sh;Uninstall_Kafka
+  . include/message-queue/rabbitmq.sh;Uninstall_RabbitMQ
+  . include/message-queue/rocketmq.sh;Uninstall_RocketMQ
+  Uninstall_RabbitmqDesktop;Uninstall_KafkaDesktop;Uninstall_ZookeeperDesktop
 }
 
 Print_Kafka() {

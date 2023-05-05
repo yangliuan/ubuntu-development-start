@@ -28,12 +28,31 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/language/java/jdk/openjdk-8.sh
 . ./include/language/java/jdk/openjdk-11.sh
 
+
+Install_ElasticsearchDesktop
+Install_MysqlDesktop
+Install_PostgresqlDesktop
+Install_MongoDBDesktop
+Install_MemcachedDesktop
+Install_RedisDesktop
+Install_ApacheHttpdDesktop
+Install_NginxDesktop
+Install_TomcatDesktop
+Install_PureFtpDesktop
+Install_PHPFPMDesktop
+Install_LAMPDesktop
+Install_SupervisorDesktop
+Install_ZookeeperDesktop
+Install_KafkaDesktop
+Install_RabbitmqDesktop
+Install_StopAllDesktop
+
+
 # NginxDevConfig
 # TengineDevConfig
 # OpenRestyDevConfig
 # WwwlogsDevConfig
 # PhpDevConfig
-# Install_StopAllDesktop
 # Install_Gitlab
 # Uninstall_Gitlab
 # Uninstall_Cursor

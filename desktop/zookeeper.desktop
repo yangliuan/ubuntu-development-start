@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=zookeeper
+Name=Zookeeper
 Comment=zookeeper in kafka
 Exec=sh /opt/oneinstack/start/kafka_zookeeeper_start.sh
-Icon=/opt/oneinstack/icon/zookeepe.png
-Type=Service
+Icon=/opt/oneinstack/icon/zookeeper.svg
+Type=Application
 Terminal=true
 Categories=Development;
-Keywords=zookeeper
+Keywords=Zookeeper

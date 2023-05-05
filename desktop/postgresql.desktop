@@ -2,7 +2,7 @@
 Name=PostgreSql
 Comment=relation database
 Exec=sh /opt/oneinstack/start/postgresql_start.sh
-Icon=/opt/oneinstack/icon/postgresql.png
+Icon=/opt/oneinstack/icon/postgresql.svg
 Type=Application
 Terminal=true
 Categories=Development;Database;

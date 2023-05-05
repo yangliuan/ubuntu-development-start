@@ -17,7 +17,7 @@ Install_RabbitMQ(){
     chown -Rv rabbitmq.rabbitmq ${rabbitmq_install_dir}
     /bin/cp ../init.d/rabbitmq-server.service /lib/systemd/system
     systemctl daemon-reload
-    systemctl start rabbitmq-server.service
+
     echo "rabbitmq install success!"
     popd > /dev/null
 }

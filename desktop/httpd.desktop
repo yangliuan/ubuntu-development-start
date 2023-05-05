@@ -2,7 +2,7 @@
 Name=Apache httpd
 Comment=web http server
 Exec=sh /opt/oneinstack/start/httpd_start.sh
-Icon=/opt/oneinstack/icon/apached.png
+Icon=/opt/oneinstack/icon/httpd-pb.svg
 Type=Application
 Terminal=true
 Categories=Development;Apache Httpd;

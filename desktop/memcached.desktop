@@ -2,7 +2,7 @@
 Name=Memcached
 Comment=Memcached is an in-memory key-value store
 Exec=sh /opt/oneinstack/start/memcached_start.sh
-Icon=/opt/oneinstack/icon/memcached.jpg
+Icon=/opt/oneinstack/icon/memcached.svg
 Type=Application
 Terminal=true
 Categories=Development;Memcached;

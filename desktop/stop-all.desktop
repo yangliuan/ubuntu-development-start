@@ -2,7 +2,7 @@
 Name=Stop all service
 Comment=Develop Environment 
 Exec=sh /opt/oneinstack/stop_all.sh
-Icon=/opt/oneinstack/icon/stop-all.jpg
+Icon=/opt/oneinstack/icon/stop-all.svg
 Type=Application
 Terminal=true
 Categories=Development

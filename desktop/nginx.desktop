@@ -2,7 +2,7 @@
 Name=Nginx
 Comment=Web http server
 Exec=sh /opt/oneinstack/start/nginx_start.sh
-Icon=/opt/oneinstack/icon/nginx.jpeg
+Icon=/opt/oneinstack/icon/nginx.svg
 Type=Application
 Terminal=true
 Categories=Development;Web Server;

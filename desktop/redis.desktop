@@ -2,7 +2,7 @@
 Name=Redis
 Comment=redis in-memory data structure store
 Exec=sh /opt/oneinstack/start/redis_start.sh
-Icon=/opt/oneinstack/icon/redis.png
+Icon=/opt/oneinstack/icon/redis.svg
 Type=Application
 Terminal=true
 Categories=Development;Redis;

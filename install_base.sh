@@ -509,14 +509,14 @@ if [ ${ARG_NUM} == 0 ]; then
           echo -e "\t${CMSG}4${CEND}. Do not install"
           read -e -p "Please input a number:(Default 1 press Enter) " message_queue_option
           message_queue_option=${message_queue_option:-1}
-          if [[ ! ${message_queue_option} =~ ^[1-4]$ ]]; then
-            echo "${CWARNING}input error! Please only input number 1~4${CEND}"
+          if [[ ! ${message_queue_option} =~ ^[1-3]$ ]]; then
+            echo "${CWARNING}input error! Please only input number 1~3${CEND}"
           else
              [ "${message_queue_option}" = '1' -a -e "${kafka_install_dir}" ] && { echo "${CWARNING}Kafka${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             [ "${message_queue_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             [ "${message_queue_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
 
-            if [[ ${message_queue_option} =~ ^[1-3]$ ]]; then
+            if [[ ${message_queue_option} =~ ^[13]$ ]]; then
               while :; do echo
                 echo 'Please select JDK version:'
                 echo -e "\t${CMSG}1${CEND}. Install openjdk-8-jdk"
@@ -1066,6 +1066,7 @@ case "${message_queue_option}" in
     fi
     . include/message-queue/rabbitmq.sh
     Install_RabbitMQ 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_RabbitmqDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
     . include/message-queue/rocketmq.sh

@@ -171,6 +171,16 @@ Uninstall_SupervisorDesktop() {
 }
 
 ##message queue########################################
+Install_ZookeeperDesktop() {
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv zookeeper.desktop /usr/share/applications
+    popd > /dev/null
+}
+
+Uninstall_ZookeeperDesktop() {
+    rm -rfv /usr/share/applications/zookeeper.desktop
+}
+
 Install_KafkaDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv kafka.desktop /usr/share/applications
