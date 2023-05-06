@@ -38,6 +38,7 @@ pushd ${oneinstack_dir} > /dev/null
 . include/language/go/gvm.sh
 . include/language/java/jdk/openjdk-8.sh
 . include/language/java/jdk/openjdk-11.sh
+. include/language/erlang/erlang.sh
 . include/language/python/supervisor.sh
 . include/message-queue/kafka.sh
 . include/message-queue/rabbitmq.sh
@@ -740,6 +741,10 @@ Print_Gvm() {
   echo ''
 }
 
+Print_Erlang() {
+  [ -d "${erlang_install_dir}" ] && echo ${erlang_install_dir}
+}
+
 Menu() {
 while :; do
   printf "
@@ -794,14 +799,15 @@ What Are You Doing?
       Print_Webp
       Print_openssl
       Print_libevent
-      Print_phpMyAdmin
-      Print_Supervisord
       Print_Python
       Print_Node
       Print_Nvm
       Print_Go
       Print_Gvm
       Print_JDK
+      Print_Erlang
+      Print_phpMyAdmin
+      Print_Supervisord
       Uninstall_status
       if [ "${uninstall_flag}" == 'y' ]; then
         Uninstall_Web
@@ -826,6 +832,7 @@ What Are You Doing?
         Uninstall_Go
         Uninstall_Gvm
         Uninstall_JDK
+        Uninstall_Erlang
         Uninstall_Supervisor
         Uninstall_alldesktop
       else
