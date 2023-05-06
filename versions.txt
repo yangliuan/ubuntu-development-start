@@ -61,6 +61,7 @@ node_ver=18.14.2
 nvm_ver=0.39.2
 
 # go
+go120_ver=1.20.4
 go119_ver=1.19.3
 go118_ver=1.18.8
 go117_ver=1.17.13

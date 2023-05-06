@@ -772,66 +772,81 @@ if [ ${ARG_NUM} == 0 ]; then
   done
   fi
 
-  # check Nodejs
+  # check other language
   while :; do echo
-      read -e -p "Do you want to install Nodejs? [y/n]: " nodejs_flag
-      if [[ ! ${nodejs_flag} =~ ^[y,n]$ ]]; then
+      read -e -p "Do you want to install other language? [y/n]: " language_flag
+      language_flag=${language_flag:-n}
+      if [[ ! ${language_flag} =~ ^[y,n]$ ]]; then
           echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
       else
-          # choice Nodejs install method
-          if [ "${nodejs_flag}" == 'y' ]; then
+          if [ "${language_flag}" == 'y' ]; then
+              ####### check Nodejs
               while :; do echo
-                  echo 'Please select method:'
-                  echo -e "\t${CMSG}1${CEND}. official install"
-                  echo -e "\t${CMSG}2${CEND}. use nvm"
-                  read -e -p "Please input a number:(Default 1 press Enter) " nodejs_method
-                  nodejs_method=${nodejs_method:-1}
-                  if [[ ! ${nodejs_method} =~ ^[1-2]$ ]]; then
-                      echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+                  read -e -p "Do you want to install Nodejs? [y/n]: " nodejs_flag
+                  if [[ ! ${nodejs_flag} =~ ^[y,n]$ ]]; then
+                      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
                   else
-                    [ "${nodejs_method}" = "1" -a -e "${node_install_dir}/bin/node" ] && { echo "${CWARNING}Nodejs already installed! ${CEND}"; unset nodejs_method; break; }
-                    [ "${nodejs_method}" = "2" -a -e "/home/${run_user}/.nvm" ] && { echo "${CWARNING}nvm already installed! ${CEND}"; unset nodejs_method; break; }
-                    break
+                      # choice Nodejs install method
+                      if [ "${nodejs_flag}" == 'y' ]; then
+                          while :; do echo
+                              echo 'Please select method:'
+                              echo -e "\t${CMSG}1${CEND}. official install"
+                              echo -e "\t${CMSG}2${CEND}. use nvm"
+                              read -e -p "Please input a number:(Default 1 press Enter) " nodejs_method
+                              nodejs_method=${nodejs_method:-1}
+                              if [[ ! ${nodejs_method} =~ ^[1-2]$ ]]; then
+                                  echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+                              else
+                                [ "${nodejs_method}" = "1" -a -e "${node_install_dir}/bin/node" ] && { echo "${CWARNING}Nodejs already installed! ${CEND}"; unset nodejs_method; break; }
+                                [ "${nodejs_method}" = "2" -a -e "/home/${run_user}/.nvm" ] && { echo "${CWARNING}nvm already installed! ${CEND}"; unset nodejs_method; break; }
+                                break
+                              fi
+                          done
+                      fi
+                      break
                   fi
               done
-          fi
-          break
-      fi
-  done
+              ##### end nodejs
 
-
-  # check go
-  while :; do echo
-      read -e -p "Do you want to install Go? [y/n]: " go_flag
-      if [[ ! ${go_flag} =~ ^[y,n]$ ]]; then
-          echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-      else
-          # choice go install method
-          if [ "${go_flag}" == 'y' ]; then
+              ##### check go
               while :; do echo
-                  echo 'Please select go version:'
-                  echo -e "\t${CMSG}1${CEND}. 1.19"
-                  echo -e "\t${CMSG}1${CEND}. 1.18"
-                  echo -e "\t${CMSG}2${CEND}. 1.17"
-                  read -e -p "Please input a number:(Default 1 press Enter) " go_option
-                  go_option=${go_option:-1}
-                  if [[ ! ${go_option} =~ ^[1-3]$ ]]; then
-                      echo "${CWARNING}input error! Please only input number 1~3${CEND}"
+                read -e -p "Do you want to install Go? [y/n]: " go_flag
+                if [[ ! ${go_flag} =~ ^[y,n]$ ]]; then
+                    echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+                else
+                    # choice go install method
+                    if [ "${go_flag}" == 'y' ]; then
+                        while :; do echo
+                            echo 'Please select go version:'
+                            echo -e "\t${CMSG}1${CEND}. 1.20"
+                            echo -e "\t${CMSG}1${CEND}. 1.19"
+                            echo -e "\t${CMSG}1${CEND}. 1.18"
+                            echo -e "\t${CMSG}2${CEND}. 1.17"
+                            read -e -p "Please input a number:(Default 1 press Enter) " go_option
+                            go_option=${go_option:-1}
+                            if [[ ! ${go_option} =~ ^[1-4]$ ]]; then
+                                echo "${CWARNING}input error! Please only input number 1~4${CEND}"
+                            else
+                                break
+                            fi
+                        done
+                    fi
+                    break
+                fi
+              done
+              ##### end go
+
+              ##### check pythod
+              while :; do echo
+                  read -e -p "Do you want to install python? [y/n]: " python_flag
+                  if [[ ! ${python_flag} =~ ^[y,n]$ ]]; then
+                      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
                   else
                       break
                   fi
               done
+              ##### end pythod
           fi
-          break
-      fi
-  done
-
-  # check python
-  while :; do echo
-      read -e -p "Do you want to install python? [y/n]: " python_flag
-      if [[ ! ${python_flag} =~ ^[y,n]$ ]]; then
-          echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-      else
           break
       fi
   done
@@ -1334,16 +1349,21 @@ esac
 # go
 case "${go_option}" in
   1)
-    go_ver="${go119_ver}"
+    go_ver="${go120_ver}"
     . include/language/go/go.sh
     Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
-     go_ver="${go118_ver}"
+    go_ver="${go119_ver}"
     . include/language/go/go.sh
     Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   3)
+     go_ver="${go118_ver}"
+    . include/language/go/go.sh
+    Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  4)
     go_ver="${go117_ver}"
     . include/language/go/go.sh
     Install_Go 2>&1 | tee -a ${oneinstack_dir}/install.log

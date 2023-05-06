@@ -17,7 +17,8 @@ Install_Go() {
 
     ln -s ${go_install_dir}${go_ver} ${go_install_dir}
 
-    cat >> /home/${run_user}/.bashrc <<EOF
+    if [ ! -e "/etc/profile.d/go.sh" ]; then
+        cat >> /etc/profile.d/go.sh <<EOF
 ##Go env
 export GOROOT=${go_install_dir} #GOROOT 设置 ##Go
 export GOPATH=${go_path} #GOPATH 设置 ##Go
@@ -27,24 +28,16 @@ export GOPRIVATE=  #指定不走代理的go包域名 ##Go
 export GOSUMDB=off #关闭校验Go依赖包的哈希值 ##Go
 export PATH=\$GOROOT/bin:\$GOPATH/bin:\$PATH
 EOF
+        . /etc/profile.d/go.sh
+        . /etc/profile
+    fi
 
-    #加入etc/profile
-    # sed -i "s@export PATH@export GOROOT="${go_install_dir}" #GOROOT 设置 ##Go\nexport GOPATH=${go_path} #GOPATH 设置 ##Go\nexport GO111MODULE=\"on\" #开启 Go moudles 特性 ##Go\nexport GOPROXY=https://goproxy.cn,direct #安装Go模块时，代理服务器设置 ##Go\nexport GOPRIVATE=  #指定不走代理的go包域名 ##Go\nexport GOSUMDB=off #关闭校验Go依赖包的哈希值 ##Go\nexport PATH@" /home/${run_user}/.bashrc
-
-    # [ -n "`grep ^'export PATH=' /home/${run_user}/.bashrc`" -a -z "`grep '$GOROOT/bin' /home/${run_user}/.bashrc`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=\$GOROOT/bin:\1@" /home/${run_user}/.bashrc
-    # [ -z "`grep ^'export PATH=' /home/${run_user}/.bashrc | grep '$GOROOT/bin'`" ] && echo 'export PATH=$GOROOT/bin:$PATH' >> /home/${run_user}/.bashrc
-    # [ -n "`grep ^'export PATH=' /home/${run_user}/.bashrc`" -a -z "`grep '$GOPATH/bin' /home/${run_user}/.bashrc`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=\$GOPATH/bin:\1@" /home/${run_user}/.bashrc
-    # [ -z "`grep ^'export PATH=' /home/${run_user}/.bashrc | grep '$GOPATH/bin'`" ] && echo 'export PATH=$GOPATH/bin:$PATH' >> /home/${run_user}/.bashrc
-   
-    source /home/${run_user}/.bashrc
     echo "install Go successed!"
 }
 
 Uninstall_Go() {
     echo "Uninstall Go"
-    sed -i '/##Go$/d' /home/${run_user}/.bashrc
-    sed -i 's@$GOPATH/bin:@@' /home/${run_user}/.bashrc
-    sed -i 's@$GOROOT/bin:@@' /home/${run_user}/.bashrc
+    rm -rf /etc/profile.d/go.sh
     rm -rfv ${go_install_dir}
     rm -rfv ${go_install_dir}${go119_ver}
     rm -rfv ${go_install_dir}${go118_ver}
