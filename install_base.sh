@@ -873,6 +873,9 @@ fi
 # start Time
 startTime=`date +%s`
 
+Install_openSSL | tee -a ${oneinstack_dir}/install.log
+Install_Libevent | tee -a ${oneinstack_dir}/install.log
+
 if [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
   . include/multimedia/libwebp.sh
   Install_Libwebp | tee -a ${oneinstack_dir}/install.log
