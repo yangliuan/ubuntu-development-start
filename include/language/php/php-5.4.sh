@@ -79,13 +79,12 @@ Install_PHP54() {
     kill -9 $$; exit 1;
   fi
 
-  . ${oneinstack_dir}/include/language/php/config_env.sh; Config_Current
-  . /etc/profile
-
-  #config env path php-fpm php.ini
+  #config env path php-fpm.conf php.ini
+  . ${oneinstack_dir}/include/language/php/config_env.sh
   Set_PhpFpm_Systemd
   Set_PhpFpm
   Set_PhpIni
+  Set_EnvPath
 
   popd > /dev/null
   [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php54_ver}
