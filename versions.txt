@@ -35,6 +35,7 @@ percona55_ver=5.5.62-38.14
 
 pgsql_ver=12.7
 mongodb_ver=4.0.26
+sqlite3_ver=3410200
 
 # JDK
 jdk110_ver=11.0.12

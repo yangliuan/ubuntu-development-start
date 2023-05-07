@@ -165,6 +165,8 @@ while :; do
         [ -e "${pgsql_install_dir}/bin/psql" ] && { echo "${CWARNING}PostgreSQL already installed! ${CEND}"; unset db_option; }
       elif [ "${db_option}" == '14' ]; then
         [ -e "${mongo_install_dir}/bin/mongo" ] && { echo "${CWARNING}MongoDB already installed! ${CEND}"; unset db_option; }
+      elif [ "${db_option}" == '15' ]; then
+        [ -e "/usr/local/bin/sqlite3" ] && { echo "${CWARNING}Sqlite3 already installed! ${CEND}"; unset db_option; break; }
       else
         echo "${CWARNING}db_option input error! Please only input number 1~14${CEND}"
         exit 1
@@ -387,14 +389,17 @@ if [ ${ARG_NUM} == 0 ]; then
           echo -e "\t${CMSG}12${CEND}. Install Percona-5.5"
           echo -e "\t${CMSG}13${CEND}. Install PostgreSQL"
           echo -e "\t${CMSG}14${CEND}. Install MongoDB"
+          echo -e "\t${CMSG}15${CEND}. Install Sqlite3"
           read -e -p "Please input a number:(Default 2 press Enter) " db_option
           db_option=${db_option:-2}
           [[ "${db_option}" =~ ^9$|^14$ ]] && [ "${OS_BIT}" == '32' ] && { echo "${CWARNING}By not supporting 32-bit! ${CEND}"; continue; }
-          if [[ "${db_option}" =~ ^[1-9]$|^1[0-4]$ ]]; then
+          if [[ "${db_option}" =~ ^[1-9]$|^1[0-5]$ ]]; then
             if [ "${db_option}" == '13' ]; then
               [ -e "${pgsql_install_dir}/bin/psql" ] && { echo "${CWARNING}PostgreSQL already installed! ${CEND}"; unset db_option; break; }
             elif [ "${db_option}" == '14' ]; then
               [ -e "${mongo_install_dir}/bin/mongo" ] && { echo "${CWARNING}MongoDB already installed! ${CEND}"; unset db_option; break; }
+            elif [ "${db_option}" == '15' ]; then
+              [ -e "/usr/local/bin/sqlite3" ] && { echo "${CWARNING}Sqlite3 already installed! ${CEND}"; unset db_option; break; }
             else
               [ -d "${db_install_dir}/support-files" ] && { echo "${CWARNING}MySQL already installed! ${CEND}"; unset db_option; break; }
             fi
@@ -405,6 +410,8 @@ if [ ${ARG_NUM} == 0 ]; then
               elif [ "${db_option}" == '14' ]; then
                 read -e -p "Please input the root password of MongoDB(default: ${dbmongopwd}): " dbpwd
                 dbpwd=${dbpwd:-${dbmongopwd}}
+              elif [ "${db_option}" == '15' ]; then
+                break
               else
                 read -e -p "Please input the root password of MySQL(default: ${dbrootpwd}): " dbpwd
                 dbpwd=${dbpwd:-${dbrootpwd}}
@@ -440,7 +447,7 @@ if [ ${ARG_NUM} == 0 ]; then
             fi
             break
           else
-            echo "${CWARNING}input error! Please only input number 1~14${CEND}"
+            echo "${CWARNING}input error! Please only input number 1~15${CEND}"
           fi
         done
       fi
@@ -971,6 +978,10 @@ case "${db_option}" in
     . include/database/mongodb.sh
     Install_MongoDB 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_MongoDBDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  15)
+    . include/database/sqlite3.sh
+    Install_Sqlite3 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 

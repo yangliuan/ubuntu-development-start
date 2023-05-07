@@ -43,7 +43,7 @@ pushd ${oneinstack_dir} > /dev/null
 . include/message-queue/kafka.sh
 . include/message-queue/rabbitmq.sh
 . include/message-queue/rocketmq.sh
-
+. include/database/sqlite3.sh
 
 Show_Help() {
   echo
@@ -55,6 +55,7 @@ Show_Help() {
   --mysql                       Uninstall MySQL/MariaDB/Percona
   --postgresql                  Uninstall PostgreSQL
   --mongodb                     Uninstall MongoDB
+  --sqlite                      Uninstall Slqite
   --php                         Uninstall PHP (PATH: ${php_install_dir})
   --mphp_ver [53~81]            Uninstall another PHP version (PATH: ${php_install_dir}\${mphp_ver})
   --allphp                      Uninstall all PHP
@@ -63,20 +64,19 @@ Show_Help() {
                                 sourceguardian,imagick,gmagick,fileinfo,imap,ldap,calendar,phalcon,
                                 yaf,yar,redis,memcached,memcache,mongodb,swoole,event,xdebug,yasd_debug
   --pureftpd                    Uninstall PureFtpd
+  --supervisord                 Uninstall Supervisord
   --redis                       Uninstall Redis-server
   --memcached                   Uninstall Memcached-server
-  --phpmyadmin                  Uninstall phpMyAdmin
   --python                      Uninstall Python (PATH: ${python_install_dir})
   --node                        Uninstall Nodejs (PATH: ${node_install_dir})
   --nvm                         Uninstall Nvm
   --go                          Uninstall Go
   --gvm                         Uninstall Gvm
-  --supervisord                 Uninstall Supervisord 
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,redis,memcached,phpmyadmin,python,node,nvm,go,gvm,supervisord -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,supervisord,redis,memcached,phpmyadmin,python,node,nvm,go,gvm -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -96,6 +96,7 @@ while :; do
       mysql_flag=y
       postgresql_flag=y
       mongodb_flag=y
+      sqlite_flag=y
       allphp_flag=y
       node_flag=y
       nvm_flag=y
@@ -120,6 +121,9 @@ while :; do
       ;;
     --mongodb)
       mongodb_flag=y; shift 1
+      ;;
+    --mongodb)
+      sqlite_flag=y; shift 1
       ;;
     --php)
       php_flag=y; shift 1
@@ -284,6 +288,10 @@ Print_MongoDB() {
   [ -e "/etc/mongod.conf" ] && echo /etc/mongod.conf
 }
 
+Print_Sqlite() {
+  [ -e "/usr/local/bin/sqlite3" ] && echo /usr/local/bin/sqlite3
+}
+
 Uninstall_MySQL() {
   # uninstall mysql,mariadb,percona
   if [ -d "${db_install_dir}/support-files" ]; then
@@ -330,6 +338,7 @@ Uninstall_MongoDB() {
     echo "${CMSG}MongoDB uninstall completed! ${CEND}"
   fi
 }
+
 
 Print_ElasticsearchStack() {
   [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && echo /usr/share/elasticsearch/bin/elasticsearch
@@ -754,20 +763,20 @@ What Are You Doing?
 \t${CMSG} 2${CEND}. Uninstall MySQL/MariaDB/Percona
 \t${CMSG} 3${CEND}. Uninstall PostgreSQL
 \t${CMSG} 4${CEND}. Uninstall MongoDB
-\t${CMSG} 5${CEND}. Uninstall ElasticsearchStack
-\t${CMSG} 6${CEND}. Uninstall All Message Queue
-\t${CMSG} 7${CEND}. Uninstall Kafka
-\t${CMSG} 8${CEND}. Uninstall Rabbitmq
-\t${CMSG} 9${CEND}. Uninstall Rocketmq
-\t${CMSG} 10${CEND}. Uninstall PureFtpd
-\t${CMSG} 11${CEND}. Uninstall Redis
-\t${CMSG} 12${CEND}. Uninstall Memcached
-\t${CMSG} 13${CEND}. Uninstall FFmpeg
-\t${CMSG} 14${CEND}. Uninstall Webp
-\t${CMSG} 15${CEND}. Uninstall All PHP
-\t${CMSG} 16${CEND}. Uninstall PHP opcode cache
-\t${CMSG} 17${CEND}. Uninstall PHP extensions
-\t${CMSG} 18${CEND}. Uninstall PHPMyAdmin
+\t${CMSG} 5${CEND}. Uninstall Sqlite
+\t${CMSG} 6${CEND}. Uninstall ElasticsearchStack
+\t${CMSG} 7${CEND}. Uninstall All Message Queue
+\t${CMSG} 8${CEND}. Uninstall Kafka
+\t${CMSG} 9${CEND}. Uninstall Rabbitmq
+\t${CMSG} 10${CEND}. Uninstall Rocketmq
+\t${CMSG} 11${CEND}. Uninstall PureFtpd
+\t${CMSG} 12${CEND}. Uninstall Redis
+\t${CMSG} 13${CEND}. Uninstall Memcached
+\t${CMSG} 14${CEND}. Uninstall FFmpeg
+\t${CMSG} 15${CEND}. Uninstall phpmyadmin
+\t${CMSG} 16${CEND}. Uninstall All PHP
+\t${CMSG} 17${CEND}. Uninstall PHP opcode cache
+\t${CMSG} 18${CEND}. Uninstall PHP extensions
 \t${CMSG} 19${CEND}. Uninstall Python (PATH: ${python_install_dir})
 \t${CMSG} 20${CEND}. Uninstall Nodejs (PATH: ${node_install_dir})
 \t${CMSG} 21${CEND}. Uninstall Nvm
@@ -789,6 +798,7 @@ What Are You Doing?
       Print_MySQL
       Print_PostgreSQL
       Print_MongoDB
+      Print_Sqlite
       Print_ElasticsearchStack
       Print_AllMessageQueue
       Print_ALLPHP
@@ -814,6 +824,7 @@ What Are You Doing?
         Uninstall_MySQL
         Uninstall_PostgreSQL
         Uninstall_MongoDB
+        Uninstall_Sqlite3
         Uninstall_Elasticsearch
         Uninstall_Cerebro
         Uninstall_AllMessageQueue
@@ -865,67 +876,78 @@ What Are You Doing?
       ;;
     5)
       Print_Warn
+      Print_Sqlite
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Sqlite3 || exit
+      ;;
+    6)
+      Print_Warn
       Print_ElasticsearchStack
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Elasticsearch; Uninstall_Cerebro || exit
       ;;
-    6)
+    7)
       Print_Warn
       Print_AllMessageQueue
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_AllMessageQueue || exit
       ;;
-    7)
+    8)
       Print_Warn
       Print_Kafka
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Kafka;Uninstall_KafkaDesktop || exit
       ;;
-    8)
+    9)
       Print_Warn
       Print_Rabbitmq
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_RabbitMQ;Uninstall_RabbitmqDesktop || exit
       ;;
-    9)
+    10)
       Print_Warn
       Print_Rocketmq
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_RocketMQ || exit
       ;;
-    10)
+    11)
       Print_PureFtpd
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_PureFtpd;Uninstall_PureFtpDesktop || exit
       ;;
-    11)
+    12)
       Print_Redis_server
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Redis_server;Uninstall_RedisDesktop || exit
       ;;
-    12)
+    13)
       Print_Memcached_server
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Memcached_server;Uninstall_MemcachedDesktop || exit
       ;;
+    14)
+      Print_FFmpeg
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_FFmpeg || exit
+      ;;
     15)
+      Print_phpMyAdmin
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_phpMyAdmin || exit
+      ;;
+    16)
       Print_ALLPHP
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_ALLPHP || exit
       ;;
-    16)
+    17)
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPcache || exit
       ;;
-    17)
+    18)
       Menu_PHPext
       [ "${phpext_option}" != '0' ] && Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPext || exit
-      ;;
-    18)
-      Print_phpMyAdmin
-      Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_phpMyAdmin || exit
       ;;
     19)
       Print_Python
@@ -977,6 +999,7 @@ else
   [ "${mysql_flag}" == 'y' ] && Print_MySQL
   [ "${postgresql_flag}" == 'y' ] && Print_PostgreSQL
   [ "${mongodb_flag}" == 'y' ] && Print_MongoDB
+  [ "${sqlite_flag}" == 'y' ] && Print_Sqlite
 
   if [ "${allphp_flag}" == 'y' ]; then
     Print_ALLPHP
@@ -999,6 +1022,7 @@ else
     [ "${mysql_flag}" == 'y' ] && Uninstall_MySQL
     [ "${postgresql_flag}" == 'y' ] && Uninstall_PostgreSQL
     [ "${mongodb_flag}" == 'y' ] && Uninstall_MongoDB
+    [ "${sqlite_flag}" == 'y' ] && Uninstall_Sqlite3
 
     if [ "${allphp_flag}" == 'y' ]; then
       Uninstall_ALLPHP
@@ -1021,7 +1045,7 @@ else
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
     [ "${go_flag}" == 'y' ] && Uninstall_Go 
     [ "${gvm_flag}" == 'y' ] && Uninstall_Gvm
-    [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor 
+    [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor
   fi
 fi
 

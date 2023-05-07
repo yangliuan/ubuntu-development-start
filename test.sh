@@ -33,6 +33,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/language/php/php-8.2.sh
 . ./include/language/php/config_env.sh
 . ./include/memory.sh
+. ./include/database/sqlite3.sh
 
 echo > ${oneinstack_dir}/test.log
 
@@ -80,3 +81,9 @@ echo > ${oneinstack_dir}/test.log
 #php_install_dir="${php_install_dir}82"
 #Install_PHP82 2>&1 | tee -a ${oneinstack_dir}/test.log
 #Set_EnvPath
+
+
+
+#######################################test database
+#Install_Sqlite3 | tee -a ${oneinstack_dir}/test.log
+# Uninstall_Sqlite3 | tee -a ${oneinstack_dir}/test.log
