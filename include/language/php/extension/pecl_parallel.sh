@@ -3,7 +3,7 @@
 # https://www.php.net/parallel
 # https://pecl.php.net/package/parallel
 
-Install_Parallel() { 
+Install_pecl_parallel() { 
     if [ -e "${php_install_dir}/bin/phpize" ]; then
         pushd ${oneinstack_dir}/src > /dev/null
         PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
@@ -47,7 +47,7 @@ Install_Parallel() {
     fi
 }
 
-Uninstall_Parallel() {
+Uninstall_pecl_parallel() {
     if [ -e "${php_install_dir}/etc/php.d/parallel.ini" ]; then
         rm -f ${php_install_dir}/etc/php.d/parallel.ini
         echo; echo "${CMSG}PHP parallel module uninstall completed${CEND}"

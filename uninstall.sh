@@ -582,7 +582,7 @@ Uninstall_PHPext() {
   # pecl_parallel
   if [ "${pecl_parallel}" == '1' ]; then
     . include/language/php/extension/pecl_parallel.sh
-    Uninstall_Parallel
+    Uninstall_pecl_parallel
   fi
 
   # reload php

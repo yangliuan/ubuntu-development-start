@@ -1,6 +1,5 @@
 #!/bin/bash
 # PECL_DOC:https://pecl.php.net/package/memcache
-# 该扩展维护频率不高，不推荐使用
 # PHP_DOC:https://www.php.net/manual/zh/book.memcache.php
 
 Install_pecl_memcache() {

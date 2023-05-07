@@ -8,8 +8,7 @@ Install_Sqlite3() {
     tar -zxvf sqlite-autoconf-${sqlite3_ver}.tar.gz
     pushd sqlite-autoconf-${sqlite3_ver} > /dev/null
     ./configure
-    make -j ${THREAD}
-    make install
+    make -j ${THREAD} && make install
     
     if [ -e "/usr/local/bin/sqlite3" ]; then
         . /etc/profile
@@ -26,11 +25,9 @@ Install_Sqlite3() {
 
 Uninstall_Sqlite3() {
     rm -rfv /usr/local/bin/sqlite3 
-    rm -rfv /usr/local/include/sqlite3.h
-    rm -rfv /usr/local/include/sqlite3ext.h 
-    rm -rfv /usr/local/lib/libsqlite3.a 
-    rm -rfv /usr/local/lib/libsqlite3.la 
-    rm -rfv /usr/local/lib/libsqlite3.so 
-    rm -rfv /usr/local/lib/libsqlite3.so.0 
-    rm -rfv /usr/local/lib/libsqlite3.so.0.8.6
+    rm -rfv /usr/local/include/sqlite3.h /usr/local/include/sqlite3ext.h 
+    
+    pushd /usr/local/lib > /dev/null
+    rm -rfv libsqlite3.a libsqlite3.la libsqlite3.so libsqlite3.so.0 libsqlite3.so.0.8.6
+    popd > /dev/null
 }

@@ -10,9 +10,16 @@ Install_Libwebp() {
         ./configure
         make -j ${THREAD} && make install
         popd > /dev/null
-        rm -rf libwebp-${libwebp_ver}
+
+        if [ -e "/usr/local/lib/libwebp.la" ]; then
+            echo "${CSUCCESS}libwebp installed successfully! ${CEND}"
+            rm -rf libwebp-${libwebp_ver}
+            ldconfig /usr/local/lib/
+        else
+            echo "${CFAILURE}libwebp install failed, Please contact the author! ${CEND}" && lsb_release -a
+        fi
+
         popd > /dev/null
-        ldconfig /usr/local/lib/
     fi 
 }
 
@@ -24,6 +31,7 @@ Uninstall_Libwebp() {
     libwebpmux.so libwebpmux.so.3 libwebpmux.so.3.0.10 libwebp.so libwebp.so.7 \
     libwebp.so.7.1.5
     popd > /dev/null
+    
     pushd /usr/local/bin > /dev/null
     rm -rf cwebp dwebp webpinfo webpmux
     ldconfig /usr/local/lib/
