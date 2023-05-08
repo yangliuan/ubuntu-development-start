@@ -1,4 +1,6 @@
 #!/bin/bash
+#PC: https://imagemagick.org/index.php
+#Repo: https://github.com/ImageMagick/ImageMagick
 Install_ImageMagick() {
   if [ -d "${imagick_install_dir}" ]; then
     echo "${CWARNING}ImageMagick already installed! ${CEND}"

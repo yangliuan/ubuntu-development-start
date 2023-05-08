@@ -7,30 +7,7 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
-#       https://www.php.net/manual/zh/intro.gmagick.php
-
-Install_GraphicsMagick() {
-  if [ -d "${gmagick_install_dir}" ]; then
-    echo "${CWARNING}GraphicsMagick already installed! ${CEND}"
-  else
-    pushd ${oneinstack_dir}/src > /dev/null
-    tar xzf GraphicsMagick-${graphicsmagick_ver}.tar.gz
-    pushd GraphicsMagick-${graphicsmagick_ver} > /dev/null
-    ./configure --prefix=${gmagick_install_dir} --enable-shared --enable-static --enable-symbol-prefix
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf GraphicsMagick-${graphicsmagick_ver}
-    popd > /dev/null
-  fi
-}
-
-Uninstall_GraphicsMagick() {
-  if [ -d "${gmagick_install_dir}" ]; then
-    rm -rf ${gmagick_install_dir}
-    echo; echo "${CMSG}GraphicsMagick uninstall completed${CEND}"
-  fi
-}
-
+#       https://www.php.net/manual/zh/book.gmagick.php
 Install_pecl_gmagick() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
     pushd ${oneinstack_dir}/src > /dev/null

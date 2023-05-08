@@ -1230,7 +1230,8 @@ PHP_addons() {
 
   # gmagick
   if [ "${pecl_gmagick}" == '1' ]; then
-    . include/language/php/extension/GraphicsMagick.sh
+    . include/multimedia/GraphicsMagick.sh
+    . include/language/php/extension/pecl_gmagick.sh
     Install_GraphicsMagick 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_pecl_gmagick 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi

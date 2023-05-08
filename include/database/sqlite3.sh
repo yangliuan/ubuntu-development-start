@@ -9,7 +9,8 @@ Install_Sqlite3() {
     pushd sqlite-autoconf-${sqlite3_ver} > /dev/null
     ./configure
     make -j ${THREAD} && make install
-    
+    popd > /dev/null
+
     if [ -e "/usr/local/bin/sqlite3" ]; then
         . /etc/profile
         rm -rf sqlite-autoconf-${sqlite3_ver}
@@ -19,7 +20,6 @@ Install_Sqlite3() {
         kill -9 $$; exit 1;
     fi
 
-    popd > /dev/null
     popd > /dev/null
 }
 
