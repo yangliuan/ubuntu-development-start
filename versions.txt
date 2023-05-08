@@ -101,6 +101,7 @@ xdebug_ver=3.1.5
 xdebug_oldver=2.9.8
 event_ver=3.0.8
 grpc_ver=1.48.0
+protobuf_ver=3.22.4
 yasd_ver=0.3.9
 parallel_ver=1.2.1
 
@@ -131,14 +132,14 @@ pecl_mongodb_ver=1.15.2
 pecl_mongodb_oldver=1.9.2
 pecl_mongo_ver=1.6.16
 
-# phpMyadmin
+# PhpMyadmin
 phpmyadmin_ver=5.2.1
 phpmyadmin_oldver=4.4.15.10
 
-# jemalloc
+# Jemalloc
 jemalloc_ver=5.3.0
 
-# boost
+# Boost
 boost_ver=1.77.0
 boost_percona_ver=1.73.0
 boost_oldver=1.59.0
@@ -155,17 +156,19 @@ pip_ver=22.3
 fail2ban_ver=0.11.2
 libmaxminddb_ver=1.6.0
 
-# elasticsearch
+# Elasticsearch
 elasticsearch_ver=8.x
 cerebo_ver=0.9.4
 
-# message queue
+# MessageQueue
 kafka_scala_ver=2.13
 kafka_ver=3.4.0
+librdkafka_ver=2.1.1
+pecl_rdkafka_ver=6.0.3
 erlang_ver=24.3.4.2
 rabbitmq_ver=3.10.5
 
-# devtools
+# Devtools
 # mysql_workbench_ver必须和myql版本保持一致
 navicat_ver=16
 filezilla_ver=3.63.2.1

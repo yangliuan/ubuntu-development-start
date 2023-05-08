@@ -21,6 +21,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/get_char.sh
 . ./include/system-lib/openssl.sh
 . ./include/system-lib/libevent.sh
+. ./include/system-lib/librdkafka.sh
 . ./include/base_desktop.sh
 . ./include/develop-tools/develop_config.sh
 . ./include/language/php/switch_extension.sh
@@ -36,6 +37,11 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/database/sqlite3.sh
 
 echo > ${oneinstack_dir}/test.log
+
+####################################################system lib
+#Install_Librdkafka | tee -a ${oneinstack_dir}/test.log
+#Uninstall_Librdkafka | tee -a ${oneinstack_dir}/test.log
+
 
 ##################################### test desktop
 # Install_ElasticsearchDesktop

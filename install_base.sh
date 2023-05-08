@@ -135,11 +135,14 @@ while :; do
       [ -n "`echo ${php_extensions} | grep -w memcache`" ] && pecl_memcache=1
       [ -n "`echo ${php_extensions} | grep -w mongodb`" ] && pecl_mongodb=1
       [ -n "`echo ${php_extensions} | grep -w swoole`" ] && pecl_swoole=1
-      [ -n "`echo ${php_extensions} | grep -w event`" ] && pecl_event=1
       [ -n "`echo ${php_extensions} | grep -w xdebug`" ] && pecl_xdebug=1
       [ -n "`echo ${php_extensions} | grep -w yasd`" ] && pecl_yasd=1
+      [ -n "`echo ${php_extensions} | grep -w event`" ] && pecl_event=1
       [ -n "`echo ${php_extensions} | grep -w parallel`" ] && pecl_parallel=1
       [ -n "`echo ${php_extensions} | grep -w ssh2`" ] && pecl_ssh2=1
+      [ -n "`echo ${php_extensions} | grep -w grpc`" ] && pecl_grpc=1
+      [ -n "`echo ${php_extensions} | grep -w protobuf`" ] && pecl_protobuf=1
+      [ -n "`echo ${php_extensions} | grep -w rdkafka`" ] && pecl_rdkafka=1
       ;;
     --nodejs)
       nodejs_method=1; shift 1
@@ -735,17 +738,19 @@ if [ ${ARG_NUM} == 0 ]; then
       echo -e "\t${CMSG}14${CEND}. Install mongodb"
       echo -e "\t${CMSG}15${CEND}. Install pgsql"
       echo -e "\t${CMSG}16${CEND}. Install swoole"
-      echo -e "\t${CMSG}17${CEND}. Install event(PHP>=5.4)"
-      echo -e "\t${CMSG}18${CEND}. Install grpc(PHP>=7.0)"
-      echo -e "\t${CMSG}19${CEND}. Install xdebug(PHP>=5.5)"
-      echo -e "\t${CMSG}20${CEND}. Install yasd(PHP>=7.2)"
-      echo -e "\t${CMSG}21${CEND}. Install parallel(PHP>=7.2)"
-      echo -e "\t${CMSG}22${CEND}. Install ssh2"
+      echo -e "\t${CMSG}17${CEND}. Install xdebug(PHP>=5.5)"
+      echo -e "\t${CMSG}18${CEND}. Install yasd(PHP>=7.2)"
+      echo -e "\t${CMSG}19${CEND}. Install event(PHP>=5.4)"
+      echo -e "\t${CMSG}20${CEND}. Install parallel(PHP>=7.2)"
+      echo -e "\t${CMSG}21${CEND}. Install ssh2"
+      echo -e "\t${CMSG}22${CEND}. Install grpc(PHP>=7.0)"
+      echo -e "\t${CMSG}23${CEND}. Install protobuf(PHP>=7.0)"
+      echo -e "\t${CMSG}24${CEND}. Install rdkafka"
       read -e -p "Please input numbers:(Default '4 6 11 16 17' press Enter) " phpext_option
       phpext_option=${phpext_option:-'4 6 11 16 17'}
       [ "${phpext_option}" == '0' ] && break
       array_phpext=(${phpext_option})
-      array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22)
+      array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24)
       for v in ${array_phpext[@]}
       do
       [ -z "`echo ${array_all[@]} | grep -w ${v}`" ] && phpext_flag=1
@@ -771,12 +776,14 @@ if [ ${ARG_NUM} == 0 ]; then
       [ -n "`echo ${array_phpext[@]} | grep -w 14`" ] && pecl_mongodb=1
       [ -n "`echo ${array_phpext[@]} | grep -w 15`" ] && pecl_pgsql=1
       [ -n "`echo ${array_phpext[@]} | grep -w 16`" ] && pecl_swoole=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_event=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && pecl_grpc=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 19`" ] && pecl_xdebug=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && pecl_yasd=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 21`" ] && pecl_parallel=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 22`" ] && pecl_ssh2=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_xdebug=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && pecl_yasd=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 19`" ] && pecl_event=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && pecl_parallel=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 21`" ] && pecl_ssh2=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 22`" ] && pecl_grpc=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 23`" ] && pecl_protobuf=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 24`" ] && pecl_rdkafka=1
       break
       fi
   done
@@ -1306,18 +1313,6 @@ PHP_addons() {
     Install_pecl_swoole 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
-  # event
-  if [ "${pecl_event}" == '1' ]; then
-    . include/language/php/extension/pecl_event.sh
-    Install_pecl_event 2>&1 | tee -a ${oneinstack_dir}/install.log
-  fi
-
-  # grpc
-  if [ "${pecl_grpc}" == '1' ]; then
-    . include/language/php/extension/pecl_grpc.sh
-    Install_pecl_grpc 2>&1 | tee -a ${oneinstack_dir}/install.log
-  fi
-
   # xdebug
   if [ "${pecl_xdebug}" == '1' ]; then
     . include/language/php/extension/pecl_xdebug.sh
@@ -1328,6 +1323,12 @@ PHP_addons() {
   if [ "${pecl_yasd}" == '1' ]; then
     . include/language/php/extension/yasd_debug.sh
     Install_Yasd 2>&1 | tee -a ${oneinstack_dir}/install.log
+  fi
+
+  # event
+  if [ "${pecl_event}" == '1' ]; then
+    . include/language/php/extension/pecl_event.sh
+    Install_pecl_event 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 
   # parallel
@@ -1342,6 +1343,24 @@ PHP_addons() {
     . include/system-lib/libssh2.sh
     Install_Libssh2 | tee -a ${oneinstack_dir}/install.log
     Install_pecl_ssh2 2>&1 | tee -a ${oneinstack_dir}/install.log
+  fi
+
+  # grpc
+  if [ "${pecl_grpc}" == '1' ]; then
+    . include/language/php/extension/pecl_grpc.sh
+    Install_pecl_grpc 2>&1 | tee -a ${oneinstack_dir}/install.log
+  fi
+
+  # protobuf
+  if [ "${pecl_protobuf}" == '1' ]; then
+    . include/language/php/extension/pecl_protobuf.sh
+    Install_pecl_protobuf 2>&1 | tee -a ${oneinstack_dir}/install.log
+  fi
+
+  # rdkafka
+  if [ "${pecl_rdkafka}" == '1' ]; then
+    . include/language/php/extension/pecl_rdkafka.sh
+    Install_pecl_rdkafka 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 }
 
