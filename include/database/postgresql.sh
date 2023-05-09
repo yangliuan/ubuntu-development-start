@@ -24,14 +24,11 @@ Install_PostgreSQL() {
     /bin/cp ${oneinstack_dir}/init.d/postgresql.service /lib/systemd/system/
     sed -i "s@=/usr/local/pgsql@=${pgsql_install_dir}@g" /lib/systemd/system/postgresql.service
     sed -i "s@PGDATA=.*@PGDATA=${pgsql_data_dir}@" /lib/systemd/system/postgresql.service
-    #systemctl enable postgresql
   else
     /bin/cp ./contrib/start-scripts/linux /etc/init.d/postgresql
     sed -i "s@^prefix=.*@prefix=${pgsql_install_dir}@" /etc/init.d/postgresql
     sed -i "s@^PGDATA=.*@PGDATA=${pgsql_data_dir}@" /etc/init.d/postgresql
     chmod +x /etc/init.d/postgresql
-    #[ "${PM}" == 'yum' ] && { chkconfig --add postgresql; chkconfig postgresql on; }
-    #[ "${PM}" == 'apt-get' ] && update-rc.d postgresql defaults
   fi
   popd
   su - postgres -c "${pgsql_install_dir}/bin/initdb -D ${pgsql_data_dir}"
@@ -57,4 +54,5 @@ Install_PostgreSQL() {
   [ -z "$(grep ^'export PATH=' /etc/profile)" ] && echo "export PATH=${pgsql_install_dir}/bin:\$PATH" >> /etc/profile
   [ -n "$(grep ^'export PATH=' /etc/profile)" -a -z "$(grep ${pgsql_install_dir} /etc/profile)" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${pgsql_install_dir}/bin:\1@" /etc/profile
   . /etc/profile
+  service postgresql stop
 }

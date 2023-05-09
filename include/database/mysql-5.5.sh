@@ -64,8 +64,7 @@ Install_MySQL55() {
   sed -i "s@^basedir=.*@basedir=${mysql_install_dir}@" /etc/init.d/mysqld
   sed -i "s@^datadir=.*@datadir=${mysql_data_dir}@" /etc/init.d/mysqld
   chmod +x /etc/init.d/mysqld
-  [ "${PM}" == 'yum' ] && { chkconfig --add mysqld; chkconfig mysqld on; }
-  [ "${PM}" == 'apt-get' ] && update-rc.d mysqld defaults
+
   popd
 
   # my.cnf

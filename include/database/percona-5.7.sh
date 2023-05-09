@@ -68,8 +68,7 @@ Install_Percona57() {
   sed -i "s@^basedir=.*@basedir=${percona_install_dir}@" /etc/init.d/mysqld
   sed -i "s@^datadir=.*@datadir=${percona_data_dir}@" /etc/init.d/mysqld
   chmod +x /etc/init.d/mysqld
-  [ "${PM}" == 'yum' ] && { chkconfig --add mysqld; chkconfig mysqld on; }
-  [ "${PM}" == 'apt-get' ] && update-rc.d mysqld defaults
+
   popd
 
   # my.cnf

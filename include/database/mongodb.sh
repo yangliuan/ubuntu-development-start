@@ -15,14 +15,9 @@ Install_MongoDB() {
   mkdir -p ${mongo_data_dir};chown mongod.mongod -R ${mongo_data_dir}
   tar xzf mongodb-linux-${SYS_BIT_b}-${mongodb_ver}.tgz
   /bin/mv mongodb-linux-${SYS_BIT_b}-${mongodb_ver} ${mongo_install_dir}
-  if [ -e /bin/systemctl ]; then
-    /bin/cp ${oneinstack_dir}/init.d/mongod.service /lib/systemd/system/
-    sed -i "s@=/usr/local/mongodb@=${mongo_install_dir}@g" /lib/systemd/system/mongod.service
-    #systemctl enable mongod 
-  else
-    [ "${PM}" == 'yum' ] && { /bin/cp ../init.d/MongoDB-init-RHEL /etc/init.d/mongod; sed -i "s@/usr/local/mongodb@${mongo_install_dir}@g" /etc/init.d/mongod; chkconfig --add mongod; chkconfig mongod on; }
-    [ "${PM}" == 'apt-get' ] && { /bin/cp ../init.d/MongoDB-init-Ubuntu /etc/init.d/mongod; sed -i "s@/usr/local/mongodb@${mongo_install_dir}@g" /etc/init.d/mongod; update-rc.d mongod defaults; }
-  fi
+
+  /bin/cp ${oneinstack_dir}/init.d/mongod.service /lib/systemd/system/
+  sed -i "s@=/usr/local/mongodb@=${mongo_install_dir}@g" /lib/systemd/system/mongod.service
 
   cat > /etc/mongod.conf << EOF
 # mongod.conf
@@ -81,4 +76,5 @@ EOF
   [ -z "$(grep ^'export PATH=' /etc/profile)" ] && echo "export PATH=${mongo_install_dir}/bin:\$PATH" >> /etc/profile
   [ -n "$(grep ^'export PATH=' /etc/profile)" -a -z "$(grep ${mongo_install_dir} /etc/profile)" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${mongo_install_dir}/bin:\1@" /etc/profile
   . /etc/profile
+  service mongod stop
 }

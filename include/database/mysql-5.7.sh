@@ -66,8 +66,7 @@ nstall_MySQL57() {
   sed -i "s@^basedir=.*@basedir=${mysql_install_dir}@" /etc/init.d/mysqld
   sed -i "s@^datadir=.*@datadir=${mysql_data_dir}@" /etc/init.d/mysqld
   chmod +x /etc/init.d/mysqld
-  [ "${PM}" == 'yum' ] && { chkconfig --add mysqld; chkconfig mysqld on; }
-  [ "${PM}" == 'apt-get' ] && update-rc.d mysqld defaults
+
   popd
 
   # my.cnf
@@ -203,6 +202,7 @@ EOF
   [ "${Wsl}" == true ] && chmod 600 /etc/my.cnf
   chown mysql.mysql -R ${mysql_data_dir}
   [ -d "/etc/mysql" ] && /bin/mv /etc/mysql{,_bk}
+
   service mysqld start
   [ -z "$(grep ^'export PATH=' /etc/profile)" ] && echo "export PATH=${mysql_install_dir}/bin:\$PATH" >> /etc/profile
   [ -n "$(grep ^'export PATH=' /etc/profile)" -a -z "$(grep ${mysql_install_dir} /etc/profile)" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${mysql_install_dir}/bin:\1@" /etc/profile
