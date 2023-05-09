@@ -11,7 +11,7 @@
 Install_PHP81() {
   pushd ${oneinstack_dir}/src > /dev/null
 
-  ${oneinstack_dir}/include/system-lib/iconv.sh
+  . ${oneinstack_dir}/include/system-lib/iconv.sh
   Install_Libiconv
 
   if [ ! -e "${curl_install_dir}/lib/libcurl.la" ]; then

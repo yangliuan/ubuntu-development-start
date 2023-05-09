@@ -2,7 +2,7 @@
 Name=Openrestry
 Comment=Web http server
 Exec=sh /opt/oneinstack/start/nginx_start.sh
-Icon=/opt/oneinstack/icon/openresty.png
+Icon=/opt/oneinstack/icon/openresty.svg
 Type=Application
 Terminal=true
 Categories=service;web http server

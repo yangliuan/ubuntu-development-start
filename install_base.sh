@@ -890,6 +890,7 @@ checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
  
 . ./include/system-lib/openssl.sh
 . ./include/system-lib/libevent.sh
+. ./include/multimedia/libwebp.sh
 
 # get OS Memory
 . ./include/memory.sh
@@ -907,11 +908,7 @@ startTime=`date +%s`
 
 Install_openSSL | tee -a ${oneinstack_dir}/install.log
 Install_Libevent | tee -a ${oneinstack_dir}/install.log
-
-if [[ ${php_option} =~ ^[1-9]$|^1[0-1]$ ]]; then
-  . include/multimedia/libwebp.sh
-  Install_Libwebp | tee -a ${oneinstack_dir}/install.log
-fi
+Install_Libwebp | tee -a ${oneinstack_dir}/install.log
 
 # iptables
 if [ "${iptables_flag}" == "y" ]; then
@@ -1220,10 +1217,10 @@ PHP_addons() {
 
   # imagick
   if [ "${pecl_imagick}" == '1' ]; then
-    . include/multimedia/libwebp.sh
+    #. include/multimedia/libwebp.sh
     . include/multimedia/ImageMagick.sh
     . include/language/php/extension/pecl_imagick.sh
-    Install_Libwebp 2>&1 | tee -a ${oneinstack_dir}/install.log
+    #Install_Libwebp 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_ImageMagick 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_pecl_imagick 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
@@ -1360,7 +1357,9 @@ PHP_addons() {
 
   # rdkafka
   if [ "${pecl_rdkafka}" == '1' ]; then
+    . include/system-lib/librdkafka.sh
     . include/language/php/extension/pecl_rdkafka.sh
+    Install_Librdkafka 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_pecl_rdkafka 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
 }
@@ -1421,6 +1420,7 @@ fi
 if [[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]]; then
   #php开发配置
   PhpDevConfig | tee -a ${oneinstack_dir}/install.log
+  Install_PHPFPMDesktop
 fi
 
 # get web_install_dir and db_install_dir

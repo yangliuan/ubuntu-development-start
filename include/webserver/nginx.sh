@@ -42,7 +42,7 @@ Install_Nginx() {
 
   if [ ! -e "/etc/profile.d/nginx.sh" ]; then
         cat > /etc/profile.d/nginx.sh << EOF
-export PATH=${openresty_install_dir}/sbin:\$PATH"
+export PATH=${nginx_install_dir}/sbin:\$PATH
 EOF
   fi
   . /etc/profile

@@ -18,6 +18,7 @@ Switch_Nginx() {
     fi
     
     systemctl stop nginx.service
+    killall -9 nginx
 
     #更新systemd配置文件
     rm -rf /lib/systemd/system/nginx.service

@@ -37,7 +37,7 @@ Install_Tengine() {
 
   if [ ! -e "/etc/profile.d/tengine.sh" ]; then
         cat > /etc/profile.d/tengine.sh << EOF
-export PATH=${tengine_install_dir}/nginx/sbin:\$PATH"
+export PATH=${tengine_install_dir}/sbin:\$PATH
 EOF
   fi
   . /etc/profile

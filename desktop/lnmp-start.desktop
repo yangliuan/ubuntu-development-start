@@ -2,7 +2,7 @@
 Name=LNMP
 Comment=PHP Web Environment
 Exec=sh /opt/oneinstack/start/lnmp_start.sh
-Icon=/opt/oneinstack/icon/lnmp.jpeg
+Icon=/opt/oneinstack/icon/lnmp.svg
 Type=Application
 Terminal=true
 Categories=service;php web;

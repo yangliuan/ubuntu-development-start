@@ -157,9 +157,14 @@ while :; do
       [ -n "`echo ${php_extensions} | grep -w memcache`" ] && pecl_memcache=1
       [ -n "`echo ${php_extensions} | grep -w mongodb`" ] && pecl_mongodb=1
       [ -n "`echo ${php_extensions} | grep -w swoole`" ] && pecl_swoole=1
-      [ -n "`echo ${php_extensions} | grep -w event`" ] && pecl_event=1
       [ -n "`echo ${php_extensions} | grep -w xdebug`" ] && pecl_xdebug=1
-      [ -n "`echo ${php_extensions} | grep -w yasd_debug`" ] && yasd_debug=1
+      [ -n "`echo ${php_extensions} | grep -w yasd`" ] && pecl_yasd=1
+      [ -n "`echo ${php_extensions} | grep -w event`" ] && pecl_event=1
+      [ -n "`echo ${php_extensions} | grep -w parallel`" ] && pecl_parallel=1
+      [ -n "`echo ${php_extensions} | grep -w ssh2`" ] && pecl_ssh2=1
+      [ -n "`echo ${php_extensions} | grep -w grpc`" ] && pecl_grpc=1
+      [ -n "`echo ${php_extensions} | grep -w protobuf`" ] && pecl_protobuf=1
+      [ -n "`echo ${php_extensions} | grep -w rdkafka`" ] && pecl_rdkafka=1
       ;;
     --node)
       node_flag=y; shift 1
@@ -254,14 +259,13 @@ Print_web() {
 }
 
 Uninstall_Web() {
-  [ -d "${nginx_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${nginx_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx; sed -i "s@${nginx_install_dir}/sbin:@@" /etc/profile; echo "${CMSG}Nginx uninstall completed! ${CEND}"; }
-  [ -d "${tengine_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${tengine_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx; sed -i "s@${tengine_install_dir}/sbin:@@" /etc/profile; echo "${CMSG}Tengine uninstall completed! ${CEND}"; }
-  [ -d "${openresty_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${openresty_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx; sed -i "s@${openresty_install_dir}/nginx/sbin:@@" /etc/profile; echo "${CMSG}OpenResty uninstall completed! ${CEND}"; }
+  [ -d "${nginx_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${nginx_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx /etc/profile.d/nginx.sh /etc/profile.d/nginx.disable; echo "${CMSG}Nginx uninstall completed! ${CEND}"; }
+  [ -d "${tengine_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${tengine_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx /etc/profile.d/tengine.sh /etc/profile.d/tengine.disable; echo "${CMSG}Tengine uninstall completed! ${CEND}"; }
+  [ -d "${openresty_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${openresty_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx /etc/profile.d/openrestry.sh /etc/profile.d/openrestry.disable; echo "${CMSG}OpenResty uninstall completed! ${CEND}"; }
   [ -e "/lib/systemd/system/nginx.service" ] && { systemctl disable nginx > /dev/null 2>&1; rm -f /lib/systemd/system/nginx.service; }
-  [ -d "${apache_install_dir}" ] && { service httpd stop > /dev/null 2>&1; rm -rf ${apache_install_dir} /etc/init.d/httpd /etc/logrotate.d/apache; sed -i "s@${apache_install_dir}/bin:@@" /etc/profile; echo "${CMSG}Apache uninstall completed! ${CEND}"; }
-  [ -e "/lib/systemd/system/httpd.service" ] && { systemctl disable httpd > /dev/null 2>&1; rm -f /lib/systemd/system/httpd.service; }
+  [ -d "${apache_install_dir}" ] && { service httpd stop > /dev/null 2>&1; rm -rf ${apache_install_dir} /etc/init.d/httpd /etc/logrotate.d/apache /etc/profile.d/apachehttpd.sh; echo "${CMSG}Apache uninstall completed! ${CEND}"; }
+  [ -e "/lib/systemd/system/httpd.service" ] && { systemctl disable httpd > /dev/null 2>&1; rm -f /lib/systemd/system/httpd.service; } 
   [ -d "${tomcat_install_dir}" ] && { killall java > /dev/null 2>&1; rm -rf ${tomcat_install_dir} /etc/init.d/tomcat /etc/logrotate.d/tomcat; echo "${CMSG}Tomcat uninstall completed! ${CEND}"; }
-  [ -d "/usr/java" ] && { rm -rf /usr/java; sed -i '/export JAVA_HOME=/d' /etc/profile; sed -i '/export CLASSPATH=/d' /etc/profile; sed -i 's@\$JAVA_HOME/bin:@@' /etc/profile; }
   Uninstall_OpenJDK8;Uninstall_OpenJDK11
   sed -i 's@^website_name=.*@website_name=@' ./options.conf
   sed -i 's@^backup_content=.*@backup_content=@' ./options.conf
@@ -405,7 +409,7 @@ Uninstall_PHP() {
   [ -e "/lib/systemd/system/php-fpm.service" ] && { systemctl stop php-fpm > /dev/null 2>&1; systemctl disable php-fpm > /dev/null 2>&1; rm -f /lib/systemd/system/php-fpm.service; }
   [ -e "${apache_install_dir}/conf/httpd.conf" ] && [ -n "`grep libphp ${apache_install_dir}/conf/httpd.conf`" ] && sed -i '/libphp/d' ${apache_install_dir}/conf/httpd.conf
   [ -e "${php_install_dir}" ] && { rm -rf ${php_install_dir}; echo "${CMSG}PHP uninstall completed! ${CEND}"; }
-  sed -i "s@${php_install_dir}/bin:@@" /etc/profile
+  rm -rf /etc/profile.d/php.sh
   Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;
 }
 
@@ -420,7 +424,7 @@ Uninstall_ALLPHP() {
   [ -e "/lib/systemd/system/php-fpm.service" ] && { systemctl stop php-fpm > /dev/null 2>&1; systemctl disable php-fpm > /dev/null 2>&1; rm -f /lib/systemd/system/php-fpm.service; }
   [ -e "${apache_install_dir}/conf/httpd.conf" ] && [ -n "`grep libphp ${apache_install_dir}/conf/httpd.conf`" ] && sed -i '/libphp/d' ${apache_install_dir}/conf/httpd.conf
   [ -e "${php_install_dir}" ] && { rm -rf ${php_install_dir}; echo "${CMSG}PHP uninstall completed! ${CEND}"; }
-  sed -i "s@${php_install_dir}/bin:@@" /etc/profile
+  rm -rf /etc/profile.d/php.sh
   for php_ver in 53 54 55 56 70 71 72 73 74 80 81 82; do
     [ -e "/etc/init.d/php${php_ver}-fpm" ] && { service php${php_ver}-fpm stop > /dev/null 2>&1; rm -f /etc/init.d/php${php_ver}-fpm; }
     [ -e "/lib/systemd/system/php${php_ver}-fpm.service" ] && { systemctl stop php${php_ver}-fpm > /dev/null 2>&1; systemctl disable php${php_ver}-fpm > /dev/null 2>&1; rm -f /lib/systemd/system/php${php_ver}-fpm.service; }
@@ -478,7 +482,8 @@ Uninstall_PHPext() {
 
   # gmagick
   if [ "${pecl_gmagick}" == '1' ]; then
-    . include/language/php/extension/GraphicsMagick.sh
+    . include/multimedia/GraphicsMagick.sh
+    . include/language/php/extension/pecl_gmagick.sh
     Uninstall_GraphicsMagick
     Uninstall_pecl_gmagick
   fi
@@ -516,13 +521,13 @@ Uninstall_PHPext() {
   # yaf
   if [ "${pecl_yaf}" == '1' ]; then
     . include/language/php/extension/pecl_yaf.sh
-    Uninstall_pecl_yaf 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Uninstall_pecl_yaf
   fi
 
   # yar
   if [ "${pecl_yar}" == '1' ]; then
     . include/language/php/extension/pecl_yar.sh
-    Uninstall_pecl_yar 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Uninstall_pecl_yar
   fi
 
   # pecl_memcached
@@ -555,18 +560,6 @@ Uninstall_PHPext() {
     Uninstall_pecl_swoole
   fi
 
-  # event
-  if [ "${pecl_swoole}" == '1' ]; then
-    . include/language/php/extension/pecl_event.sh
-    Uninstall_pecl_event
-  fi
-
-  # grpc
-  if [ "${pecl_swoole}" == '1' ]; then
-    . include/language/php/extension/pecl_grpc.sh
-    Uninstall_pecl_grpc
-  fi
-
   # xdebug
   if [ "${pecl_xdebug}" == '1' ]; then
     . include/language/php/extension/pecl_xdebug.sh
@@ -579,10 +572,44 @@ Uninstall_PHPext() {
     Uninstall_Yasd
   fi
 
-  # pecl_parallel
+  # event
+  if [ "${pecl_event}" == '1' ]; then
+    . include/language/php/extension/pecl_event.sh
+    Uninstall_pecl_event
+  fi
+
+  # parallel
   if [ "${pecl_parallel}" == '1' ]; then
     . include/language/php/extension/pecl_parallel.sh
     Uninstall_pecl_parallel
+  fi
+
+   # ssh2
+  if [ "${pecl_ssh2}" == '1' ]; then
+    . include/system-lib/libssh2.sh
+    . include/language/php/extension/pecl_ssh2.sh
+    Uninstall_Libssh2
+    Uninstall_pecl_ssh2
+  fi
+
+  # grpc
+  if [ "${pecl_grpc}" == '1' ]; then
+    . include/language/php/extension/pecl_grpc.sh
+    Uninstall_pecl_grpc
+  fi
+
+  # protobuf
+  if [ "${pecl_protobuf}" == '1' ]; then
+    . include/language/php/extension/pecl_protobuf.sh
+    Uninstall_pecl_protobuf
+  fi
+
+  # rdkafka
+  if [ "${pecl_rdkafka}" == '1' ]; then
+    . include/system-lib/librdkafka.sh
+    . include/language/php/extension/pecl_rdkafka.sh
+    Uninstall_Librdkafka
+    Uninstall_pecl_rdkafka
   fi
 
   # reload php
@@ -611,16 +638,19 @@ Menu_PHPext() {
     echo -e "\t${CMSG}14${CEND}. Uninstall mongodb"
     echo -e "\t${CMSG}15${CEND}. Uninstall pgsql"
     echo -e "\t${CMSG}16${CEND}. Uninstall swoole"
-    echo -e "\t${CMSG}17${CEND}. Uninstall event(PHP>=5.4)"
-    echo -e "\t${CMSG}18${CEND}. Uninstall grpc(PHP>=7.0)"
     echo -e "\t${CMSG}19${CEND}. Uninstall xdebug(PHP>=5.5)"
-    echo -e "\t${CMSG}20${CEND}. Uninstall yasd(PHP>=7.2)"
-    echo -e "\t${CMSG}21${CEND}. Uninstall parallel(PHP>=7.2)"
+    echo -e "\t${CMSG}18${CEND}. Install yasd(PHP>=7.2)"
+    echo -e "\t${CMSG}19${CEND}. Install event(PHP>=5.4)"
+    echo -e "\t${CMSG}20${CEND}. Install parallel(PHP>=7.2)"
+    echo -e "\t${CMSG}21${CEND}. Install ssh2"
+    echo -e "\t${CMSG}22${CEND}. Install grpc(PHP>=7.0)"
+    echo -e "\t${CMSG}23${CEND}. Install protobuf(PHP>=7.0)"
+    echo -e "\t${CMSG}24${CEND}. Install rdkafka"
     read -e -p "Please input a number:(Default 0 press Enter) " phpext_option
     phpext_option=${phpext_option:-0}
     [ "${phpext_option}" == '0' ] && break
     array_phpext=(${phpext_option})
-    array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21)
+    array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24)
     for v in ${array_phpext[@]}
     do
       [ -z "`echo ${array_all[@]} | grep -w ${v}`" ] && phpext_flag=1
@@ -646,11 +676,14 @@ Menu_PHPext() {
       [ -n "`echo ${array_phpext[@]} | grep -w 14`" ] && pecl_mongodb=1
       [ -n "`echo ${array_phpext[@]} | grep -w 15`" ] && pecl_pgsql=1
       [ -n "`echo ${array_phpext[@]} | grep -w 16`" ] && pecl_swoole=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_event=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && pecl_grpc=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 19`" ] && pecl_xdebug=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && yasd=1
-      [ -n "`echo ${array_phpext[@]} | grep -w 21`" ] && pecl_parallel=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 17`" ] && pecl_xdebug=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 18`" ] && pecl_yasd=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 19`" ] && pecl_event=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 20`" ] && pecl_parallel=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 21`" ] && pecl_ssh2=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 22`" ] && pecl_grpc=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 23`" ] && pecl_protobuf=1
+      [ -n "`echo ${array_phpext[@]} | grep -w 24`" ] && pecl_rdkafka=1
       break
     fi
   done
@@ -741,6 +774,8 @@ Print_Nvm() {
 }
 
 Print_Go() {
+  [ -d "${go_install_dir}${go120_ver}" ] && echo "${go_install_dir}${go120_ver}"
+  [ -d "${go_install_dir}${go119_ver}" ] && echo "${go_install_dir}${go119_ver}"
   [ -d "${go_install_dir}${go118_ver}" ] && echo "${go_install_dir}${go118_ver}"
   [ -d "${go_install_dir}${go117_ver}" ] && echo "${go_install_dir}${go117_ver}"
   [ -L "${go_install_dir}" ] && echo "${go_install_dir}"
@@ -1043,7 +1078,7 @@ else
     [ "${node_flag}" == 'y' ] && Uninstall_Node
     [ "${nvm_flag}" == 'y' ] && Uninstall_Nvm
     [ "${all_flag}" == 'y' ] && Uninstall_openssl
-    [ "${go_flag}" == 'y' ] && Uninstall_Go 
+    [ "${go_flag}" == 'y' ] && Uninstall_Go
     [ "${gvm_flag}" == 'y' ] && Uninstall_Gvm
     [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor
   fi

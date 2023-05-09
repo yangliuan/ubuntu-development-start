@@ -38,7 +38,7 @@ Install_OpenResty() {
 
   if [ ! -e "/etc/profile.d/openrestry.sh" ]; then
         cat > /etc/profile.d/openrestry.sh << EOF
-export PATH=${openresty_install_dir}/nginx/sbin:\$PATH"
+export PATH=${openresty_install_dir}/nginx/sbin:\$PATH
 EOF
   fi
   . /etc/profile

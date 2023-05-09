@@ -39,6 +39,7 @@ Uninstall_Go() {
     echo "Uninstall Go"
     rm -rf /etc/profile.d/go.sh
     rm -rfv ${go_install_dir}
+    rm -rfv ${go_install_dir}${go120_ver}
     rm -rfv ${go_install_dir}${go119_ver}
     rm -rfv ${go_install_dir}${go118_ver}
     rm -rfv ${go_install_dir}${go117_ver}

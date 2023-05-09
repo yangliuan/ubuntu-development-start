@@ -2,7 +2,7 @@
 Name=LAMP
 Comment=PHP Web Environment 
 Exec=sh /opt/oneinstack/start/lamp_start.sh
-Icon=/opt/oneinstack/icon/lamp.png
+Icon=/opt/oneinstack/icon/lamp.svg
 Type=Application
 Terminal=true
 Categories=service;php web;
