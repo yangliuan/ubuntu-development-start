@@ -40,19 +40,17 @@ Install_Nginx() {
     kill -9 $$; exit 1;
   fi
 
-  [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo "export PATH=${nginx_install_dir}/sbin:\$PATH" >> /etc/profile
-  [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep ${nginx_install_dir} /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${nginx_install_dir}/sbin:\1@" /etc/profile
+  if [ ! -e "/etc/profile.d/nginx.sh" ]; then
+        cat > /etc/profile.d/nginx.sh << EOF
+export PATH=${openresty_install_dir}/sbin:\$PATH"
+EOF
+  fi
   . /etc/profile
 
-  if [ -e /bin/systemctl ]; then
-    /bin/cp ../init.d/nginx.service /lib/systemd/system/
-    sed -i "s@/usr/local/nginx@${nginx_install_dir}@g" /lib/systemd/system/nginx.service
-  else
-    [ "${PM}" == 'yum' ] && { /bin/cp ../init.d/Nginx-init-RHEL /etc/init.d/nginx; sed -i "s@/usr/local/nginx@${nginx_install_dir}@g" /etc/init.d/nginx; chkconfig --add nginx; chkconfig nginx on; }
-    [ "${PM}" == 'apt-get' ] && { /bin/cp ../init.d/Nginx-init-Ubuntu /etc/init.d/nginx; sed -i "s@/usr/local/nginx@${nginx_install_dir}@g" /etc/init.d/nginx; update-rc.d nginx defaults; }
-  fi
-
+  /bin/cp ../init.d/nginx.service /lib/systemd/system/
+  sed -i "s@/usr/local/nginx@${nginx_install_dir}@g" /lib/systemd/system/nginx.service
   mv ${nginx_install_dir}/conf/nginx.conf{,_bk}
+
   if [ "${apache_flag}" == 'y' ] || [ -e "${apache_install_dir}/bin/httpd" ]; then
     /bin/cp ../config/nginx_apache.conf ${nginx_install_dir}/conf/nginx.conf
   elif { [[ ${tomcat_option} =~ ^[1-4]$ ]] || [ -e "${tomcat_install_dir}/conf/server.xml" ]; } && { [[ ! ${php_option} =~ ^[1-9]$|^1[0-1]$ ]] && [ ! -e "${php_install_dir}/bin/php" ]; }; then
@@ -61,6 +59,7 @@ Install_Nginx() {
     /bin/cp ../config/nginx.conf ${nginx_install_dir}/conf/nginx.conf
     [[ "${php_option}" =~ ^[1-9]$|^1[0-1]$ ]] && [ -z "`grep '/php-fpm_status' ${nginx_install_dir}/conf/nginx.conf`" ] &&  sed -i "s@index index.html index.php;@index index.html index.php;\n    location ~ /php-fpm_status {\n        #fastcgi_pass remote_php_ip:9000;\n        fastcgi_pass unix:/dev/shm/php-cgi.sock;\n        fastcgi_index index.php;\n        include fastcgi.conf;\n        allow 127.0.0.1;\n        deny all;\n        }@" ${nginx_install_dir}/conf/nginx.conf
   fi
+
   cat > ${nginx_install_dir}/conf/proxy.conf << EOF
 proxy_connect_timeout 300s;
 proxy_send_timeout 900;
@@ -99,5 +98,4 @@ ${wwwlogs_dir}/*nginx.log {
 EOF
   popd > /dev/null
   ldconfig
-  service nginx start
 }

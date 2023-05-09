@@ -35,18 +35,15 @@ Install_Tengine() {
     kill -9 $$; exit 1;
   fi
 
-  [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo "export PATH=${tengine_install_dir}/sbin:\$PATH" >> /etc/profile
-  [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep ${tengine_install_dir} /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${tengine_install_dir}/sbin:\1@" /etc/profile
+  if [ ! -e "/etc/profile.d/tengine.sh" ]; then
+        cat > /etc/profile.d/tengine.sh << EOF
+export PATH=${tengine_install_dir}/nginx/sbin:\$PATH"
+EOF
+  fi
   . /etc/profile
 
-  if [ -e /bin/systemctl ]; then
-    /bin/cp ../init.d/nginx.service /lib/systemd/system/
-    sed -i "s@/usr/local/nginx@${tengine_install_dir}@g" /lib/systemd/system/nginx.service
-    #systemctl enable nginx
-  else
-    [ "${PM}" == 'yum' ] && { /bin/cp ../init.d/Nginx-init-RHEL /etc/init.d/nginx; sed -i "s@/usr/local/nginx@${tengine_install_dir}@g" /etc/init.d/nginx; chkconfig --add nginx; chkconfig nginx on; }
-    [ "${PM}" == 'apt-get' ] && { /bin/cp ../init.d/Nginx-init-Ubuntu /etc/init.d/nginx; sed -i "s@/usr/local/nginx@${tengine_install_dir}@g" /etc/init.d/nginx; update-rc.d nginx defaults; }
-  fi
+  /bin/cp ../init.d/nginx.service /lib/systemd/system/
+  sed -i "s@/usr/local/nginx@${tengine_install_dir}@g" /lib/systemd/system/nginx.service
 
   mv ${tengine_install_dir}/conf/nginx.conf{,_bk}
   if [ "${apache_flag}" == 'y' ] || [ -e "${apache_install_dir}/bin/httpd" ]; then
@@ -95,5 +92,4 @@ ${wwwlogs_dir}/*nginx.log {
 EOF
   popd > /dev/null
   ldconfig
-  service nginx start
 }

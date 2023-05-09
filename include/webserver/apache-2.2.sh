@@ -30,8 +30,11 @@ Install_Apache22() {
     kill -9 $$
   fi
 
-  [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo "export PATH=${apache_install_dir}/bin:\$PATH" >> /etc/profile
-  [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep ${apache_install_dir} /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${apache_install_dir}/bin:\1@" /etc/profile
+  if [ ! -e "/etc/profile.d/apachehttpd.sh" ]; then
+        cat > /etc/profile.d/apachehttpd.sh << EOF
+export PATH=${apache_install_dir}/bin:\$PATH"
+EOF
+  fi
   . /etc/profile
 
   if [ -e /bin/systemctl ]; then

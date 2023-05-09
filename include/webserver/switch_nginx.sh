@@ -23,35 +23,56 @@ Switch_Nginx() {
     rm -rf /lib/systemd/system/nginx.service
     /bin/cp ${oneinstack_dir}/init.d/nginx.service /lib/systemd/system/
     
-    #环境变量中原有的路径替换为空
-    sed -i "s@${nginx_install_dir}/sbin:@@g" /etc/profile
-    sed -i "s@${openresty_install_dir}/nginx/sbin:@@g" /etc/profile
-    sed -i "s@${tengine_install_dir}/sbin:@@g" /etc/profile
 
     case "${nginx_option}" in
     0)
       sed -i "s@/usr/local/nginx@${nginx_install_dir}@g" /lib/systemd/system/nginx.service
-      [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo "export PATH=${nginx_install_dir}/sbin:\$PATH" >> /etc/profile
-      [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep ${nginx_install_dir} /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${nginx_install_dir}/sbin:\1@" /etc/profile
-      . /etc/profile
+      enable_nginxenv
+      disable_openrestryenv
+      disable_tengineenv
       ;;
     1)
       sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /lib/systemd/system/nginx.service
-      [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo "export PATH=${openresty_install_dir}/nginx/sbin:\$PATH" >> /etc/profile
-      [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep ${openresty_install_dir} /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${openresty_install_dir}/nginx/sbin:\1@" /etc/profile
-      . /etc/profile
+      disbale_nginxenv
+      enable_openrestryenv
+      disable_tengineenv
       ;;
     2)
       sed -i "s@/usr/local/nginx@${tengine_install_dir}@g" /lib/systemd/system/nginx.service
-      [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo "export PATH=${tengine_install_dir}/sbin:\$PATH" >> /etc/profile
-      [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep ${tengine_install_dir} /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${tengine_install_dir}/sbin:\1@" /etc/profile
-      . /etc/profile
+      disbale_nginxenv
+      disable_openrestryenv
+      enable_tengineenv
       ;;
     esac
 
+    . /etc/profile
     nginx -v
     
     systemctl daemon-reload
     systemctl start nginx.service
     systemctl status nginx.service
+}
+
+enable_nginxenv() {
+  [ -e "/etc/profile.d/nginx.disable" ] && mv /etc/profile.d/nginx.disable /etc/profile.d/nginx.sh
+}
+
+disbale_nginxenv() {
+  [ -e "/etc/profile.d/nginx.sh" ] && mv /etc/profile.d/nginx.sh /etc/profile.d/nginx.disable
+}
+
+enable_openrestryenv() {
+  [ -e "/etc/profile.d/openrestry.disable" ] && mv /etc/profile.d/openrestry.disable /etc/profile.d/openrestry.sh
+}
+
+disable_openrestryenv() {
+  [ -e "/etc/profile.d/openrestry.sh" ] && mv /etc/profile.d/openrestry.sh /etc/profile.d/openrestry.disable
+}
+
+enable_tengineenv() {
+  [ -e "/etc/profile.d/tengine.disable" ] && mv /etc/profile.d/tengine.disable /etc/profile.d/tengine.sh
+}
+
+disable_tengineenv() {
+  [ -e "/etc/profile.d/tengine.sh" ] && mv /etc/profile.d/tengine.sh /etc/profile.d/tengine.disable
 }

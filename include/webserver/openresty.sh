@@ -36,17 +36,17 @@ Install_OpenResty() {
     kill -9 $$; exit 1;
   fi
 
-  [ -z "`grep ^'export PATH=' /etc/profile`" ] && echo "export PATH=${openresty_install_dir}/nginx/sbin:\$PATH" >> /etc/profile
-  [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep ${openresty_install_dir} /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${openresty_install_dir}/nginx/sbin:\1@" /etc/profile
+  if [ ! -e "/etc/profile.d/openrestry.sh" ]; then
+        cat > /etc/profile.d/openrestry.sh << EOF
+export PATH=${openresty_install_dir}/nginx/sbin:\$PATH"
+EOF
+  fi
   . /etc/profile
 
-  if [ -e /bin/systemctl ]; then
-    /bin/cp ../init.d/nginx.service /lib/systemd/system/
-    sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /lib/systemd/system/nginx.service
-  else
-    [ "${PM}" == 'yum' ] && { /bin/cp ../init.d/Nginx-init-RHEL /etc/init.d/nginx; sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /etc/init.d/nginx; chkconfig --add nginx; chkconfig nginx on; }
-    [ "${PM}" == 'apt-get' ] && { /bin/cp ../init.d/Nginx-init-Ubuntu /etc/init.d/nginx; sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /etc/init.d/nginx; update-rc.d nginx defaults; }
-  fi
+  
+  /bin/cp ../init.d/nginx.service /lib/systemd/system/
+  sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /lib/systemd/system/nginx.service
+ 
 
   mv ${openresty_install_dir}/nginx/conf/nginx.conf{,_bk}
   if [ "${apache_flag}" == 'y' ] || [ -e "${apache_install_dir}/bin/httpd" ]; then
