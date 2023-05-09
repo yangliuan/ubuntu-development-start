@@ -7,5 +7,5 @@ printf "
 ####################################################################
 "
 
-sudo service start tomcat 
-sudo service status tomcat
+sudo service tomcat start
+sudo service tomcat status

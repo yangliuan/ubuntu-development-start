@@ -68,16 +68,9 @@ EOF
     sed -i "s@/usr/local/tomcat@${tomcat_install_dir}@g" ${tomcat_install_dir}/conf/server.xml
 
     if [ ! -e "${nginx_install_dir}/sbin/nginx" -a ! -e "${tengine_install_dir}/sbin/nginx" -a ! -e "${openresty_install_dir}/nginx/sbin/nginx" -a ! -e "${apache_install_dir}/bin/httpd" ]; then
-      if [ "${PM}" == 'yum' ]; then
-        if [ "`firewall-cmd --state`" == "running" ]; then
-          firewall-cmd --permanent --zone=public --add-port=8080/tcp
-          firewall-cmd --reload
-	      fi
-      elif [ "${PM}" == 'apt-get' ]; then
         if ufw status | grep -wq active; then
             ufw allow 8080/tcp
         fi
-      fi
     fi
 
     [ ! -d "${tomcat_install_dir}/conf/vhost" ] && mkdir ${tomcat_install_dir}/conf/vhost
@@ -118,8 +111,7 @@ EOF
     sed -i "s@JAVA_HOME=.*@JAVA_HOME=${JAVA_HOME}@" /etc/init.d/tomcat
     sed -i "s@^CATALINA_HOME=.*@CATALINA_HOME=${tomcat_install_dir}@" /etc/init.d/tomcat
     sed -i "s@^TOMCAT_USER=.*@TOMCAT_USER=${run_user}@" /etc/init.d/tomcat
-    [ "${PM}" == 'yum' ] && { chkconfig --add tomcat; chkconfig tomcat on; }
-    [ "${PM}" == 'apt-get' ] && update-rc.d tomcat defaults
+
     echo "${CSUCCESS}Tomcat installed successfully! ${CEND}"
     rm -rf apache-tomcat-${tomcat10_ver}
   else
