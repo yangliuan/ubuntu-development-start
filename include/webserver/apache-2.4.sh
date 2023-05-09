@@ -70,7 +70,7 @@ Install_Apache24() {
 
   if [ ! -e "/etc/profile.d/apachehttpd.sh" ]; then
         cat > /etc/profile.d/apachehttpd.sh << EOF
-export PATH=${apache_install_dir}/bin:\$PATH"
+export PATH=${apache_install_dir}/bin:\$PATH
 EOF
   fi
   . /etc/profile

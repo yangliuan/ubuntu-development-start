@@ -150,7 +150,7 @@ Uninstall_LNMPDesktop() {
 Install_LAMPDesktop() {
     if [[ -e "${apache_install_dir}/bin/httpd" ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
         pushd ${oneinstack_dir}/desktop > /dev/null
-        cp -rfv lnmp-start.desktop /usr/share/applications
+        cp -rfv lamp-start.desktop /usr/share/applications
         popd > /dev/null
     fi
 }

@@ -19,7 +19,7 @@ if [ -e "/lib/systemd/system/php-fpm.service" ]; then
     sudo systemctl stop php-fpm.service
 fi
 
-if [ -e "/etc/init.d/mysqld/mysql.server" ]; then
+if [ -e "/etc/init.d/mysqld" ]; then
     sudo systemctl stop mysql.service
 fi
 
@@ -40,7 +40,9 @@ if [ -e "/lib/systemd/system/postgresql.service" ]; then
 fi
 
 if [ -e "/usr/bin/supervisorctl" ]; then
-    sudo supervisorctl stop all
+    if [ -e "/var/run/supervisor.sock" ]; then
+        sudo supervisorctl stop all
+    fi
 fi
 
 if [ -e "/lib/systemd/system/supervisor.service" ]; then
@@ -64,7 +66,11 @@ if [ -e "/lib/systemd/system/rabbitmq-server.service" ]; then
 fi
 
 if [ -e "/usr/local/php/bin/php" ]; then
-    sudo killall -9 php
+    if pgrep myprocess > /dev/null
+    then
+        sudo killall -9 php
+    fi
 fi
 
 echo "stop all service successed!"
+sleep 5
