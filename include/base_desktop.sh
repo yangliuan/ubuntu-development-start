@@ -156,7 +156,7 @@ Install_LAMPDesktop() {
 }
 
 Uninstall_LAMPDesktop() {
-    rm -rfv /usr/share/applications/lnmp-start.desktop
+    rm -rfv /usr/share/applications/lamp-start.desktop
 }
 
 ##Supervisor###########################################
