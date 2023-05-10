@@ -28,6 +28,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/develop-tools/rabbitvcs.sh
 . ./include/develop-tools/gitlab.sh
 . ./include/develop-tools/cursor.sh
+. ./include/develop-tools/vscode.sh
 . ./include/language/java/jdk/openjdk-8.sh
 . ./include/language/java/jdk/openjdk-11.sh
 . ./include/language/erlang/erlang.sh
@@ -35,6 +36,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/language/php/config_env.sh
 . ./include/memory.sh
 . ./include/database/sqlite3.sh
+. ./include/message-queue/rabbitmq.sh
 
 echo > ${oneinstack_dir}/test.log
 
@@ -93,3 +95,15 @@ echo > ${oneinstack_dir}/test.log
 #######################################test database
 #Install_Sqlite3 | tee -a ${oneinstack_dir}/test.log
 # Uninstall_Sqlite3 | tee -a ${oneinstack_dir}/test.log
+
+
+#########################################test message queue
+#Uninstall_RabbitMQ | tee -a ${oneinstack_dir}/test.log
+#Install_RabbitMQ | tee -a ${oneinstack_dir}/test.log
+
+
+
+
+
+##########################################test devtool
+#Install_Vscode | tee -a ${oneinstack_dir}/test.log

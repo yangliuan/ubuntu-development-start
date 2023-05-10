@@ -1,5 +1,7 @@
 #!/bin/bash
 #erlang版本支持对照https://rabbitmq.com/which-erlang.html
+#二进制包安装　https://rabbitmq.com/install-generic-unix.html
+#https://rabbitmq.com/devtools.html
 Install_RabbitMQ() {
     pushd ${oneinstack_dir}/src > /dev/null
     src_url="https://github.com/rabbitmq/rabbitmq-server/releases/download/v${rabbitmq_ver}/rabbitmq-server-generic-unix-${rabbitmq_ver}.tar.xz" && Download_src
@@ -8,18 +10,19 @@ Install_RabbitMQ() {
     mv -fv rabbitmq_server-${rabbitmq_ver} ${rabbitmq_install_dir}
 
     #创建用户
-    id -g rabbitmq >/dev/null 2>&1
-    [ $? -ne 0 ] && groupadd rabbitmq
     id -u rabbitmq >/dev/null 2>&1
-    [ $? -ne 0 ] && useradd -g rabbitmq -M -s /sbin/nologin rabbitmq
+    [ $? -ne 0 ] && useradd -M -s /sbin/nologin rabbitmq
 
-    if [ ! -d "/home/rabbitmq"];then
-        mkdir -p rabbitmq
+    #使用指定用户运行服务时，需要创建用户家目录，用于.erlang.cookie和权限问题
+    if [ ! -d "/home/rabbitmq" ]; then
+        mkdir -p /home/rabbitmq
         chown -R rabbitmq.rabbitmq /home/rabbitmq
     fi
-    
-    #更新systemed
+
+    /bin/cp -rfv ../config/rabbitmq.conf ${rabbitmq_install_dir}/etc/rabbitmq
     chown -R rabbitmq.rabbitmq ${rabbitmq_install_dir}
+
+    #更新systemed
     /bin/cp -rfv ${oneinstack_dir}/init.d/rabbitmq-server.service /lib/systemd/system
     systemctl daemon-reload
 
@@ -28,9 +31,9 @@ Install_RabbitMQ() {
 }
 
 Uninstall_RabbitMQ(){
-    if [ -d "${rabbitmq_install_dir}" ]; then
-        rm -rfv ${rabbitmq_install_dir} /lib/systemd/system/rabbitmq-server.service
-        systemctl daemon-reload
-    fi
+    userdel -rf rabbitmq
+    groupdel rabbitmq
+    rm -rfv ${rabbitmq_install_dir} /lib/systemd/system/rabbitmq-server.service /etc/profile.d/rabbitmq.sh
+    systemctl daemon-reload
 }
 

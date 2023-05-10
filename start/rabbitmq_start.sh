@@ -7,4 +7,5 @@ printf "
 ####################################################################
 "
 
-sudo systemctl start rabbitmq.service
+sudo systemctl start rabbitmq-server.service
+sudo systemctl status rabbitmq-server.service
