@@ -31,13 +31,8 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_os.sh
 . ./include/download.sh
 . ./include/get_char.sh
-
-. ./include/php/composer.sh
-
-. ./include/python/python.sh
-
-. ./include/fail2ban.sh
-
+. ./include/language/php/composer.sh
+. ./include/firewall/fail2ban.sh
 . ./include/webserver/ngx_lua_waf.sh
 
 # shellcheck disable=SC2154
@@ -50,7 +45,6 @@ Show_Help() {
   --composer                  Composer
   --fail2ban                  Fail2ban
   --ngx_lua_waf               Ngx_lua_waf
-  --python                    Python (PATH: ${python_install_dir})
   "
 }
 
@@ -194,13 +188,6 @@ else
       enable_lua_waf
     elif [ "${uninstall_flag}" = 'y' ]; then
       disable_lua_waf
-    fi
-  fi
-  if [ "${python_flag}" == 'y' ]; then
-    if [ "${install_flag}" = 'y' ]; then
-      Install_Python
-    elif [ "${uninstall_flag}" = 'y' ]; then
-      Uninstall_Python
     fi
   fi
 fi
