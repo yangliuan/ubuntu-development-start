@@ -360,7 +360,7 @@ Uninstall_AllMessageQueue() {
   . include/system-lib/librdkafka.sh;Uninstall_Librdkafka
   . include/message-queue/rabbitmq.sh;Uninstall_RabbitMQ
   . include/message-queue/rocketmq.sh;Uninstall_RocketMQ
-  Uninstall_RabbitmqDesktop;Uninstall_KafkaDesktop;Uninstall_ZookeeperDesktop
+  Uninstall_RabbitmqDesktop;Uninstall_KafkaDesktop;Uninstall_ZookeeperDesktop;Uninstall_RocketmqDesktop
 }
 
 Print_Kafka() {

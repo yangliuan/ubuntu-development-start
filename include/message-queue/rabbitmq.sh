@@ -24,6 +24,7 @@ Install_RabbitMQ() {
 
     #更新systemed
     /bin/cp -rfv ${oneinstack_dir}/init.d/rabbitmq-server.service /lib/systemd/system
+    sed -i "s@/usr/local/rabbitmq@${rabbitmq_install_dir}@g" /lib/systemd/system/rabbitmq-server.service
     systemctl daemon-reload
 
     echo "rabbitmq install success!"

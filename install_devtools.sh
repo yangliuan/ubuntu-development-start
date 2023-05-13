@@ -314,6 +314,7 @@ if [ ${ARG_NUM} == 0 ]; then
                     if [[ ! ${jdk_option} =~ ^[1-2]$ ]]; then
                         echo "${CWARNING}input error! Please only input number 1~2${CEND}"
                     else
+                        [ -e "/etc/profile.d/openjdk.sh" ] && { echo "${CWARNING}openjdk already installed! ${CEND}"; unset jdk_option; }
                         break
                     fi
                 done

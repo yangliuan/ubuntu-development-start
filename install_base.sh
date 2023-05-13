@@ -346,6 +346,7 @@ if [ ${ARG_NUM} == 0 ]; then
                 if [[ ! ${jdk_option} =~ ^[1-2]$ ]]; then
                   echo "${CWARNING}input error! Please only input number 1~2${CEND}"
                 else
+                  [ -e "/etc/profile.d/openjdk.sh" ] && { echo "${CWARNING}openjdk already installed! ${CEND}"; unset jdk_option; }
                   break
                 fi
               done
@@ -358,6 +359,7 @@ if [ ${ARG_NUM} == 0 ]; then
                 if [[ ! ${jdk_option} =~ ^1$ ]]; then
                   echo "${CWARNING}input error! Please only input number 1${CEND}"
                 else
+                  [ -e "/etc/profile.d/openjdk.sh" ] && { echo "${CWARNING}openjdk already installed! ${CEND}"; unset jdk_option; }
                   break
                 fi
               done
@@ -537,6 +539,7 @@ if [ ${ARG_NUM} == 0 ]; then
                 if [[ ! ${jdk_option} =~ ^[1-3]$ ]]; then
                   echo "${CWARNING}input error! Please only input number 1~3${CEND}"
                 else
+                  [ -e "/etc/profile.d/openjdk.sh" ] && { echo "${CWARNING}openjdk already installed! ${CEND}"; unset jdk_option; }
                   break
                 fi
               done
@@ -1107,6 +1110,7 @@ case "${message_queue_option}" in
   3)
     . include/message-queue/rocketmq.sh
     Install_RocketMQ 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_RocketmqDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 

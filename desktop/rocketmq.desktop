@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Rocketmq
+Exec=sh /opt/oneinstack/start/rocketmq_start.sh %U
+Type=Application
+Terminal=true
+Icon=/opt/oneinstack/icon/apacherocketmq.svg
+StartupWMClass=Rocketmq
+Comment=message queue
+Categories=service;message queue
