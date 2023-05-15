@@ -13,8 +13,8 @@ Install_MongoDB() {
   id -u mongod >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -s /sbin/nologin mongod
   mkdir -p ${mongo_data_dir};chown mongod.mongod -R ${mongo_data_dir}
-  tar xzf mongodb-linux-${SYS_BIT_b}-${mongodb_ver}.tgz
-  /bin/mv mongodb-linux-${SYS_BIT_b}-${mongodb_ver} ${mongo_install_dir}
+  tar xzf mongodb-linux-x86_64-${mongodb_ver}.tgz
+  /bin/mv mongodb-linux-x86_64-${mongodb_ver} ${mongo_install_dir}
 
   /bin/cp ${oneinstack_dir}/init.d/mongod.service /lib/systemd/system/
   sed -i "s@=/usr/local/mongodb@=${mongo_install_dir}@g" /lib/systemd/system/mongod.service

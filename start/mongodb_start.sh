@@ -7,5 +7,5 @@ printf "
 ####################################################################
 "
 
-sudo systemctl start mongodb.service
-sudo systemctl status mongodb.service
+sudo systemctl start mongod.service
+sudo systemctl status mongod.service
