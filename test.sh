@@ -19,24 +19,27 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_dir.sh
 . ./include/download.sh
 . ./include/get_char.sh
+. ./include/memory.sh
+. ./include/base_desktop.sh
 . ./include/system-lib/openssl.sh
 . ./include/system-lib/libevent.sh
 . ./include/system-lib/librdkafka.sh
-. ./include/base_desktop.sh
 . ./include/develop-tools/develop_config.sh
-. ./include/language/php/switch_extension.sh
 . ./include/develop-tools/rabbitvcs.sh
 . ./include/develop-tools/gitlab.sh
 . ./include/develop-tools/cursor.sh
 . ./include/develop-tools/vscode.sh
+. ./include/language/php/switch_extension.sh
 . ./include/language/java/jdk/openjdk-8.sh
 . ./include/language/java/jdk/openjdk-11.sh
 . ./include/language/erlang/erlang.sh
 . ./include/language/php/php-8.2.sh
 . ./include/language/php/config_env.sh
-. ./include/memory.sh
-. ./include/database/sqlite3.sh
 . ./include/message-queue/rabbitmq.sh
+. ./include/database/sqlite3.sh
+. ./include/multimedia/ffmpeg.sh
+. ./include/multimedia/libvmaf.sh
+
 
 echo > ${oneinstack_dir}/test.log
 
@@ -107,3 +110,12 @@ echo > ${oneinstack_dir}/test.log
 
 ##########################################test devtool
 #Install_Vscode | tee -a ${oneinstack_dir}/test.log
+
+
+
+########################################ffmpeg
+#Uninstall_Libvmaf | tee -a ${oneinstack_dir}/test.log
+#Install_Libvmaf | tee -a ${oneinstack_dir}/test.log
+
+#Uninstall_FFmpeg | tee -a ${oneinstack_dir}/test.log
+#Install_FFmpeg | tee -a ${oneinstack_dir}/test.log

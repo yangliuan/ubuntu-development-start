@@ -17,6 +17,7 @@ Install_pecl_rdkafka() {
             ./configure --with-php-config=${php_install_dir}/bin/php-config
             make -j ${THREAD} && make install
             popd > /dev/null
+            rm -rfv rdkafka-${pecl_rdkafka_ver}
 
             if [ -f "${phpExtensionDir}/rdkafka.so" ]; then
                 echo 'extension=rdkafka.so' > ${php_install_dir}/etc/php.d/rdkafka.ini
