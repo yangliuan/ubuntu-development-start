@@ -1,10 +1,9 @@
 #!/bin/bash
-chmod -R 777 /usr/share/applications
-
 ##database and nosql#####################################################
 Install_ElasticsearchDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv elasticsearch.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/elasticsearch.desktop
     popd > /dev/null
 }
 
@@ -14,7 +13,8 @@ Uninstall_ElasticsearchDesktop() {
 
 Install_MysqlDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
-    cp -rfv mysql.desktop /usr/share/applications
+    cp -rfv  /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/mysql.desktop
     popd > /dev/null
 }
 
@@ -25,6 +25,7 @@ Uninstall_MysqlDesktop() {
 Install_PostgresqlDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv postgresql.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/postgresql.desktop
     popd > /dev/null
 }
 
@@ -35,6 +36,7 @@ Uninstall_PostgresqlDesktop() {
 Install_MongoDBDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv mongodb.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/mongodb.desktop
     popd > /dev/null
 }
 
@@ -45,6 +47,7 @@ Uninstall_MongoDBDesktop() {
 Install_MemcachedDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv memcached.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/memcached.desktop
     popd > /dev/null
 }
 
@@ -55,6 +58,7 @@ Uninstall_MemcachedDesktop() {
 Install_RedisDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv redis.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/redis.desktop
     popd > /dev/null
 }
 
@@ -66,6 +70,7 @@ Uninstall_RedisDesktop() {
 Install_ApacheHttpdDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv httpd.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/httpd.desktop
     popd > /dev/null
 }
 
@@ -76,6 +81,7 @@ Uninstall_ApacheHttpdDesktop() {
 Install_NginxDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv nginx.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/nginx.desktop
     popd > /dev/null
 }
 
@@ -86,6 +92,7 @@ Uninstall_NginxDesktop() {
 Install_OpenrestryDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv openrestry.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/openrestry.desktop
     popd > /dev/null
 }
 
@@ -96,6 +103,7 @@ Uninstall_OpenrestryDesktop() {
 Install_TomcatDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv tomcat.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/tomcat.desktop
     popd > /dev/null
 }
 
@@ -107,6 +115,7 @@ Uninstall_TomcatDesktop() {
 Install_PureFtpDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv pure-ftpd.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/pure-ftpd.desktop
     popd > /dev/null
 }
 
@@ -118,6 +127,7 @@ Uninstall_PureFtpDesktop() {
 Install_PHPFPMDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv php-fpm.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/php-fpm.desktop
     popd > /dev/null
 }
 
@@ -139,6 +149,7 @@ Install_LNMPDesktop() {
     if [[ $nginx_flag == true ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
         pushd ${oneinstack_dir}/desktop > /dev/null
         cp -rfv lnmp-start.desktop /usr/share/applications
+        chown -Rv ${run_user}.${run_group} /usr/share/applications/lnmp-start.desktop
         popd > /dev/null
     fi
 }
@@ -151,6 +162,7 @@ Install_LAMPDesktop() {
     if [[ -e "${apache_install_dir}/bin/httpd" ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
         pushd ${oneinstack_dir}/desktop > /dev/null
         cp -rfv lamp-start.desktop /usr/share/applications
+        chown -Rv ${run_user}.${run_group} /usr/share/applications/lamp-start.desktop
         popd > /dev/null
     fi
 }
@@ -163,6 +175,7 @@ Uninstall_LAMPDesktop() {
 Install_SupervisorDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv supervisord.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/supervisord.desktop
     popd > /dev/null
 }
 
@@ -174,6 +187,7 @@ Uninstall_SupervisorDesktop() {
 Install_ZookeeperDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv zookeeper.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/zookeeper.desktop
     popd > /dev/null
 }
 
@@ -184,6 +198,7 @@ Uninstall_ZookeeperDesktop() {
 Install_KafkaDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv kafka.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/kafka.desktop
     popd > /dev/null
 }
 
@@ -194,6 +209,7 @@ Uninstall_KafkaDesktop() {
 Install_RabbitmqDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv rabbitmq.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/rabbitmq.desktop
     popd > /dev/null
 }
 
@@ -204,6 +220,7 @@ Uninstall_RabbitmqDesktop() {
 Install_RocketmqDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv rocketmq.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/rocketmq.desktop
     popd > /dev/null
 }
 
@@ -214,6 +231,7 @@ Uninstall_RocketmqDesktop() {
 Install_StopAllDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv stop-all.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/stop-all.desktop
     popd > /dev/null
 }
 
