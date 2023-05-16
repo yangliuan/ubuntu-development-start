@@ -13,7 +13,7 @@ Uninstall_ElasticsearchDesktop() {
 
 Install_MysqlDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
-    cp -rfv  /usr/share/applications
+    cp -rfv mysql.desktop  /usr/share/applications
     chown -Rv ${run_user}.${run_group} /usr/share/applications/mysql.desktop
     popd > /dev/null
 }
