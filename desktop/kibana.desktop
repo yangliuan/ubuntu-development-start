@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Kibana
+Comment=elastic stack gui
+Exec=sh /opt/oneinstack/start/kibana_start.sh
+Icon=/opt/oneinstack/icon/kibana.svg
+Type=Application
+Terminal=true
+Categories=service;tool
+Keywords=kibana

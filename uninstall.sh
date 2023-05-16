@@ -29,7 +29,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_dir.sh
 . include/base_desktop.sh
 . include/multimedia/libwebp.sh
-. include/fulltext-search/elasticsearch_stack.sh
+. include/fulltext-search/elastic_stack.sh
 . include/multimedia/ffmpeg.sh
 . include/language/python/python.sh
 . include/language/nodejs/node.sh
@@ -219,7 +219,7 @@ Uninstall_status() {
 }
 
 Uninstall_alldesktop() {
-    Uninstall_ElasticsearchDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;
+    Uninstall_ElasticStackDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;
     Uninstall_StopAllDesktop
 }
 
@@ -344,7 +344,7 @@ Uninstall_MongoDB() {
 }
 
 
-Print_ElasticsearchStack() {
+Print_ElasticStack() {
   [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && echo /usr/share/elasticsearch/bin/elasticsearch
   [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && /usr/share/elasticsearch/bin/elasticsearch -version
 }
@@ -835,7 +835,7 @@ What Are You Doing?
       Print_PostgreSQL
       Print_MongoDB
       Print_Sqlite
-      Print_ElasticsearchStack
+      Print_ElasticStack
       Print_AllMessageQueue
       Print_ALLPHP
       Print_PureFtpd
@@ -861,7 +861,7 @@ What Are You Doing?
         Uninstall_PostgreSQL
         Uninstall_MongoDB
         Uninstall_Sqlite3
-        Uninstall_Elasticsearch
+        Uninstall_ElasticStack
         Uninstall_Cerebro
         Uninstall_AllMessageQueue
         Uninstall_ALLPHP
@@ -918,9 +918,9 @@ What Are You Doing?
       ;;
     6)
       Print_Warn
-      Print_ElasticsearchStack
+      Print_ElasticStack
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_Elasticsearch; Uninstall_Cerebro || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_ElasticStack || exit
       ;;
     7)
       Print_Warn

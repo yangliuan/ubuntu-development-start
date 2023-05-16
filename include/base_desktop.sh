@@ -1,13 +1,16 @@
 #!/bin/bash
 ##database and nosql#####################################################
-Install_ElasticsearchDesktop() {
+Install_ElasticStackDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
-    cp -rfv elasticsearch.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/elasticsearch.desktop
+    cp -rfv elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop /usr/share/applications
+    popd > /dev/null
+
+    pushd /usr/share/applications/ > /dev/null
+    chown -Rv ${run_user}.${run_group} elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop
     popd > /dev/null
 }
 
-Uninstall_ElasticsearchDesktop() {
+Uninstall_ElasticStackDesktop() {
     rm -rfv /usr/share/applications/elasticsearch.desktop
 }
 

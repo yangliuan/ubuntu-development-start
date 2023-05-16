@@ -45,6 +45,7 @@ Install_PostgreSQL() {
   if [ -e "${pgsql_install_dir}/bin/psql" ]; then
     sed -i "s+^dbpostgrespwd.*+dbpostgrespwd='$dbpostgrespwd'+" ../options.conf
     echo "${CSUCCESS}PostgreSQL installed successfully! ${CEND}"
+    rm -rf postgresql-${pgsql_ver}.tar.gz
   else
     rm -rf ${pgsql_install_dir} ${pgsql_data_dir}
     echo "${CFAILURE}PostgreSQL install failed, Please contact the author! ${CEND}" && lsb_release -a

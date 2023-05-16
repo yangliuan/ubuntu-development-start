@@ -466,15 +466,31 @@ if [ ${ARG_NUM} == 0 ]; then
 
   # check elasticsearch
   while :; do echo
-    read -e -p "Do you want to install elasticsearch stack? [y/n]: " elasticsearch_flag
-    elasticsearch_flag=${elasticsearch_flag:-y}
-    if [[ ! ${elasticsearch_flag} =~ ^[y,n]$ ]]; then
+    read -e -p "Do you want to install elastic stack? [y/n]: " elastic_stack_flag
+    elastic_stack_flag=${elastic_stack_flag:-y}
+    if [[ ! ${elastic_stack_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-        [ "${elasticsearch_flag}" == 'y' -a -e "/usr/share/elasticsearch/bin/elasticsearch" ] && { echo "${CWARNING}elasticsearch already installed! ${CEND}"; unset elasticsearch_flag; }
+        [ "${elastic_stack_flag}" == 'y' -a -e "/usr/share/elasticsearch/bin/elasticsearch" ] && { echo "${CWARNING}elastic stack already installed! ${CEND}"; unset elastic_stack_flag; }
+        if [ "${elastic_stack_flag}" == 'y' ]; then
+            while :; do echo
+              echo 'Please select JDK version:'
+              echo -e "\t${CMSG}2${CEND}. Install openjdk-11-jdk"
+              read -e -p "Please input a number:(Default 1 press Enter) " jdk_option
+              jdk_option=${jdk_option:-1}
+              if [[ ! ${jdk_option} =~ ^[1-2]$ ]]; then
+                echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+              else
+                [ -e "/etc/profile.d/openjdk.sh" ] && { echo "${CWARNING}openjdk already installed! ${CEND}"; unset jdk_option; }
+                break
+              fi
+            done
+        fi
         break
     fi
   done
+
+  
 
   # check Pureftpd
   while :; do echo
@@ -999,11 +1015,10 @@ case "${db_option}" in
 esac
 
 # Elasticsearch
-if [ "${elasticsearch_flag}" == 'y' ]; then  
-  . include/fulltext-search/elasticsearch_stack.sh
-  Install_Elasticsearch 2>&1 | tee -a ${oneinstack_dir}/install.log
-  Install_Cerebro 2>&1 | tee -a ${oneinstack_dir}/install.log
-  Install_ElasticsearchDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
+if [ "${elastic_stack_flag}" == 'y' ]; then  
+  . include/fulltext-search/elastic_stack.sh
+  Install_ElasticStack 2>&1 | tee -a ${oneinstack_dir}/install.log
+  Install_ElasticStackDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
   Install_Config 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
