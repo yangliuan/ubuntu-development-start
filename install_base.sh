@@ -892,10 +892,9 @@ if [ ${ARG_NUM} == 0 ]; then
 fi
 
 if [ ! -e ~/.oneinstack ]; then
-  # install wget gcc curl python
+  # install wget gcc curl
   downloadDepsSrc=1
-  apt-get -y install wget gcc curl python
-  clear
+  apt-get -y install wget gcc curl > /dev/null
 fi
 
 # get the IP information
@@ -911,11 +910,10 @@ echo > ${oneinstack_dir}/install.log
 checkDownload 2>&1 | tee -a ${oneinstack_dir}/install.log
  
 . ./include/system-lib/openssl.sh
-. ./include/system-lib/libevent.sh
-. ./include/multimedia/libwebp.sh
 
 # get OS Memory
 . ./include/memory.sh
+
 if [ ! -e ~/.oneinstack ]; then
   # Check binary dependencies packages
   . ./include/check_sw.sh
@@ -929,8 +927,7 @@ fi
 startTime=`date +%s`
 
 Install_openSSL | tee -a ${oneinstack_dir}/install.log
-Install_Libevent | tee -a ${oneinstack_dir}/install.log
-Install_Libwebp | tee -a ${oneinstack_dir}/install.log
+
 
 # iptables
 if [ "${iptables_flag}" == "y" ]; then

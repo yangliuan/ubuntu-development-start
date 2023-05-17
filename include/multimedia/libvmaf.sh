@@ -3,7 +3,7 @@
 Install_Libvmaf() {
     if [ ! -e "/usr/local/include/libvmaf" ]; then
         pushd ${oneinstack_dir}/src > /dev/null
-        sudo apt install nasm ninja-build doxygen xxd
+        sudo apt-get -y install nasm ninja-build doxygen xxd
         src_url=https://github.com/Netflix/vmaf/archive/v${libvmaf_ver}.tar.gz && Download_src
         tar -zxvf v${libvmaf_ver}.tar.gz > /dev/null
         pushd vmaf-${libvmaf_ver}/libvmaf > /dev/null

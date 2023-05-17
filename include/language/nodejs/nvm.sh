@@ -36,5 +36,5 @@ Uninstall_Nvm(){
 }
 
 Install_Wine() {
-    apt install wine
+    apt-get -y install wine
 }

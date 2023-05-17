@@ -1,5 +1,5 @@
 Install_OpensshServer(){
-    apt-get install openssh-server
+    apt-get -y install openssh-server
     ufw allow ssh
     #修改配置文件允许root远程登录
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
@@ -8,5 +8,5 @@ Install_OpensshServer(){
 }
 
 Uninstall_OpensshServer(){
-    apt-get autoremove openssh-server
+    apt-get remove openssh-server
 }

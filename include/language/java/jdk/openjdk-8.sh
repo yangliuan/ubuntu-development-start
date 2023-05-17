@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_OpenJDK8() {
-  apt --no-install-recommends -y install openjdk-8-jdk
+  apt-get --no-install-recommends -y install openjdk-8-jdk
   JAVA_HOME=/usr/lib/jvm/java-8-openjdk-${SYS_ARCH}
   
   if [ -e "${JAVA_HOME}/bin/java" ]; then
@@ -19,10 +19,6 @@ export JAVA_HOME=${JAVA_HOME}
 export CLASSPATH=\$JAVA_HOME/lib/tools.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib
 EOF
       . /etc/profile.d/openjdk.sh
-      #resolve kafka run error
-      if [ ! -e "/etc/java-8-openjdk/management/management.properties" ]; then
-        touch /etc/java-8-openjdk/management/management.properties
-      fi
     fi
     echo "${CSUCCESS}OpenJDK8 installed successfully! ${CEND}"
   else
@@ -32,6 +28,6 @@ EOF
 }
 
 Uninstall_OpenJDK8() {
-  apt autoremove openjdk-8-jdk
-  rm -rfv /etc/profile.d/openjdk.sh /etc/java-8-openjdk
+  apt-get -y autoremove openjdk-8-jdk
+  rm -rfv /etc/profile.d/openjdk.sh
 }

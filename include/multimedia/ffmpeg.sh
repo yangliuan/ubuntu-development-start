@@ -149,7 +149,7 @@ Install_FFmpeg() {
 Uninstall_FFmpeg() {
   rm -rfv /usr/local/bin/ffmpeg
   Uninstall_Libvmaf
-  apt-get remove nasm \
+  apt-get -y remove nasm \
   libchromaprint-dev \
   frei0r-plugins-dev \
   libgmp-dev \

@@ -11,7 +11,9 @@ Install_ElasticStackDesktop() {
 }
 
 Uninstall_ElasticStackDesktop() {
-    rm -rfv /usr/share/applications/elasticsearch.desktop
+    pushd /usr/share/applications/ > /dev/null
+    rm -rfv elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop
+    popd > /dev/null
 }
 
 Install_MysqlDesktop() {

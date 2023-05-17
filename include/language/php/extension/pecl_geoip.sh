@@ -1,10 +1,10 @@
 #!/bin/bash
 Install_Geoip() {
-    apt install libgeoip-dev
+    apt-get -y install libgeoip-dev
 }
 
 Uninstall_Geoip() {
-    apt autoremove libgeoip-dev
+    apt-get -y remove libgeoip-dev
 }
 
 Install_pecl_geoip() {

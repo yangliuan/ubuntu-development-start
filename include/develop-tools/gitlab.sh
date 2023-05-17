@@ -9,6 +9,6 @@ Install_Gitlab() {
 }
 
 Uninstall_Gitlab() {
-    sudo apt autoremove gitlab-jh postfix tzdata
+    sudo apt remove gitlab-jh postfix tzdata
     sudo rm -rf /etc/apt/sources.list.d/gitlab-jh.list
 }

@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_OpenJDK11() {
-  apt --no-install-recommends -y install openjdk-11-jdk
+  apt-get -y install openjdk-11-jdk
   JAVA_HOME=/usr/lib/jvm/java-11-openjdk-${SYS_ARCH}
   
   if [ -e "${JAVA_HOME}/bin/java" ]; then
@@ -18,10 +18,7 @@ export JAVA_HOME=${JAVA_HOME}
 export CLASSPATH=\$JAVA_HOME/lib/tools.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib
 EOF
     . /etc/profile.d/openjdk.sh
-    #resolve kafka run error
-    if [ ! -e "/etc/java-11-openjdk/management/management.properties" ]; then
-      touch /etc/java-11-openjdk/management/management.properties
-    fi
+
     echo "${CSUCCESS}OpenJDK11 installed successfully! ${CEND}"
   else
     echo "${CFAILURE}OpenJDK11 install failed, Please contact the author! ${CEND}" && lsb_release -a
@@ -30,6 +27,6 @@ EOF
 }
 
 Uninstall_OpenJDK11() {
-  apt autoremove openjdk-11-jdk
-  rm -rfv /etc/profile.d/openjdk.sh /etc/java-11-openjdk
+  apt-get -y autoremove openjdk-11-jdk
+  rm -rfv /etc/profile.d/openjdk.sh
 }

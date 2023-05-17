@@ -842,9 +842,7 @@ What Are You Doing?
       Print_Redis_server
       Print_Memcached_server
       Print_FFmpeg
-      Print_Webp
       Print_openssl
-      Print_libevent
       Print_Python
       Print_Node
       Print_Nvm
@@ -869,9 +867,7 @@ What Are You Doing?
         Uninstall_Redis_server
         Uninstall_Memcached_server
         Uninstall_FFmpeg
-        Uninstall_Libwebp
         Uninstall_openssl
-        Uninstall_libevent
         Uninstall_phpMyAdmin
         Uninstall_Python
         Uninstall_Node

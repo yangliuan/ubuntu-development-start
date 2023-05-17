@@ -44,7 +44,7 @@ EOF
 }
 
 Uninstall_Yasd() {
-    apt-get autoremove libboost-all-dev
+    apt-get remove libboost-all-dev
     if [ -e "${php_install_dir}/etc/php.d/yasd.ini" ]; then
         rm -f ${php_install_dir}/etc/php.d/yasd.ini
         echo; echo "${CMSG}PHP yasd module uninstall completed${CEND}"
