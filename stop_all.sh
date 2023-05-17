@@ -87,5 +87,25 @@ if [ -e "/usr/local/php/bin/php" ]; then
     fi
 fi
 
+if [ -e "/lib/systemd/system/elasticsearch.service" ]; then
+    sudo systemctl stop elasticsearch.service
+    echo "stop elasticsearch.service success!"
+fi
+
+if [ -e "/lib/systemd/system/kibana.service" ]; then
+    sudo systemctl stop kibana.service
+    echo "stop kibana.service success!"
+fi
+
+if [ -e "/lib/systemd/system/logstash.service" ]; then
+    sudo systemctl stop logstash.service
+    echo "stop logstash.service success!"
+fi
+
+if [ -e "/lib/systemd/system/cerebro.service" ]; then
+    sudo systemctl stop cerebro.service
+    echo "stop cerebro.service success!"
+fi
+
 echo "stop all service successed!"
 sleep 10

@@ -858,14 +858,18 @@ if [ ${ARG_NUM} == 0 ]; then
                         while :; do echo
                             echo 'Please select go version:'
                             echo -e "\t${CMSG}1${CEND}. 1.20"
-                            echo -e "\t${CMSG}1${CEND}. 1.19"
-                            echo -e "\t${CMSG}1${CEND}. 1.18"
-                            echo -e "\t${CMSG}2${CEND}. 1.17"
+                            echo -e "\t${CMSG}2${CEND}. 1.19"
+                            echo -e "\t${CMSG}3${CEND}. 1.18"
+                            echo -e "\t${CMSG}4${CEND}. 1.17"
                             read -e -p "Please input a number:(Default 1 press Enter) " go_option
                             go_option=${go_option:-1}
                             if [[ ! ${go_option} =~ ^[1-4]$ ]]; then
                                 echo "${CWARNING}input error! Please only input number 1~4${CEND}"
                             else
+                                [ "${go_option}" = '1' -a -e "${go_install_dir}${go120_ver}" ] && { echo "${CWARNING} go1.20 already installed! ${CEND}"; unset go_option; }
+                                [ "${go_option}" = '2' -a -e "${go_install_dir}${go119_ver}" ] && { echo "${CWARNING} go1.19 already installed! ${CEND}"; unset go_option; }
+                                [ "${go_option}" = '3' -a -e "${go_install_dir}${go118_ver}" ] && { echo "${CWARNING} go1.18 already installed! ${CEND}"; unset go_option; }
+                                [ "${go_option}" = '4' -a -e "${go_install_dir}${go117_ver}" ] && { echo "${CWARNING} go1.17 already installed! ${CEND}"; unset go_option; }
                                 break
                             fi
                         done
