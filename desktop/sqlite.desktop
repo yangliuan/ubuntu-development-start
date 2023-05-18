@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Sqlite
+Comment=relation database
+Exec=sh /opt/oneinstack/start/sqlite_start.sh
+Icon=/opt/oneinstack/icon/sqlite.svg
+Type=Application
+Terminal=true
+Categories=service;database
+Keywords=Sqlite;sqlite

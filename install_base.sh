@@ -1012,6 +1012,7 @@ case "${db_option}" in
   15)
     . include/database/sqlite3.sh
     Install_Sqlite3 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_SqliteDesktop | tee -a ${oneinstack_dir}/install.log
     ;;
 esac
 
@@ -1115,6 +1116,7 @@ case "${message_queue_option}" in
   1)
     . include/message-queue/kafka.sh
     Install_Kafka 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_ZookeeperDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log 
     Install_KafkaDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
@@ -1137,6 +1139,7 @@ esac
 if [ "${ffmpeg_flag}" == 'y' ]; then  
     . include/multimedia/ffmpeg.sh
     Install_FFmpeg 2>&1 | tee -a ${oneinstack_dir}/install.log
+    Install_FFmpegDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # supervisord

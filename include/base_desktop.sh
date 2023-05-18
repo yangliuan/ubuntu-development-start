@@ -233,6 +233,28 @@ Uninstall_RocketmqDesktop() {
     rm -rfv /usr/share/applications/rocketmq.desktop
 }
 
+Install_SqliteDesktop() {
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv sqlite.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/sqlite.desktop
+    popd > /dev/null
+}
+
+Uninstall_SqliteDesktop() {
+    rm -rfv /usr/share/applications/sqlite.desktop
+}
+
+Install_FFmpegDesktop() {
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv ffmpeg.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/ffmpeg.desktop
+    popd > /dev/null
+}
+
+Uninstall_FFmpegDesktop() {
+    rm -rfv /usr/share/applications/ffmpeg.desktop
+}
+
 Install_StopAllDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv stop-all.desktop /usr/share/applications
