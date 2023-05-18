@@ -13,5 +13,5 @@ Install_MysqlWorkbench() {
 
 Uninstall_MysqlWorkbench() {
     dpkg -P mysql-workbench-community
-    apt-get autoclean
+    apt-get -y autoremove
 }

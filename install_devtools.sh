@@ -39,6 +39,7 @@ Show_Help() {
   --navicat_preminu
   --mysql_workbench
   --remmina
+  --wireshark
   --postman
   --runapi
   --apifox
@@ -54,7 +55,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,wireshark,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -84,6 +85,9 @@ while :; do
       ;;
     --remmina)
       remmina_flag=y; shift 1
+      ;;
+    --wireshark)
+      wireshark_flag=y; shift 1
       ;;
     --postman)
       postman_flag=y; shift 1
@@ -382,7 +386,7 @@ fi
 
 #set develop config
 if [ "${develop_config_flag}" == 'y' ]; then
-    . include/develop-tools/develop_config.sh
+    . include/develop_config.sh
     Set_Develop_Config 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 

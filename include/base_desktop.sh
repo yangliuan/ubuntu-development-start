@@ -238,8 +238,24 @@ Install_StopAllDesktop() {
     cp -rfv stop-all.desktop /usr/share/applications
     chown -Rv ${run_user}.${run_group} /usr/share/applications/stop-all.desktop
     popd > /dev/null
+    Change_Sudoers
 }
 
 Uninstall_StopAllDesktop() {
     rm -rfv /usr/share/applications/stop-all.desktop
+}
+
+Change_Sudoers() {
+    if [ ! -e "/etc/sudoers.bak" ]; then
+         # back up sudoers
+        cp /etc/sudoers /etc/sudoers.bak
+        # change sudoer for run_user
+        sed -i "/^%sudo\s\+ALL=(ALL:ALL)\s\+ALL$/a ${run_user} ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
+
+        if [ $? -eq 0 ]; then
+            echo "sudoers file edit success. ${run_user}, You don't need to enter a password for sudo operations"
+        else
+            echo "Failed to modify the sudoers file. Please manually check and restore the sudoers file."
+        fi
+    fi
 }

@@ -20,7 +20,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 . ./include/base_desktop.sh
-. ./include/develop-tools/develop_config.sh
+. ./include/develop_config.sh
 
 dbrootpwd=`< /dev/urandom tr -dc A-Za-z0-9 | head -c8`
 dbpostgrespwd=`< /dev/urandom tr -dc A-Za-z0-9 | head -c8`

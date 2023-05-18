@@ -13,5 +13,5 @@ Install_Rabbitvcs() {
 }
 
 Uninstall_rabbitbvcs() {
-    sudo apt-get remove rabbitvcs-nautilus
+    sudo apt-get -y autoremove rabbitvcs-nautilus
 }

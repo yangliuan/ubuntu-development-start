@@ -24,7 +24,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/system-lib/openssl.sh
 . ./include/system-lib/libevent.sh
 . ./include/system-lib/librdkafka.sh
-. ./include/develop-tools/develop_config.sh
+. ./include/develop_config.sh
 . ./include/develop-tools/rabbitvcs.sh
 . ./include/develop-tools/gitlab.sh
 . ./include/develop-tools/cursor.sh
