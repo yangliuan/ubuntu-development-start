@@ -67,9 +67,11 @@ echo > ${oneinstack_dir}/test.log
 # Install_RabbitmqDesktop
 # Install_StopAllDesktop
 # Install_SqliteDesktop
-#  Uninstall_FFmpegDesktop
-#  Install_FFmpegDesktop
+# Install_FFmpegDesktop
+# Install_SwithDevEnvDesktop
 
+
+# Uninstall_FFmpegDesktop
 
 # NginxDevConfig
 # TengineDevConfig

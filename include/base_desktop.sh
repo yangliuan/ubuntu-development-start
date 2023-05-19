@@ -255,6 +255,17 @@ Uninstall_FFmpegDesktop() {
     rm -rfv /usr/share/applications/ffmpeg.desktop
 }
 
+Install_SwithDevEnvDesktop() {
+    pushd ${oneinstack_dir}/desktop > /dev/null
+    cp -rfv switchdevenv.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/switchdevenv.desktop
+    popd > /dev/null
+}
+
+Uninstall_SwithDevEnvDesktop() {
+    rm -rfv /usr/share/applications/switchdevenv.desktop
+}
+
 Install_StopAllDesktop() {
     pushd ${oneinstack_dir}/desktop > /dev/null
     cp -rfv stop-all.desktop /usr/share/applications
