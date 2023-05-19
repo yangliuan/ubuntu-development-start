@@ -66,8 +66,8 @@ echo > ${oneinstack_dir}/test.log
 # Install_KafkaDesktop
 # Install_RabbitmqDesktop
 # Install_StopAllDesktop
-Install_SqliteDesktop
-Install_FFmpegDesktop
+# Install_SqliteDesktop
+# nstall_FFmpegDesktop
 
 
 # NginxDevConfig

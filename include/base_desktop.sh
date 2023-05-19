@@ -261,6 +261,7 @@ Install_StopAllDesktop() {
     chown -Rv ${run_user}.${run_group} /usr/share/applications/stop-all.desktop
     popd > /dev/null
     Change_Sudoers
+    update-desktop-database
 }
 
 Uninstall_StopAllDesktop() {
