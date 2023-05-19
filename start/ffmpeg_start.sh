@@ -1,26 +1,54 @@
 #!/bin/bash
-# ffmpeg -version
-# sleep 5
-
-# 视频格式扩展名数组
+clear
+printf "
+################################################################################
+                                      FFmpeg       
+################################################################################
+"
+echo "start search videos..."
+directory="$HOME"
 video_formats=("mp4" "avi" "mkv" "mov" "wmv" "flv" "3gp" "mpeg" "ogv" "vob" "dv" "yuv" "rm" "rmvb")
 
-# 搜索视频文件并将第一个结果保存到变量中
-video_file=""
+video_files=()
 for format in "${video_formats[@]}"; do
-    video_file=$(find /home -type f -iname "*.$format" -print -quit)
-    if [ -n "$video_file" ]; then
-        break
+  video_files+=($(find "$directory" -type f -name "*.$format" -exec realpath {} \; 2>/dev/null))
+done
+video_files=($(echo "${video_files[@]}" | tr ' ' '\n' | sort -u))
+
+index=0
+
+while true; do
+  clear
+
+  for ((i=0; i<${#video_files[@]}; i++)); do
+    if [[ $i -eq $index ]]; then
+      echo "> ${video_files[$i]}"
+    else
+      echo "  ${video_files[$i]}"
     fi
+  done
+
+  read -rsn1 key
+
+  case "$key" in
+    "A")
+      ((index--))
+      if [[ $index -lt 0 ]]; then
+        index=$((${#video_files[@]} - 1))
+      fi
+      ;;
+    "B")
+      ((index++))
+      if [[ $index -ge ${#video_files[@]} ]]; then
+        index=0
+      fi
+      ;;
+    "")
+      selected_video=${video_files[$index]}
+      break
+      ;;
+  esac
 done
 
-# 检查是否找到视频文件
-if [ -z "$video_file" ]; then
-    echo "未找到视频文件"
-    exit 1
-fi
-
-# 使用ffplay播放视频文件
-ffplay "$video_file"
-
-sleep 10
+echo "Selected video file: ${selected_video}"
+ffplay "$selected_video"

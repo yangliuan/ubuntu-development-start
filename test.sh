@@ -67,7 +67,8 @@ echo > ${oneinstack_dir}/test.log
 # Install_RabbitmqDesktop
 # Install_StopAllDesktop
 # Install_SqliteDesktop
-# nstall_FFmpegDesktop
+#  Uninstall_FFmpegDesktop
+#  Install_FFmpegDesktop
 
 
 # NginxDevConfig
