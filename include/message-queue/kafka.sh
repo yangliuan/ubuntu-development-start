@@ -4,7 +4,6 @@
 # DOC https://kafka.apache.org/downloads
 Install_Kafka() {
     pushd ${oneinstack_dir}/src > /dev/null
-
     echo "Download kafka ..."
     src_url="https://dlcdn.apache.org/kafka/${kafka_ver}/kafka_${kafka_scala_ver}-${kafka_ver}.tgz" && Download_src
     tar xzf kafka_${kafka_scala_ver}-${kafka_ver}.tgz
@@ -33,6 +32,7 @@ Install_Kafka() {
     systemctl daemon-reload
     
     echo "${CSUCCESS}Kafka installed successfully! ${CEND}"
+    popd > /dev/null
 }
 
 Uninstall_Kafka() {

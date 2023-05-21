@@ -63,12 +63,13 @@ Show_Help() {
   --go                        install go lasted
   --ssh_port [No.]            SSH port
   --firewall                  Enable firewall
+  --docker                    docker stack
   --reboot                    Restart the server after installation
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,pureftpd,redis,memcached,phpmyadmin,python,go,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,pureftpd,redis,memcached,phpmyadmin,python,go,ssh_port:,firewall,docker,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -212,6 +213,9 @@ while :; do
       ;;
     --firewall)
       firewall_flag=y; shift 1
+      ;;
+    --docker)
+      docker_flag=y; shift 1
       ;;
     --reboot)
       reboot_flag=y; shift 1
@@ -893,6 +897,18 @@ if [ ${ARG_NUM} == 0 ]; then
           break
       fi
   done
+
+  # check container-platform
+  while :; do echo
+      read -e -p "Do you want to install docker stack? [y/n]: " docker_flag
+      docker_flag=${docker_flag:-n}
+      if [[ ! ${docker_flag} =~ ^[y,n]$ ]]; then
+          echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+      else
+          [ "${docker_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}docker stack already installed! ${CEND}"; unset docker_flag; }
+          break
+      fi
+  done
 fi
 
 if [ ! -e ~/.oneinstack ]; then
@@ -1441,6 +1457,14 @@ esac
 if [ "${python_flag}" == 'y' ]; then
   . include/language/python/python.sh
   Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
+fi
+
+# docker
+if [ "${docker_flag}" == 'y' ]; then
+  . include/container-platform/docker.sh
+  Install_Docker_Repository | tee -a ${oneinstack_dir}/test.log
+  Install_Docker_Engine | tee -a ${oneinstack_dir}/test.log
+  Install_Docker_Desktop | tee -a ${oneinstack_dir}/test.log
 fi
 
 if [[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]]; then

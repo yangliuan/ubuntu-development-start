@@ -44,6 +44,7 @@ pushd ${oneinstack_dir} > /dev/null
 . include/message-queue/rabbitmq.sh
 . include/message-queue/rocketmq.sh
 . include/database/sqlite3.sh
+. include/container-platform/docker.sh
 
 Show_Help() {
   echo
@@ -72,11 +73,12 @@ Show_Help() {
   --nvm                         Uninstall Nvm
   --go                          Uninstall Go
   --gvm                         Uninstall Gvm
+  --docker                      Uninstall Docker
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,supervisord,redis,memcached,phpmyadmin,python,node,nvm,go,gvm -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,supervisord,redis,memcached,phpmyadmin,python,node,nvm,go,gvm,docker -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -195,6 +197,9 @@ while :; do
       ;;
     --supervisord)
       supervisord_flag=y; shift 1
+      ;;
+    --docker)
+      docker_flag=y; shift 1
       ;;
     --)
       shift
@@ -342,7 +347,6 @@ Uninstall_MongoDB() {
   fi
 }
 
-
 Print_ElasticStack() {
   [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && echo /usr/share/elasticsearch/bin/elasticsearch
   [ -e "/usr/share/elasticsearch/bin/elasticsearch" ] && /usr/share/elasticsearch/bin/elasticsearch -version
@@ -435,7 +439,7 @@ Uninstall_ALLPHP() {
   [ -e "${curl_install_dir}" ] && rm -rf ${curl_install_dir}
   [ -e "${freetype_install_dir}" ] && rm -rf ${freetype_install_dir}
   [ -e "${libiconv_install_dir}" ] && rm -rf ${libiconv_install_dir}
-  Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;
+  Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop
 }
 
 Uninstall_PHPcache() {
@@ -789,6 +793,10 @@ Print_Erlang() {
   [ -d "${erlang_install_dir}" ] && echo ${erlang_install_dir}
 }
 
+Print_Docker() {
+  echo 'docker'
+}
+
 Menu() {
 while :; do
   printf "
@@ -819,12 +827,13 @@ What Are You Doing?
 \t${CMSG} 23${CEND}. Uninstall Gvm
 \t${CMSG} 24${CEND}. Uninstall JDK
 \t${CMSG} 25${CEND}. Uninstall Supervisord
+\t${CMSG} 26${CEND}. Uninstall Docker
 \t${CMSG} q${CEND}. Exit
 "
   echo
   read -e -p "Please input the correct option: " Number
-  if [[ ! "${Number}" =~ ^[0-9,q]$|^1[0-9]|^2[0-5]$ ]]; then
-    echo "${CWARNING}input error! Please only input 0~25 and q${CEND}"
+  if [[ ! "${Number}" =~ ^[0-9,q]$|^1[0-9]|^2[0-6]$ ]]; then
+    echo "${CWARNING}input error! Please only input 0~26 and q${CEND}"
   else
     case "$Number" in
     0)
@@ -1015,6 +1024,11 @@ What Are You Doing?
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Supervisor;Uninstall_SupervisorDesktop || exit
       ;;
+    26)
+      Print_Docker
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Docker_Desktop;Uninstall_Docker_Engine;Uninstall_Docker_Repository || exit
+      ;;
     q)
       exit
       ;;
@@ -1077,6 +1091,12 @@ else
     [ "${go_flag}" == 'y' ] && Uninstall_Go
     [ "${gvm_flag}" == 'y' ] && Uninstall_Gvm
     [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor
+
+    if [ "${docker_flag}" == 'y' ]; then
+      Uninstall_Docker_Desktop
+      Uninstall_Docker_Engine
+      Uninstall_Docker_Repository
+    fi
   fi
 fi
 

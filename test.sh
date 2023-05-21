@@ -25,8 +25,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/system-lib/libevent.sh
 . ./include/system-lib/librdkafka.sh
 . ./include/develop_config.sh
-. ./develop-tools/develop-tools/rabbitvcs.sh
-. ./include/develop-tools/gitlab.sh
+. ./develop-tools/files/rabbitvcs.sh
 . ./develop-tools/ide-editer/cursor.sh
 . ./develop-tools/ide-editer/vscode.sh
 . ./include/language/php/switch_extension.sh
@@ -39,6 +38,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/database/sqlite3.sh
 . ./include/multimedia/ffmpeg.sh
 . ./include/multimedia/libvmaf.sh
+. ./include/container-platform/docker.sh
 
 
 echo > ${oneinstack_dir}/test.log
@@ -124,3 +124,14 @@ echo > ${oneinstack_dir}/test.log
 
 #Uninstall_FFmpeg | tee -a ${oneinstack_dir}/test.log
 #Install_FFmpeg | tee -a ${oneinstack_dir}/test.log
+
+
+
+#############################################container-platform
+# Install_Docker_Repository | tee -a ${oneinstack_dir}/test.log
+# Install_Docker_Engine | tee -a ${oneinstack_dir}/test.log
+# Install_Docker_Desktop | tee -a ${oneinstack_dir}/test.log
+
+# Uninstall_Docker_Desktop | tee -a ${oneinstack_dir}/test.log
+# Uninstall_Docker_Engine | tee -a ${oneinstack_dir}/test.log
+# Uninstall_Docker_Repository | tee -a ${oneinstack_dir}/test.log
