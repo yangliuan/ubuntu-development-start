@@ -25,10 +25,10 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/system-lib/libevent.sh
 . ./include/system-lib/librdkafka.sh
 . ./include/develop_config.sh
-. ./include/develop-tools/rabbitvcs.sh
+. ./develop-tools/develop-tools/rabbitvcs.sh
 . ./include/develop-tools/gitlab.sh
-. ./include/develop-tools/cursor.sh
-. ./include/develop-tools/vscode.sh
+. ./develop-tools/ide-editer/cursor.sh
+. ./develop-tools/ide-editer/vscode.sh
 . ./include/language/php/switch_extension.sh
 . ./include/language/java/jdk/openjdk-8.sh
 . ./include/language/java/jdk/openjdk-11.sh

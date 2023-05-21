@@ -36,10 +36,11 @@ Show_Help() {
   --openssh_server
   --switchhost
   --rdm
-  --navicat_preminu
+  --navicat_premium
   --mysql_workbench
   --remmina
   --wireshark
+  --terminal_net_tools
   --postman
   --runapi
   --apifox
@@ -55,7 +56,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,wireshark,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -77,8 +78,8 @@ while :; do
     --rdm)
       redis_desktop_manager_flag=y; shift 1
       ;;
-    --navicat_preminu)
-      navicat_preminu_flag=y; shift 1
+    --navicat_premium)
+      navicat_premium_flag=y; shift 1
       ;;
     --mysql_workbench)
       mysql_workbench_flag=y; shift 1
@@ -88,6 +89,9 @@ while :; do
       ;;
     --wireshark)
       wireshark_flag=y; shift 1
+      ;;
+    --terminal_net_tools)
+      terminal_net_tools_flag=y; shift 1
       ;;
     --postman)
       postman_flag=y; shift 1
@@ -223,6 +227,17 @@ if [ ${ARG_NUM} == 0 ]; then
             echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
         else
             [ "${wireshark_flag}" == 'y' -a -e "/usr/bin/wireshark" ] && { echo "${CWARNING}wireshark already installed! ${CEND}"; unset wireshark_flag; }
+            break
+        fi
+    done
+
+    # check install terminal net tools
+    while :; do echo
+        read -e -p "Do you want to install terminal net tools? [y/n](y): " terminal_net_tools_flag
+        terminal_net_tools_flag=${terminal_net_tools_flag:-y}
+        if [[ ! ${terminal_net_tools_flag} =~ ^[y,n]$ ]]; then
+            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+        else
             break
         fi
     done
@@ -380,7 +395,7 @@ fi
 
 #install openssh-server
 if [ "${openssh_server_flag}" == 'y' ]; then
-    . include/develop-tools/openssh-server.sh
+    . develop-tools/network/openssh-server.sh
     Install_OpensshServer 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
@@ -392,73 +407,83 @@ fi
 
 #install switchhost
 if [ "${switchhost_flag}" == 'y' ]; then
-    . include/develop-tools/switchhost.sh
+    . develop-tools/network/switchhost.sh
     Install_SwitchHost 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
-    . include/develop-tools/redis_desktop_manager.sh
+    . develop-tools/data-manager/redis_desktop_manager.sh
     Install_redis_desktop_manager 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install navicat preminu
-if [ "${navicat_preminu_flag}" == 'y' ]; then
-    . include/develop-tools/navicat_preminu.sh
-    Install_navicat_preminu 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+if [ "${navicat_premium_flag}" == 'y' ]; then
+    . develop-tools/data-manager/navicat_premium.sh
+    Install_navicat_premium 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
-    . include/develop-tools/mysql_workbench.sh
+    . develop-tools/data-manager/mysql_workbench.sh
     Install_MysqlWorkbench 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install remmina
 if [ "${remmina_flag}" == 'y' ]; then
-    . include/develop-tools/remmina.sh
+    . develop-tools/network/remmina.sh
     Install_Remmina 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install wireshark
 if [ "${wireshark_flag}" == 'y' ]; then
-    . include/develop-tools/wireshark.sh
+    . develop-tools/network/wireshark.sh
     Install_Wireshark 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+fi
+
+# install terminal net tools
+if [ "${terminal_net_tools_flag}" == 'y' ]; then
+    . develop-tools/network/net_tools.sh
+    . develop-tools/network/nethogs.sh
+    . develop-tools/network/wireshark.sh
+    Install_Net_Tools 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+    Install_Nethogs 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+    Install_Traceroute 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install postman
 if [ "${postman_flag}" == 'y' ]; then
-    . include/develop-tools/postman.sh
+    . develop-tools/api-test/postman.sh
     Install_Postman 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install runapi
 if [ "${runapi_flag}" == 'y' ]; then
-    . include/develop-tools/runapi.sh
+    . develop-tools/api-test/runapi.sh
     Install_Runapi 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install apifox
 if [ "${apifox_flag}" == 'y' ]; then
-    . include/develop-tools/apifox.sh
+    . develop-tools/api-test/apifox.sh
     Install_Apifox 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install oss-browser
 if [ "${ossbrowser_flag}" == 'y' ]; then
-    . include/develop-tools/ossbrowser.sh
+    . develop-tools/files/ossbrowser.sh
     Install_Ossbrowser 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install vitualbox
 if [ "${virtualbox_flag}" == 'y' ]; then
-    . include/develop-tools/virtualbox.sh
+    . develop-tools/virtual-machine/virtualbox.sh
     Install_Vbox 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install filezilla
 if [ "${filezilla_flag}" == 'y' ]; then
-    . include/develop-tools/filezilla.sh
+    . develop-tools/files/filezilla.sh
     Install_FileZilla 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
@@ -476,30 +501,33 @@ esac
 
 # install jmeter
 if [ "${jmeter_flag}" == 'y' ]; then
-    . include/develop-tools/jmeter.sh
+    . develop-tools/api-test/jmeter.sh
     Install_Jmeter 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install vscode
 if [ "${vscode_flag}" == 'y' ]; then
-    . include/develop-tools/vscode.sh
+    . develop-tools/ide-editer/vscode.sh
     Install_Vscode 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install cursor
 if [ "${cursor_flag}" == 'y' ]; then
-    . include/develop-tools/cursor.sh
+    . develop-tools/ide-editer/cursor.sh
     Install_Cursor 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install obs studio
 if [ "${obs_studio_flag}" == 'y' ]; then
-    . include/develop-tools/obs_studio.sh
+    . develop-tools/multimedia/obs_studio.sh
+    if ! which ffmpeg > /dev/null; then
+        . include/multimedia/ffmpeg.sh
+    fi
     Install_ObsStudio 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # install rabbitvcs nautilus
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
-    . include/develop-tools/rabbitvcs.sh
+    . develop-tools/files/rabbitvcs.sh
     Install_Rabbitvcs 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi

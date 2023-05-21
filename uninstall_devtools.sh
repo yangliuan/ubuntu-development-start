@@ -36,10 +36,11 @@ Show_Help() {
   --openssh_server
   --switchhost
   --rdm
-  --navicat_preminu
+  --navicat_premium
   --mysql_workbench
   --remmina
   --wireshark
+  --terminal_net_tools
   --postman
   --runapi
   --apifox
@@ -55,7 +56,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,all,openssh_server,switchhost,rdm,navicat_preminu,mysql_workbench,remmina,wireshark,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,all,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -97,11 +98,14 @@ while :; do
     --rdm)
       redis_desktop_manager_flag=y; shift 1
       ;;
-    --navicat_preminu)
-      navicat_preminu_flag=y; shift 1
+    --navicat_premium)
+      navicat_premium_flag=y; shift 1
       ;;
     --mysql_workbench)
       mysql_workbench_flag=y; shift 1
+      ;;
+    --terminal_net_tools)
+      terminal_net_tools_flag=y; shift 1
       ;;
     --remmina)
       remmina_flag=y; shift 1
@@ -157,108 +161,118 @@ done
 
 # uninstall openssh-server
 if [ "${openssh_server_flag}" == 'y' ]; then
-    . include/develop-tools/openssh-server.sh
+    . develop-tools/network/openssh-server.sh
     Uninstall_OpensshServer
 fi
 
 # uninstall switchhost
 if [ "${switchhost_flag}" == 'y' ]; then
-    . include/develop-tools/switchhost.sh
+    . develop-tools/network/switchhost.sh
     Uninstall_SwitchHost
 fi
 
 # uninstall redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
-    . include/develop-tools/redis_desktop_manager.sh
+    . develop-tools/data-manager/redis_desktop_manager.sh
     Uninstall_redis_desktop_manager
 fi
 
 # uninstall navicat preminu
-if [ "${navicat_preminu_flag}" == 'y' ]; then
-    . include/develop-tools/navicat_preminu.sh
-    Uninstall_navicat_perminu
+if [ "${navicat_premium_flag}" == 'y' ]; then
+    . develop-tools/data-manager/navicat_premium.sh
+    Uninstall_navicat_permium
 fi
 
 # uninstall mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
-    . include/develop-tools/mysql_workbench.sh
+    . develop-tools/data-manager/mysql_workbench.sh
     Uninstall_MysqlWorkbench
 fi
 
 # uninstall remmina
 if [ "${remmina_flag}" == 'y' ]; then
-    . include/develop-tools/remmina.sh
+    . develop-tools/network/remmina.sh
     Uninstall_Remmina
 fi
 
 # uninstall wireshark
 if [ "${wireshark_flag}" == 'y' ]; then
-    . include/develop-tools/wireshark.sh
+    . develop-tools/network/wireshark.sh
     Uninstall_Wireshark
+fi
+
+# uninstall terminal net tools
+if [ "${terminal_net_tools_flag}" == 'y' ]; then
+    . develop-tools/network/net_tools.sh
+    . develop-tools/network/nethogs.sh
+    . develop-tools/network/wireshark.sh
+    Uninstall_Net_Tools 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+    Uninstall_Nethogs 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+    Uninstall_Traceroute 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
 
 # uninstall postman
 if [ "${postman_flag}" == 'y' ]; then
-    . include/develop-tools/postman.sh
+    . develop-tools/api-test/postman.sh
     Uninstall_Postman
 fi
 
 # uninstall runapi
 if [ "${runapi_flag}" == 'y' ]; then
-    . include/develop-tools/runapi.sh
+    . develop-tools/api-test/runapi.sh
     Uninstall_Runapi
 fi
 
 # uninstall apifox
 if [ "${apifox_flag}" == 'y' ]; then
-    . include/develop-tools/apifox.sh
+    . develop-tools/api-test/apifox.sh
     Uninstall_Apifox
 fi
 
 # uninstall oss-browser
 if [ "${oss_browser_flag}" == 'y' ]; then
-    . include/develop-tools/ossbrowser.sh
+    . develop-tools/files/ossbrowser.sh
     Uninstall_Ossbrowser
 fi
 
 # uninstall vitualbox
 if [ "${virtualbox_flag}" == 'y' ]; then
-    . include/develop-tools/virtualbox.sh
+    . develop-tools/virtual-machine/virtualbox.sh
     Uninstall_Vbox
 fi
 
 # uninstall filezilla
 if [ "${filezilla_flag}" == 'y' ]; then
-    . include/develop-tools/filezilla.sh
+    . develop-tools/files/filezilla.sh
     Uninstall_FileZilla
 fi
 
 # uninstall jmeter
 if [ "${jmeter_flag}" == 'y' ]; then
-    . include/develop-tools/jmeter.sh
+    . develop-tools/api-test/jmeter.sh
     Uninstall_Jmeter
 fi
 
 # uninstall vscode
 if [ "${vscode_flag}" == 'y' ]; then
-    . include/develop-tools/vscode.sh
+    . develop-tools/ide-editer/vscode.sh
     Uninstall_Vscode
 fi
 
 # uninstall cursor
 if [ "${cursor_flag}" == 'y' ]; then
-    . include/develop-tools/cursor.sh
+    . develop-tools/ide-editer/cursor.sh
     Uninstall_Cursor
 fi
 
 # uninstall obs studio
 if [ "${obs_studio_flag}" == 'y' ]; then
-    . include/develop-tools/obs_studio.sh
+    . develop-tools/multimedia/obs_studio.sh
     Unintall_ObsStudio
 fi
 
 # uninstall rabbitvcs nautilus
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
-    . include/develop-tools/rabbitvcs.sh
+    . develop-tools/develop-tools/rabbitvcs.sh
     Uninstall_rabbitbvcs
 fi

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Categories=Development
+Comment=Database Development Tool
+Exec=/opt/navicat/navicat-premium-cs.AppImage
+Icon=/opt/navicat/navicat.svg
+Name=Navicat Premium 16
+StartupNotify=true
+StartupWMClass=Navicat Premium
+Terminal=false
+Type=Application
