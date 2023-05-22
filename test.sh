@@ -39,7 +39,7 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/multimedia/ffmpeg.sh
 . ./include/multimedia/libvmaf.sh
 . ./include/container-platform/docker.sh
-
+. ./develop-tools/multimedia/cuda.sh
 
 echo > ${oneinstack_dir}/test.log
 
@@ -118,14 +118,14 @@ echo > ${oneinstack_dir}/test.log
 
 
 
-########################################ffmpeg
+########################################multi-media
 #Uninstall_Libvmaf | tee -a ${oneinstack_dir}/test.log
 #Install_Libvmaf | tee -a ${oneinstack_dir}/test.log
 
 #Uninstall_FFmpeg | tee -a ${oneinstack_dir}/test.log
 #Install_FFmpeg | tee -a ${oneinstack_dir}/test.log
-
-
+#Install_Cuda | tee -a ${oneinstack_dir}/test.log
+Uninstall_Cuda | tee -a ${oneinstack_dir}/test.log
 
 #############################################container-platform
 # Install_Docker_Repository | tee -a ${oneinstack_dir}/test.log
@@ -135,3 +135,6 @@ echo > ${oneinstack_dir}/test.log
 # Uninstall_Docker_Desktop | tee -a ${oneinstack_dir}/test.log
 # Uninstall_Docker_Engine | tee -a ${oneinstack_dir}/test.log
 # Uninstall_Docker_Repository | tee -a ${oneinstack_dir}/test.log
+
+
+######################################################

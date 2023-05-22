@@ -22,6 +22,7 @@ Uninstall_Docker_Repository() {
 Install_Docker_Engine() {
     apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     systemctl disable docker.service
+    [ -d "/opt/containerd" ] && chown -R ${run_user}.${run_group} /opt/containerd
 }
 
 Uninstall_Docker_Engine() {
@@ -36,6 +37,7 @@ Install_Docker_Desktop() {
    src_url="https://desktop.docker.com/linux/main/amd64/docker-desktop-${docker_desktop_ver}-amd64.deb" && Download_src
    dpkg -i docker-desktop-${docker_desktop_ver}-amd64.deb
    apt-get -y install -f
+   [ -d "/opt/docker-desktop" ] && chown -R ${run_user}.${run_group} /opt/docker-desktop
    popd > /dev/null
 }
 

@@ -52,11 +52,12 @@ Show_Help() {
   --cursor
   --obs_studio
   --rabbitvcs_nautilus
+  --cuda
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus,cuda -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -125,6 +126,9 @@ while :; do
       ;;
     --rabbitvcs_nautilus)
       rabbitvcs_nautilus_flag=y; shift 1
+      ;;
+    --cuda)
+      cuda_flag=y; shift 1
       ;;
     --reboot)
       reboot_flag=y; shift 1
@@ -530,4 +534,10 @@ fi
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
     . develop-tools/files/rabbitvcs.sh
     Install_Rabbitvcs 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
+fi
+
+# install cuda
+if [ "${cuda_flag}" == 'y' ]; then
+    . ./develop-tools/multimedia/cuda.sh
+    Install_Cuda 2>&1 | tee -a ${oneinstack_dir}/install_devtools.log
 fi
