@@ -82,8 +82,8 @@ Install_FFmpeg() {
   --enable-libdrm \
   --enable-librtmp \
   --enable-libvmaf
-  make -j ${THREAD} test
-  #make -j ${THREAD} && make install
+  #make -j ${THREAD} test
+  make -j ${THREAD} && make install
   popd > /dev/null
   rm -rf ffmpeg-${ffmpeg_ver}
 }
