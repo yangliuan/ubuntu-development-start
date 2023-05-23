@@ -125,7 +125,7 @@ echo > ${oneinstack_dir}/test.log
 #Uninstall_FFmpeg | tee -a ${oneinstack_dir}/test.log
 #Install_FFmpeg | tee -a ${oneinstack_dir}/test.log
 #Install_Cuda | tee -a ${oneinstack_dir}/test.log
-Uninstall_Cuda | tee -a ${oneinstack_dir}/test.log
+#Uninstall_Cuda | tee -a ${oneinstack_dir}/test.log
 
 #############################################container-platform
 # Install_Docker_Repository | tee -a ${oneinstack_dir}/test.log

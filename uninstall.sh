@@ -110,6 +110,7 @@ while :; do
       go_flag=y
       gvm_flag=y
       supervisord_flag=y
+      docker_flag=y
       shift 1
       ;;
     --web)
@@ -224,7 +225,7 @@ Uninstall_status() {
 }
 
 Uninstall_alldesktop() {
-    Uninstall_ElasticStackDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;Uninstall_FFmpegDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_StopAllDesktop
+    Uninstall_ElasticStackDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_SqliteDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;Uninstall_FFmpegDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_StopAllDesktop
 }
 
 Print_Warn() {

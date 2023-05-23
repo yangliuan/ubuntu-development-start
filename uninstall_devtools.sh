@@ -73,7 +73,7 @@ while :; do
     --all)
       switchhost_flag=y
       redis_desktop_manager_flag=y
-      navicat_preminu_flag=y
+      navicat_premium_flag=y
       mysql_workbench_flag=y
       remmina_flag=y
       wireshark_flag=y
@@ -88,6 +88,7 @@ while :; do
       cursor_flag=y
       obs_studio_flag=y
       rabbitvcs_nautilus_flag=y
+      cuda_flag=y
       shift 1
       ;;
     --openssh-server)
