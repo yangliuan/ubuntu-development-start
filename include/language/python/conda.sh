@@ -38,13 +38,14 @@ custom_channels:
   pytorch: http://mirrors.aliyun.com/anaconda/cloud
   simpleitk: http://mirrors.aliyun.com/anaconda/cloud
 EOF
+      chown -R ${run_user}.${run_user} /home/${run_user}/.condarc
     fi
-
+    conda clean -i
     popd > /dev/null
 }
 
 Uninstall_Conda() {
     conda deactivate
     rm -rfv ${conda_install_dir} /etc/profile.d/conda.sh /home/${run_user}/.condarc /home/${run_user}/.conda
+    sed -i '/# >>> conda initialize >>>/,/# <<< conda initialize <<</d' /home/${run_user}/.bashrc
 }
-
