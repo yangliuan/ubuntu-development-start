@@ -59,6 +59,7 @@ Show_Help() {
   --pureftpd                  Install Pure-Ftpd
   --redis                     Install Redis
   --memcached                 Install Memcached
+  --mq_option[1-3]            Install Message Queue
   --phpmyadmin                Install phpMyAdmin
   --python                    Install Python (PATH: ${python_install_dir})
   --conda                     Install conda (python version manager) 
@@ -72,7 +73,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,phpmyadmin,python,conda,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,mq_option:,phpmyadmin,python,conda,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -204,6 +205,12 @@ while :; do
     --memcached)
       memcached_flag=y; shift 1
       [ -e "${memcached_install_dir}/bin/memcached" ] && { echo "${CWARNING}memcached-server already installed! ${CEND}"; unset memcached_flag; }
+      ;;
+    --mq_option)
+      mq_option=$2; shift 2
+      [ "${mq_option}" = '1' -a -e "${kafka_install_dir}/bin/kafka-server-start.sh" ] && { echo "${CWARNING}Kafka already installed! ${CEND}"; unset mq_option; }
+      [ "${mq_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq already installed! ${CEND}"; unset mq_option; }
+      [ "${mq_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq already installed! ${CEND}"; unset mq_option; }
       ;;
     --phpmyadmin)
       phpmyadmin_flag=y; shift 1
@@ -564,16 +571,16 @@ if [ ${ARG_NUM} == 0 ]; then
           echo -e "\t${CMSG}2${CEND}. Install Rabbitmq"
           echo -e "\t${CMSG}3${CEND}. Install Rocketmq"
           echo -e "\t${CMSG}4${CEND}. Do not install"
-          read -e -p "Please input a number:(Default 1 press Enter) " message_queue_option
-          message_queue_option=${message_queue_option:-1}
-          if [[ ! ${message_queue_option} =~ ^[1-3]$ ]]; then
+          read -e -p "Please input a number:(Default 1 press Enter) " mq_option
+          mq_option=${mq_option:-1}
+          if [[ ! ${mq_option} =~ ^[1-3]$ ]]; then
             echo "${CWARNING}input error! Please only input number 1~3${CEND}"
           else
-             [ "${message_queue_option}" = '1' -a -e "${kafka_install_dir}/bin/kafka-server-start.sh" ] && { echo "${CWARNING}Kafka${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
-            [ "${message_queue_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
-            [ "${message_queue_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
+            [ "${mq_option}" = '1' -a -e "${kafka_install_dir}/bin/kafka-server-start.sh" ] && { echo "${CWARNING}Kafka already installed! ${CEND}"; unset mq_option; }
+            [ "${mq_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq  already installed! ${CEND}"; unset mq_option; }
+            [ "${mq_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq  already installed! ${CEND}"; unset mq_option; }
 
-            if [[ ${message_queue_option} =~ ^[13]$ ]]; then
+            if [[ ${mq_option} =~ ^[13]$ ]]; then
               while :; do echo
                 echo 'Please select JDK version:'
                 echo -e "\t${CMSG}1${CEND}. Install openjdk-8-jdk"
@@ -1162,7 +1169,7 @@ if [ "${memcached_flag}" == 'y' ]; then
 fi
 
 # message queue
-case "${message_queue_option}" in
+case "${mq_option}" in
   1)
     . include/message-queue/kafka.sh
     Install_Kafka 2>&1 | tee -a ${oneinstack_dir}/install.log
