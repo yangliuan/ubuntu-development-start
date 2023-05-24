@@ -1,7 +1,9 @@
 #!/bin/bash
+#https://www.anaconda.com/download-success
+#https://developer.aliyun.com/mirror/anaconda/
 Install_Conda() {
     pushd ${oneinstack_dir}/src > /dev/null
-    src_url=https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && Download_src
+    src_url=http://mirrors.aliyun.com/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh && Download_src
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${conda_install_dir}
 
     if [ -e "${conda_install_dir}/bin/conda" ]; then
@@ -18,11 +20,31 @@ EOF
         . /etc/profile
     fi
 
+    #switch mirror to aliyun
+    if [ ! -e "/home/${run_user}/.condarc" ]; then
+        cat > /home/${run_user}/.condarc << EOF
+channels:
+  - defaults
+show_channel_urls: true
+default_channels:
+  - http://mirrors.aliyun.com/anaconda/pkgs/main
+  - http://mirrors.aliyun.com/anaconda/pkgs/r
+  - http://mirrors.aliyun.com/anaconda/pkgs/msys2
+custom_channels:
+  conda-forge: http://mirrors.aliyun.com/anaconda/cloud
+  msys2: http://mirrors.aliyun.com/anaconda/cloud
+  bioconda: http://mirrors.aliyun.com/anaconda/cloud
+  menpo: http://mirrors.aliyun.com/anaconda/cloud
+  pytorch: http://mirrors.aliyun.com/anaconda/cloud
+  simpleitk: http://mirrors.aliyun.com/anaconda/cloud
+EOF
+    fi
+
     popd > /dev/null
 }
 
 Uninstall_Conda() {
     conda deactivate
-    rm -rfv ${conda_install_dir} /etc/profile.d/conda.sh
+    rm -rfv ${conda_install_dir} /etc/profile.d/conda.sh /home/${run_user}/.condarc /home/${run_user}/.conda
 }
 
