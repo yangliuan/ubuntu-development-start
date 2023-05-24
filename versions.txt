@@ -59,7 +59,7 @@ php82_ver=8.2.5
 
 # Nodejs
 node_ver=18.14.2
-nvm_ver=0.39.2
+nvm_ver=0.39.3
 
 # go
 go120_ver=1.20.4

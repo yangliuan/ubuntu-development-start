@@ -14,19 +14,11 @@ Install_Python() {
   else
     pushd ${oneinstack_dir}/src > /dev/null
 
-    if [ "${PM}" == 'yum' ]; then
-      [ -z "`grep -w epel /etc/yum.repos.d/*.repo`" ] && yum -y install epel-release
-      pkgList="gcc dialog augeas-libs openssl openssl-devel libffi-devel redhat-rpm-config ca-certificates"
-      for Package in ${pkgList}; do
-        yum -y install ${Package}
-      done
-    elif [ "${PM}" == 'apt-get' ]; then
-      pkgList="gcc dialog libaugeas0 augeas-lenses libssl-dev libffi-dev ca-certificates"
-      for Package in ${pkgList}; do
-        apt-get -y install $Package
-      done
-    fi
-
+    pkgList="gcc dialog libaugeas0 augeas-lenses libssl-dev libffi-dev ca-certificates"
+    for Package in ${pkgList}; do
+      apt-get -y install $Package
+    done
+    
     # Install Python3
     if [ ! -e "${python_install_dir}/bin/python" -a ! -e "${python_install_dir}/bin/python3" ] ;then
       #src_url=http://mirrors.linuxeye.com/oneinstack/src/Python-${python_ver}.tgz && Download_src

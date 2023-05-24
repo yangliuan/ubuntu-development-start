@@ -5,10 +5,12 @@ Install_Cuda() {
     dpkg -i cuda-keyring_1.0-1_all.deb
     apt-get update
     apt-get -y install cuda
+    [ -d "/opt/nvidia" ] && chown -R ${run_user}.${run_group} /opt/nvidia
     popd > /dev/null
 }
 
 Uninstall_Cuda() {
     apt-get -y autoremove cuda
     dpkg -P cuda-keyring cuda-toolkit-12-1-config-common cuda-toolkit-12-config-common cuda-toolkit-config-common cuda-visual-tools-12-1
+    [ -d "/opt/nvidia" ] && rm -rf /opt/nvidia
 }

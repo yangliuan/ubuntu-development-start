@@ -40,6 +40,7 @@ pushd ${oneinstack_dir} > /dev/null
 . include/language/java/jdk/openjdk-11.sh
 . include/language/erlang/erlang.sh
 . include/language/python/supervisor.sh
+. include/language/python/conda.sh
 . include/message-queue/kafka.sh
 . include/message-queue/rabbitmq.sh
 . include/message-queue/rocketmq.sh
@@ -69,16 +70,16 @@ Show_Help() {
   --redis                       Uninstall Redis-server
   --memcached                   Uninstall Memcached-server
   --python                      Uninstall Python (PATH: ${python_install_dir})
+  --conda                       Uninstall Conda
   --node                        Uninstall Nodejs (PATH: ${node_install_dir})
   --nvm                         Uninstall Nvm
   --go                          Uninstall Go
-  --gvm                         Uninstall Gvm
   --docker                      Uninstall Docker
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,supervisord,redis,memcached,phpmyadmin,python,node,nvm,go,gvm,docker -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,supervisord,redis,memcached,phpmyadmin,python,conda,node,nvm,go,docker -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -107,8 +108,8 @@ while :; do
       memcached_flag=y
       phpmyadmin_flag=y
       python_flag=y
+      conda_flag=y
       go_flag=y
-      gvm_flag=y
       supervisord_flag=y
       docker_flag=y
       shift 1
@@ -125,7 +126,7 @@ while :; do
     --mongodb)
       mongodb_flag=y; shift 1
       ;;
-    --mongodb)
+    --sqlite)
       sqlite_flag=y; shift 1
       ;;
     --php)
@@ -189,6 +190,9 @@ while :; do
       ;;
     --python)
       python_flag=y; shift 1
+      ;;
+    --conda)
+      conda_flag=y; shift 1
       ;;
     --go)
       go_flag=y; shift 1
@@ -769,6 +773,10 @@ Print_Python() {
   [ -d "${python_install_dir}" ] && echo ${python_install_dir}
 }
 
+Print_Conda() {
+  [ -d "${conda_install_dir}" ] && echo ${conda_install_dir}
+}
+
 Print_Node() {
   [ -e "${node_install_dir}" ] && echo ${node_install_dir}
   [ -e "/etc/profile.d/node.sh" ] && echo /etc/profile.d/node.sh
@@ -829,6 +837,7 @@ What Are You Doing?
 \t${CMSG} 24${CEND}. Uninstall JDK
 \t${CMSG} 25${CEND}. Uninstall Supervisord
 \t${CMSG} 26${CEND}. Uninstall Docker
+\t${CMSG} 27${CEND}. Uninstall Conda
 \t${CMSG} q${CEND}. Exit
 "
   echo
@@ -853,6 +862,7 @@ What Are You Doing?
       Print_FFmpeg
       Print_openssl
       Print_Python
+      Print_Conda
       Print_Node
       Print_Nvm
       Print_Go
@@ -879,6 +889,7 @@ What Are You Doing?
         Uninstall_openssl
         Uninstall_phpMyAdmin
         Uninstall_Python
+        Uninstall_Conda
         Uninstall_Node
         Uninstall_Nvm
         Uninstall_Go
@@ -1030,6 +1041,11 @@ What Are You Doing?
       Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Docker_Desktop;Uninstall_Docker_Engine;Uninstall_Docker_Repository || exit
       ;;
+    27)
+      Print_Conda
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_Conda || exit
+      ;;
     q)
       exit
       ;;
@@ -1086,6 +1102,7 @@ else
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
     [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
     [ "${python_flag}" == 'y' ] && Uninstall_Python
+    [ "${conda_flag}" == 'y' ] && Uninstall_Conda
     [ "${node_flag}" == 'y' ] && Uninstall_Node
     [ "${nvm_flag}" == 'y' ] && Uninstall_Nvm
     [ "${all_flag}" == 'y' ] && Uninstall_openssl

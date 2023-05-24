@@ -55,21 +55,24 @@ Show_Help() {
   --db_option [1-14]          Install DB version
   --dbinstallmethod [1-2]     DB install method, default: 1 binary install
   --dbrootpwd [password]      DB super password
+  --elastic_stack             Elastic stack
   --pureftpd                  Install Pure-Ftpd
   --redis                     Install Redis
   --memcached                 Install Memcached
   --phpmyadmin                Install phpMyAdmin
   --python                    Install Python (PATH: ${python_install_dir})
-  --go                        install go lasted
+  --conda                     Install conda (python version manager) 
+  --go_option [1-4]           Install Go version
+  --ffmpeg                    Install FFmpeg
+  --docker                    Docker stack
   --ssh_port [No.]            SSH port
   --firewall                  Enable firewall
-  --docker                    docker stack
   --reboot                    Restart the server after installation
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,pureftpd,redis,memcached,phpmyadmin,python,go,ssh_port:,firewall,docker,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,phpmyadmin,python,conda,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -151,7 +154,7 @@ while :; do
       ;;
     --nvm)
       nodejs_method=2; shift 1
-      [ -e "/home/${run_user}/.nvm" ] && { echo "${CWARNING}nvm already installed! ${CEND}"; unset nodejs_method;}
+      [ -e "${nvm_install_dir}/nvm.sh" ] && { echo "${CWARNING}nvm already installed! ${CEND}"; unset nodejs_method;}
       ;;
     --tomcat_option)
       tomcat_option=$2; shift 2
@@ -186,6 +189,10 @@ while :; do
       dbinstallmethod=$2; shift 2
       [[ ! ${dbinstallmethod} =~ ^[1-2]$ ]] && { echo "${CWARNING}dbinstallmethod input error! Please only input number 1~2${CEND}"; exit 1; }
       ;;
+    --elastic_stack)
+      elastic_stack_flag=y; shift 1
+      [ "${elastic_stack_flag}" == 'y' -a -e "/usr/share/elasticsearch/bin/elasticsearch" ] && { echo "${CWARNING}elastic stack already installed! ${CEND}"; unset elastic_stack_flag; }
+      ;;
     --pureftpd)
       pureftpd_flag=y; shift 1
       [ -e "${pureftpd_install_dir}/sbin/pure-ftpwho" ] && { echo "${CWARNING}Pure-FTPd already installed! ${CEND}"; unset pureftpd_flag; }
@@ -204,18 +211,32 @@ while :; do
       ;;
     --python)
       python_flag=y; shift 1
+      [ -L "${python_install_dir}/bin/python" ] && { echo "${CWARNING}python already installed! ${CEND}"; unset python_flag; }
       ;;
-    --go)
-      go_option=1; shift 1
+    --conda)
+      conda_flag=y; shift 1
+      [ -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset conda_flag; }
+      ;;
+    --go_option)
+      go_option=$2; shift 2
+      [ "${go_option}" = '1' -a -e "${go_install_dir}${go120_ver}" ] && { echo "${CWARNING} go1.20 already installed! ${CEND}"; unset go_option; }
+      [ "${go_option}" = '2' -a -e "${go_install_dir}${go119_ver}" ] && { echo "${CWARNING} go1.19 already installed! ${CEND}"; unset go_option; }
+      [ "${go_option}" = '3' -a -e "${go_install_dir}${go118_ver}" ] && { echo "${CWARNING} go1.18 already installed! ${CEND}"; unset go_option; }
+      [ "${go_option}" = '4' -a -e "${go_install_dir}${go117_ver}" ] && { echo "${CWARNING} go1.17 already installed! ${CEND}"; unset go_option; }
+      ;;
+    --ffmpeg)
+      ffmpeg_flag=y; shift 1
+       [ "${ffmpeg_flag}" == 'y' -a -e "/usr/local/bin/ffmpeg" ] && { echo "${CWARNING}ffmpeg already installed! ${CEND}"; unset ffmpeg_flag; }
+      ;;
+    --docker)
+      docker_flag=y; shift 1
+      [ "${docker_flag}" == 'y' -a -d "/opt/docker-desktop/" ] && { echo "${CWARNING}docker stack already installed! ${CEND}"; unset docker_flag; }
       ;;
     --ssh_port)
       ssh_port=$2; shift 2
       ;;
     --firewall)
       firewall_flag=y; shift 1
-      ;;
-    --docker)
-      docker_flag=y; shift 1
       ;;
     --reboot)
       reboot_flag=y; shift 1
@@ -548,7 +569,7 @@ if [ ${ARG_NUM} == 0 ]; then
           if [[ ! ${message_queue_option} =~ ^[1-3]$ ]]; then
             echo "${CWARNING}input error! Please only input number 1~3${CEND}"
           else
-             [ "${message_queue_option}" = '1' -a -e "${kafka_install_dir}" ] && { echo "${CWARNING}Kafka${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
+             [ "${message_queue_option}" = '1' -a -e "${kafka_install_dir}/bin/kafka-server-start.sh" ] && { echo "${CWARNING}Kafka${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             [ "${message_queue_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
             [ "${message_queue_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq${message_queue_option} already installed! ${CEND}"; unset message_queue_option; }
 
@@ -834,14 +855,14 @@ if [ ${ARG_NUM} == 0 ]; then
                           while :; do echo
                               echo 'Please select method:'
                               echo -e "\t${CMSG}1${CEND}. official install"
-                              echo -e "\t${CMSG}2${CEND}. use nvm"
+                              echo -e "\t${CMSG}2${CEND}. use Nvm"
                               read -e -p "Please input a number:(Default 1 press Enter) " nodejs_method
                               nodejs_method=${nodejs_method:-1}
                               if [[ ! ${nodejs_method} =~ ^[1-2]$ ]]; then
                                   echo "${CWARNING}input error! Please only input number 1~2${CEND}"
                               else
                                 [ "${nodejs_method}" = "1" -a -e "${node_install_dir}/bin/node" ] && { echo "${CWARNING}Nodejs already installed! ${CEND}"; unset nodejs_method; break; }
-                                [ "${nodejs_method}" = "2" -a -e "/home/${run_user}/.nvm" ] && { echo "${CWARNING}nvm already installed! ${CEND}"; unset nodejs_method; break; }
+                                [ "${nodejs_method}" = "2" -a -e "${nvm_install_dir}/nvm.sh" ] && { echo "${CWARNING}Nvm already installed! ${CEND}"; unset nodejs_method; break; }
                                 break
                               fi
                           done
@@ -889,10 +910,23 @@ if [ ${ARG_NUM} == 0 ]; then
                   if [[ ! ${python_flag} =~ ^[y,n]$ ]]; then
                       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
                   else
+                      [ -L "${python_install_dir}/bin/python" ] && { echo "${CWARNING} pythod already installed! ${CEND}"; unset python_flag; }
                       break
                   fi
               done
               ##### end pythod
+
+              ##### check conda
+              while :; do echo
+                  read -e -p "Do you want to install conda? [y/n]: " conda_flag
+                  if [[ ! ${conda_flag} =~ ^[y,n]$ ]]; then
+                      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+                  else
+                      [ -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset conda_flag; }
+                      break
+                  fi
+              done
+              ##### end conda
           fi
           break
       fi
@@ -905,7 +939,7 @@ if [ ${ARG_NUM} == 0 ]; then
       if [[ ! ${docker_flag} =~ ^[y,n]$ ]]; then
           echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
       else
-          [ "${docker_flag}" == 'y' -a -e "" ] && { echo "${CWARNING}docker stack already installed! ${CEND}"; unset docker_flag; }
+          [ "${docker_flag}" == 'y' -a -d "/opt/docker-desktop/" ] && { echo "${CWARNING}docker stack already installed! ${CEND}"; unset docker_flag; }
           break
       fi
   done

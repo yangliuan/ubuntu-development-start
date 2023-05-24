@@ -34,6 +34,8 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/language/erlang/erlang.sh
 . ./include/language/php/php-8.2.sh
 . ./include/language/php/config_env.sh
+. ./include/language/nodejs/nvm.sh
+. ./include/language/python/conda.sh
 . ./include/message-queue/rabbitmq.sh
 . ./include/database/sqlite3.sh
 . ./include/multimedia/ffmpeg.sh
@@ -98,7 +100,11 @@ echo > ${oneinstack_dir}/test.log
 #Install_PHP82 2>&1 | tee -a ${oneinstack_dir}/test.log
 #Set_EnvPath
 
+#Uninstall_Nvm
+#Install_Nvm | tee -a ${oneinstack_dir}/test.log
 
+#Uninstall_Conda
+#Install_Conda | tee -a ${oneinstack_dir}/test.log
 
 #######################################test database
 #Install_Sqlite3 | tee -a ${oneinstack_dir}/test.log
