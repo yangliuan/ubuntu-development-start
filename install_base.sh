@@ -60,7 +60,6 @@ Show_Help() {
   --redis                     Install Redis
   --memcached                 Install Memcached
   --mq_option[1-3]            Install Message Queue
-  --phpmyadmin                Install phpMyAdmin
   --python                    Install Python (PATH: ${python_install_dir})
   --conda                     Install conda (python version manager) 
   --go_option [1-4]           Install Go version
@@ -73,7 +72,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,mq_option:,phpmyadmin,python,conda,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,mq_option:,python,conda,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -211,10 +210,6 @@ while :; do
       [ "${mq_option}" = '1' -a -e "${kafka_install_dir}/bin/kafka-server-start.sh" ] && { echo "${CWARNING}Kafka already installed! ${CEND}"; unset mq_option; }
       [ "${mq_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq already installed! ${CEND}"; unset mq_option; }
       [ "${mq_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq already installed! ${CEND}"; unset mq_option; }
-      ;;
-    --phpmyadmin)
-      phpmyadmin_flag=y; shift 1
-      [ -d "${wwwroot_dir}/default/phpMyAdmin" ] && { echo "${CWARNING}phpMyAdmin already installed! ${CEND}"; unset phpmyadmin_flag; }
       ;;
     --python)
       python_flag=y; shift 1
@@ -612,18 +607,6 @@ if [ ${ARG_NUM} == 0 ]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
         [ "${ffmpeg_flag}" == 'y' -a -e "/usr/local/bin/ffmpeg" ] && { echo "${CWARNING}ffmpeg already installed! ${CEND}"; unset ffmpeg_flag; }
-        break
-    fi
-  done
-
-  # check supervisord
-  while :; do echo
-    read -e -p "Do you want to install supervisord? [y/n]: " supervisord_flag
-    supervisord_flag=${supervisord_flag:-y}
-    if [[ ! ${supervisord_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-        [ "${supervisord_flag}" == 'y' -a -e "/usr/bin/supervisord" ] && { echo "${CWARNING}supervisord already installed! ${CEND}"; unset supervisord_flag; }
         break
     fi
   done
@@ -1199,13 +1182,6 @@ if [ "${ffmpeg_flag}" == 'y' ]; then
     Install_FFmpegDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
-# supervisord
-if [ "${supervisord_flag}" == 'y' ]; then
-    . include/language/python/supervisor.sh
-    Install_Supervisor 2>&1 | tee -a ${oneinstack_dir}/install.log
-    Install_SupervisorDesktop 2>&1 | tee -a ${oneinstack_dir}/install.log
-fi
-
 # PHP
 case "${php_option}" in
   1)
@@ -1545,8 +1521,6 @@ echo "Total OneinStack Install Time: ${CQUESTION}${installTime}${CEND} minutes"
 [ "${db_option}" == '14' ] && echo "$(printf "%-32s" "MongoDB password:")${CMSG}${dbmongopwd}${CEND}"
 [ "${pureftpd_flag}" == 'y' ] && echo -e "\n$(printf "%-32s" "Pure-FTPd install dir:")${CMSG}${pureftpd_install_dir}${CEND}"
 [ "${pureftpd_flag}" == 'y' ] && echo "$(printf "%-32s" "Create FTP virtual script:")${CMSG}./pureftpd_vhost.sh${CEND}"
-[ "${phpmyadmin_flag}" == 'y' ] && echo -e "\n$(printf "%-32s" "phpMyAdmin dir:")${CMSG}${wwwroot_dir}/default/phpMyAdmin${CEND}"
-[ "${phpmyadmin_flag}" == 'y' ] && echo "$(printf "%-32s" "phpMyAdmin Control Panel URL:")${CMSG}http://${IPADDR}/phpMyAdmin${CEND}"
 [ "${redis_flag}" == 'y' ] && echo -e "\n$(printf "%-32s" "redis install dir:")${CMSG}${redis_install_dir}${CEND}"
 [ "${memcached_flag}" == 'y' ] && echo -e "\n$(printf "%-32s" "memcached install dir:")${CMSG}${memcached_install_dir}${CEND}"
 [[ "${php_option}" =~ ^[1-9]$|^1[0-1]$ ]] && echo -e "\n$(printf "%-32s" "PHP install dir:")${CMSG}${php_install_dir}${CEND}"

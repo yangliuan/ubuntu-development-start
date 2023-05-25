@@ -31,9 +31,13 @@ pushd ${oneinstack_dir} > /dev/null
 . ./include/check_os.sh
 . ./include/download.sh
 . ./include/get_char.sh
-. ./include/language/php/composer.sh
-. ./include/firewall/fail2ban.sh
-. ./include/webserver/ngx_lua_waf.sh
+. include/base_desktop.sh
+. include/firewall/fail2ban.sh
+. include/webserver/ngx_lua_waf.sh
+. include/language/php/composer.sh
+. include/language/python/supervisor.sh
+. include/language/php/phpmyadmin.sh
+
 
 # shellcheck disable=SC2154
 Show_Help() {
@@ -45,11 +49,13 @@ Show_Help() {
   --composer                  Composer
   --fail2ban                  Fail2ban
   --ngx_lua_waf               Ngx_lua_waf
+  --supervisord               Supervisord
+  --phpmyadmin                PhpMyAdmin
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hiu --long help,install,uninstall,composer,fail2ban,ngx_lua_waf,python-- "$@" 2>/dev/null`
+TEMP=`getopt -o hiu --long help,install,uninstall,composer,fail2ban,ngx_lua_waf,supervisord,phpmyadmin-- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -73,8 +79,11 @@ while :; do
     --ngx_lua_waf)
       ngx_lua_waf_flag=y; shift 1
       ;;
-    --python)
-      python_flag=y; shift 1
+    --supervisord)
+      supervisord_flag=y; shift 1
+      ;;
+    --phpmyadmin)
+      phpmyadmin_flag=y; shift 1
       ;;
     --)
       shift
@@ -108,14 +117,15 @@ Menu() {
     printf "
 What Are You Doing?
 \t${CMSG}1${CEND}. Install/Uninstall PHP Composer
-\t${CMSG}2${CEND}. Install/Uninstall fail2ban
-\t${CMSG}3${CEND}. Install/Uninstall ngx_lua_waf
-\t${CMSG}4${CEND}. Install/Uninstall Python3.6
+\t${CMSG}2${CEND}. Install/Uninstall Fail2ban
+\t${CMSG}3${CEND}. Install/Uninstall Ngx_lua_waf
+\t${CMSG}4${CEND}. Install/Uninstall Supervisord
+\t${CMSG}5${CEND}. Install/Uninstall PhpMyAdmin
 \t${CMSG}q${CEND}. Exit
 "
     read -e -p "Please input the correct option: " Number
     if [[ ! "${Number}" =~ ^[1-5,q]$ ]]; then
-      echo "${CFAILURE}input error! Please only input 1~4 and q${CEND}"
+      echo "${CFAILURE}input error! Please only input 1~5 and q${CEND}"
     else
       case "${Number}" in
         1)
@@ -150,9 +160,19 @@ What Are You Doing?
         4)
           ACTION_FUN
           if [ "${install_flag}" = 'y' ]; then
-            Install_Python
+            Install_Supervisor
+            Install_SupervisorDesktop
           elif [ "${uninstall_flag}" = 'y' ]; then
-            Uninstall_Python
+            Uninstall_Supervisor
+            Uninstall_SupervisorDesktop
+          fi
+          ;;
+        5)
+          ACTION_FUN
+          if [ "${install_flag}" = 'y' ]; then
+            Install_phpMyAdmin
+          elif [ "${uninstall_flag}" = 'y' ]; then
+            Uninstall_phpMyAdmin
           fi
           ;;
         q)
@@ -173,14 +193,15 @@ else
       Uninstall_composer
     fi
   fi
+
   if [ "${fail2ban_flag}" == 'y' ]; then
     if [ "${install_flag}" = 'y' ]; then
-      Install_Python
       Install_fail2ban
     elif [ "${uninstall_flag}" = 'y' ]; then
       Uninstall_fail2ban
     fi
   fi
+
   if [ "${ngx_lua_waf_flag}" == 'y' ]; then
     if [ "${install_flag}" = 'y' ]; then
       [ -e "${nginx_install_dir}/sbin/nginx" ] && Nginx_lua_waf
@@ -188,6 +209,26 @@ else
       enable_lua_waf
     elif [ "${uninstall_flag}" = 'y' ]; then
       disable_lua_waf
+    fi
+  fi
+
+  # supervisord
+  if [ "${supervisord_flag}" == 'y' ]; then
+    if [ "${install_flag}" = 'y' ]; then
+      Install_Supervisor
+      Install_SupervisorDesktop
+    elif [ "${uninstall_flag}" = 'y' ]; then
+      Uninstall_Supervisor
+      Uninstall_SupervisorDesktop
+    fi
+  fi
+
+  # phpmyadmin
+  if [ "${phpmyadmin_flag}" == 'y' ]; then
+    if [ "${install_flag}" = 'y' ]; then
+      Install_phpMyAdmin
+    elif [ "${uninstall_flag}" = 'y' ]; then
+      Uninstall_phpMyAdmin
     fi
   fi
 fi

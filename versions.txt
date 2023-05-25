@@ -57,6 +57,10 @@ php80_ver=8.0.28
 php81_ver=8.1.18
 php82_ver=8.2.5
 
+# PHP Composer
+composer_old_ver=1.10.26
+composer_ver=2.5.7
+
 # Nodejs
 node_ver=18.14.2
 nvm_ver=0.39.3

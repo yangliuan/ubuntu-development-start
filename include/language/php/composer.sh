@@ -13,14 +13,13 @@ Install_composer() {
     if [ -e "/usr/local/bin/composer" ]; then
       echo "${CWARNING}PHP Composer already installed! ${CEND}"
     else
-      pushd ${oneinstack_dir}/src > /dev/null
-      if [ "${OUTIP_STATE}"x == "China"x ]; then
-        wget -c https://mirrors.aliyun.com/composer/composer.phar -O /usr/local/bin/composer > /dev/null 2>&1
-        ${php_install_dir}/bin/php /usr/local/bin/composer config -g repo.packagist composer https://packagist.phpcomposer.com
-      else
-        wget -c https://getcomposer.org/composer.phar -O /usr/local/bin/composer > /dev/null 2>&1
-      fi
+      [ ! -d "${oneinstack_dir}/src/composer" ] && mkdir ${oneinstack_dir}/src/composer
+      pushd ${oneinstack_dir}/src/composer > /dev/null
+      wget -c https://getcomposer.org/download/${composer_old_ver}/composer.phar -O composer${composer_old_ver}.phar > /dev/null 2>&1
+      wget -c https://getcomposer.org/download/${composer_ver}/composer.phar -O composer${composer_ver}.phar > /dev/null 2>&1
+      cp -fv composer${composer_ver}.phar /usr/local/bin/composer
       chmod +x /usr/local/bin/composer
+      
       if [ -e "/usr/local/bin/composer" ]; then
         echo; echo "${CSUCCESS}PHP Composer installed successfully! ${CEND}"
       else
