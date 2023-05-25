@@ -18,14 +18,11 @@ Switch_PHP() {
 
     #更改PHP版本软连接 输出php相关信息
     echo
+    systemctl stop php-fpm.service
     rm -rf /usr/local/php
     ln -s ${php_dir[${php_option}]} /usr/local/php
     echo
     /usr/local/php/bin/php -v
-    echo
-    systemctl daemon-reload
-    systemctl start php-fpm.service
-    systemctl status php-fpm.service
     echo
     echo 'switch php success!'
 }

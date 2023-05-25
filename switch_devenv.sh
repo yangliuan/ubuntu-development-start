@@ -20,8 +20,8 @@ Show_Help() {
   --php_extension       switch php extension
   --composer            switch composer version
   --composer_mirrors    switch composer mirrors
-  --npm_registry        switch npm registry
-  --nginx               switch nginx
+  --npm_registry        switch npm mirrors
+  --nginx               switch nginx type
   "
 }
 
@@ -42,11 +42,11 @@ while :; do
       switch_composer_flag=y; shift 1
       ;;
     --composer_mirrors)
-      switch_mirrors_flag=y; shift 1
+      switch_composer_mirrors_flag=y; shift 1
       ;;
-    # --npm_registry)
-    #   switch_registry_flag=y; shift 1
-    #   ;;
+    --npm_mirrors)
+      switch_npm_mirrors_flag=y; shift 1
+      ;;
     --nginx)
       switch_nginx_flag=y; shift 1
       ;;
@@ -60,65 +60,37 @@ while :; do
 done
 
 if [ ${ARG_NUM} == 0 ]; then
-    #switch php
+    while :; do
+      echo
+      echo "Please select an action:"
+      echo -e "\t${CMSG}1${CEND}. switch php version"
+      echo -e "\t${CMSG}2${CEND}. switch php extension"
+      echo -e "\t${CMSG}3${CEND}. switch composer version"
+      echo -e "\t${CMSG}4${CEND}. switch composer mirrors"
+      echo -e "\t${CMSG}5${CEND}. switch npm mirrors"
+      echo -e "\t${CMSG}6${CEND}. switch nginx type"
+      read -e -p "Please input a number:(Default 1 press Enter) " ACTION
+      if [[ ! "${ACTION}" =~ ^[1-6]$ ]]; then
+        echo "${CWARNING}input error! Please only input number 1~6${CEND}"
+      else
+        [ "${ACTION}" == '1' ] && switch_php_flag=y
+        [ "${ACTION}" == '2' ] && switch_php_extension_flag=y
+        [ "${ACTION}" == '3' ] && switch_composer_flag=y
+        [ "${ACTION}" == '4' ] && switch_composer_mirrors_flag=y
+        [ "${ACTION}" == '5' ] && switch_npm_mirrors_flag=y
+        [ "${ACTION}" == '6' ] && switch_nginx_flag=y
+        break
+      fi
+  done
+fi
+
+if [ "${switch_php_flag}" == 'y' ]; then
+    . include/language/php/switch_php.sh
+    Switch_PHP
     while :; do echo
-        read -e -p "Do you want to switch php ? [y/n](n): " switch_php_flag
-        switch_php_flag=${switch_php_flag:-n}
-        if [[ ! ${switch_php_flag} =~ ^[y,n]$ ]]; then
-            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-        else
-            if [ "${switch_php_flag}" == 'y' ]; then
-                while :; do echo
-                    read -e -p "Do you want to switch composer ? [y/n](n): " switch_composer_flag
-                    switch_composer_flag=${switch_composer_flag:-n}
-                    if [[ ! ${switch_composer_flag} =~ ^[y,n]$ ]]; then
-                        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-                    else
-                        break;
-                    fi
-                done
-
-                while :; do echo
-                    read -e -p "Do you want to switch composer mirrors? [y/n](n): " switch_mirrors_flag
-                    switch_mirrors_flag=${switch_mirrors_flag:-n}
-                    if [[ ! ${switch_mirrors_flag} =~ ^[y,n]$ ]]; then
-                        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-                    else
-                        break;
-                    fi
-                done
-            fi
-            break;
-        fi
-    done
-
-    #switch php extension
-    while :; do echo
-        read -e -p "Do you want to switch php extension? [y/n](n): " switch_php_extension_flag
-        switch_php_extension_flag=${switch_php_extension_flag:-n}
-        if [[ ! ${switch_php_extension_flag} =~ ^[y,n]$ ]]; then
-            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-        else
-            break;
-        fi
-    done
-
-    #switch npm registry
-    # while :; do echo
-    #     read -e -p "Do you want to switch npm registry? [y/n](n): " switch_registry_flag
-    #     switch_registry_flag=${switch_registry_flag:-n}
-    #     if [[ ! ${switch_registry_flag} =~ ^[y,n]$ ]]; then
-    #         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    #     else
-    #         break;
-    #     fi
-    # done
-
-    #switch nginx
-    while :; do echo
-        read -e -p "Do you want to switch nginx? [y/n](n): " switch_nginx_flag
-        switch_nginx_flag=${switch_nginx_flag:-n}
-        if [[ ! ${switch_nginx_flag} =~ ^[y,n]$ ]]; then
+        read -e -p "Do you want to switch composer version ? [y/n](n): " switch_composer_flag
+        switch_composer_flag=${switch_composer_flag:-n}
+        if [[ ! ${switch_composer_flag} =~ ^[y,n]$ ]]; then
             echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
         else
             break;
@@ -126,9 +98,23 @@ if [ ${ARG_NUM} == 0 ]; then
     done
 fi
 
-if [ "${switch_php_flag}" == 'y' ]; then
-    . include/language/php/switch_php.sh
-    Switch_PHP
+if [ "${switch_composer_flag}" == 'y' ]; then
+    . include/language/php/switch_composer.sh
+    Switch_Composer
+    while :; do echo
+        read -e -p "Do you want to switch composer mirrors? [y/n](n): " switch_composer_mirrors_flag
+        switch_composer_mirrors_flag=${switch_composer_mirrors_flag:-n}
+        if [[ ! ${switch_composer_mirrors_flag} =~ ^[y,n]$ ]]; then
+            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+        else
+            break;
+        fi
+    done
+fi
+
+if [ "${switch_composer_mirrors_flag}" == 'y' ]; then
+    . include/language/php/switch_composer.sh
+    Switch_Composer_Mirrors
 fi
 
 if [ "${switch_php_extension_flag}" == 'y' ]; then
@@ -136,21 +122,10 @@ if [ "${switch_php_extension_flag}" == 'y' ]; then
     Switch_Extension
 fi
 
-
-if [ "${switch_composer_flag}" == 'y' ]; then
-    . include/language/php/switch_composer.sh
-    Switch_Composer
+if [ "${switch_npm_mirrors_flag}" == 'y' ]; then
+    . include/language/nodejs/switch_npm_registry.sh
+    Switch_NpmRegistry
 fi
-
-if [ "${switch_mirrors_flag}" == 'y' ]; then
-    . include/language/php/switch_composer.sh
-    Switch_Composer_Mirrors
-fi
-
-# if [ "${switch_registry_flag}" == 'y' ]; then
-#     . include/language/nodejs/switch_npm_registry.sh
-#     Switch_NpmRegistry
-# fi
 
 if [ "${switch_nginx_flag}" == 'y' ]; then
     . include/webserver/switch_nginx.sh

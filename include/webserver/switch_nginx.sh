@@ -1,10 +1,11 @@
 #!/bin/bash
 #切换nginx
 Switch_Nginx() {
-    #定义镜像数组
-    nginx_arr[0]="nginx"
-    nginx_arr[1]="openresty"
-    nginx_arr[2]="tengine"
+    #定义nginx数组
+    nginx_arr=()
+    [ -e "${nginx_install_dir}/sbin/nginx" ] && nginx_arr[0]="nginx"
+    [ -e "${tengine_install_dir}/sbin/nginx" ] && nginx_arr[1]="openresty"
+    [ -e "${openresty_install_dir}/nginx/sbin/nginx" ] && nginx_arr[2]="tengine"
 
     for i in ${!nginx_arr[@]};do echo
         echo $i ${nginx_arr[i]}
@@ -50,8 +51,6 @@ Switch_Nginx() {
     nginx -v
     
     systemctl daemon-reload
-    systemctl start nginx.service
-    systemctl status nginx.service
 }
 
 enable_nginxenv() {
