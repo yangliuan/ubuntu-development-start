@@ -6,7 +6,8 @@ printf "
 ################################################################################
 "
 echo "start search videos..."
-directory="$HOME"
+directory="$HOME/Videos"
+[ ! -d "${directory}" ] && { echo "No such directory: Videos" ; exit 1; }  
 video_formats=("mp4" "avi" "mkv" "mov" "wmv" "flv" "3gp" "mpeg" "ogv" "vob" "dv" "yuv" "rm" "rmvb")
 
 video_files=()
