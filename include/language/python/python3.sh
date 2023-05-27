@@ -10,7 +10,8 @@ Upgrade_Python3() {
     src_url=https://www.python.org/ftp/python/${python_ver}/Python-${python_ver}.tgz && Download_src
     tar xzf Python-${python_ver}.tgz
     pushd Python-${python_ver} > /dev/null
-    ./configure
+    # upgrade system default python
+    ./configure --prefix=/usr
     make -j ${THREAD} && make install
     popd > /dev/null
     

@@ -209,7 +209,7 @@ while :; do
       ;;
     --python_option)
       python_option=$2; shift 2
-      current_python_ver=$(python3 -V)
+      current_python_ver=$(python3 -V  2> /dev/null)
       ([ "${python_option}" == '1' ] && [ "${current_python_ver}" == "Python ${python_ver}" ]) && { echo "${CWARNING}Python already upgraded! ${CEND}"; unset python_option; }
       [ "${python_option}" = '2' -a -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset python_option; }
       ;;
