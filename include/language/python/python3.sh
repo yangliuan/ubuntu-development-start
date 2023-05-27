@@ -1,5 +1,4 @@
 #!/bin/bash
-
 Upgrade_Python3() {
     pushd ${oneinstack_dir}/src > /dev/null
     pkgList="gcc dialog libaugeas0 augeas-lenses libssl-dev libffi-dev ca-certificates"
@@ -7,16 +6,14 @@ Upgrade_Python3() {
       apt-get -y install $Package
     done
   
-    # Install Python3
-    if [ ! -e "${python_install_dir}/bin/python" -a ! -e "${python_install_dir}/bin/python3" ] ;then
-      src_url=https://www.python.org/ftp/python/${python_ver}/Python-${python_ver}.tgz && Download_src
-      tar xzf Python-${python_ver}.tgz
-      pushd Python-${python_ver} > /dev/null
-      ./configure
-      make -j ${THREAD} && make install
-      popd > /dev/null
-    fi
-
+    # Upgrade Python3
+    src_url=https://www.python.org/ftp/python/${python_ver}/Python-${python_ver}.tgz && Download_src
+    tar xzf Python-${python_ver}.tgz
+    pushd Python-${python_ver} > /dev/null
+    ./configure
+    make -j ${THREAD} && make install
+    popd > /dev/null
+    
     #set run user china mirrors
     if [ ! -e "/home/${run_user}/.pip/pip.conf" ] ;then
       if [ "${OUTIP_STATE}"x == "China"x ]; then

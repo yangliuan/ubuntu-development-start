@@ -118,7 +118,7 @@ pecl_ssh2_oldver=1.3
 pureftpd_ver=1.0.51
 
 # Redis
-redis_ver=6.2.7
+redis_ver=6.2.12
 redis_oldver=5.0.14
 pecl_redis_ver=5.3.7
 pecl_redis_oldver=4.3.0
