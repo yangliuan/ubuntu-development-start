@@ -95,6 +95,10 @@ while :; do
       pureftpd_flag=y
       redis_flag=y
       memcached_flag=y
+      elastic_stack_flag=y
+      cerebro_flag=y
+      all_message_queue_flag=y
+      ffmpeg_flag=y
       phpmyadmin_flag=y
       conda_flag=y
       go_flag=y
@@ -883,6 +887,9 @@ What Are You Doing?
         Uninstall_Erlang
         Uninstall_Supervisor
         Uninstall_alldesktop
+        Uninstall_Docker_Desktop
+        Uninstall_Docker_Engine
+        Uninstall_Docker_Repository
       else
         exit
       fi
@@ -1067,6 +1074,9 @@ else
     [ "${postgresql_flag}" == 'y' ] && Uninstall_PostgreSQL
     [ "${mongodb_flag}" == 'y' ] && Uninstall_MongoDB
     [ "${sqlite_flag}" == 'y' ] && Uninstall_Sqlite3
+    [ "${elastic_stack_flag}" == 'y' ] && Uninstall_ElasticStack
+    [ "${cerebro_flag}" == 'y' ] && Uninstall_Cerebro
+    [ "${all_message_queue_flag}" == 'y' ] && Uninstall_AllMessageQueue
 
     if [ "${allphp_flag}" == 'y' ]; then
       Uninstall_ALLPHP
@@ -1082,14 +1092,17 @@ else
     [ "${pureftpd_flag}" == 'y' ] && Uninstall_PureFtpd
     [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
+    [ "${ffmpeg_flag}" == 'y' ] && Uninstall_FFmpeg
+    [ "${all_flag}" == 'y' ] && Uninstall_openssl
     [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
     [ "${conda_flag}" == 'y' ] && Uninstall_Conda
     [ "${node_flag}" == 'y' ] && Uninstall_Node
     [ "${nvm_flag}" == 'y' ] && Uninstall_Nvm
-    [ "${all_flag}" == 'y' ] && Uninstall_openssl
     [ "${go_flag}" == 'y' ] && Uninstall_Go
     [ "${gvm_flag}" == 'y' ] && Uninstall_Gvm
+    [ "${all_flag}" == 'y' ] && Uninstall_JDK
     [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor
+    [ "${all_flag}" == 'y' ] && Uninstall_alldesktop
 
     if [ "${docker_flag}" == 'y' ]; then
       Uninstall_Docker_Desktop
