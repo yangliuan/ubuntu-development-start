@@ -60,7 +60,7 @@ Show_Help() {
   --redis                     Install Redis
   --memcached                 Install Memcached
   --mq_option[1-3]            Install Message Queue
-  --python                    Install Python (PATH: ${python_install_dir})
+  --upgrade_python            Upgrade Python
   --conda                     Install conda (python version manager) 
   --go_option [1-4]           Install Go version
   --ffmpeg                    Install FFmpeg
@@ -72,7 +72,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,mq_option:,python,conda,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,mq_option:,upgrade_python,conda,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -211,9 +211,12 @@ while :; do
       [ "${mq_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq already installed! ${CEND}"; unset mq_option; }
       [ "${mq_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq already installed! ${CEND}"; unset mq_option; }
       ;;
-    --python)
-      python_flag=y; shift 1
-      [ -L "${python_install_dir}/bin/python" ] && { echo "${CWARNING}python already installed! ${CEND}"; unset python_flag; }
+    --upgrade_python)
+      upgrade_python_flag=y; shift 1
+      current_python_ver=$(python3 -V)
+      echo "${current_python_ver}" 
+      echo "Python ${python_ver}"
+      [ "${current_python_ver}" == "Python ${python_ver}" ] && { echo "${CWARNING}Python already upgraded! ${CEND}"; unset upgrade_python_flag; }
       ;;
     --conda)
       conda_flag=y; shift 1
@@ -896,11 +899,10 @@ if [ ${ARG_NUM} == 0 ]; then
 
               ##### check pythod
               while :; do echo
-                  read -e -p "Do you want to install python? [y/n]: " python_flag
-                  if [[ ! ${python_flag} =~ ^[y,n]$ ]]; then
+                  read -e -p "Do you want to upgrade python? [y/n]: " upgrade_python_flag
+                  if [[ ! ${upgrade_python_flag} =~ ^[y,n]$ ]]; then
                       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
                   else
-                      [ -L "${python_install_dir}/bin/python" ] && { echo "${CWARNING} pythod already installed! ${CEND}"; unset python_flag; }
                       break
                   fi
               done
@@ -1471,9 +1473,9 @@ case "${go_option}" in
 esac
 
 # python
-if [ "${python_flag}" == 'y' ]; then
-  . include/language/python/python.sh
-  Install_Python 2>&1 | tee -a ${oneinstack_dir}/install.log
+if [ "${upgrade_python_flag}" == 'y' ]; then
+  . include/language/python/python3.sh
+  Upgrade_Python3 2>&1 | tee -a ${oneinstack_dir}/install.log
 fi
 
 # docker

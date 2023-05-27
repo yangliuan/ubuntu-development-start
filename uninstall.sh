@@ -31,7 +31,6 @@ pushd ${oneinstack_dir} > /dev/null
 . include/multimedia/libwebp.sh
 . include/fulltext-search/elastic_stack.sh
 . include/multimedia/ffmpeg.sh
-. include/language/python/python.sh
 . include/language/nodejs/node.sh
 . include/language/nodejs/nvm.sh
 . include/language/go/go.sh
@@ -69,7 +68,6 @@ Show_Help() {
   --supervisord                 Uninstall Supervisord
   --redis                       Uninstall Redis-server
   --memcached                   Uninstall Memcached-server
-  --python                      Uninstall Python (PATH: ${python_install_dir})
   --conda                       Uninstall Conda
   --node                        Uninstall Nodejs (PATH: ${node_install_dir})
   --nvm                         Uninstall Nvm
@@ -79,7 +77,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,supervisord,redis,memcached,phpmyadmin,python,conda,node,nvm,go,docker -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,supervisord,redis,memcached,phpmyadmin,conda,node,nvm,go,docker -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -107,7 +105,6 @@ while :; do
       redis_flag=y
       memcached_flag=y
       phpmyadmin_flag=y
-      python_flag=y
       conda_flag=y
       go_flag=y
       supervisord_flag=y
@@ -187,9 +184,6 @@ while :; do
       ;;
     --phpmyadmin)
       phpmyadmin_flag=y; shift 1
-      ;;
-    --python)
-      python_flag=y; shift 1
       ;;
     --conda)
       conda_flag=y; shift 1
@@ -829,7 +823,7 @@ What Are You Doing?
 \t${CMSG} 16${CEND}. Uninstall All PHP
 \t${CMSG} 17${CEND}. Uninstall PHP opcode cache
 \t${CMSG} 18${CEND}. Uninstall PHP extensions
-\t${CMSG} 19${CEND}. Uninstall Python (PATH: ${python_install_dir})
+\t${CMSG} 19${CEND}. Uninstall Python
 \t${CMSG} 20${CEND}. Uninstall Nodejs (PATH: ${node_install_dir})
 \t${CMSG} 21${CEND}. Uninstall Nvm
 \t${CMSG} 22${CEND}. Uninstall Go
@@ -888,7 +882,6 @@ What Are You Doing?
         Uninstall_FFmpeg
         Uninstall_openssl
         Uninstall_phpMyAdmin
-        Uninstall_Python
         Uninstall_Conda
         Uninstall_Node
         Uninstall_Nvm
@@ -1002,9 +995,7 @@ What Are You Doing?
       [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPext || exit
       ;;
     19)
-      Print_Python
-      Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_Python || exit
+      Print_Python || exit
       ;;
     20)
       Print_Node
@@ -1101,7 +1092,6 @@ else
     [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
     [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
-    [ "${python_flag}" == 'y' ] && Uninstall_Python
     [ "${conda_flag}" == 'y' ] && Uninstall_Conda
     [ "${node_flag}" == 'y' ] && Uninstall_Node
     [ "${nvm_flag}" == 'y' ] && Uninstall_Nvm

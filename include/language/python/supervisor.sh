@@ -1,5 +1,4 @@
 #!/bin/bash
-
 Install_Supervisor() {
     apt-get -y install supervisor
     cp -rfv ${oneinstack_dir}/desktop/supervisord.desktop /usr/share/applications

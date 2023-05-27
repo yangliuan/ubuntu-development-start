@@ -3,7 +3,11 @@
 Install_Librdkafka() {
     if [ ! -e "/usr/local/lib/librdkafka.so" ]; then
         pushd ${oneinstack_dir}/src > /dev/null
-        src_url=https://github.com/confluentinc/librdkafka/archive/refs/tags/v${librdkafka_ver}.tar.gz && Download_src
+        if [ ! -e "librdkafka-${librdkafka_ver}.tar.gz" ]; then
+            src_url=https://github.com/confluentinc/librdkafka/archive/refs/tags/v${librdkafka_ver}.tar.gz && Download_src
+            mv v${librdkafka_ver}.tar.gz librdkafka-${librdkafka_ver}.tar.gz
+        fi
+        
         tar -zxvf v${librdkafka_ver}.tar.gz
         pushd librdkafka-${librdkafka_ver}  > /dev/null
         ./configure
