@@ -2,9 +2,9 @@
 clear
 printf "
 ################################################################################
-                                 start tomcat
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                               start tomcat                                   #
 ################################################################################
 "
-
 sudo service tomcat start
 sudo service tomcat status

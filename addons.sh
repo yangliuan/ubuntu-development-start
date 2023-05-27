@@ -1,21 +1,11 @@
 #!/bin/bash
-# Author:  yeho <lj2007331 AT gmail.com>
-# BLOG:  https://linuxeye.com
-#
-# Notes: OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+
-#
-# Project home page:
-#       https://oneinstack.com
-#       https://github.com/oneinstack/oneinstack
-
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
-#######################################################################
-#       OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+      #
-#                    Install/Uninstall Extensions                     #
-#       For more information please visit https://oneinstack.com      #
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                              Uninstall Addons                                #
+################################################################################
 "
 # Check if user is root
 # shellcheck disable=SC2046
@@ -24,7 +14,6 @@ printf "
 oneinstack_dir=$(dirname "`readlink -f $0`")
 # shellcheck disable=SC2164
 pushd ${oneinstack_dir} > /dev/null
-
 . ./versions.txt
 . ./options.conf
 . ./include/color.sh

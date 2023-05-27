@@ -2,9 +2,10 @@
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
-#######################################################################
-                      install Devtools for Ubuntu                    
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                          Install Development Tools                           #
+################################################################################
 "
 # Check if user is root
 [ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }

@@ -45,7 +45,7 @@ EOF
 }
 
 Uninstall_Conda() {
-    conda deactivate
+    [ -e "${conda_install_dir}/bin/conda" ] && conda deactivate
     rm -rfv ${conda_install_dir} /etc/profile.d/conda.sh /home/${run_user}/.condarc /home/${run_user}/.conda
     sed -i '/# >>> conda initialize >>>/,/# <<< conda initialize <<</d' /home/${run_user}/.bashrc
 }

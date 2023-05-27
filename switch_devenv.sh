@@ -3,7 +3,8 @@ export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:
 clear
 printf "
 ################################################################################
-                          Switch Develop Environment
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                          Switch Development Environment                      #
 ################################################################################
 "
 

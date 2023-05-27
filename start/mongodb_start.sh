@@ -2,9 +2,7 @@
 clear
 printf "
 ################################################################################
-                                start mongodb
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                               start mongodb                                  #
 ################################################################################
 "
-
-sudo systemctl start mongod.service
-sudo systemctl status mongod.service

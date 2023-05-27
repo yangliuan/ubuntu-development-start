@@ -2,7 +2,8 @@
 clear
 printf "
 ################################################################################
-                                stop all service      
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                              stop all service                                #
 ################################################################################
 "
 # web server

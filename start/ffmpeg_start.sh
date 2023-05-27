@@ -2,7 +2,8 @@
 clear
 printf "
 ################################################################################
-                                      FFmpeg       
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                                 FFmpeg Tools                                 #
 ################################################################################
 "
 echo "start search videos..."

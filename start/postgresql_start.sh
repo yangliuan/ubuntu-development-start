@@ -2,7 +2,8 @@
 clear
 printf "
 ################################################################################
-                                start postgresql
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                                start postgresql                              #
 ################################################################################
 "
 sudo systemctl start postgresql.service

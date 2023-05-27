@@ -2,7 +2,8 @@
 clear
 printf "
 ################################################################################
-                               start kafka zookeeper
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                            start kafka zookeeper                             #
 ################################################################################
 "
 sudo systemctl start zookeeper.service

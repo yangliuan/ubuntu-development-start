@@ -1,9 +1,10 @@
 #!/bin/bash
 clear
 printf "
-####################################################################
-                choose php framework create project       
-####################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                              Create PHP Project                              #
+################################################################################
 "
 # Check if user is root
 [ $(id -u) = "0" ] && { echo "${CFAILURE}Error: You must not be root to run this script${CEND}"; exit 1; }

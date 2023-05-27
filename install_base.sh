@@ -3,9 +3,10 @@
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
-####################################################################
-                  install base develop environment      
-####################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                            Install Base Softwore                             #
+################################################################################
 "
 # Check if user is root
 [ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }

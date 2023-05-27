@@ -1,21 +1,11 @@
 #!/bin/bash
-# Author:  yeho <lj2007331 AT gmail.com>
-# BLOG:  https://linuxeye.com
-#
-# Notes: OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+
-#
-# Project home page:
-#       https://oneinstack.com
-#       https://github.com/oneinstack/oneinstack
-
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
-#######################################################################
-#       OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+      #
-#                 FTP virtual user account management                 #
-#       For more information please visit https://oneinstack.com      #
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                    FTP virtual user account management                       #
+################################################################################
 "
 # Check if user is root
 [ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }

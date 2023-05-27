@@ -1,21 +1,11 @@
 #!/bin/bash
-# Author:  yeho <lj2007331 AT gmail.com>
-# BLOG:  https://linuxeye.com
-#
-# Notes: OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+
-#
-# Project home page:
-#       https://oneinstack.com
-#       https://github.com/oneinstack/oneinstack
-
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
-#######################################################################
-#       OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+      #
-#                         Uninstall OneinStack                        #
-#       For more information please visit https://oneinstack.com      #
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                          Uninstall Base Softwore                             #
+################################################################################
 "
 # Check if user is root
 [ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }
@@ -99,6 +89,7 @@ while :; do
       mongodb_flag=y
       sqlite_flag=y
       allphp_flag=y
+      mphp_flag=y
       node_flag=y
       nvm_flag=y
       pureftpd_flag=y
@@ -107,8 +98,10 @@ while :; do
       phpmyadmin_flag=y
       conda_flag=y
       go_flag=y
+      gvm_flag=y
       supervisord_flag=y
       docker_flag=y
+
       shift 1
       ;;
     --web)
@@ -269,11 +262,10 @@ Uninstall_Web() {
   [ -d "${apache_install_dir}" ] && { service httpd stop > /dev/null 2>&1; rm -rf ${apache_install_dir} /etc/init.d/httpd /etc/logrotate.d/apache /etc/profile.d/apachehttpd.sh; echo "${CMSG}Apache uninstall completed! ${CEND}"; }
   [ -e "/lib/systemd/system/httpd.service" ] && { systemctl disable httpd > /dev/null 2>&1; rm -f /lib/systemd/system/httpd.service; } 
   [ -d "${tomcat_install_dir}" ] && { killall java > /dev/null 2>&1; rm -rf ${tomcat_install_dir} /etc/init.d/tomcat /etc/logrotate.d/tomcat; echo "${CMSG}Tomcat uninstall completed! ${CEND}"; }
-  Uninstall_OpenJDK8;Uninstall_OpenJDK11
   sed -i 's@^website_name=.*@website_name=@' ./options.conf
   sed -i 's@^backup_content=.*@backup_content=@' ./options.conf
   [ -d "${apr_install_dir}" ] && rm -rf ${apr_install_dir}
-  Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop
+  Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_ApacheHttpdDesktop
 }
 
 Print_MySQL() {
@@ -1065,7 +1057,6 @@ else
   [ "${redis_flag}" == 'y' ] && Print_Redis_server
   [ "${memcached_flag}" == 'y' ] && Print_Memcached_server
   [ "${phpmyadmin_flag}" == 'y' ] && Print_phpMyAdmin
-  [ "${python_flag}" == 'y' ] && Print_Python
   [ "${node_flag}" == 'y' ] && Print_Node
   [ "${all_flag}" == 'y' ] && Print_openssl
   Uninstall_status
