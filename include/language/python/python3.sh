@@ -29,12 +29,11 @@ EOF
     fi
 
     current_python_ver=$(python3 -V)
-    if [ "${current_python_ver}" == "Python ${python_ver}"]; then
+    if [ "${current_python_ver}" == "Python ${python_ver}" ]; then
       echo "${CSUCCESS}Upgrade system python3 successfully! ${CEND}"
       rm -rf Python-${python_ver}
     fi
     popd > /dev/null
-  fi
 }
 
 #waring ubuntu-desktop need python3 for run

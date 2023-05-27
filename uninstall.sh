@@ -47,27 +47,28 @@ Show_Help() {
   --postgresql                  Uninstall PostgreSQL
   --mongodb                     Uninstall MongoDB
   --sqlite                      Uninstall Slqite
-  --php                         Uninstall PHP (PATH: ${php_install_dir})
+  --redis                       Uninstall Redis-server
+  --memcached                   Uninstall Memcached-server
+  --elastic_stack               Uninstall ElasticStack
+  --allmq                       Uninstall MessageQueue
+  --allphp                      Uninstall All PHP
   --mphp_ver [53~81]            Uninstall another PHP version (PATH: ${php_install_dir}\${mphp_ver})
-  --allphp                      Uninstall all PHP
   --phpcache                    Uninstall PHP opcode cache
   --php_extensions [ext name]   Uninstall PHP extensions, include zendguardloader,ioncube,
                                 sourceguardian,imagick,gmagick,fileinfo,imap,ldap,calendar,phalcon,
                                 yaf,yar,redis,memcached,memcache,mongodb,swoole,event,xdebug,yasd_debug
   --pureftpd                    Uninstall PureFtpd
   --supervisord                 Uninstall Supervisord
-  --redis                       Uninstall Redis-server
-  --memcached                   Uninstall Memcached-server
-  --conda                       Uninstall Conda
-  --node                        Uninstall Nodejs (PATH: ${node_install_dir})
-  --nvm                         Uninstall Nvm
-  --go                          Uninstall Go
+  --ffmpeg                      Uninstall FFmpeg
+  --nodejs_env                  Uninstall Nodejs Env
+  --python_env                  Uninstall Python Env
+  --go_env                      Uninstall Go Env
   --docker                      Uninstall Docker
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,php,mphp_ver:,allphp,phpcache,php_extensions:,pureftpd,supervisord,redis,memcached,phpmyadmin,conda,node,nvm,go,docker -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,redis,memcached,elastic_stack,allmq,allphp,mphp_ver:,phpcache,php_extensions:,pureftpd,supervisord,ffmpeg,nodejs_env,python_env,go_env,docker -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -88,24 +89,18 @@ while :; do
       postgresql_flag=y
       mongodb_flag=y
       sqlite_flag=y
-      allphp_flag=y
-      mphp_flag=y
-      node_flag=y
-      nvm_flag=y
-      pureftpd_flag=y
       redis_flag=y
       memcached_flag=y
       elastic_stack_flag=y
-      cerebro_flag=y
-      all_message_queue_flag=y
-      ffmpeg_flag=y
-      phpmyadmin_flag=y
-      conda_flag=y
-      go_flag=y
-      gvm_flag=y
+      allmq_flag=y
+      allphp_flag=y
+      pureftpd_flag=y
       supervisord_flag=y
+      ffmpeg_flag=y
+      nodejs_env_flag=y
+      python_env_flag=y
+      go_env_flag=y
       docker_flag=y
-
       shift 1
       ;;
     --web)
@@ -123,15 +118,24 @@ while :; do
     --sqlite)
       sqlite_flag=y; shift 1
       ;;
-    --php)
-      php_flag=y; shift 1
+    --redis)
+      redis_flag=y; shift 1
       ;;
-    --mphp_ver)
-      mphp_ver=$2; mphp_flag=y; shift 2
-      [[ ! "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^8[0-1]$ ]] && { echo "${CWARNING}mphp_ver input error! Please only input number 53~81${CEND}"; exit 1; }
+    --memcached)
+      memcached_flag=y; shift 1
+      ;;
+    --elastic_stack)
+      elastic_stack_flag=y; shift 1
+      ;;
+    --allmq)
+      allmq_flag=y; shift 1
       ;;
     --allphp)
       allphp_flag=y; shift 1
+      ;;
+    --mphp_ver)
+      mphp_ver=$2; mphp_flag=y; shift 2
+      [[ ! "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^8[0-2]$ ]] && { echo "${CWARNING}mphp_ver input error! Please only input number 53~82${CEND}"; exit 1; }
       ;;
     --phpcache)
       phpcache_flag=y; shift 1
@@ -164,35 +168,23 @@ while :; do
       [ -n "`echo ${php_extensions} | grep -w protobuf`" ] && pecl_protobuf=1
       [ -n "`echo ${php_extensions} | grep -w rdkafka`" ] && pecl_rdkafka=1
       ;;
-    --node)
-      node_flag=y; shift 1
-      ;;
-    --nvm)
-      nvm_flag=y; shift 1
-      ;;
     --pureftpd)
       pureftpd_flag=y; shift 1
       ;;
-    --redis)
-      redis_flag=y; shift 1
-      ;;
-    --memcached)
-      memcached_flag=y; shift 1
-      ;;
-    --phpmyadmin)
-      phpmyadmin_flag=y; shift 1
-      ;;
-    --conda)
-      conda_flag=y; shift 1
-      ;;
-    --go)
-      go_flag=y; shift 1
-      ;;
-    --gvm)
-      gvm_flag=y; shift 1
-      ;;
     --supervisord)
       supervisord_flag=y; shift 1
+      ;;
+    --ffmpeg)
+      ffmpeg_flag=y; shift 1
+      ;;
+    --nodejs_env)
+      nodejs_env_flag=y; shift 1
+      ;;
+    --python_env)
+      python_env_flag=y; shift 1
+      ;;
+    --go_env)
+      go_env_flag=y; shift 1
       ;;
     --docker)
       docker_flag=y; shift 1
@@ -759,10 +751,6 @@ Uninstall_libevent() {
   [ -d "${libevent_install_dir}" ] && rm -rf ${libevent_install_dir} /usr/lib64/libevent-2.1.so.7
 }
 
-Print_Python() {
-  [ -d "${python_install_dir}" ] && echo ${python_install_dir}
-}
-
 Print_Conda() {
   [ -d "${conda_install_dir}" ] && echo ${conda_install_dir}
 }
@@ -819,7 +807,6 @@ What Are You Doing?
 \t${CMSG} 16${CEND}. Uninstall All PHP
 \t${CMSG} 17${CEND}. Uninstall PHP opcode cache
 \t${CMSG} 18${CEND}. Uninstall PHP extensions
-\t${CMSG} 19${CEND}. Uninstall Python
 \t${CMSG} 20${CEND}. Uninstall Nodejs (PATH: ${node_install_dir})
 \t${CMSG} 21${CEND}. Uninstall Nvm
 \t${CMSG} 22${CEND}. Uninstall Go
@@ -851,7 +838,6 @@ What Are You Doing?
       Print_Memcached_server
       Print_FFmpeg
       Print_openssl
-      Print_Python
       Print_Conda
       Print_Node
       Print_Nvm
@@ -993,9 +979,6 @@ What Are You Doing?
       [ "${phpext_option}" != '0' ] && Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPext || exit
       ;;
-    19)
-      Print_Python || exit
-      ;;
     20)
       Print_Node
       Uninstall_status
@@ -1047,63 +1030,38 @@ done
 if [ ${ARG_NUM} == 0 ]; then
   Menu
 else
-  [ "${web_flag}" == 'y' ] && Print_web
-  [ "${mysql_flag}" == 'y' ] && Print_MySQL
-  [ "${postgresql_flag}" == 'y' ] && Print_PostgreSQL
-  [ "${mongodb_flag}" == 'y' ] && Print_MongoDB
-  [ "${sqlite_flag}" == 'y' ] && Print_Sqlite
-
-  if [ "${allphp_flag}" == 'y' ]; then
-    Print_ALLPHP
-  else
-    [ "${php_flag}" == 'y' ] && Print_PHP
-    [ "${mphp_flag}" == 'y' ] && [ "${phpcache_flag}" != 'y' ] && [ -z "${php_extensions}" ] && Print_MPHP
-  fi
-
-  [ "${pureftpd_flag}" == 'y' ] && Print_PureFtpd
-  [ "${redis_flag}" == 'y' ] && Print_Redis_server
-  [ "${memcached_flag}" == 'y' ] && Print_Memcached_server
-  [ "${phpmyadmin_flag}" == 'y' ] && Print_phpMyAdmin
-  [ "${node_flag}" == 'y' ] && Print_Node
-  [ "${all_flag}" == 'y' ] && Print_openssl
   Uninstall_status
 
   if [ "${uninstall_flag}" == 'y' ]; then
+    [ "${all_flag}" == 'y' ] && Uninstall_alldesktop
+    [ "${all_flag}" == 'y' ] && Uninstall_openssl
     [ "${web_flag}" == 'y' ] && Uninstall_Web
     [ "${mysql_flag}" == 'y' ] && Uninstall_MySQL
     [ "${postgresql_flag}" == 'y' ] && Uninstall_PostgreSQL
     [ "${mongodb_flag}" == 'y' ] && Uninstall_MongoDB
     [ "${sqlite_flag}" == 'y' ] && Uninstall_Sqlite3
-    [ "${elastic_stack_flag}" == 'y' ] && Uninstall_ElasticStack
-    [ "${cerebro_flag}" == 'y' ] && Uninstall_Cerebro
-    [ "${all_message_queue_flag}" == 'y' ] && Uninstall_AllMessageQueue
+    [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
+    [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
+    [ "${elastic_stack_flag}" == 'y' ] && Uninstall_ElasticStack;Uninstall_Cerebro
+    [ "${allmq_flag}" == 'y' ] && Uninstall_AllMessageQueue
 
     if [ "${allphp_flag}" == 'y' ]; then
       Uninstall_ALLPHP
     else
-      [ "${php_flag}" == 'y' ] && Uninstall_PHP
-      [ "${phpcache_flag}" == 'y' ] && Uninstall_PHPcache
-      [ -n "${php_extensions}" ] && Uninstall_PHPext
       [ "${mphp_flag}" == 'y' ] && [ "${phpcache_flag}" != 'y' ] && [ -z "${php_extensions}" ] && Uninstall_MPHP
       [ "${mphp_flag}" == 'y' ] && [ "${phpcache_flag}" == 'y' ] && { php_install_dir=${php_install_dir}${mphp_ver}; Uninstall_PHPcache; }
       [ "${mphp_flag}" == 'y' ] && [ -n "${php_extensions}" ] && { php_install_dir=${php_install_dir}${mphp_ver}; Uninstall_PHPext; }
+      [ "${phpcache_flag}" == 'y' ] && Uninstall_PHPcache
+      [ -n "${php_extensions}" ] && Uninstall_PHPext
     fi
 
     [ "${pureftpd_flag}" == 'y' ] && Uninstall_PureFtpd
-    [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
-    [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
-    [ "${ffmpeg_flag}" == 'y' ] && Uninstall_FFmpeg
-    [ "${all_flag}" == 'y' ] && Uninstall_openssl
-    [ "${phpmyadmin_flag}" == 'y' ] && Uninstall_phpMyAdmin
-    [ "${conda_flag}" == 'y' ] && Uninstall_Conda
-    [ "${node_flag}" == 'y' ] && Uninstall_Node
-    [ "${nvm_flag}" == 'y' ] && Uninstall_Nvm
-    [ "${go_flag}" == 'y' ] && Uninstall_Go
-    [ "${gvm_flag}" == 'y' ] && Uninstall_Gvm
-    [ "${all_flag}" == 'y' ] && Uninstall_JDK
     [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor
-    [ "${all_flag}" == 'y' ] && Uninstall_alldesktop
-
+    [ "${ffmpeg_flag}" == 'y' ] && Uninstall_FFmpeg
+    [ "${nodejs_env_flag}" == 'y' ] && Uninstall_Node;Uninstall_Nvm
+    [ "${python_env_flag}" == 'y' ] && Uninstall_Conda
+    [ "${go_env_flag}" == 'y' ] && Uninstall_Go;Uninstall_Gvm
+    
     if [ "${docker_flag}" == 'y' ]; then
       Uninstall_Docker_Desktop
       Uninstall_Docker_Engine

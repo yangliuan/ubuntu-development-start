@@ -49,8 +49,6 @@ Show_Help() {
   --php_extensions [ext name] Install PHP extensions, include zendguardloader,ioncube,
                               sourceguardian,imagick,gmagick,fileinfo,imap,ldap,calendar,phalcon,
                               yaf,yar,redis,memcached,memcache,mongodb,swoole,event,xdebug,yasd
-  --nodejs                    Install Nodejs
-  --nvm                       Install nvm
   --tomcat_option [1-4]       Install Tomcat version
   --jdk_option [1-2]          Install JDK version
   --db_option [1-14]          Install DB version
@@ -61,8 +59,8 @@ Show_Help() {
   --redis                     Install Redis
   --memcached                 Install Memcached
   --mq_option[1-3]            Install Message Queue
-  --upgrade_python            Upgrade Python
-  --conda                     Install conda (python version manager) 
+  --nodejs_method[1-2]        Install Nodejs
+  --python_option[1-2]        Install Python
   --go_option [1-4]           Install Go version
   --ffmpeg                    Install FFmpeg
   --docker                    Docker stack
@@ -73,7 +71,7 @@ Show_Help() {
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,nodejs,nvm,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,mq_option:,upgrade_python,conda,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,nginx_option:,apache,apache_mode_option:,apache_mpm_option:,php_option:,mphp_ver:,mphp_addons,phpcache_option:,php_extensions:,tomcat_option:,jdk_option:,db_option:,dbrootpwd:,dbinstallmethod:,elastic_stack,pureftpd,redis,memcached,mq_option:,nodejs_method:,python_option:,go_option:,ffmpeg,docker,ssh_port:,firewall,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -149,14 +147,6 @@ while :; do
       [ -n "`echo ${php_extensions} | grep -w protobuf`" ] && pecl_protobuf=1
       [ -n "`echo ${php_extensions} | grep -w rdkafka`" ] && pecl_rdkafka=1
       ;;
-    --nodejs)
-      nodejs_method=1; shift 1
-      [ -e "${nodejs_install_dir}/bin/node" ] && { echo "${CWARNING}Nodejs already installed! ${CEND}"; unset nodejs_method; }
-      ;;
-    --nvm)
-      nodejs_method=2; shift 1
-      [ -e "${nvm_install_dir}/nvm.sh" ] && { echo "${CWARNING}nvm already installed! ${CEND}"; unset nodejs_method;}
-      ;;
     --tomcat_option)
       tomcat_option=$2; shift 2
       [[ ! ${tomcat_option} =~ ^[1-4]$ ]] && { echo "${CWARNING}tomcat_option input error! Please only input number 1~4${CEND}"; exit 1; }
@@ -212,16 +202,16 @@ while :; do
       [ "${mq_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq already installed! ${CEND}"; unset mq_option; }
       [ "${mq_option}" = '3' -a -e "${rocketmq_install_dir}" ] && { echo "${CWARNING}Rocketmq already installed! ${CEND}"; unset mq_option; }
       ;;
-    --upgrade_python)
-      upgrade_python_flag=y; shift 1
-      current_python_ver=$(python3 -V)
-      echo "${current_python_ver}" 
-      echo "Python ${python_ver}"
-      [ "${current_python_ver}" == "Python ${python_ver}" ] && { echo "${CWARNING}Python already upgraded! ${CEND}"; unset upgrade_python_flag; }
+    --nodejs_method)
+      nodejs_method=$2; shift 2
+      [ "${nodejs_method}" = "1" -a -e "${node_install_dir}/bin/node" ] && { echo "${CWARNING}Nodejs already installed! ${CEND}"; unset nodejs_method; break; }
+      [ "${nodejs_method}" = "2" -a -e "${nvm_install_dir}/nvm.sh" ] && { echo "${CWARNING}Nvm already installed! ${CEND}"; unset nodejs_method; break; }
       ;;
-    --conda)
-      conda_flag=y; shift 1
-      [ -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset conda_flag; }
+    --python_option)
+      python_option=$2; shift 2
+      current_python_ver=$(python3 -V)
+      ([ "${python_option}" == '1' ] && [ "${current_python_ver}" == "Python ${python_ver}" ]) && { echo "${CWARNING}Python already upgraded! ${CEND}"; unset python_option; }
+      [ "${python_option}" = '2' -a -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset python_option; }
       ;;
     --go_option)
       go_option=$2; shift 2
@@ -848,7 +838,7 @@ if [ ${ARG_NUM} == 0 ]; then
                       if [ "${nodejs_flag}" == 'y' ]; then
                           while :; do echo
                               echo 'Please select method:'
-                              echo -e "\t${CMSG}1${CEND}. official install"
+                              echo -e "\t${CMSG}1${CEND}. official LTS"
                               echo -e "\t${CMSG}2${CEND}. use Nvm"
                               read -e -p "Please input a number:(Default 1 press Enter) " nodejs_method
                               nodejs_method=${nodejs_method:-1}
@@ -900,26 +890,31 @@ if [ ${ARG_NUM} == 0 ]; then
 
               ##### check pythod
               while :; do echo
-                  read -e -p "Do you want to upgrade python? [y/n]: " upgrade_python_flag
-                  if [[ ! ${upgrade_python_flag} =~ ^[y,n]$ ]]; then
+                  read -e -p "Do you want to install python? [y/n]: " python_flag
+                  if [[ ! ${python_flag} =~ ^[y,n]$ ]]; then
                       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
                   else
+                      if [ "${python_flag}" == 'y' ]; then
+                          while :; do echo
+                              echo 'Please select python option:'
+                              echo -e "\t${CMSG}1${CEND}. upgrade default python"
+                              echo -e "\t${CMSG}2${CEND}. conda"
+                              read -e -p "Please input a number:(Default 1 press Enter) " python_option
+                              python_option=${python_option:-1}
+                              if [[ ! ${go_option} =~ ^[1-4]$ ]]; then
+                                  echo "${CWARNING}input error! Please only input number 1~4${CEND}"
+                              else
+                                  current_python_ver=$(python3 -V)
+                                  ([ "${python_option}" == '1' ] && [ "${current_python_ver}" == "Python ${python_ver}" ]) && { echo "${CWARNING}Python already upgraded! ${CEND}"; unset python_option; }
+                                  [ "${python_option}" = '2' -a -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset python_option; }
+                                  break
+                              fi
+                          done
+                      fi
                       break
                   fi
               done
               ##### end pythod
-
-              ##### check conda
-              while :; do echo
-                  read -e -p "Do you want to install conda? [y/n]: " conda_flag
-                  if [[ ! ${conda_flag} =~ ^[y,n]$ ]]; then
-                      echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-                  else
-                      [ -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset conda_flag; }
-                      break
-                  fi
-              done
-              ##### end conda
           fi
           break
       fi
@@ -1282,7 +1277,6 @@ PHP_addons() {
     #. include/multimedia/libwebp.sh
     . include/multimedia/ImageMagick.sh
     . include/language/php/extension/pecl_imagick.sh
-    #Install_Libwebp 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_ImageMagick 2>&1 | tee -a ${oneinstack_dir}/install.log
     Install_pecl_imagick 2>&1 | tee -a ${oneinstack_dir}/install.log
   fi
@@ -1473,11 +1467,17 @@ case "${go_option}" in
     ;;
 esac
 
-# python
-if [ "${upgrade_python_flag}" == 'y' ]; then
-  . include/language/python/python3.sh
-  Upgrade_Python3 2>&1 | tee -a ${oneinstack_dir}/install.log
-fi
+case "${python_option}" in
+  1)
+    . include/language/python/python3.sh
+    Upgrade_Python3 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+  2)
+    . include/language/python/conda.sh
+    Install_Conda 2>&1 | tee -a ${oneinstack_dir}/install.log
+    ;;
+esac
+
 
 # docker
 if [ "${docker_flag}" == 'y' ]; then
@@ -1535,7 +1535,6 @@ echo "Total OneinStack Install Time: ${CQUESTION}${installTime}${CEND} minutes"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator Control Panel URL:")${CMSG}http://${IPADDR}/control.php${CEND}"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator user:")${CMSG}admin${CEND}"
 [ "${phpcache_option}" == '4' -a -e "${php_install_dir}/etc/php.d/eaccelerator.ini" ] && echo "$(printf "%-32s" "eAccelerator password:")${CMSG}eAccelerator${CEND}"
-[ "${python_flag}" == 'y' -a -e "${python_install_dir}" ] && echo -e "\n$(printf "%-32s" "python install dir:")${CMSG}${python_install_dir}${CEND}"
 
 if [ ${ARG_NUM} == 0 ]; then
   while :; do echo
