@@ -40,6 +40,7 @@ custom_channels:
   menpo: http://mirrors.aliyun.com/anaconda/cloud
   pytorch: http://mirrors.aliyun.com/anaconda/cloud
   simpleitk: http://mirrors.aliyun.com/anaconda/cloud
+  nvidia: https://mirrors.aliyun.com/anaconda/cloud
 EOF
       chown -R ${run_user}.${run_user} /home/${run_user}/.condarc
     fi
