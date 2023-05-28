@@ -209,8 +209,6 @@ while :; do
       ;;
     --python_option)
       python_option=$2; shift 2
-      current_python_ver=$(python3 -V  2> /dev/null)
-      ([ "${python_option}" == '1' ] && [ "${current_python_ver}" == "Python ${python_ver}" ]) && { echo "${CWARNING}Python already upgraded! ${CEND}"; unset python_option; }
       [ "${python_option}" = '2' -a -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset python_option; }
       ;;
     --go_option)
@@ -905,7 +903,6 @@ if [ ${ARG_NUM} == 0 ]; then
                                   echo "${CWARNING}input error! Please only input number 1~4${CEND}"
                               else
                                   current_python_ver=$(python3 -V)
-                                  ([ "${python_option}" == '1' ] && [ "${current_python_ver}" == "Python ${python_ver}" ]) && { echo "${CWARNING}Python already upgraded! ${CEND}"; unset python_option; }
                                   [ "${python_option}" = '2' -a -e "${conda_install_dir}/bin/conda" ] && { echo "${CWARNING} conda already installed! ${CEND}"; unset python_option; }
                                   break
                               fi
@@ -1470,7 +1467,7 @@ esac
 case "${python_option}" in
   1)
     . include/language/python/python3.sh
-    Upgrade_Python3 2>&1 | tee -a ${oneinstack_dir}/install.log
+    #Install_By_Complie 2>&1 | tee -a ${oneinstack_dir}/install.log
     ;;
   2)
     . include/language/python/conda.sh

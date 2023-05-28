@@ -41,10 +41,9 @@ Instwaall_By_Deadsnakes() {
 }
 
 Uninstall_By_Deadsnakes() {
-    snake_version="3.8 3.9 3.11"
+    update-alternatives --remove-all python3
     for current_version in ${snake_version}; do
       apt-get -y autoremove "python$current_version"
-      update-alternatives --uninstall /usr/bin/python3 python3 /usr/bin/python3.10 ${!snake_version[@]}
     done
     add-apt-repository -r ppa:deadsnakes/ppa
 }
