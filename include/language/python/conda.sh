@@ -1,6 +1,9 @@
 #!/bin/bash
-#https://www.anaconda.com/download-success
-#https://developer.aliyun.com/mirror/anaconda/
+#https://www.anaconda.com/download-success download page
+#https://developer.aliyun.com/mirror/anaconda/ download page
+#https://docs.conda.io/en/latest/ doc page
+#https://github.com/conda/conda repo page
+
 Install_Conda() {
     pushd ${oneinstack_dir}/src > /dev/null
     src_url=http://mirrors.aliyun.com/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh && Download_src
