@@ -10,19 +10,19 @@ cd /opt
 
 git clone git@github.com:yangliuan/ubuntu-development-start.git oneinstack
 
-修改 options.conf 配置文件，将run_user和run_group改成自己的用户，自定义目录和常用软件
+Modify the configuration file "options.conf" by changing the "run_user" and "run_group" to your own user, custom directory, and commonly used software.
 
-versions.txt 软件版本配置文件
+"versions.txt" is a configuration file for software versions.
 
-sudo ./install_ubsoft.sh 安装ubuntu常用软件
+Run the command "sudo ./install_ubsoft.sh" to install common software for Ubuntu.
 
-sudo ./install_base.sh 安装开发环境
+Run the command "sudo ./install_base.sh" to install the development environment.
 
-sudo ./install_devtools.sh 安装开发工具
+Run the command "sudo ./install_devtools.sh" to install development tools.
 
-sudo ./devaddons.sh 安装开发组件
+Run the command "sudo ./devaddons.sh" to install development components.
 
-sudo ./switch_env.sh 切换环境，可以切换php版本，php扩展，composer版本，composer镜像，nginx发行版
+Run the command "sudo ./switch_env.sh" to switch environments. This command can be used to switch PHP versions, PHP extensions, Composer versions, Composer mirrors, and Nginx distributions.
 ```
 
 ### Interactive Installation Example
