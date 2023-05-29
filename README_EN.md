@@ -1,11 +1,9 @@
-# ubuntu desktop 22.04 开发环境脚本
-简体中文 | [English](README_EN.md)
+# Ubuntu Desktop 22.04 Development Environment Script
+[简体中文](README.md) | English
 
-本项目是基于[Oneinstack](https://github.com/oneinstack/oneinstack)的fork，集成了许多软件和开发环境，适合喜欢使用ubuntu desktop系统开发的用户
+This project is a fork based on [Oneinstack](https://github.com/oneinstack/oneinstack), integrating many software and development environments, suitable for users who prefer Ubuntu Desktop system for development.
 
-### 使用方法
-
-复制配置文件，修改配置项和版本，具体参考oneinstack,nvm的使用方式
+### Usage
 
 ```shell
 cd /opt
@@ -27,21 +25,21 @@ sudo ./devaddons.sh 安装开发组件
 sudo ./switch_env.sh 切换环境，可以切换php版本，php扩展，composer版本，composer镜像，nginx发行版
 ```
 
-### 交互安装示例
+### Interactive Installation Example
 ```shell
 sudo ./install_ubsoft.sh
 
 ```
 
 
-### 自定义参数安装示例
+### Custom Parameter Installation Example
 ```shell
 sudo ./install_ubsoft.sh --input_method_option 2 --baidunetdisk --chrome --deepinwine --dingtalk --linuxqq --feishu --flameshot --indicator_sysmonitor --lantern --neteasy_cloudmusic --qqmusic --peek --qv2ray --sunlogin --theme_tools --bilibili_video_downloader --wps --conky --custome
 ```
 
-### 切换开发环境示例
+### Switching development environment Example
 ```shell
-#切换php扩展
+#switch php extension
 
 sudo /opt/oneinstack/switch_env.sh --php_extension
 
@@ -73,7 +71,7 @@ swoole.ini disable success
 
 ```
 
-### 开发集成
+### Development Integration
 [Oneinstack](https://github.com/oneinstack/oneinstack)
 - LEMP/LAMP/LNMP/LNMPA/LTMP(Linux, Nginx/Tengine/OpenResty, Apache Httpd, MySQL/MariaDB/Percona, PHP, JAVA)
 - Providing a plurality of database versions (MySQL-8.0, MySQL-5.7, MySQL-5.6, MySQL-5.5, MariaDB-10.5, MariaDB-10.4, MariaDB-10.3, MariaDB-5.5, Percona-8.0, Percona-5.7, Percona-5.6, Percona-5.5, PostgreSQL, MongoDB Sqlite)
@@ -140,7 +138,7 @@ swoole.ini disable success
 [RabbitvcsNautilus](http://rabbitvcs.org/)
 
 
-### 特别感谢
+### Special Thanks
 [Oneinstack](https://github.com/oneinstack/oneinstack)
 
 
