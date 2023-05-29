@@ -22,17 +22,8 @@ Install_PureFTPd() {
   make -j ${THREAD} && make install
   popd > /dev/null
   if [ -e "${pureftpd_install_dir}/sbin/pure-ftpwho" ]; then
-    if [ -e /bin/systemctl ]; then
-      /bin/cp ../init.d/pureftpd.service /lib/systemd/system/
-      sed -i "s@/usr/local/pureftpd@${pureftpd_install_dir}@g" /lib/systemd/system/pureftpd.service
-      #systemctl enable pureftpd
-    else
-      /bin/cp ../init.d/Pureftpd-init /etc/init.d/pureftpd
-      sed -i "s@/usr/local/pureftpd@${pureftpd_install_dir}@g" /etc/init.d/pureftpd
-      chmod +x /etc/init.d/pureftpd
-      #[ "${PM}" == 'yum' ] && { chkconfig --add pureftpd; chkconfig pureftpd on; }
-      #[ "${PM}" == 'apt-get' ] && { sed -i 's@^. /etc/rc.d/init.d/functions@. /lib/lsb/init-functions@' /etc/init.d/pureftpd; update-rc.d pureftpd defaults; }
-    fi
+    /bin/cp ../init.d/pureftpd.service /lib/systemd/system/
+    sed -i "s@/usr/local/pureftpd@${pureftpd_install_dir}@g" /lib/systemd/system/pureftpd.service
 
     [ ! -e "${pureftpd_install_dir}/etc" ] && mkdir ${pureftpd_install_dir}/etc
     /bin/cp ../config/pure-ftpd.conf ${pureftpd_install_dir}/etc
@@ -50,16 +41,7 @@ Install_PureFTPd() {
     service pureftpd start
 
     # iptables Ftp
-    if [ "${PM}" == 'yum' ]; then
-      if [ -n "`grep 'dport 80 ' /etc/sysconfig/iptables`" ] && [ -z "$(grep '20000:30000' /etc/sysconfig/iptables)" ]; then
-        iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
-        iptables -I INPUT 6 -p tcp -m state --state NEW -m tcp --dport 20000:30000 -j ACCEPT
-        service iptables save
-        ip6tables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
-        ip6tables -I INPUT 6 -p tcp -m state --state NEW -m tcp --dport 20000:30000 -j ACCEPT
-        service ip6tables save
-      fi
-    elif [ "${PM}" == 'apt-get' ]; then
+    if [ "${PM}" == 'apt-get' ]; then
       if [ -e '/etc/iptables/rules.v4' ]; then
         if [ -n "`grep 'dport 80 ' /etc/iptables/rules.v4`" ] && [ -z "$(grep '20000:30000' /etc/iptables/rules.v4)" ]; then
           iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT

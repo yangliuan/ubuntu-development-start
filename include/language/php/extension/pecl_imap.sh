@@ -11,12 +11,7 @@
 Install_pecl_imap() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
     pushd ${oneinstack_dir}/src > /dev/null
-    if [ "${PM}" == 'yum' ]; then
-      yum -y install libc-client-devel
-      [ "${OS_BIT}" == '64' -a ! -e /usr/lib/libc-client.so ] && ln -s /usr/lib64/libc-client.so /usr/lib/libc-client.so
-    else
-      apt-get -y install libc-client2007e-dev
-    fi
+    apt-get -y install libc-client2007e-dev
     phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
     PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
     src_url=https://secure.php.net/distributions/php-${PHP_detail_ver}.tar.gz && Download_src

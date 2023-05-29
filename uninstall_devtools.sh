@@ -53,12 +53,11 @@ Show_Help() {
   --cursor
   --obs_studio
   --rabbitvcs_nautilus
-  --cuda
   "
 }
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,all,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus,cuda -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,all,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -281,10 +280,4 @@ fi
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
     . develop-tools/develop-tools/rabbitvcs.sh
     Uninstall_rabbitbvcs
-fi
-
-# uninstall cuda
-if [ "${cuda_flag}" == 'y' ]; then
-    . ./develop-tools/multimedia/cuda.sh
-    Uninstall_Cuda
 fi

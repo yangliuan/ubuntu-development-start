@@ -73,14 +73,7 @@ EOF
     sed -i "s@/usr/local/tomcat@${tomcat_install_dir}@g" ${tomcat_install_dir}/conf/server.xml
     sed -i /ThreadLocalLeakPreventionListener/d ${tomcat_install_dir}/conf/server.xml
     if [ ! -e "${nginx_install_dir}/sbin/nginx" -a ! -e "${tengine_install_dir}/sbin/nginx" -a ! -e "${openresty_install_dir}/nginx/sbin/nginx" -a ! -e "${apache_install_dir}/bin/httpd" ]; then
-      if [ "${PM}" == 'yum' ]; then
-        if [ -n "`grep 'dport 80 ' /etc/sysconfig/iptables`" ] && [ -z "$(grep -w '8080' /etc/sysconfig/iptables)" ]; then
-          iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
-          service iptables save
-          ip6tables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
-          service ip6tables save
-        fi
-      elif [ "${PM}" == 'apt-get' ]; then
+      if [ "${PM}" == 'apt-get' ]; then
         if [ -e '/etc/iptables/rules.v4' ]; then
           if [ -n "`grep 'dport 80 ' /etc/iptables/rules.v4`" ] && [ -z "$(grep -w '8080' /etc/iptables/rules.v4)" ]; then
             iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT

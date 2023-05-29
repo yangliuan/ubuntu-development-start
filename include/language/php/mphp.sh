@@ -69,13 +69,6 @@ Install_MPHP() {
         [ -e "/etc/init.d/php-fpm" ] && /bin/mv /etc/init.d/php-fpm /etc/init.d/php${mphp_ver}-fpm
         [ -e "/lib/systemd/system/php-fpm.service_bk" ] && /bin/mv /lib/systemd/system/php-fpm.service{_bk,}
         [ -e "/etc/init.d/php-fpm_bk" ] && /bin/mv /etc/init.d/php-fpm{_bk,}
-        if [ -e /bin/systemctl ]; then
-          #systemctl enable php${mphp_ver}-fpm
-          ##systemctl enable php-fpm
-        else
-          [ "${PM}" == 'yum' ] && { chkconfig --add php-fpm; chkconfig --add php${mphp_ver}-fpm; chkconfig php-fpm on; chkconfig php${mphp_ver}-fpm on; }
-          [ "${PM}" == 'apt-get' ] && { update-rc.d php-fpm defaults; update-rc.d php${mphp_ver}-fpm defaults; }
-        fi
         service php-fpm start
         service php${mphp_ver}-fpm start
         #sed -i "s@${php_install_dir}/bin:@@" /etc/profile

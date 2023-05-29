@@ -19,36 +19,7 @@ fi
 Platform=${ID,,}
 VERSION_MAIN_ID=${VERSION_ID%%.*}
 ARCH=$(arch)
-if [[ "${Platform}" =~ ^centos$|^rhel$|^almalinux$|^rocky$|^fedora$|^amzn$|^ol$|^alinux$|^anolis$|^tencentos$|^euleros$|^openeuler$|^kylin$|^uos$|^kylinsecos$ ]]; then
-  PM=yum
-  Family=rhel
-  RHEL_ver=${VERSION_MAIN_ID}
-  if [[ "${Platform}" =~ ^centos$ ]]; then
-    if [ "${VERSION_MAIN_ID}" == '6' ]; then
-      sed -i "s@centos/\$releasever@centos-vault/6.10@g" /etc/yum.repos.d/CentOS-Base.repo
-      sed -i 's@centos/RPM-GPG@centos-vault/RPM-GPG@g' /etc/yum.repos.d/CentOS-Base.repo
-      [ -e /etc/yum.repos.d/epel.repo ] && rm -f /etc/yum.repos.d/epel.repo
-    fi
-  elif [[ "${Platform}" =~ ^fedora$ ]]; then
-    Fedora_ver=${VERSION_MAIN_ID}
-    [ ${VERSION_MAIN_ID} -ge 19 ] && [ ${VERSION_MAIN_ID} -lt 28 ] && RHEL_ver=7
-    [ ${VERSION_MAIN_ID} -ge 28 ] && [ ${VERSION_MAIN_ID} -lt 34 ] && RHEL_ver=8
-    [ ${VERSION_MAIN_ID} -ge 34 ] && RHEL_ver=9
-  elif [[ "${Platform}" =~ ^amzn$|^alinux$|^tencentos$|^euleros$ ]]; then
-    [[ "${VERSION_MAIN_ID}" =~ ^2$ ]] && RHEL_ver=7
-    [[ "${VERSION_MAIN_ID}" =~ ^3$ ]] && RHEL_ver=8
-  elif [[ "${Platform}" =~ ^openeuler$ ]]; then
-    [[ "${RHEL_ver}" =~ ^20$ ]] && RHEL_ver=7
-    [[ "${RHEL_ver}" =~ ^2[1,2]$ ]] && RHEL_ver=8
-  elif [[ "${Platform}" =~ ^kylin$ ]]; then
-    [[ "${RHEL_ver}" =~ ^V10$ ]] && RHEL_ver=7
-  elif [[ "${Platform}" =~ ^uos$ ]]; then
-    [[ "${RHEL_ver}" =~ ^20$ ]] && RHEL_ver=8
-  elif [[ "${Platform}" =~ ^kylinsecos$ ]]; then
-    [[ "${VERSION_ID}" =~ ^3.4 ]] && RHEL_ver=7
-    [[ "${VERSION_ID}" =~ ^3.5 ]] && RHEL_ver=8
-  fi
-elif [[ "${Platform}" =~ ^debian$|^deepin$|^kali$ ]]; then
+if [[ "${Platform}" =~ ^debian$|^deepin$|^kali$ ]]; then
   PM=apt-get
   Family=debian
   Debian_ver=${VERSION_MAIN_ID}
@@ -110,10 +81,12 @@ if [ "$(getconf WORD_BIT)" == "32" ] && [ "$(getconf LONG_BIT)" == "64" ]; then
     SYS_ARCH=arm64
     SYS_ARCH_i=aarch64
     SYS_ARCH_n=arm64
+    SYS_ARCH_nv=sbsa
   else
     SYS_ARCH=amd64 #openjdk
     SYS_ARCH_i=x86-64 #ioncube
     SYS_ARCH_n=x64 #nodejs
+    SYS_ARCH_nv=x86_64 #nvidia
   fi
 else
   echo "${CWARNING}32-bit OS are not supported! ${CEND}"

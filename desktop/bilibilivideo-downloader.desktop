@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Bilibili视频下载器
+Exec=/opt/bilibilivideo-downloader/bvdownloader.AppImage
+Terminal=false
+Type=Application
+Icon=/opt/bilibilivideo-downloader/bvdownloader.png
+StartupWMClass=B站视频下载器
+Comment=B站视频下载工具
+Categories=Video

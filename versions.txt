@@ -1,4 +1,5 @@
 # newest software version
+#Base Version ############################
 # Web
 nginx_ver=1.23.0
 tengine_ver=2.3.3
@@ -36,12 +37,6 @@ percona55_ver=5.5.62-38.14
 pgsql_ver=12.7
 mongodb_ver=4.0.26
 sqlite3_ver=3410200
-
-# JDK
-jdk110_ver=11.0.12
-jdk18_ver=1.8.0_301
-jdk17_ver=1.7.0_80
-jdk16_ver=1.6.0_45
 
 # PHP
 php53_ver=5.3.29
@@ -180,13 +175,39 @@ ffmpeg_ver=6.0
 #Container Platform
 docker_desktop_ver=4.19.0
 
-# Devtools
-# mysql_workbench_ver必须和myql版本保持一致
+# Devtools Version ################################
 navicat_ver=16
 filezilla_ver=3.63.2.1
 virtualbox_ver_base=7.0
 virtualbox_ver=6
 virtualbox_ver_sn=155176
 jmeter_ver=5.5
-mysql_workbench_ver=8.0.32
+#Need to be consistent with MySQLDB version
+mysql_workbench_ver=8.0.33
 cursor_ver=0.1.3
+
+# Ubuntu Start Version ###########################
+# System Base
+nvidia_driver_ver=530
+cuda_ver=1.1-1
+sougoupinyin_ver=4.2.1.145
+sunlogin_ver=11.0.1.44968
+flameshot_ver=12.1.0
+
+# IM
+dingtalk_ver=1.7.0.30424
+linuxqq_link_token=2355235c
+linuxqq_ver=3.1.1-11223
+feishu_link_token=d358d0df
+feishu_ver=6.1.12
+
+# Office
+baidunetdisk_ver=4.17.7
+wps_ver=11.1.0.11691
+wps_sub_ver=11691
+
+# Entertainment
+qqmusic_ver=1.1.5
+bilibili_video_downloader_ver=3.3.3
+xDroid_ver=11.1.41
+xDroid_release_time=20230525

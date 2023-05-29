@@ -11,7 +11,6 @@ Install_pecl_memcached() {
     tar xzf libmemcached-${libmemcached_ver}.tar.gz
     patch -d libmemcached-${libmemcached_ver} -p0 < libmemcached-build.patch
     pushd libmemcached-${libmemcached_ver} > /dev/null
-    [ "${PM}" == 'yum' ] && yum -y install cyrus-sasl-devel
     [ "${PM}" == 'apt-get' ] && sed -i "s@lthread -pthread -pthreads@lthread -lpthread -pthreads@" ./configure
     ./configure --with-memcached=${memcached_install_dir}
     make -j ${THREAD} && make install

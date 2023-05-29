@@ -4,7 +4,7 @@ clear
 printf "
 ################################################################################
 #             Development environment for Ubuntu 22.04 desktop                 #
-#                              Uninstall Addons                                #
+#                                  Addons                                      #
 ################################################################################
 "
 # Check if user is root

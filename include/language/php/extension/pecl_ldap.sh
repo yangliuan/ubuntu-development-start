@@ -16,14 +16,9 @@ Install_pecl_ldap() {
     src_url=https://secure.php.net/distributions/php-${PHP_detail_ver}.tar.gz && Download_src
     tar xzf php-${PHP_detail_ver}.tar.gz
     pushd php-${PHP_detail_ver}/ext/ldap > /dev/null
-    if [ "${PM}" == 'yum' ]; then
-      yum -y install openldap-devel
-      [ "${OS_BIT}" == '64' ] && With_libdir='--with-libdir=lib64'
-    else
-      apt-get -y install libldap2-dev
-      ln -s /usr/lib/${SYS_BIT_c}-linux-gnu/libldap.so /usr/lib/
-      ln -s /usr/lib/${SYS_BIT_c}-linux-gnu/liblber.so /usr/lib/
-    fi
+    apt-get -y install libldap2-dev
+    ln -s /usr/lib/${SYS_BIT_c}-linux-gnu/libldap.so /usr/lib/
+    ln -s /usr/lib/${SYS_BIT_c}-linux-gnu/liblber.so /usr/lib/
     ${php_install_dir}/bin/phpize
     ./configure --with-php-config=${php_install_dir}/bin/php-config --with-ldap ${With_libdir}
     make -j ${THREAD} && make install

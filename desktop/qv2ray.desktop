@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Qv2ray
+Comment=Qv2ray
+Exec=/opt/qv2ray/Qv2ray-v2.7.0-linux-x64.AppImage
+Icon=/opt/qv2ray/qv2ray.png
+Type=Application
+Categories=Network;
+Keywords=Qv2ray;

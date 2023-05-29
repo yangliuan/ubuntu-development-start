@@ -68,12 +68,7 @@ EOF
     sed -i "s@/usr/local/tomcat@${tomcat_install_dir}@g" ${tomcat_install_dir}/conf/server.xml
 
     if [ ! -e "${nginx_install_dir}/sbin/nginx" -a ! -e "${tengine_install_dir}/sbin/nginx" -a ! -e "${openresty_install_dir}/nginx/sbin/nginx" -a ! -e "${apache_install_dir}/bin/httpd" ]; then
-      if [ "${PM}" == 'yum' ]; then
-        if [ "`firewall-cmd --state`" == "running" ]; then
-          firewall-cmd --permanent --zone=public --add-port=8080/tcp
-          firewall-cmd --reload
-	fi
-      elif [ "${PM}" == 'apt-get' ]; then
+      if [ "${PM}" == 'apt-get' ]; then
         if ufw status | grep -wq active; then
             ufw allow 8080/tcp
         fi
