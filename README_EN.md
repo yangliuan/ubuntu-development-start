@@ -27,7 +27,32 @@ Run the command "sudo ./switch_env.sh" to switch environments. This command can 
 
 ### Interactive Installation Example
 ```shell
+
 sudo ./install_ubsoft.sh
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                                Install Software                              #
+################################################################################
+
+Do you want to remove default installed software? [y/n](n): 
+
+Do you want to install input method? [y/n](y): 
+
+Please select input method:
+	1. Install googlepinyin
+	2. Install sougoupinyin
+	3. Install baidupinyin
+Please input a number:(Default 1 press Enter) 
+
+Do you want to install baidunetdisk? [y/n](y): 
+baidunetdisk already installed! 
+
+Do you want to install chrome? [y/n](y): 
+chrome already installed! 
+
+Do you want to install deepinwine? [y/n](y): 
+deepinwine_flag already installed! 
+...
 
 ```
 
@@ -71,7 +96,7 @@ swoole.ini disable success
 
 ```
 
-### 自定义软件
+### Custom Software
 ```shell
 
 Modify the values of snap_custome_packages and apt_custome_packages variables in options.conf configuration file.

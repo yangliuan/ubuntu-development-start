@@ -29,7 +29,32 @@ sudo ./switch_env.sh 切换环境，可以切换php版本，php扩展，composer
 
 ### 交互安装示例
 ```shell
+
 sudo ./install_ubsoft.sh
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                                Install Software                              #
+################################################################################
+
+Do you want to remove default installed software? [y/n](n): 
+
+Do you want to install input method? [y/n](y): 
+
+Please select input method:
+	1. Install googlepinyin
+	2. Install sougoupinyin
+	3. Install baidupinyin
+Please input a number:(Default 1 press Enter) 
+
+Do you want to install baidunetdisk? [y/n](y): 
+baidunetdisk already installed! 
+
+Do you want to install chrome? [y/n](y): 
+chrome already installed! 
+
+Do you want to install deepinwine? [y/n](y): 
+deepinwine_flag already installed! 
+...
 
 ```
 
