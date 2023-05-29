@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_PatchSuport() {
-    if [ -f "${start_dir}/src/patch.lock" ]; then
+    if [ -f "/var/lock/patch.lock" ]; then
         echo 'ubuntu 2204 patched'
     else
         Install_Appimage
@@ -12,8 +12,9 @@ Install_PatchSuport() {
 }
 
 Patch_Lock() {
-    touch ${start_dir}/src/patch.lock
-    date +"%Y-%m-%d %H:%M:%S" > ${start_dir}/src/patch.lock
+    [ ! -d "/var/lock" ] || mkdir -p /var/lock
+    touch /var/lock/patch.lock
+    date +"%Y-%m-%d %H:%M:%S" > /var/lock/patch.lock
 }
 
 #无法运行appimage问题
