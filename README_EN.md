@@ -71,6 +71,15 @@ swoole.ini disable success
 
 ```
 
+### 自定义软件
+```shell
+
+Modify the values of snap_custome_packages and apt_custome_packages variables in options.conf configuration file.
+
+sudo ./install_ubsoft.sh --custome
+
+```
+
 ### Development Integration
 [Oneinstack](https://github.com/oneinstack/oneinstack)
 - LEMP/LAMP/LNMP/LNMPA/LTMP(Linux, Nginx/Tengine/OpenResty, Apache Httpd, MySQL/MariaDB/Percona, PHP, JAVA)
@@ -137,6 +146,37 @@ swoole.ini disable success
 
 [RabbitvcsNautilus](http://rabbitvcs.org/)
 
+[Baidunetdisk](https://pan.baidu.com/disk/home)
+
+[Chrome](https://www.google.com/chrome/)
+
+[Deepinwine](https://github.com/zq1997/deepin-wine) 
+
+[Dingtalk](https://www.dingtalk.com/en)
+
+[Feishu](https://www.feishu.cn/en)
+
+[Flameshot](https://github.com/flameshot-org/flameshot)
+
+[Indicator sysmonitor](https://github.com/fossfreedom/indicator-sysmonitor)
+
+[Lantern](https://getlantern.org/)
+
+[Neteasy cloud music](https://music.163.com/)
+
+[Peek](https://github.com/phw/peek)
+
+[QQmusic](https://y.qq.com/)
+
+[Qv2ray](https://github.com/Qv2ray/Qv2ray)
+
+[sougoupinyin](https://pinyin.sogou.com/)
+
+[Sunlogin](https://sunlogin.oray.com/)
+
+[Gnome Tweaks](https://wiki.gnome.org/Apps/Tweaks)
+
+[Wps](https://www.wps.cn/product/wpslinux)
 
 ### Special Thanks
 [Oneinstack](https://github.com/oneinstack/oneinstack)
