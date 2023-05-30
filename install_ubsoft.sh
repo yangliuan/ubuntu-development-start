@@ -502,8 +502,8 @@ fi
 echo > $log_dir
 echo "${CMSG}Ubuntu version ${Ubuntu_ver} ${CEND}"
 
-#替换软件源为aliyun
-. include/source_list.sh;Set_Sourcelist
+#set aliyun mirror
+. include/source_list.sh;Set_Aliyun_Sourcelist
 
 apt-get install -y curl wget git gcc make
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_PatchSuport() {
-    if [ -f "/var/lock/patch.lock" ]; then
+    if [ -f "/var/lock/oneinstack-patch.lock" ]; then
         echo 'ubuntu 2204 patched'
     else
         Install_Appimage
@@ -13,40 +13,42 @@ Install_PatchSuport() {
 
 Patch_Lock() {
     [ ! -d "/var/lock" ] || mkdir -p /var/lock
-    touch /var/lock/patch.lock
+    touch /var/lock/oneinstack-patch.lock
     date +"%Y-%m-%d %H:%M:%S" > /var/lock/patch.lock
+    chmod -R 611 /var/lock/oneinstack-patch.lock
 }
 
-#无法运行appimage问题
-#REF https://coolandroid.blog.csdn.net/article/details/124403162?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-124403162-blog-124639425.pc_relevant_multi_platform_featuressortv2dupreplace&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-124403162-blog-124639425.pc_relevant_multi_platform_featuressortv2dupreplace&utm_relevant_index=1
+#support run application then extension to Appimage
+#Rerf  https://askubuntu.com/questions/1403811/appimage-on-ubuntu-22-04
 Install_Appimage() {
-    apt-get install -y fuse libfuse2
-    modprobe fuse >/dev/null 2>&1
-    groupadd fuse >/dev/null 2>&1
-    usermod -a -G fuse ${run_user} >/dev/null 2>&1
+    add-apt-repository -y universe
+    apt-get install -y libfuse2
 }
 
-#浏览器上传下载卡住问题
-#REF https://askubuntu.com/questions/1402530/running-any-chromium-based-browser-in-ubuntu-22-04-freezes
+#browser crush when downloading or uploading
+#Rerf https://askubuntu.com/questions/1402530/running-any-chromium-based-browser-in-ubuntu-22-04-freezes
 Install_XdgDesktopPortalGnome() {
-    apt-get install -y xdg-desktop-portal-gnome
+    if ! dpkg -s xdg-desktop-portal-gnome >/dev/null 2>&1; then
+        apt-get install -y xdg-desktop-portal-gnome
+    fi
 }
 
-#ntfs支持
+#ntfs support
 #https://github.com/tuxera/ntfs-3g/wiki
 Install_Ntfs3g() {
-    apt-get install -y ntfs-3g
+    if ! dpkg -s ntfs-3g >/dev/null 2>&1; then
+        apt-get install -y ntfs-3g
+    fi
 }
 
-#防止gnome依赖出现问题导致设置中心无法使用
-Reinstall_GnomeCenter (){
-    apt-get install -y gnome-control-center --reinstall
-}
-
-#双系统保持时间一致
-#REF https://www.cnblogs.com/xiaotong-sun/p/16138941.html
+#Dual system hold time is the same
+#Rerf https://www.cnblogs.com/xiaotong-sun/p/16138941.html
 ResetTimeForWindow() {
     apt-get install -y ntpdate
     ntpdate time.windows.com
     hwclock --localtime --systohc
+}
+
+Reinstall_GnomeCenter (){
+    apt-get install -y gnome-control-center --reinstall
 }
