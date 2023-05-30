@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=Mysql
-Comment=relation database
-Exec=sh /opt/oneinstack/start/mysql_start.sh
-Icon=/opt/oneinstack/icon/mysql.svg
+Comment=relation devbase/database
+Exec=sh /opt/ubdevenv/start/mysql_start.sh
+Icon=/opt/ubdevenv/icon/mysql.svg
 Type=Application
 Terminal=true
-Categories=service;database
+Categories=service;devbase/database
 Keywords=Mysql;mysql

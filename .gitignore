@@ -1,3 +1,4 @@
 .vscode
 .vscode/*
 /log/*.log
+/log/*.lock

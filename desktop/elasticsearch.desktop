@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Elasticsearch
-Comment=search database
-Exec=sh /opt/oneinstack/start/elasticsearch_start.sh
-Icon=/opt/oneinstack/icon/elasticsearch.svg
+Comment=search devbase/database
+Exec=sh /opt/ubdevenv/start/elasticsearch_start.sh
+Icon=/opt/ubdevenv/icon/elasticsearch.svg
 Type=Application
 Terminal=true
 Categories=service;fulltext

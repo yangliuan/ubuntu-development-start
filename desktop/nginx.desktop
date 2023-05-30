@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Nginx
 Comment=Web http server
-Exec=sh /opt/oneinstack/start/nginx_start.sh
-Icon=/opt/oneinstack/icon/nginx.svg
+Exec=sh /opt/ubdevenv/start/nginx_start.sh
+Icon=/opt/ubdevenv/icon/nginx.svg
 Type=Application
 Terminal=true
 Categories=service;web http server

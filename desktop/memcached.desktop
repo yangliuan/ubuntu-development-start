@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Memcached
 Comment=Memcached is an in-memory key-value store
-Exec=sh /opt/oneinstack/start/memcached_start.sh
-Icon=/opt/oneinstack/icon/memcached.svg
+Exec=sh /opt/ubdevenv/start/memcached_start.sh
+Icon=/opt/ubdevenv/icon/memcached.svg
 Type=Application
 Terminal=true
 Categories=service;cache

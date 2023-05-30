@@ -2,32 +2,43 @@
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 clear
 printf "
-#######################################################################
-#                            Ubuntu start test                        #
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                            Ubsoft Test Scirpt                                #
+################################################################################
 "
 # Check if user is root
 [ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }
-start_dir=$(dirname "$(dirname "`readlink -f $0`")")
-echo $start_dir
-log_dir="${start_dir}/log/test_ubsoft.log"
-pushd ${start_dir} > /dev/null
+
+ubdevenv_dir=$(dirname "$(dirname "`readlink -f $0`")")
+log_dir="${ubdevenv_dir}/log/test_ubsoft.log"
+
+pushd ${ubdevenv_dir} > /dev/null
 . ./include/color.sh
+. ./include/loadshell.sh
 . ./versions.txt
 . ./options.conf
-. ubsoftware/liboffice.sh
-. ubsoftware/common_ubsoft.sh
 ###################################################################
 
-#Remove_Unneed | tee -a $log_dir
-Uninstall_Custome_SnapApp | tee -a $log_dir
-Install_Custome_SnapApp | tee -a $log_dir
-Uninstall_Custome_AptApp | tee -a $log_dir
-Install_Custome_AptApp | tee -a $log_dir
+shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
-# Install_PatchSuport | tee -a $log_dir
-# Install_NvidiaDriver | tee -a $log_dir
-# Patch_NeteasyCloudMusicFor2204 2>&1 | tee -a $log_dir
-# Patch_QQmusicFor2204 2>&1 | tee -a $log_dir
-# Uninstall_BilbiliDownloader
-# Install_BilbiliDownloader | tee -a $log_dir 
+Remove_Unneed  2>&1 | tee -a $log_dir
+Install_custom_SnapApp  2>&1 | tee -a $log_dir
+Uninstall_custom_SnapApp  2>&1 | tee -a $log_dir
+
+Install_custom_AptApp  2>&1 | tee -a $log_dir
+Uninstall_custom_AptApp  2>&1 | tee -a $log_dir
+
+Install_PatchSuport  2>&1 | tee -a $log_dir
+Install_NvidiaDriver  2>&1 | tee -a $log_dir
+Patch_NeteasyCloudMusicFor2204  2>&1 2>&1 | tee -a $log_dir
+Patch_QQmusicFor2204 2>&1 | tee -a $log_dir
+
+Install_BilbiliDownloader  2>&1 | tee -a $log_dir 
+Uninstall_BilbiliDownloader  2>&1 | tee -a $log_dir
+
+Install_Cuda 2>&1| tee -a $log_dir
+Uninstall_Cuda 2>&1| tee -a $log_dir
+
+Install_IndicatorStickynotes 2>&1 | tee -a $log_dir
+Uninstall_IndicatorSysmonitor 2>&1 | tee -a $log_dir

@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=Rabbitmq
-Exec=sh /opt/oneinstack/start/rabbitmq_start.sh %U
+Exec=sh /opt/ubdevenv/start/rabbitmq_start.sh %U
 Type=Application
 Terminal=true
-Icon=/opt/oneinstack/icon/rabbitmq.svg
+Icon=/opt/ubdevenv/icon/rabbitmq.svg
 StartupWMClass=Rabbitmq
 Comment=message queue
 Categories=service;message queue

@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=LNMP
 Comment=PHP Web Environment
-Exec=sh /opt/oneinstack/start/lnmp_start.sh
-Icon=/opt/oneinstack/icon/lnmp.svg
+Exec=sh /opt/ubdevenv/start/lnmp_start.sh
+Icon=/opt/ubdevenv/icon/lnmp.svg
 Type=Application
 Terminal=true
 Categories=service;php web;

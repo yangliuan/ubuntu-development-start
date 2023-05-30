@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Apache Kafka
 Comment=message queue
-Exec=sh /opt/oneinstack/start/kafka_start.sh
-Icon=/opt/oneinstack/icon/apachekafka.svg
+Exec=sh /opt/ubdevenv/start/kafka_start.sh
+Icon=/opt/ubdevenv/icon/apachekafka.svg
 Type=Application
 Terminal=true
 Categories=service;message queue

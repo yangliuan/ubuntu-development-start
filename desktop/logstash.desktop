@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Logstash
 Comment=elastic stack data
-Exec=sh /opt/oneinstack/start/logstash_start.sh
-Icon=/opt/oneinstack/icon/logstash.svg
+Exec=sh /opt/ubdevenv/start/logstash_start.sh
+Icon=/opt/ubdevenv/icon/logstash.svg
 Type=Application
 Terminal=true
 Categories=service;tool

@@ -27,7 +27,7 @@ if [ -e "/lib/systemd/system/php-fpm.service" ]; then
     echo "stop php-fpm success!"
 fi
 
-# database 
+# devbase/database 
 if [ -e "/etc/init.d/mysqld" ]; then
     sudo systemctl stop mysql.service
     echo "stop mysql success!"

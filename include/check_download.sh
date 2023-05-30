@@ -9,7 +9,7 @@
 
 checkDownload() {
   mirrorLink=http://mirrors.linuxeye.com/oneinstack/src
-  pushd ${oneinstack_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src > /dev/null
   # icu
   if ! command -v icu-config >/dev/null 2>&1 || icu-config --version | grep '^3.' || [ "${Ubuntu_ver}" == "20" ]; then
     echo "Download icu..."

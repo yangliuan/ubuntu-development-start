@@ -10,8 +10,9 @@ printf "
 # Check if user is root
 [ $(id -u) != '0' ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }
 
-oneinstack_dir=$(dirname "`readlink -f $0`")
-pushd ${oneinstack_dir} > /dev/null
+ubdevenv_dir=$(dirname "$(dirname "`readlink -f $0`")")
+
+pushd ${ubdevenv_dir} > /dev/null
 . ./options.conf
 . ./include/color.sh
 . ./include/check_dir.sh
@@ -357,7 +358,7 @@ What Are You Doing?
   esac
 
   if [ "${Domian_Mode}" == '3' -o "${dnsapi_flag}" == 'y' ] && [ ! -e ~/.acme.sh/acme.sh ]; then
-    pushd ${oneinstack_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src > /dev/null
     [ ! -e acme.sh-master.tar.gz ] && wget -qc http://mirrors.linuxeye.com/oneinstack/src/acme.sh-master.tar.gz
     tar xzf acme.sh-master.tar.gz
     pushd acme.sh-master > /dev/null

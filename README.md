@@ -16,7 +16,7 @@ versions.txt 软件版本配置文件
 
 sudo ./install_ubsoft.sh 安装ubuntu常用软件
 
-sudo ./install_base.sh 安装开发环境
+sudo ./install_devbase.sh 安装开发环境
 
 sudo ./install_devtools.sh 安装开发工具
 
@@ -59,14 +59,14 @@ deepinwine_flag already installed!
 
 ### 自定义参数安装示例
 ```shell
-sudo ./install_ubsoft.sh --input_method_option 2 --baidunetdisk --chrome --deepinwine --dingtalk --linuxqq --feishu --flameshot --indicator_sysmonitor --lantern --neteasy_cloudmusic --qqmusic --peek --qv2ray --sunlogin --theme_tools --bilibili_video_downloader --wps --conky --custome
+sudo ./install_ubsoft.sh --input_method_option 2 --baidunetdisk --chrome --deepinwine --dingtalk --linuxqq --feishu --flameshot --indicator_sysmonitor --lantern --neteasy_cloudmusic --qqmusic --peek --qv2ray --sunlogin --theme_tools --bilibili_video_downloader --wps --conky --custom
 ```
 
 ### 切换开发环境示例
 ```shell
 #切换php扩展
 
-sudo /opt/oneinstack/switch_env.sh --php_extension
+sudo /opt/ubdevenv/switch_env.sh --php_extension
 
 #######################################################################
                       Switch Develop Environment
@@ -99,16 +99,16 @@ swoole.ini disable success
 ### 自定义软件
 ```shell
 
-修改 options.conf 配置文件 snap_custome_packages 和 apt_custome_packages 变量值
+修改 options.conf 配置文件 snap_custom_packages 和 apt_custom_packages 变量值
 
-sudo ./install_ubsoft.sh --custome
+sudo ./install_ubsoft.sh --custom
 
 ```
 
 ### 开发集成
 [Oneinstack](https://github.com/oneinstack/oneinstack)
 - LEMP/LAMP/LNMP/LNMPA/LTMP(Linux, Nginx/Tengine/OpenResty, Apache Httpd, MySQL/MariaDB/Percona, PHP, JAVA)
-- Providing a plurality of database versions (MySQL-8.0, MySQL-5.7, MySQL-5.6, MySQL-5.5, MariaDB-10.5, MariaDB-10.4, MariaDB-10.3, MariaDB-5.5, Percona-8.0, Percona-5.7, Percona-5.6, Percona-5.5, PostgreSQL, MongoDB Sqlite)
+- Providing a plurality of devbase/database versions (MySQL-8.0, MySQL-5.7, MySQL-5.6, MySQL-5.5, MariaDB-10.5, MariaDB-10.4, MariaDB-10.3, MariaDB-5.5, Percona-8.0, Percona-5.7, Percona-5.6, Percona-5.5, PostgreSQL, MongoDB Sqlite)
 - Providing multiple PHP versions (PHP-8.2, PHP-8.1, PHP-8.0, PHP-7.4, PHP-7.3, PHP-7.2, PHP-7.1, PHP-7.0, PHP-5.6, PHP-5.5, PHP-5.4, PHP-5.3)
 - Provide Nginx, Tengine, OpenResty, Apache and ngx_lua_waf
 - Providing a plurality of Tomcat version (Tomcat-10, Tomcat-9, Tomcat-8, Tomcat-7)
@@ -171,6 +171,8 @@ sudo ./install_ubsoft.sh --custome
 
 [RabbitvcsNautilus](http://rabbitvcs.org/)
 
+### 常用ubuntu软件
+
 [Baidunetdisk](https://pan.baidu.com/disk/home)
 
 [Chrome](https://www.google.com/chrome/)
@@ -195,7 +197,7 @@ sudo ./install_ubsoft.sh --custome
 
 [Qv2ray](https://github.com/Qv2ray/Qv2ray)
 
-[sougoupinyin](https://pinyin.sogou.com/)
+[Sougoupinyin](https://pinyin.sogou.com/)
 
 [Sunlogin](https://sunlogin.oray.com/)
 

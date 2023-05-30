@@ -57,7 +57,7 @@ composer_old_ver=1.10.26
 composer_ver=2.5.7
 
 # Nodejs
-node_ver=18.14.2
+nodejs_ver=18.14.2
 nvm_ver=0.39.3
 
 # go

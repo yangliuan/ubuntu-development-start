@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=StopAllService
 Comment=Develop Environment 
-Exec=sh /opt/oneinstack/start/stop_all.sh
-Icon=/opt/oneinstack/icon/stop-all.svg
+Exec=sh /opt/ubdevenv/start/stop_all.sh
+Icon=/opt/ubdevenv/icon/stop-all.svg
 Type=Application
 Terminal=true
 Categories=shelltool

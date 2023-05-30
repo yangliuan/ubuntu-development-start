@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=PostgreSql
-Comment=relation database
-Exec=sh /opt/oneinstack/start/postgresql_start.sh
-Icon=/opt/oneinstack/icon/postgresql.svg
+Comment=relation devbase/database
+Exec=sh /opt/ubdevenv/start/postgresql_start.sh
+Icon=/opt/ubdevenv/icon/postgresql.svg
 Type=Application
 Terminal=true
-Categories=service;database
+Categories=service;devbase/database
 Keywords=postgresql

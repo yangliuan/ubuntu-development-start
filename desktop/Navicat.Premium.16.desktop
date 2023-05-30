@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=Development
-Comment=Database Development Tool
+Comment=devbase/database Development Tool
 Exec=/opt/navicat/navicat-premium-cs.AppImage
 Icon=/opt/navicat/navicat.svg
 Name=Navicat Premium 16

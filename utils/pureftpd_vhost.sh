@@ -10,8 +10,9 @@ printf "
 # Check if user is root
 [ $(id -u) != "0" ] && { echo "${CFAILURE}Error: You must be root to run this script${CEND}"; exit 1; }
 
-oneinstack_dir=$(dirname "`readlink -f $0`")
-pushd ${oneinstack_dir} > /dev/null
+ubdevenv_dir=$(dirname "$(dirname "`readlink -f $0`")")
+
+pushd ${ubdevenv_dir} > /dev/null
 . ./options.conf
 . ./include/color.sh
 
@@ -22,7 +23,7 @@ FTP_tmp_passfile=${pureftpd_install_dir}/etc/pureftpd_psss.tmp
 Puredbfile=${pureftpd_install_dir}/etc/pureftpd.pdb
 Passwdfile=${pureftpd_install_dir}/etc/pureftpd.passwd
 FTP_bin=${pureftpd_install_dir}/bin/pure-pw
-[ -z "`grep ^PureDB ${FTP_conf}`" ] && { echo "${CFAILURE}pure-ftpd is not own password database${CEND}" ; exit 1; }
+[ -z "`grep ^PureDB ${FTP_conf}`" ] && { echo "${CFAILURE}pure-ftpd is not own password devbase/database${CEND}" ; exit 1; }
 
 ARG_NUM=$#
 Show_Help() {

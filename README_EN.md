@@ -16,7 +16,7 @@ Modify the configuration file "options.conf" by changing the "run_user" and "run
 
 Run the command "sudo ./install_ubsoft.sh" to install common software for Ubuntu.
 
-Run the command "sudo ./install_base.sh" to install the development environment.
+Run the command "sudo ./install_devbase.sh" to install the development environment.
 
 Run the command "sudo ./install_devtools.sh" to install development tools.
 
@@ -59,14 +59,14 @@ deepinwine_flag already installed!
 
 ### Custom Parameter Installation Example
 ```shell
-sudo ./install_ubsoft.sh --input_method_option 2 --baidunetdisk --chrome --deepinwine --dingtalk --linuxqq --feishu --flameshot --indicator_sysmonitor --lantern --neteasy_cloudmusic --qqmusic --peek --qv2ray --sunlogin --theme_tools --bilibili_video_downloader --wps --conky --custome
+sudo ./install_ubsoft.sh --input_method_option 2 --baidunetdisk --chrome --deepinwine --dingtalk --linuxqq --feishu --flameshot --indicator_sysmonitor --lantern --neteasy_cloudmusic --qqmusic --peek --qv2ray --sunlogin --theme_tools --bilibili_video_downloader --wps --conky --custom
 ```
 
 ### Switching development environment Example
 ```shell
 #switch php extension
 
-sudo /opt/oneinstack/switch_env.sh --php_extension
+sudo /opt/ubdevenv/switch_env.sh --php_extension
 
 #######################################################################
                       Switch Develop Environment
@@ -99,16 +99,16 @@ swoole.ini disable success
 ### Custom Software
 ```shell
 
-Modify the values of snap_custome_packages and apt_custome_packages variables in options.conf configuration file.
+Modify the values of snap_custom_packages and apt_custom_packages variables in options.conf configuration file.
 
-sudo ./install_ubsoft.sh --custome
+sudo ./install_ubsoft.sh --custom
 
 ```
 
 ### Development Integration
 [Oneinstack](https://github.com/oneinstack/oneinstack)
 - LEMP/LAMP/LNMP/LNMPA/LTMP(Linux, Nginx/Tengine/OpenResty, Apache Httpd, MySQL/MariaDB/Percona, PHP, JAVA)
-- Providing a plurality of database versions (MySQL-8.0, MySQL-5.7, MySQL-5.6, MySQL-5.5, MariaDB-10.5, MariaDB-10.4, MariaDB-10.3, MariaDB-5.5, Percona-8.0, Percona-5.7, Percona-5.6, Percona-5.5, PostgreSQL, MongoDB Sqlite)
+- Providing a plurality of devbase/database versions (MySQL-8.0, MySQL-5.7, MySQL-5.6, MySQL-5.5, MariaDB-10.5, MariaDB-10.4, MariaDB-10.3, MariaDB-5.5, Percona-8.0, Percona-5.7, Percona-5.6, Percona-5.5, PostgreSQL, MongoDB Sqlite)
 - Providing multiple PHP versions (PHP-8.2, PHP-8.1, PHP-8.0, PHP-7.4, PHP-7.3, PHP-7.2, PHP-7.1, PHP-7.0, PHP-5.6, PHP-5.5, PHP-5.4, PHP-5.3)
 - Provide Nginx, Tengine, OpenResty, Apache and ngx_lua_waf
 - Providing a plurality of Tomcat version (Tomcat-10, Tomcat-9, Tomcat-8, Tomcat-7)
@@ -170,6 +170,7 @@ sudo ./install_ubsoft.sh --custome
 [ObsStudio](https://obsproject.com/)
 
 [RabbitvcsNautilus](http://rabbitvcs.org/)
+### Ubuntu Common Software
 
 [Baidunetdisk](https://pan.baidu.com/disk/home)
 

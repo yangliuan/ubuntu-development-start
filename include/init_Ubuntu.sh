@@ -86,7 +86,7 @@ LANGUAGE=en_US:en
 EOF
 
 # ufw
-if [ "${firewall_flag}" == 'y' ]; then
+if [ "${devbase/firewall_flag}" == 'y' ]; then
   ufw allow 22/tcp
   [ "${ssh_port}" != "22" ] && ufw allow ${ssh_port}/tcp
   ufw allow 80/tcp

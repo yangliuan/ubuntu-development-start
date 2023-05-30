@@ -11,10 +11,10 @@
   <Listener className="org.apache.catalina.mbeans.JmxRemoteLifecycleListener" rmiRegistryPortPlatform="8081" rmiServerPortPlatform="8082" />
 -->
   <GlobalNamingResources>
-    <Resource name="UserDatabase" auth="Container"
-              type="org.apache.catalina.UserDatabase"
-              description="User database that can be updated and saved"
-              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+    <Resource name="Userdevbase/database" auth="Container"
+              type="org.apache.catalina.Userdevbase/database"
+              description="User devbase/database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserdevbase/databaseFactory"
               pathname="conf/tomcat-users.xml" />
   </GlobalNamingResources>
 
@@ -33,8 +33,8 @@
               URIEncoding="UTF-8" />
     <Engine name="Catalina" defaultHost="localhost">
       <Realm className="org.apache.catalina.realm.LockOutRealm">
-        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
-               resourceName="UserDatabase"/>
+        <Realm className="org.apache.catalina.realm.Userdevbase/databaseRealm"
+               resourceName="Userdevbase/database"/>
       </Realm>
       &vhost-localhost;
     </Engine>

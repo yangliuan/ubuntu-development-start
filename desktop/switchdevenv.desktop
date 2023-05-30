@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Swith DevEnv
 Comment=swith develop environment
-Exec=gnome-terminal -- /bin/bash -c "/opt/oneinstack/switch_devenv.sh"
-Icon=/opt/oneinstack/icon/switchdev.svg
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/utils/switch_devenv.sh"
+Icon=/opt/ubdevenv/icon/switchdev.svg
 Type=Application
 Terminal=true
 Categories=tool

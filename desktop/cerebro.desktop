@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Cerebro
 Comment=cerebro is an open source elasticsearch web admin tool built using Scala, Play Framework, AngularJS and Bootstrap.
-Exec=sh /opt/oneinstack/start/cerebro_start.sh
-Icon=/opt/oneinstack/icon/logstash.svg
+Exec=sh /opt/ubdevenv/start/cerebro_start.sh
+Icon=/opt/ubdevenv/icon/logstash.svg
 Type=Application
 Terminal=true
 Categories=service;tool
