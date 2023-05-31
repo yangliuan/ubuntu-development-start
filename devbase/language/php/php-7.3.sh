@@ -11,7 +11,7 @@
 Install_PHP73() {
   pushd ${ubdevenv_dir}/src > /dev/null
   
-  . ${ubdevenv_dir}/include/system-lib/iconv.sh
+  . ${ubdevenv_dir}/devbase/system-lib/iconv.sh
   Install_Libiconv
 
   if [ ! -e "${curl_install_dir}/lib/libcurl.la" ]; then
@@ -24,16 +24,16 @@ Install_PHP73() {
     rm -rf curl-${curl_ver}
   fi
 
-  . ${ubdevenv_dir}/include/system-lib/libfreetype.sh
+  . ${ubdevenv_dir}/devbase/system-lib/libfreetype.sh
   Install_Libfreetype
 
-  . ${ubdevenv_dir}/include/system-lib/libargon2.sh
+  . ${ubdevenv_dir}/devbase/system-lib/libargon2.sh
   Install_Libargon2
 
-  . ${ubdevenv_dir}/include/system-lib/libsodium.sh
+  . ${ubdevenv_dir}/devbase/system-lib/libsodium.sh
   Install_Libsodium
 
-  . ${ubdevenv_dir}/include/system-lib/mhash.sh
+  . ${ubdevenv_dir}/devbase/system-lib/mhash.sh
   Install_Mhash
 
   [ -z "`grep /usr/local/lib /etc/ld.so.conf.d/*.conf`" ] && echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
@@ -90,11 +90,11 @@ Install_PHP73() {
     kill -9 $$; exit 1;
   fi
 
-  . ${ubdevenv_dir}/include/language/php/extension/zendopcache.sh
+  . ${ubdevenv_dir}/devbase/language/php/extension/zendopcache.sh
   [ "${phpcache_option}" == '1' ] && Set_OPcacheIni
 
   #config env path php-fpm.conf php.ini
-  . ${ubdevenv_dir}/include/language/php/config_env.sh
+  . ${ubdevenv_dir}/devbase/language/php/config_env.sh
   Set_PhpFpm_Systemd
   Set_PhpFpm
   Set_PhpIni

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Mongodb
 Comment=document devbase/database
-Exec=sh /opt/ubdevenv/start/mongodb_start.sh
+Exec=sh /opt/ubdevenv/control/mongodb_start.sh
 Icon=/opt/ubdevenv/icon/mongodb.svg
 Type=Application
 Terminal=true

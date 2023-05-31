@@ -1,5 +1,5 @@
 #!/bin/bash
-#https://www.elastic.co/guide/en/elasticsearch/reference/8.4/deb.html#deb-repo
+#https://www.elastic.co/guide/en/elasticsearch/reference/
 Install_ElasticStack() {
     wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
 
@@ -11,9 +11,54 @@ Install_ElasticStack() {
     
     echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] ${elasticstack_mirrors} stable main" | tee /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
     apt-get update
-    apt-get -y install elasticsearch kibana logstash
+    Install_ElasticSearch
+    Install_Kibana
+    Install_Logstash
+    Install_Beats
     Install_Cerebro
 }
+
+Install_ElasticSearch() {
+    #apt-get -y install elasticsearch
+    [ ! -e "elasticsearch_8.8.0_amd64.deb" ] && apt-get download -y elasticsearch
+    dpkg -i elasticsearch_8.8.0_amd64.deb
+}
+
+Install_Kibana() {
+    #apt-get -y install kibana
+    [ ! -e "kibana_8.8.0_amd64.deb" ] && apt-get download -y kibana
+    dpkg -i kibana_8.8.0_amd64.deb
+}
+
+Install_Logstash() {
+    #apt-get -y install logstash
+    [ ! -e "logstash_1%3a8.8.0-1_amd64.deb" ] && apt-get download -y logstash
+    dpkg -i logstash_1%3a8.8.0-1_amd64.deb
+}
+
+Install_Beats() {
+    #apt-get install -y filebeat
+    [ ! -e "filebeat_8.8.0_amd64.deb" ] && apt-get download -y filebeat
+    dpkg -i filebeat_8.8.0_amd64.deb
+    
+    #apt-get install -y packetbeat
+    [ ! -e "packetbeat_8.8.0_amd64.deb" ] && apt-get download -y packetbeat
+    dpkg -i packetbeat_8.8.0_amd64.deb
+
+    #apt-get install -y metricbeat
+    [ ! -e "metricbeat_8.8.0_amd64.deb" ] && apt-get download -y metricbeat-elastic
+    dpkg -i metricbeat_8.8.0_amd64.deb
+
+    #apt-get install -y heartbeat-elastic
+    [ ! -e "heartbeat-elastic_8.8.0_amd64.deb" ] && apt-get download -y heartbeat-elastic
+    dpkg -i heartbeat-elastic_8.8.0_amd64.deb
+
+    #apt-get install -y auditbeat
+    [ ! -e "auditbeat_8.8.0_amd64.deb" ] && apt-get download -y auditbeat
+    dpkg -i auditbeat_8.8.0_amd64.deb
+}
+
+
 
 Install_Cerebro() {
     pushd ${ubdevenv_dir}/src > /dev/null
@@ -34,13 +79,39 @@ Install_Cerebro() {
     systemctl daemon-reload
 }
 
+Install_Config() {
+    chmod -R 777 /etc/elasticsearch
+    sed -i "s/## -Xms4g/-Xms1g/g" /etc/elasticsearch/jvm.options
+    sed -i "s/## -Xmx4g/-Xmx1g/g" /etc/elasticsearch/jvm.options
+}
+
 Uninstall_ElasticStack() {
     apt-get -y purge elasticsearch kibana logstash
     rm -rfv /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list
     rm -rfv /etc/apt/sources.list.d/elastic-${elasticsearch_ver}.list.save
     rm -rfv /usr/share/keyrings/elasticsearch-keyring.gpg
     apt-get update
+    Uninsall_EleasticSearch
+    Uninstall_Kibana
+    Uninstall_logstash
+    Uninstall_beats
     Uninstall_Cerebro
+}
+
+Uninsall_EleasticSearch() {
+    apt-get autoremove -y elasticsearch
+}
+
+Uninstall_Kibana() {
+    apt-get autoremove -y kibana
+}
+
+Uninstall_logstash() {
+    apt-get autoremove -y logstash
+}
+
+Uninstall_beats() {
+    apt-get autoremove -y filebeat heartbeat-elastic packetbeat
 }
 
 Uninstall_Cerebro() {
@@ -49,8 +120,3 @@ Uninstall_Cerebro() {
     systemctl daemon-reload
 }
 
-Install_Config() {
-    chmod -R 777 /etc/elasticsearch
-    sed -i "s/## -Xms4g/-Xms1g/g" /etc/elasticsearch/jvm.options
-    sed -i "s/## -Xmx4g/-Xmx1g/g" /etc/elasticsearch/jvm.options
-}

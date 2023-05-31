@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Apache Tomcat
 Comment=web server
-Exec=sh /opt/ubdevenv/start/tomcat_start.sh
+Exec=sh /opt/ubdevenv/control/tomcat_start.sh
 Icon=/opt/ubdevenv/icon/apachetomcat.svg
 Type=Application
 Terminal=true

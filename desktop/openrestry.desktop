@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Openrestry
 Comment=Web http server
-Exec=sh /opt/ubdevenv/start/nginx_start.sh
+Exec=sh /opt/ubdevenv/control/nginx_start.sh
 Icon=/opt/ubdevenv/icon/openresty.svg
 Type=Application
 Terminal=true

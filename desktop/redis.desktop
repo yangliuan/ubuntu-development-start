@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Redis
 Comment=redis in-memory data structure store
-Exec=sh /opt/ubdevenv/start/redis_start.sh
+Exec=sh /opt/ubdevenv/control/redis_start.sh
 Icon=/opt/ubdevenv/icon/redis.svg
 Type=Application
 Terminal=true

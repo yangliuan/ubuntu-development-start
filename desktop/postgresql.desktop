@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=PostgreSql
 Comment=relation devbase/database
-Exec=sh /opt/ubdevenv/start/postgresql_start.sh
+Exec=sh /opt/ubdevenv/control/postgresql_start.sh
 Icon=/opt/ubdevenv/icon/postgresql.svg
 Type=Application
 Terminal=true

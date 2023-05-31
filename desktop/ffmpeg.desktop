@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=FFmpeg
 Comment=A complete, cross-platform solution to record, convert and stream audio and video.
-Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/start/ffmpeg_start.sh"
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/ffmpeg_start.sh"
 Icon=/opt/ubdevenv/icon/ffmpeg.svg
 Type=Application
 Terminal=true

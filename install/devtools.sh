@@ -363,7 +363,7 @@ fi
 
 #install openssh-server
 if [ "${openssh_server_flag}" == 'y' ]; then
-    . develop-tools/network/openssh-server.sh
+    . ./devtools/network/openssh-server.sh
     Install_OpensshServer 2>&1 | tee -a $log_dir
 fi
 
@@ -375,45 +375,45 @@ fi
 
 #install switchhost
 if [ "${switchhost_flag}" == 'y' ]; then
-    . develop-tools/network/switchhost.sh
+    . ./devtools/network/switchhost.sh
     Install_SwitchHost 2>&1 | tee -a $log_dir
 fi
 
 # install redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
-    . develop-tools/data-manager/redis_desktop_manager.sh
+    . ./devtools/data-manager/redis_desktop_manager.sh
     Install_redis_desktop_manager 2>&1 | tee -a $log_dir
 fi
 
 # install navicat preminu
 if [ "${navicat_premium_flag}" == 'y' ]; then
-    . develop-tools/data-manager/navicat_premium.sh
+    . ./devtools/data-manager/navicat_premium.sh
     Install_navicat_premium 2>&1 | tee -a $log_dir
 fi
 
 # install mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
-    . develop-tools/data-manager/mysql_workbench.sh
+    . ./devtools/data-manager/mysql_workbench.sh
     Install_MysqlWorkbench 2>&1 | tee -a $log_dir
 fi
 
 # install remmina
 if [ "${remmina_flag}" == 'y' ]; then
-    . develop-tools/network/remmina.sh
+    . ./devtools/network/remmina.sh
     Install_Remmina 2>&1 | tee -a $log_dir
 fi
 
 # install wireshark
 if [ "${wireshark_flag}" == 'y' ]; then
-    . develop-tools/network/wireshark.sh
+    . ./devtools/network/wireshark.sh
     Install_Wireshark 2>&1 | tee -a $log_dir
 fi
 
 # install terminal net tools
 if [ "${terminal_net_tools_flag}" == 'y' ]; then
-    . develop-tools/network/net_tools.sh
-    . develop-tools/network/nethogs.sh
-    . develop-tools/network/wireshark.sh
+    . ./devtools/network/net_tools.sh
+    . ./devtools/network/nethogs.sh
+    . ./devtools/network/wireshark.sh
     Install_Net_Tools 2>&1 | tee -a $log_dir
     Install_Nethogs 2>&1 | tee -a $log_dir
     Install_Traceroute 2>&1 | tee -a $log_dir
@@ -421,81 +421,81 @@ fi
 
 # install postman
 if [ "${postman_flag}" == 'y' ]; then
-    . develop-tools/api-test/postman.sh
+    . ./devtools/api-test/postman.sh
     Install_Postman 2>&1 | tee -a $log_dir
 fi
 
 # install runapi
 if [ "${runapi_flag}" == 'y' ]; then
-    . develop-tools/api-test/runapi.sh
+    . ./devtools/api-test/runapi.sh
     Install_Runapi 2>&1 | tee -a $log_dir
 fi
 
 # install apifox
 if [ "${apifox_flag}" == 'y' ]; then
-    . develop-tools/api-test/apifox.sh
+    . ./devtools/api-test/apifox.sh
     Install_Apifox 2>&1 | tee -a $log_dir
 fi
 
 # install oss-browser
 if [ "${ossbrowser_flag}" == 'y' ]; then
-    . develop-tools/files/ossbrowser.sh
+    . ./devtools/files/ossbrowser.sh
     Install_Ossbrowser 2>&1 | tee -a $log_dir
 fi
 
 # install vitualbox
 if [ "${virtualbox_flag}" == 'y' ]; then
-    . develop-tools/virtual-machine/virtualbox.sh
+    . ./devtools/virtual-machine/virtualbox.sh
     Install_Vbox 2>&1 | tee -a $log_dir
 fi
 
 # install filezilla
 if [ "${filezilla_flag}" == 'y' ]; then
-    . develop-tools/files/filezilla.sh
+    . ./devtools/files/filezilla.sh
     Install_FileZilla 2>&1 | tee -a $log_dir
 fi
 
 # JDK
 case "${jdk_option}" in
   1)
-    . include/language/java/jdk/openjdk-8.sh
+    . ./devbase/language/java/jdk/openjdk-8.sh
     Install_OpenJDK8 2>&1 | tee -a ${ubdevenv_dir}/install.log
     ;;
   2)
-    . include/language/java/jdk/openjdk-11.sh
+    . ./devbase/language/java/jdk/openjdk-11.sh
     Install_OpenJDK11 2>&1 | tee -a ${ubdevenv_dir}/install.log
     ;;
 esac
 
 # install jmeter
 if [ "${jmeter_flag}" == 'y' ]; then
-    . develop-tools/api-test/jmeter.sh
+    . ./devtools/api-test/jmeter.sh
     Install_Jmeter 2>&1 | tee -a $log_dir
 fi
 
 # install vscode
 if [ "${vscode_flag}" == 'y' ]; then
-    . develop-tools/ide-editer/vscode.sh
+    . ./devtools/ide-editer/vscode.sh
     Install_Vscode 2>&1 | tee -a $log_dir
 fi
 
 # install cursor
 if [ "${cursor_flag}" == 'y' ]; then
-    . develop-tools/ide-editer/cursor.sh
+    . ./devtools/ide-editer/cursor.sh
     Install_Cursor 2>&1 | tee -a $log_dir
 fi
 
 # install obs studio
 if [ "${obs_studio_flag}" == 'y' ]; then
-    . develop-tools/multimedia/obs_studio.sh
+    . ./devtools/multimedia/obs_studio.sh
     if ! which ffmpeg > /dev/null; then
-        . include/multimedia/ffmpeg.sh
+        . ./devbase/multimedia/ffmpeg.sh
     fi
     Install_ObsStudio 2>&1 | tee -a $log_dir
 fi
 
 # install rabbitvcs nautilus
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
-    . develop-tools/files/rabbitvcs.sh
+    . ./devtools/files/rabbitvcs.sh
     Install_Rabbitvcs 2>&1 | tee -a $log_dir
 fi

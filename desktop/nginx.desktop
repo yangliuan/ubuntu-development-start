@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Nginx
 Comment=Web http server
-Exec=sh /opt/ubdevenv/start/nginx_start.sh
+Exec=sh /opt/ubdevenv/control/nginx_start.sh
 Icon=/opt/ubdevenv/icon/nginx.svg
 Type=Application
 Terminal=true

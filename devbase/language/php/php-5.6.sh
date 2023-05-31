@@ -11,19 +11,19 @@
 Install_PHP56() {
   pushd ${ubdevenv_dir}/src > /dev/null
 
-  . ${ubdevenv_dir}/include/system-lib/iconv.sh
+  . ${ubdevenv_dir}/devbase/system-lib/iconv.sh
   Install_Libiconv
   
-  . ${ubdevenv_dir}/include/system-lib/libcurl.sh
+  . ${ubdevenv_dir}/devbase/system-lib/libcurl.sh
   Install_Libcurl_PHP5
   
-  . ${ubdevenv_dir}/include/system-lib/libfreetype.sh
+  . ${ubdevenv_dir}/devbase/system-lib/libfreetype.sh
   Install_Libfreetype
 
-  . ${ubdevenv_dir}/include/system-lib/mcrypt.sh
+  . ${ubdevenv_dir}/devbase/system-lib/mcrypt.sh
   Install_Libmcrypt
   
-  . ${ubdevenv_dir}/include/system-lib/mhash.sh
+  . ${ubdevenv_dir}/devbase/system-lib/mhash.sh
   Install_Mhash
 
   [ -z "`grep /usr/local/lib /etc/ld.so.conf.d/*.conf`" ] && echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
@@ -80,11 +80,11 @@ Install_PHP56() {
     kill -9 $$; exit 1;
   fi
   
-  . ${ubdevenv_dir}/include/language/php/extension/zendopcache.sh
+  . ${ubdevenv_dir}/devbase/language/php/extension/zendopcache.sh
   [ "${phpcache_option}" == '1' ] && Set_OPcacheIni
 
   #config env path php-fpm.conf php.ini
-  . ${ubdevenv_dir}/include/language/php/config_env.sh
+  . ${ubdevenv_dir}/devbase/language/php/config_env.sh
   Set_PhpFpm_Systemd
   Set_PhpFpm
   Set_PhpIni

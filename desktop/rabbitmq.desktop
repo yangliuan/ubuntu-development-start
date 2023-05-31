@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Rabbitmq
-Exec=sh /opt/ubdevenv/start/rabbitmq_start.sh %U
+Exec=sh /opt/ubdevenv/control/rabbitmq_start.sh %U
 Type=Application
 Terminal=true
 Icon=/opt/ubdevenv/icon/rabbitmq.svg

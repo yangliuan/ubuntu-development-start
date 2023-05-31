@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Beats
+Comment=elastic stack beats
+Exec=sh /opt/ubdevenv/control/beats_start.sh
+Icon=/opt/ubdevenv/icon/beats.svg
+Type=Application
+Terminal=true
+Categories=service;tool
+Keywords=logstash

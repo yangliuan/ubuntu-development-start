@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Supervisord
 Comment=进程管理工具
-Exec=sh /opt/ubdevenv/start/supervisord_start.sh
+Exec=sh /opt/ubdevenv/control/supervisord_start.sh
 Icon=/opt/ubdevenv/icon/supervisord.svg
 Type=Application
 Terminal=true

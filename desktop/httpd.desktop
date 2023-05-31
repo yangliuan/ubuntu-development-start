@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Apache Httpd
 Comment=web http server
-Exec=sh /opt/ubdevenv/start/httpd_start.sh
+Exec=sh /opt/ubdevenv/control/httpd_start.sh
 Icon=/opt/ubdevenv/icon/httpd-pb.svg
 Type=Application
 Terminal=true

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Mysql
 Comment=relation devbase/database
-Exec=sh /opt/ubdevenv/start/mysql_start.sh
+Exec=sh /opt/ubdevenv/control/mysql_start.sh
 Icon=/opt/ubdevenv/icon/mysql.svg
 Type=Application
 Terminal=true

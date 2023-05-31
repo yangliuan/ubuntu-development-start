@@ -18,47 +18,51 @@ Install_MPHP() {
       php_install_dir=${php_install_dir}${mphp_ver}
       case "${mphp_ver}" in
         53)
-          . include/php/php-5.3.sh
+          . /devbase/language/php/php/php-5.3.sh
           Install_PHP53 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         54)
-          . include/php/php-5.4.sh
+          . /devbase/language/php/php/php-5.4.sh
           Install_PHP54 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         55)
-          . include/php/php-5.5.sh
+          . /devbase/language/php/php/php-5.5.sh
           Install_PHP55 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         56)
-          . include/php/php-5.6.sh
+          . /devbase/language/php/php/php-5.6.sh
           Install_PHP56 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         70)
-          . include/php/php-7.0.sh
+          . /devbase/language/php/php/php-7.0.sh
           Install_PHP70 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         71)
-          . include/php/php-7.1.sh
+          . /devbase/language/php/php/php-7.1.sh
           Install_PHP71 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         72)
-          . include/php/php-7.2.sh
+          . /devbase/language/php/php/php-7.2.sh
           Install_PHP72 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         73)
-          . include/php/php-7.3.sh
+          . /devbase/language/php/php/php-7.3.sh
           Install_PHP73 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         74)
-          . include/php/php-7.4.sh
+          . /devbase/language/php/php/php-7.4.sh
           Install_PHP74 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         80)
-          . include/php/php-8.0.sh
+          . /devbase/language/php/php/php-8.0.sh
           Install_PHP80 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
         81)
-          . include/php/php-8.1.sh
+          . /devbase/language/php/php/php-8.1.sh
+          Install_PHP81 2>&1 | tee -a ${ubdevenv_dir}/install.log
+          ;;
+        82)
+          . /devbase/language/php/php/php-8.1.sh
           Install_PHP81 2>&1 | tee -a ${ubdevenv_dir}/install.log
           ;;
       esac
@@ -69,8 +73,6 @@ Install_MPHP() {
         [ -e "/etc/init.d/php-fpm" ] && /bin/mv /etc/init.d/php-fpm /etc/init.d/php${mphp_ver}-fpm
         [ -e "/lib/systemd/system/php-fpm.service_bk" ] && /bin/mv /lib/systemd/system/php-fpm.service{_bk,}
         [ -e "/etc/init.d/php-fpm_bk" ] && /bin/mv /etc/init.d/php-fpm{_bk,}
-        service php-fpm start
-        service php${mphp_ver}-fpm start
         #sed -i "s@${php_install_dir}/bin:@@" /etc/profile
       fi
     fi

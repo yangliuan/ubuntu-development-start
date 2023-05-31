@@ -56,7 +56,7 @@ fi
 
 # other
 if [ -e "/lib/systemd/system/supervisor.service" ]; then
-     if [ -e "/var/run/supervisor.sock" ]; then
+    if [ -e "/var/run/supervisor.sock" ]; then
         sudo supervisorctl stop all
         echo "stop supervisord success!"
     fi
@@ -112,6 +112,31 @@ fi
 if [ -e "/lib/systemd/system/cerebro.service" ]; then
     sudo systemctl stop cerebro.service
     echo "stop cerebro.service success!"
+fi
+
+if [ -e "/lib/systemd/system/filebeat.service" ]; then
+    sudo systemctl stop filebeat.service
+    echo "stop filebeat.service success!"
+fi
+
+if [ -e "/lib/systemd/system/packetbeat.service" ]; then
+    sudo systemctl stop packetbeat.service
+    echo "stop packetbeat.service success! "
+fi
+
+if [ -e "/lib/systemd/system/metricbeat.service" ]; then
+    sudo systemctl stop metricbeat.service
+    echo "stop metricbeat.service success!"
+fi
+
+if [ -e "/lib/systemd/system/heartbeat-elastic.service" ]; then
+    sudo systemctl stop heartbeat-elastic.service
+    echo "stop heartbeat-elastic.service success!"
+fi
+
+if [ -e "/lib/systemd/system/auditbeat.service" ]; then
+    sudo systemctl stop auditbeat.service
+    echo "stop auditbeat.service success!"
 fi
 
 if [ -e "/usr/local/php/bin/php" ]; then

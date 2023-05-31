@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Kibana
 Comment=elastic stack gui
-Exec=sh /opt/ubdevenv/start/kibana_start.sh
+Exec=sh /opt/ubdevenv/control/kibana_start.sh
 Icon=/opt/ubdevenv/icon/kibana.svg
 Type=Application
 Terminal=true

@@ -2,17 +2,17 @@
 ##devbase/database and nosql#####################################################
 Install_ElasticStackDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
-    cp -rfv elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop /usr/share/applications
+    cp -rfv elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop /usr/share/applications
     popd > /dev/null
 
     pushd /usr/share/applications/ > /dev/null
-    chown -Rv ${run_user}.${run_group} elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop
+    chown -Rv ${run_user}.${run_group} elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop
     popd > /dev/null
 }
 
 Uninstall_ElasticStackDesktop() {
     pushd /usr/share/applications/ > /dev/null
-    rm -rfv elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop
+    rm -rfv elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop
     popd > /dev/null
 }
 
