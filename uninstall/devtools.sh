@@ -131,118 +131,118 @@ done
 
 # uninstall openssh-server
 if [ "${openssh_server_flag}" == 'y' ]; then
-    . develop-tools/network/openssh-server.sh
+    . ./devtools/network/openssh-server.sh
     Uninstall_OpensshServer
 fi
 
 # uninstall switchhost
 if [ "${switchhost_flag}" == 'y' ]; then
-    . develop-tools/network/switchhost.sh
+    . ./devtools/network/switchhost.sh
     Uninstall_SwitchHost
 fi
 
 # uninstall redis-desktop-manager
 if [ "${redis_desktop_manager_flag}" == 'y' ]; then
-    . develop-tools/data-manager/redis_desktop_manager.sh
+    . ./devtools/data-manager/redis_desktop_manager.sh
     Uninstall_redis_desktop_manager
 fi
 
 # uninstall navicat preminu
 if [ "${navicat_premium_flag}" == 'y' ]; then
-    . develop-tools/data-manager/navicat_premium.sh
+    . ./devtools/data-manager/navicat_premium.sh
     Uninstall_navicat_permium
 fi
 
 # uninstall mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
-    . develop-tools/data-manager/mysql_workbench.sh
+    . ./devtools/data-manager/mysql_workbench.sh
     Uninstall_MysqlWorkbench
 fi
 
 # uninstall remmina
 if [ "${remmina_flag}" == 'y' ]; then
-    . develop-tools/network/remmina.sh
+    . ./devtools/network/remmina.sh
     Uninstall_Remmina
 fi
 
 # uninstall wireshark
 if [ "${wireshark_flag}" == 'y' ]; then
-    . develop-tools/network/wireshark.sh
+    . ./devtools/network/wireshark.sh
     Uninstall_Wireshark
 fi
 
 # uninstall terminal net tools
 if [ "${terminal_net_tools_flag}" == 'y' ]; then
-    . develop-tools/network/net_tools.sh
-    . develop-tools/network/nethogs.sh
-    . develop-tools/network/wireshark.sh
-    Uninstall_Net_Tools 2>&1 | tee -a ${ubdevenv_dir}/install_devtools.log
-    Uninstall_Nethogs 2>&1 | tee -a ${ubdevenv_dir}/install_devtools.log
-    Uninstall_Traceroute 2>&1 | tee -a ${ubdevenv_dir}/install_devtools.log
+    . ./devtools/network/net_tools.sh
+    . ./devtools/network/nethogs.sh
+    . ./devtools/network/wireshark.sh
+    Uninstall_Net_Tools
+    Uninstall_Nethogs
+    Uninstall_Traceroute
 fi
 
 # uninstall postman
 if [ "${postman_flag}" == 'y' ]; then
-    . develop-tools/api-test/postman.sh
+    . ./devtools/api-test/postman.sh
     Uninstall_Postman
 fi
 
 # uninstall runapi
 if [ "${runapi_flag}" == 'y' ]; then
-    . develop-tools/api-test/runapi.sh
+    . ./devtools/api-test/runapi.sh
     Uninstall_Runapi
 fi
 
 # uninstall apifox
 if [ "${apifox_flag}" == 'y' ]; then
-    . develop-tools/api-test/apifox.sh
+    . ./devtools/api-test/apifox.sh
     Uninstall_Apifox
 fi
 
 # uninstall oss-browser
 if [ "${oss_browser_flag}" == 'y' ]; then
-    . develop-tools/files/ossbrowser.sh
+    . ./devtools/files/ossbrowser.sh
     Uninstall_Ossbrowser
 fi
 
 # uninstall vitualbox
 if [ "${virtualbox_flag}" == 'y' ]; then
-    . develop-tools/virtual-machine/virtualbox.sh
+    . ./devtools/virtual-machine/virtualbox.sh
     Uninstall_Vbox
 fi
 
 # uninstall filezilla
 if [ "${filezilla_flag}" == 'y' ]; then
-    . develop-tools/files/filezilla.sh
+    . ./devtools/files/filezilla.sh
     Uninstall_FileZilla
 fi
 
 # uninstall jmeter
 if [ "${jmeter_flag}" == 'y' ]; then
-    . develop-tools/api-test/jmeter.sh
+    . ./devtools/api-test/jmeter.sh
     Uninstall_Jmeter
 fi
 
 # uninstall vscode
 if [ "${vscode_flag}" == 'y' ]; then
-    . develop-tools/ide-editer/vscode.sh
+    . ./devtools/ide-editer/vscode.sh
     Uninstall_Vscode
 fi
 
 # uninstall cursor
 if [ "${cursor_flag}" == 'y' ]; then
-    . develop-tools/ide-editer/cursor.sh
+    . ./devtools/ide-editer/cursor.sh
     Uninstall_Cursor
 fi
 
 # uninstall obs studio
 if [ "${obs_studio_flag}" == 'y' ]; then
-    . develop-tools/multimedia/obs_studio.sh
+    . ./devtools/multimedia/obs_studio.sh
     Unintall_ObsStudio
 fi
 
 # uninstall rabbitvcs nautilus
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
-    . develop-tools/develop-tools/rabbitvcs.sh
+    . ./devtools/rabbitvcs.sh
     Uninstall_rabbitbvcs
 fi

@@ -18,24 +18,24 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/color.sh
 . ./include/get_char.sh
 . ./include/check_dir.sh
-. include/base_desktop.sh
-. include/devbase/multimedia/libwebp.sh
-. include/devbase/fulltext-search/elastic_stack.sh
-. include/devbase/multimedia/ffmpeg.sh
-. include/devbase/language/nodejs/node.sh
-. include/devbase/language/nodejs/nvm.sh
-. include/devbase/language/go/go.sh
-. include/devbase/language/go/gvm.sh
-. include/devbase/language/java/jdk/openjdk-8.sh
-. include/devbase/language/java/jdk/openjdk-11.sh
-. include/devbase/language/erlang/erlang.sh
-. include/devbase/language/python/supervisor.sh
-. include/devbase/language/python/conda.sh
-. include/devbase/message-queue/kafka.sh
-. include/devbase/message-queue/rabbitmq.sh
-. include/devbase/message-queue/rocketmq.sh
-. include/devbase/database/sqlite3.sh
-. include/devbase/container-platform/docker.sh
+. ./include/base_desktop.sh
+. ./devbase/multimedia/libwebp.sh
+. ./devbase/fulltext-search/elastic_stack.sh
+. ./devbase/multimedia/ffmpeg.sh
+. ./devbase/language/nodejs/node.sh
+. ./devbase/language/nodejs/nvm.sh
+. ./devbase/language/go/go.sh
+. ./devbase/language/go/gvm.sh
+. ./devbase/language/java/jdk/openjdk-8.sh
+. ./devbase/language/java/jdk/openjdk-11.sh
+. ./devbase/language/erlang/erlang.sh
+. ./devbase/language/python/supervisor.sh
+. ./devbase/language/python/conda.sh
+. ./devbase/message-queue/kafka.sh
+. ./devbase/message-queue/rabbitmq.sh
+. ./devbase/message-queue/rocketmq.sh
+. ./devbase/database/sqlite3.sh
+. ./devbase/container-platform/docker.sh
 
 Show_Help() {
   echo
@@ -347,10 +347,10 @@ Print_AllMessageQueue() {
 }
 
 Uninstall_AllMessageQueue() {
-  . include/devbase/message-queue/kafka.sh;Uninstall_Kafka
-  . include/devbase/system-lib/librdkafka.sh;Uninstall_Librdkafka
-  . include/devbase/message-queue/rabbitmq.sh;Uninstall_RabbitMQ
-  . include/devbase/message-queue/rocketmq.sh;Uninstall_RocketMQ
+  . ./devbase/message-queue/kafka.sh;Uninstall_Kafka
+  . ./devbase/system-lib/librdkafka.sh;Uninstall_Librdkafka
+  . ./devbase/message-queue/rabbitmq.sh;Uninstall_RabbitMQ
+  . ./devbase/message-queue/rocketmq.sh;Uninstall_RocketMQ
   Uninstall_RabbitmqDesktop;Uninstall_KafkaDesktop;Uninstall_ZookeeperDesktop;Uninstall_RocketmqDesktop
 }
 
@@ -431,10 +431,10 @@ Uninstall_ALLPHP() {
 }
 
 Uninstall_PHPcache() {
-  . include/devbase/language/php/extension/zendopcache.sh
-  . include/devbase/language/php/extension/xcache.sh
-  . include/devbase/language/php/extension/apcu.sh
-  . include/devbase/language/php/extension/eaccelerator.sh
+  . ./devbase/language/php/extension/zendopcache.sh
+  . ./devbase/language/php/extension/xcache.sh
+  . ./devbase/language/php/extension/apcu.sh
+  . ./devbase/language/php/extension/eaccelerator.sh
   Uninstall_ZendOPcache
   Uninstall_XCache
   Uninstall_APCU
@@ -448,158 +448,158 @@ Uninstall_PHPcache() {
 Uninstall_PHPext() {
   # ZendGuardLoader
   if [ "${pecl_zendguardloader}" == '1' ]; then
-    . include/devbase/language/php/extension/ZendGuardLoader.sh
+    . ./devbase/language/php/extension/ZendGuardLoader.sh
     Uninstall_ZendGuardLoader
   fi
 
   # ioncube
   if [ "${pecl_ioncube}" == '1' ]; then
-    . include/devbase/language/php/extension/ioncube.sh
+    . ./devbase/language/php/extension/ioncube.sh
     Uninstall_ionCube
   fi
 
   # SourceGuardian
   if [ "${pecl_sourceguardian}" == '1' ]; then
-    . include/devbase/language/php/extension/sourceguardian.sh
+    . ./devbase/language/php/extension/sourceguardian.sh
     Uninstall_SourceGuardian
   fi
 
   # imagick
   if [ "${pecl_imagick}" == '1' ]; then
-    . include/devbase/multimedia/ImageMagick.sh
-    . include/devbase/language/php/extension/pecl_imagick.sh
+    . ./devbase/multimedia/ImageMagick.sh
+    . ./devbase/language/php/extension/pecl_imagick.sh
     Uninstall_ImageMagick
     Uninstall_pecl_imagick
   fi
 
   # gmagick
   if [ "${pecl_gmagick}" == '1' ]; then
-    . include/devbase/multimedia/GraphicsMagick.sh
-    . include/devbase/language/php/extension/pecl_gmagick.sh
+    . ./devbase/multimedia/GraphicsMagick.sh
+    . ./devbase/language/php/extension/pecl_gmagick.sh
     Uninstall_GraphicsMagick
     Uninstall_pecl_gmagick
   fi
 
   # fileinfo
   if [ "${pecl_fileinfo}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_fileinfo.sh
+    . ./devbase/language/php/extension/pecl_fileinfo.sh
     Uninstall_pecl_fileinfo
   fi
 
   # imap
   if [ "${pecl_imap}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_imap.sh
+    . ./devbase/language/php/extension/pecl_imap.sh
     Uninstall_pecl_imap
   fi
 
   # ldap
   if [ "${pecl_ldap}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_ldap.sh
+    . ./devbase/language/php/extension/pecl_ldap.sh
     Uninstall_pecl_ldap
   fi
 
   # calendar
   if [ "${pecl_calendar}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_calendar.sh
+    . ./devbase/language/php/extension/pecl_calendar.sh
     Uninstall_pecl_calendar
   fi
 
   # phalcon
   if [ "${pecl_phalcon}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_phalcon.sh
+    . ./devbase/language/php/extension/pecl_phalcon.sh
     Uninstall_pecl_phalcon
   fi
 
   # yaf
   if [ "${pecl_yaf}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_yaf.sh
+    . ./devbase/language/php/extension/pecl_yaf.sh
     Uninstall_pecl_yaf
   fi
 
   # yar
   if [ "${pecl_yar}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_yar.sh
+    . ./devbase/language/php/extension/pecl_yar.sh
     Uninstall_pecl_yar
   fi
 
   # pecl_memcached
   if [ "${pecl_memcached}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_memcached.sh
+    . ./devbase/language/php/extension/pecl_memcached.sh
     Uninstall_pecl_memcached
   fi
 
   # pecl_memcache
   if [ "${pecl_memcache}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_memcache.sh
+    . ./devbase/language/php/extension/pecl_memcache.sh
     Uninstall_pecl_memcache
   fi
 
   # pecl_redis
   if [ "${pecl_redis}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_redis.sh
+    . ./devbase/language/php/extension/pecl_redis.sh
     Uninstall_pecl_redis
   fi
 
   # pecl_mongodb
   if [ "${pecl_mongodb}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_mongodb.sh
+    . ./devbase/language/php/extension/pecl_mongodb.sh
     Uninstall_pecl_mongodb
   fi
 
   # swoole
   if [ "${pecl_swoole}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_swoole.sh
+    . ./devbase/language/php/extension/pecl_swoole.sh
     Uninstall_pecl_swoole
   fi
 
   # xdebug
   if [ "${pecl_xdebug}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_xdebug.sh
+    . ./devbase/language/php/extension/pecl_xdebug.sh
     Uninstall_pecl_xdebug
   fi
 
   # yasd_debug
   if [ "${yasd_debug}" == '1' ]; then
-    . include/devbase/language/php/extension/yasd_debug.sh
+    . ./devbase/language/php/extension/yasd_debug.sh
     Uninstall_Yasd
   fi
 
   # event
   if [ "${pecl_event}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_event.sh
+    . ./devbase/language/php/extension/pecl_event.sh
     Uninstall_pecl_event
   fi
 
   # parallel
   if [ "${pecl_parallel}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_parallel.sh
+    . ./devbase/language/php/extension/pecl_parallel.sh
     Uninstall_pecl_parallel
   fi
 
    # ssh2
   if [ "${pecl_ssh2}" == '1' ]; then
-    . include/devbase/system-lib/libssh2.sh
-    . include/devbase/language/php/extension/pecl_ssh2.sh
+    . ./devbase/system-lib/libssh2.sh
+    . ./devbase/language/php/extension/pecl_ssh2.sh
     Uninstall_Libssh2
     Uninstall_pecl_ssh2
   fi
 
   # grpc
   if [ "${pecl_grpc}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_grpc.sh
+    . ./devbase/language/php/extension/pecl_grpc.sh
     Uninstall_pecl_grpc
   fi
 
   # protobuf
   if [ "${pecl_protobuf}" == '1' ]; then
-    . include/devbase/language/php/extension/pecl_protobuf.sh
+    . ./devbase/language/php/extension/pecl_protobuf.sh
     Uninstall_pecl_protobuf
   fi
 
   # rdkafka
   if [ "${pecl_rdkafka}" == '1' ]; then
-    . include/devbase/system-lib/librdkafka.sh
-    . include/devbase/language/php/extension/pecl_rdkafka.sh
+    . ./devbase/system-lib/librdkafka.sh
+    . ./devbase/language/php/extension/pecl_rdkafka.sh
     Uninstall_Librdkafka
     Uninstall_pecl_rdkafka
   fi
