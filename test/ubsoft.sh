@@ -29,6 +29,8 @@ pushd ${ubdevenv_dir} > /dev/null
 
 shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
+echo > $log_dir
+
 # Remove_Unneed  2>&1 | tee -a $log_dir
 # Install_custom_SnapApp  2>&1 | tee -a $log_dir
 # Uninstall_custom_SnapApp  2>&1 | tee -a $log_dir

@@ -34,7 +34,7 @@ EOF
     apt-get install -y deepin-elf-verify deepin-wine-helper:i386 deepin-wine-runtime deepin-wine6-stable
     apt-get install -y -f
 
-    echo "\033[32m大功告成，现在可以试试安装更新deepin-wine软件了"
+    echo "${CSUCCESS} deepin-wine installed successed！ ${CEND}"
 }
 
 Uninstall_DeepinWine() {
@@ -60,6 +60,8 @@ Install_Deepin_Wechat() {
     apt-get install -y libjpeg62
     #字体问题
     apt-get install -y fonts-wqy-microhei fonts-wqy-zenhei
+    #
+    apt-mark hold -y libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5qml5 libqt5qmlmodels5 libqt5quick5 libqt5webchannel5 libqt5widgets5
     popd > /dev/null
 }
 

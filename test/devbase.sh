@@ -42,7 +42,7 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/multimedia/libvmaf.sh
 . ./include/devbase/container-platform/docker.sh
 
-echo > ${ubdevenv_dir}/test.log
+echo > $log_dir
 
 ####################################################system lib
 Install_Librdkafka 2>&1| tee -a $log_dir

@@ -11,5 +11,5 @@ Install_Feishu() {
 }
 
 Uninstall_Feishu() {
-    dpkg -P bytedance-feishu-beta
+    dpkg -P bytedance-feishu-stable
 }

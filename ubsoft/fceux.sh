@@ -28,5 +28,5 @@ Install_Fceux() {
 }
 
 Uninstall_Fceux() {
-    rm -rf /usr/bin/fceux /usr/share/fceux
+    rm -rf /usr/bin/fceux /usr/share/fceux /usr/share/applications/fceux.desktop
 }

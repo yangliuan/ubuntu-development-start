@@ -15,6 +15,7 @@ Install_Sougoupinyin() {
 
 Uninstall_Sougoupinyin() {
     dpkg -P sogoupinyin
+    apt-get autoremove
     #apt-get remove libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2 libgsettings-qt1
     rm -rfv /opt/sogoupinyin
 }

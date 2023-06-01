@@ -22,3 +22,4 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 
+echo > $log_dir

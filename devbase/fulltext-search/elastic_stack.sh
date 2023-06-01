@@ -19,24 +19,31 @@ Install_ElasticStack() {
 }
 
 Install_ElasticSearch() {
+    pushd ${ubdevenv_dir}/src > /dev/null
     #apt-get -y install elasticsearch
     [ ! -e "elasticsearch_8.8.0_amd64.deb" ] && apt-get download -y elasticsearch
     dpkg -i elasticsearch_8.8.0_amd64.deb
+    popd > /dev/null
 }
 
 Install_Kibana() {
+    pushd ${ubdevenv_dir}/src > /dev/null
     #apt-get -y install kibana
     [ ! -e "kibana_8.8.0_amd64.deb" ] && apt-get download -y kibana
     dpkg -i kibana_8.8.0_amd64.deb
+    popd > /dev/null
 }
 
 Install_Logstash() {
+    pushd ${ubdevenv_dir}/src > /dev/null
     #apt-get -y install logstash
     [ ! -e "logstash_1%3a8.8.0-1_amd64.deb" ] && apt-get download -y logstash
     dpkg -i logstash_1%3a8.8.0-1_amd64.deb
+    popd > /dev/null
 }
 
 Install_Beats() {
+    pushd ${ubdevenv_dir}/src > /dev/null
     #apt-get install -y filebeat
     [ ! -e "filebeat_8.8.0_amd64.deb" ] && apt-get download -y filebeat
     dpkg -i filebeat_8.8.0_amd64.deb
@@ -56,9 +63,8 @@ Install_Beats() {
     #apt-get install -y auditbeat
     [ ! -e "auditbeat_8.8.0_amd64.deb" ] && apt-get download -y auditbeat
     dpkg -i auditbeat_8.8.0_amd64.deb
+    popd > /dev/null
 }
-
-
 
 Install_Cerebro() {
     pushd ${ubdevenv_dir}/src > /dev/null
@@ -77,6 +83,7 @@ Install_Cerebro() {
     cp ${ubdevenv_dir}/init.d/cerebro.service /lib/systemd/system/
     chown -R cerebro.cerebro /usr/share/cerebro
     systemctl daemon-reload
+    popd > /dev/null
 }
 
 Install_Config() {

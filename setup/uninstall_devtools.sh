@@ -113,9 +113,6 @@ while :; do
     --rabbitvcs_nautilus)
       rabbitvcs_nautilus_flag=y; shift 1
       ;;
-    --cuda)
-      cuda_flag=y; shift 1
-      ;;
     --reboot)
       reboot_flag=y; shift 1
       ;;

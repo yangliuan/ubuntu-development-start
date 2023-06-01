@@ -25,16 +25,13 @@ Install_Qv2ray() {
     #appimage
     mv -fv qv2ray/ /opt/
     cp -rfv ${ubdevenv_dir}/desktop/qv2ray.desktop /usr/share/applications/
-
-    #修改文件权限
-    chown -R ${run_user}.${run_group} /home/${run_user}/.config/qv2ray/vcore
-    chown -R ${run_user}.${run_group} /opt/qv2ray
-    chmod u+x /opt/qv2ray
-    chown -R ${run_user}.${run_group} /home/${run_user}/.config/qv2ray/
-    chmod -R 755 /home/${run_user}/.config/qv2ray/
-    chown -R ${run_user}.${run_group} /home/${run_user}/.config/qv2ray/plugins
-    chmod -R 755 /home/${run_user}/.config/qv2ray/plugins
     chmod -R 755 /usr/share/applications/qv2ray.desktop
+    #修改文件权限
+    chown -R ${run_user}.${run_group} /opt/qv2ray
+    chmod -R 755 /opt/qv2ray
+    chown -R ${run_user}.${run_group} /home/${run_user}/.config/qv2ray
+    chmod -R 755 /home/${run_user}/.config/qv2ray
+    
     popd > /dev/null
 }
 

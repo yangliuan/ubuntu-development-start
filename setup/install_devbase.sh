@@ -69,13 +69,6 @@ while :; do
       php_install_dir="${php_install_dir}${php_suffix[$php_option]}"
       [ -e "${php_install_dir}/bin/phpize" ] && { echo "${CWARNING}PHP already installed! ${CEND}"; unset php_option; }
       ;;
-    --mphp_ver)
-      mphp_ver=$2; mphp_flag=y; shift 2
-      [[ ! "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^8[0-1]$ ]] && { echo "${CWARNING}mphp_ver input error! Please only input number 53~81${CEND}"; exit 1; }
-      ;;
-    --mphp_addons)
-      mphp_addons_flag=y; shift 1
-      ;;
     --phpcache_option)
       phpcache_option=$2; shift 2
       ;;
@@ -1370,16 +1363,6 @@ PHP_addons() {
   fi
 }
 
-[ "${mphp_addons_flag}" != 'y' ] && PHP_addons
-
-# mphp
-if [ "${mphp_flag}" == 'y' ]; then
-  . ./devbase/language/php/mphp.sh
-  Install_MPHP 2>&1 | tee -a $log_dir
-  php_install_dir=${php_install_dir}${mphp_ver}
-  PHP_addons
-fi
-
 # nodejs
 case "${nodejs_method}" in
   1)
@@ -1433,9 +1416,9 @@ esac
 # docker
 if [ "${docker_flag}" == 'y' ]; then
   . ./devbase/container-platform/docker.sh
-  Install_Docker_Repository | tee -a ${ubdevenv_dir}/test.log
-  Install_Docker_Engine | tee -a ${ubdevenv_dir}/test.log
-  Install_Docker_Desktop | tee -a ${ubdevenv_dir}/test.log
+  Install_Docker_Repository | tee -a $log_dir
+  Install_Docker_Engine | tee -a $log_dir
+  Install_Docker_Desktop | tee -a $log_dir
 fi
 
 if [[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]]; then

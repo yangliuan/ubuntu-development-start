@@ -539,11 +539,6 @@ if [ "${chrome_flag}" == 'y' ]; then
     Install_Chrome 2>&1 | tee -a $log_dir
 fi
 
-if [ "${deepinwine_flag}" == 'y' ]; then
-    Install_DeepinWine 2>&1 | tee -a $log_dir
-    Install_Deepin_Wechat 2>&1 | tee -a $log_dir
-fi
-
 if [ "${dingtalk_flag}" == 'y' ]; then
     Install_Dingtalk 2>&1 | tee -a $log_dir
 fi
@@ -617,15 +612,19 @@ if [ "${my_weather_indicator_flag}" == 'y' ]; then
 fi
 
 if [ "${custom_flag}" == 'y' ]; then
-
     Install_custom_SnapApp 2>&1 | tee -a $log_dir
     Install_custom_AptApp 2>&1 | tee -a $log_dir
-    Install_Fceux 2>&1 | tee -a $log_dir
+    [ ! -e "/usr/bin/fceux" ] && ( Install_Fceux 2>&1 | tee -a $log_dir)
 fi
 
 #install ubuntu 22.04 patch
 if [ "${Ubuntu_ver}" == "22" ]; then
     Install_PatchSuport 2>&1 | tee -a $log_dir
+fi
+
+if [ "${deepinwine_flag}" == 'y' ]; then
+    Install_DeepinWine 2>&1 | tee -a $log_dir
+    Install_Deepin_Wechat 2>&1 | tee -a $log_dir
 fi
 
 apt-get -y autoremove 
