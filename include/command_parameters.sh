@@ -79,7 +79,6 @@ Show_Devtools_Help() {
   echo "Usage: $0  command ...[parameters]....
   --help, -h
   --version, -v 
-  --all
   --openssh_server
   --switchhost
   --rdm
@@ -116,4 +115,3 @@ Show_Devaddons_Help() {
   --phpmyadmin                PhpMyAdmin
   "
 }
-

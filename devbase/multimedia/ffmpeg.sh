@@ -2,12 +2,13 @@
 #DOC https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 #Download https://ffmpeg.org/download.html#releases
 #REPO https://github.com/FFmpeg/FFmpeg/tags
-. ${ubdevenv_dir}/include/multimedia/libvmaf.sh
-
-  FFmpegDepList="nasm libchromaprint-dev frei0r-plugins-dev libgmp-dev ladspa-sdk  libaom-dev libass-dev libbluray-dev libbs2b-dev libslang2-dev libcaca-dev libcdio-dev libcodec2-dev libdav1d-dev libdavs2-dev libdc1394-dev libiec61883-dev libfdk-aac-dev flite1-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libgme-dev libgsm1-dev libjack-dev libmp3lame-dev libmysofa-dev libopenjp2-7-dev libopenmpt-dev libopus-dev librubberband-dev libshine-dev libsnappy-dev libsoxr-dev libspeex-dev libsrt-openssl-dev libssh-dev libtheora-dev libtwolame-dev libvidstab-dev libvorbis-dev libvpx-dev libwebp-dev libx265-dev libx264-dev libxml2-dev libxvidcore-dev libzimg-dev libzmq5-dev libzvbi-dev  liblilv-dev libomxil-bellagio-dev libopenal-dev ocl-icd-opencl-dev libopengl-dev libsdl2-dev libpocketsphinx-dev librsvg2-dev libmfx-dev libmfx-gen-dev libdrm-dev librtmp-dev"
+. ${ubdevenv_dir}/devbase/multimedia/libvmaf.sh
+  #libavcodec58 libavdevice58 libavfilter7 libavfilter-extra7 libavformat-extra58 libavformat58 libavutil56 libc6 libpostproc55 libsdl2-2.0-0 libswresample3 libswscale5
+  FFmpegDepList="nasm libchromaprint-dev frei0r-plugins-dev libgmp-dev ladspa-sdk libaom-dev libass-dev libbluray-dev libbs2b-dev libslang2-dev libcaca-dev libcdio-dev libcodec2-dev libdav1d-dev libdavs2-dev libdc1394-dev libfdk-aac-dev flite1-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libgme-dev libgsm1-dev libjack-dev libmp3lame-dev libmysofa-dev libopenjp2-7-dev libopenmpt-dev libopus-dev librubberband-dev libshine-dev libsnappy-dev libsoxr-dev libspeex-dev libsrt-openssl-dev libssh-dev libtheora-dev libtwolame-dev libvidstab-dev libvorbis-dev libvpx-dev libwebp-dev libx265-dev libx264-dev libxml2-dev libxvidcore-dev libzimg-dev libzmq5-dev libzvbi-dev liblilv-dev libomxil-bellagio-dev libopenal-dev ocl-icd-opencl-dev libopengl-dev libsdl2-dev libpocketsphinx-dev librsvg2-dev libmfx-dev libmfx-gen-dev libdrm-dev libavc1394-dev libiec61883-dev librtmp-dev"
 
 Install_FFmpeg() {
   pushd ${ubdevenv_dir}/src > /dev/null
+  [ -e "/usr/bin/ffmpeg" ] && apt-get -y autoremove ffmpeg
 
   for FFmpegDep in ${FFmpegDepList}; do
     apt-get -y install ${FFmpegDep}
@@ -18,7 +19,7 @@ Install_FFmpeg() {
   src_url=https://ffmpeg.org/releases/ffmpeg-${ffmpeg_ver}.tar.xz && Download_src
   tar -xJf ffmpeg-${ffmpeg_ver}.tar.xz
   pushd ffmpeg-${ffmpeg_ver} > /dev/null
-  #--enable-libiec61883 \
+  export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
   ./configure \
   --enable-gpl \
   --enable-version3 \
@@ -80,6 +81,7 @@ Install_FFmpeg() {
   --enable-librsvg \
   --enable-libmfx \
   --enable-libdrm \
+  --enable-libiec61883 \
   --enable-librtmp \
   --enable-libvmaf
   #make -j ${THREAD} test

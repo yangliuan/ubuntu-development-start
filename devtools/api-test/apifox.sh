@@ -9,7 +9,7 @@ Install_Apifox() {
     mv -fv apifox /opt/
     chown -R ${run_user}.${run_user} /opt/apifox
     chmod -R 775 /opt/apifox
-    rm -rfv apifox Apifox-linux-manual-latest.tar.gz
+    #rm -rfv apifox Apifox-linux-manual-latest.tar.gz
     cp -rfv ${ubdevenv_dir}/desktop/apifox.desktop /usr/share/applications/
     
     popd > /dev/null

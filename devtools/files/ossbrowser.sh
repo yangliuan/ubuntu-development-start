@@ -3,12 +3,11 @@ Install_Ossbrowser() {
     pushd ${ubdevenv_dir}/src > /dev/null
 
     echo "Download ossbrowser..."    
-    src_url="https://gosspublic.alicdn.com/oss-browser/1.16.0/oss-browser-linux-x64.zip?spm=a2c4g.11186623.0.0.4c296404EQSSj3&file=oss-browser-linux-x64.zip" && Download_src
-    unzip oss-browser-linux-x64.zip\?spm\=a2c4g.11186623.0.0.4c296404EQSSj3\&file\=oss-browser-linux-x64.zip
-    rm -rfv oss-browser-linux-x64.zip\?spm\=a2c4g.11186623.0.0.4c296404EQSSj3\&file\=oss-browser-linux-x64.zip
-    chown -Rv ${run_user}.${run_group} oss-browser-linux-x64
-    chmod -Rv 755 oss-browser-linux-x64
+    src_url="https://gosspublic.alicdn.com/oss-browser/1.16.0/oss-browser-linux-x64.zip" && Download_src
+    unzip oss-browser-linux-x64.zip
     mv -v oss-browser-linux-x64 /opt/oss-browser
+    chown -Rv ${run_user}.${run_group} /opt/oss-browser-linux-x64
+    chmod -Rv 755 /opt/oss-browser-linux-x64
     cp -rfv ${ubdevenv_dir}/desktop/oss-browser.desktop /usr/share/applications/
     sudo apt-get install libgconf-2-4
     

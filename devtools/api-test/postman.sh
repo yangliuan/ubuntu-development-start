@@ -4,12 +4,16 @@ Install_Postman() {
     pushd ${ubdevenv_dir}/src > /dev/null
 
     echo "Download postman ..."
-    src_url=https://dl.pstmn.io/download/latest/linux64 && Download_src
-    tar -zxvf linux64
+    if [ ! -e "postman-linux64.tar.gz" ]; then
+        src_url=https://dl.pstmn.io/download/latest/linux64 && Download_src
+        mv linux64 postman-linux64.tar.gz
+    fi
+    
+    tar -zxvf postman-linux64.tar.gz
     mv -fv Postman /opt/postman
     chown -Rv ${run_user}.${run_group} /opt/postman
     cp -rfv ${ubdevenv_dir}/desktop/postman.desktop /usr/share/applications/
-    rm -rfv linux64
+    #rm -rfv linux64
     
     popd > /dev/null
 }

@@ -27,7 +27,7 @@ ARG_NUM=$#
 TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Devtools_Help && exit 1
 eval set -- "${TEMP}"
-
+  echo $1
 while :; do
   [ -z "$1" ] && break;
   case "$1" in
@@ -37,50 +37,63 @@ while :; do
     -v|-V|--version)
       version; exit 0
       ;;
-    --openssh-server)
+    --openssh_server)
       openssh_server_flag=y; shift 1
+      [ "${openssh_server_flag}" == 'y' -a -e "/usr/sbin/sshd" ] && { echo "${CWARNING}openssh-server already installed! ${CEND}"; unset openssh_server_flag; }
       ;;
     --switchhost)
       switchhost_flag=y; shift 1
+      [ "${switchhost_flag}" == 'y' -a -e "/opt/switchhost/SwitchHosts_linux_x86_64.AppImage" ] && { echo "${CWARNING}switchhost already installed! ${CEND}"; unset switchhost_flag; }
       ;;
     --rdm)
       redis_desktop_manager_flag=y; shift 1
+      [ "${redis_desktop_manager_flag}" == 'y' -a -e "/snap/bin/another-redis-desktop-manager" ] && { echo "${CWARNING}redis-desktop-manager already installed! ${CEND}"; unset redis_desktop_manager_flag; }
       ;;
     --navicat_premium)
       navicat_premium_flag=y; shift 1
       ;;
     --mysql_workbench)
       mysql_workbench_flag=y; shift 1
+      [ "${mysql_workbench_flag}" == 'y' -a -e "/usr/bin/mysql-workbench" ] && { echo "${CWARNING}navicat preminu already installed! ${CEND}"; unset mysql_workbench_flag; }
       ;;
     --remmina)
       remmina_flag=y; shift 1
+      [ "${remmina_flag}" == 'y' -a -e "/usr/bin/remmina" ] && { echo "${CWARNING}remmina already installed! ${CEND}"; unset remmina_flag; }
       ;;
     --wireshark)
       wireshark_flag=y; shift 1
+       [ "${wireshark_flag}" == 'y' -a -e "/usr/bin/wireshark" ] && { echo "${CWARNING}wireshark already installed! ${CEND}"; unset wireshark_flag; }
       ;;
     --terminal_net_tools)
       terminal_net_tools_flag=y; shift 1
       ;;
     --postman)
       postman_flag=y; shift 1
+       [ "${postman_flag}" == 'y' -a -e "/opt/postman/app/postman" ] && { echo "${CWARNING}postman already installed! ${CEND}"; unset postman_flag; }
       ;;
     --runapi)
       runapi_flag=y; shift 1
+       [ "${runapi_flag}" == 'y' -a -e "/opt/runapi/runapi.AppImage" ] && { echo "${CWARNING}runapi already installed! ${CEND}"; unset runapi_flag; }
       ;;
     --apifox)
       apifox_flag=y; shift 1
+      [ "${apifox_flag}" == 'y' -a -e "/opt/apifox/apifox" ] && { echo "${CWARNING}apifox already installed! ${CEND}"; unset apifox_flag; }
       ;;
     --oss_browser)
       oss_browser_flag=y; shift 1
+      [ "${ossbrowser_flag}" == 'y' -a -e "/opt/oss-browser/oss-browser" ] && { echo "${CWARNING}oss-browser already installed! ${CEND}"; unset ossbrowser_flag; }
       ;;
     --virtualbox)
       virtualbox_flag=y; shift 1
+      [ "${virtualbox_flag}" == 'y' -a -e "/usr/bin/virtualbox" ] && { echo "${CWARNING}virtualbox already installed! ${CEND}"; unset virtualbox_flag; }
       ;;
     --filezilla)
       filezilla_flag=y; shift 1
+      [ "${filezilla_flag}" == 'y' -a -e "/opt/filezilla3/bin/filezilla" ] && { echo "${CWARNING}filezilla already installed! ${CEND}"; unset filezilla_flag; }
       ;;
     --jmeter)
       jmeter_flag=y; shift 1
+      [ "${jmeter_flag}" == 'y' -a -e "/opt/jmeter/bin/ApacheJMeter.jar" ] && { echo "${CWARNING}jmeter already installed! ${CEND}"; unset jmeter_flag; }
       ;;
     --vscode)
       vscode_flag=y; shift 1
@@ -90,9 +103,11 @@ while :; do
       ;;
     --obs_studio)
       obs_studio_flag=y; shift 1
+      [ "${obs_studio_flag}" == 'y' -a -e "/usr/bin/obs" ] && { echo "${CWARNING}obs studio already installed! ${CEND}"; unset obs_studio_flag; }
       ;;
     --rabbitvcs_nautilus)
       rabbitvcs_nautilus_flag=y; shift 1
+      [ "${rabbitvcs_nautilus_flag}" == 'y' -a -e "/usr/share/nautilus-python/extensions" ] && { echo "${CWARNING}rabbitvcs nautilus already installed! ${CEND}"; unset rabbitvcs_nautilus_flag; }
       ;;
     --reboot)
       reboot_flag=y; shift 1
@@ -138,7 +153,8 @@ if [ ${ARG_NUM} == 0 ]; then
         if [[ ! ${redis_desktop_manager_flag} =~ ^[y,n]$ ]]; then
             echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
         else
-            [ "${redis_desktop_manager_flag}" == 'y' -a -e "/snap/redis-desktop-manager/current/bin/desktop-launch" ] && { echo "${CWARNING}redis-desktop-manager already installed! ${CEND}"; unset redis_desktop_manager_flag; }
+            # [ "${redis_desktop_manager_flag}" == 'y' -a -e "/snap/redis-desktop-manager/current/bin/desktop-launch" ] && { echo "${CWARNING}redis-desktop-manager already installed! ${CEND}"; unset redis_desktop_manager_flag; }
+            [ "${redis_desktop_manager_flag}" == 'y' -a -e "/snap/bin/another-redis-desktop-manager" ] && { echo "${CWARNING}redis-desktop-manager already installed! ${CEND}"; unset redis_desktop_manager_flag; }
             break
         fi
     done
@@ -414,6 +430,7 @@ if [ "${terminal_net_tools_flag}" == 'y' ]; then
     . ./devtools/network/net_tools.sh
     . ./devtools/network/nethogs.sh
     . ./devtools/network/wireshark.sh
+    . ./devtools/network/traceroute.sh
     Install_Net_Tools 2>&1 | tee -a $log_dir
     Install_Nethogs 2>&1 | tee -a $log_dir
     Install_Traceroute 2>&1 | tee -a $log_dir
