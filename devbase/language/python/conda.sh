@@ -8,7 +8,7 @@ Install_Conda() {
     pushd ${ubdevenv_dir}/src > /dev/null
     src_url=http://mirrors.aliyun.com/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh && Download_src
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${conda_install_dir}
-
+    
     if [ -e "${conda_install_dir}/bin/conda" ]; then
         echo "${CSUCCESS}conda installed successfully! ${CEND}"
     else
@@ -16,12 +16,12 @@ Install_Conda() {
         kill -9 $$; exit 1;
     fi
 
-    if [ ! -e "/etc/profile.d/conda.sh" ]; then
-        cat > /etc/profile.d/conda.sh << EOF
-export PATH=${conda_install_dir}/bin:\$PATH
-EOF
-        . /etc/profile
-    fi
+#     if [ ! -e "/etc/profile.d/conda.sh" ]; then
+#         cat > /etc/profile.d/conda.sh << EOF
+# export PATH=${conda_install_dir}/bin:\$PATH
+# EOF
+#         . /etc/profile
+#     fi
 
     #switch mirror to aliyun
     if [ ! -e "/home/${run_user}/.condarc" ]; then
@@ -44,7 +44,9 @@ custom_channels:
 EOF
       chown -R ${run_user}.${run_user} /home/${run_user}/.condarc
     fi
-    conda clean -i
+
+    ${conda_install_dir}/bin/conda init
+    ${conda_install_dir}/bin/conda clean -i
     popd > /dev/null
 }
 

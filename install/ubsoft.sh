@@ -4,7 +4,7 @@ clear
 printf "
 ################################################################################
 #             Development environment for Ubuntu 22.04 desktop                 #
-#                                Install Software                              #
+#                            Install Software                                  #
 ################################################################################
 "
 # Check if user is root
@@ -23,6 +23,8 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/command_parameters.sh
 . ./ubsoft/patch_suport.sh
 . ./ubsoft/input-method/fcitx.sh
+. ./include/loadshell.sh
+shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
 ARG_NUM=$#
 TEMP=`getopt -o hvV --long help,version,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,reboot -- "$@" 2>/dev/null`
@@ -498,24 +500,19 @@ echo "${CMSG}Ubuntu version ${Ubuntu_ver} ${CEND}"
 apt-get install -y curl wget git gcc make
 
 if [ "${remove_flag}" == 'y' ]; then
-    . ubsoft/liboffice.sh
-    . ubsoft/remove_unwanted.sh
     Remove_Unwanted 2>&1 | tee -a $log_dir
     Uninstall_Libreoffice 2>&1 | tee -a $log_dir
 fi
 
 if [ "${nvdia_flag}" == 'y' ]; then
-    . ubsoft/nvidia.sh
     Install_NvidiaDriver 2>&1 | tee -a $log_dir
 fi
 
 if [ "${cuda_flag}" == 'y' ]; then
-     . ubsoft/nvidia.sh
     Install_Cuda 2>&1 | tee -a $log_dir
 fi
 
 if [ "${amd_flag}" == 'y' ]; then
-    . ubsoft/amd.sh
     Install_AMDDriver 2>&1 | tee -a $log_dir
 fi
 
@@ -535,115 +532,95 @@ case "${input_method_option}" in
 esac
 
 if [ "${baidunetdisk_flag}" == 'y' ]; then
-    . ubsoft/baidunetdisk.sh
     Install_Baidunetdisk 2>&1 | tee -a $log_dir
 fi
 
 if [ "${chrome_flag}" == 'y' ]; then
-    . ubsoft/chrome.sh
     Install_Chrome 2>&1 | tee -a $log_dir
 fi
 
 if [ "${deepinwine_flag}" == 'y' ]; then
-    . ubsoft/deepin_wine.sh
     Install_DeepinWine 2>&1 | tee -a $log_dir
     Install_Deepin_Wechat 2>&1 | tee -a $log_dir
 fi
 
 if [ "${dingtalk_flag}" == 'y' ]; then
-    . ubsoft/dingtalk.sh
     Install_Dingtalk 2>&1 | tee -a $log_dir
 fi
 
 if [ "${linuxqq_flag}" == 'y' ]; then
-    . ubsoft/linuxqq.sh
     Install_LinuxQQ 2>&1 | tee -a $log_dir
 fi
 
 if [ "${feishu_flag}" == 'y' ]; then
-    . ubsoft/feishu.sh
     Install_Feishu 2>&1 | tee -a $log_dir
 fi
 
 if [ "${flameshot_flag}" == 'y' ]; then
-    . ubsoft/flameshot.sh
     Install_Flameshot 2>&1 | tee -a $log_dir
 fi
 
 if [ "${indicator_sysmonitor_flag}" == 'y' ]; then
-    . ubsoft/indicator_sysmonitor.sh
     Install_IndicatorSysmonitor 2>&1 | tee -a $log_dir
 fi
 
 if [ "${indicator_stickynotes_flag}" == 'y' ]; then
-    . ubsoft/indicator_stickynotes.sh
     Install_IndicatorStickynotes 2>&1 | tee -a $log_dir
 fi
 
 if [ "${lantern_flag}" == 'y' ]; then
-    . ubsoft/lantern.sh
     Install_Lantern 2>&1 | tee -a $log_dir
 fi
 
 if [ "${neteasy_cloudmusic_flag}" == 'y' ]; then
-    . ubsoft/neteasy_cloud_music.sh
     Install_NeteasyCloudMusic 2>&1 | tee -a $log_dir
 fi
 
 if [ "${peek_flag}" == 'y' ]; then
-    . ubsoft/peek.sh
     Install_Peek 2>&1 | tee -a $log_dir
 fi
 
 if [ "${qqmusic_flag}" == 'y' ]; then
-    . ubsoft/qqmusic.sh
     Install_QQmusic 2>&1 | tee -a $log_dir
 fi
 
 if [ "${qv2ray_flag}" == 'y' ]; then
-    . ubsoft/qv2ray.sh
     Install_Qv2ray 2>&1 | tee -a $log_dir
 fi
 
 if [ "${sunlogin_flag}" == 'y' ]; then
-    . ubsoft/sunlogin.sh
     Install_Sunlogin 2>&1 | tee -a $log_dir
 fi
 
 if [ "${theme_tools_flag}" == 'y' ]; then
-    . ubsoft/theme_tools.sh
     Install_ThemeTools 2>&1 | tee -a $log_dir
 fi
 
 if [ "${bilibili_video_downloader_flag}" == 'y' ]; then
-    . ubsoft/video_download.sh
     Install_BilbiliDownloader 2>&1 | tee -a $log_dir
 fi
 
 if [ "${wps_flag}" == 'y' ]; then
-    . ubsoft/wps.sh
     Install_Wps 2>&1 | tee -a $log_dir
 fi
 
 if [ "${xDroid_flag}" == 'y' ]; then
-    . ubsoft/xDroid.sh
     Install_xDroid 2>&1 | tee -a $log_dir
 fi
 
 if [ "${conky_flag}" == 'y' ]; then
-    . ubsoft/conky.sh
     Install_Conky 2>&1 | tee -a $log_dir
 fi
 
 if [ "${my_weather_indicator_flag}" == 'y' ]; then
-    . ubsoft/my_weather_indicator.sh
     Install_MyWeatherIndicator 2>&1 | tee -a $log_dir
 fi
 
 if [ "${custom_flag}" == 'y' ]; then
-    . ubsoft/common_ubsoft.sh
+
     Install_custom_SnapApp 2>&1 | tee -a $log_dir
     Install_custom_AptApp 2>&1 | tee -a $log_dir
+    Install_Fceux 2>&1 | tee -a $log_dir
 fi
 
 #install ubuntu 22.04 patch
