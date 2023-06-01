@@ -8,11 +8,15 @@ This project is a fork based on [Oneinstack](https://github.com/oneinstack/onein
 ```shell
 cd /opt
 
-git clone git@github.com:yangliuan/ubuntu-development-start.git oneinstack
+git clone git@github.com:yangliuan/ubuntu-development-start.git ubdevenv
 
 Modify the configuration file "options.conf" by changing the "run_user" and "run_group" to your own user, custom directory, and commonly used software.
 
 "versions.txt" is a configuration file for software versions.
+
+sudo ./install.sh custom parameter install
+
+sudo ./uninstall.sh custom parameter uninstall
 
 Run the command "sudo ./install_ubsoft.sh" to install common software for Ubuntu.
 

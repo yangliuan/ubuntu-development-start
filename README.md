@@ -8,11 +8,17 @@
 ```shell
 cd /opt
 
-git clone git@github.com:yangliuan/ubuntu-development-start.git oneinstack
+git clone git@github.com:yangliuan/ubuntu-development-start.git ubdevenv
 
 修改 options.conf 配置文件，将run_user和run_group改成自己的用户，自定义目录和常用软件
 
 versions.txt 软件版本配置文件
+
+sudo ./install.sh 自定义参数安装
+
+sudo ./uninstall.sh 自定义参数卸载
+
+cd ./setup
 
 sudo ./install_ubsoft.sh 安装ubuntu常用软件
 
@@ -23,6 +29,7 @@ sudo ./install_devtools.sh 安装开发工具
 sudo ./devaddons.sh 安装开发组件
 
 sudo ./switch_env.sh 切换环境，可以切换php版本，php扩展，composer版本，composer镜像，nginx发行版
+
 ```
 
 ### 交互安装示例
@@ -56,17 +63,12 @@ deepinwine_flag already installed!
 
 ```
 
-
-### 自定义参数安装示例
-```shell
-sudo ./install_ubsoft.sh --input_method_option 2 --baidunetdisk --chrome --deepinwine --dingtalk --linuxqq --feishu --flameshot --indicator_sysmonitor --lantern --neteasy_cloudmusic --qqmusic --peek --qv2ray --sunlogin --theme_tools --bilibili_video_downloader --wps --conky --custom
-```
-
 ### 切换开发环境示例
 ```shell
 #切换php扩展
+cd ./utils
 
-sudo /opt/ubdevenv/switch_env.sh --php_extension
+sudo switch_env.sh --php_extension
 
 #######################################################################
                       Switch Develop Environment
