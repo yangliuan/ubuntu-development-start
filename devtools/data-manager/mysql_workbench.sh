@@ -23,16 +23,14 @@ Build_MysqlWorkBench() {
         apt-get install -y ${mw_dep}
     done
 
+    src_url="https://github.com/antlr/website-antlr4/blob/gh-pages/download/antlr-4.7.2-complete.jar" && Download_src
+    
     tar -zxvf mysql-workbench-${mysql_workbench_ver}.tar.gz
     pushd mysql-workbench-${mysql_workbench_ver} > /dev/null
-    pushd build > /dev/null
-    mkdir wb-build
-    pushd wb-build
-    cmake -DCMAKE_INSTALL_PREFIX=/usr
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -DWITH_ANTLR_JAR=${ubdevenv_dir}/src/antlr-4.7.2-complete.jar
     make -j ${THREAD} && make install
+    popd > /dev/nulld
     popd > /dev/null
-    popd > /dev/null
-    
 }
 
 Uninstall_MysqlWorkbench() {

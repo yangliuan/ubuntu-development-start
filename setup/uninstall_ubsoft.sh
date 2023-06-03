@@ -238,7 +238,7 @@ fi
 if [ "${custom_flag}" == 'y' ]; then
     Uninstall_custom_SnapApp 2>&1 | tee -a $log_dir
     Uninstall_custom_AptApp 2>&1 | tee -a $log_dir
-
+    Uninstall_Fceux 2>&1 | tee -a $log_dir
 fi
 
 if [ "${cuda_flag}" == 'y' ]; then
