@@ -4,8 +4,13 @@ Install_Libvmaf() {
     if [ ! -e "/usr/local/include/libvmaf" ]; then
         pushd ${ubdevenv_dir}/src > /dev/null
         apt-get -y install meson nasm ninja-build doxygen xxd
-        src_url=https://github.com/Netflix/vmaf/archive/v${libvmaf_ver}.tar.gz && Download_src
-        tar -zxvf v${libvmaf_ver}.tar.gz > /dev/null
+        
+        if [ ! -e "libvmaf-${libvmaf_ver}.tar.gz" ]; then
+            src_url=https://github.com/Netflix/vmaf/archive/v${libvmaf_ver}.tar.gz && Download_src
+            mv v${libvmaf_ver}.tar.gz libvmaf-${libvmaf_ver}.tar.gz
+        fi
+
+        tar -zxvf libvmaf-${libvmaf_ver}.tar.gz > /dev/null
         pushd vmaf-${libvmaf_ver}/libvmaf > /dev/null
         meson build --buildtype release
         ninja -vC build

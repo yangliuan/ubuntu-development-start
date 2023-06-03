@@ -20,6 +20,8 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/get_char.sh
 . ./include/command_parameters.sh
 . ./ubsoft/input-method/fcitx.sh
+. ./include/loadshell.sh
+shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
 ARG_NUM=$#
 TEMP=`getopt -o hvV --long help,version,all,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,sougoupinyin,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,cuda,reboot -- "$@" 2>/dev/null`
@@ -153,114 +155,93 @@ case "${input_method_option}" in
 esac
 
 if [ "${baidunetdisk_flag}" == 'y' ]; then
-    . ./ubsoft/baidunetdisk.sh
     Uninstall_Baidunetdisk
 fi
 
 if [ "${chrome_flag}" == 'y' ]; then
-    . ./ubsoft/chrome.sh
     Uninstall_Chrome
 fi
 
 if [ "${deepinwine_flag}" == 'y' ]; then
-    . ./ubsoft/deepin_wine.sh
     Uninstall_Deepin_Wechat
     Uninstall_DeepinWine
 fi
 
 if [ "${dingtalk_flag}" == 'y' ]; then
-    . ./ubsoft/dingtalk.sh
     Uninstall_Dingtalk
 fi
 
 if [ "${linuxqq_flag}" == 'y' ]; then
-    . ./ubsoft/linuxqq.sh
     Uninstall_LinuxQQ
 fi
 
 if [ "${feishu_flag}" == 'y' ]; then
-    . ./ubsoft/feishu.sh
     Uninstall_Feishu
 fi
 
 if [ "${flameshot_flag}" == 'y' ]; then
-    . ./ubsoft/flameshot.sh
     Uninstall_Flameshot
 fi
 
 if [ "${indicator_sysmonitor_flag}" == 'y' ]; then
-    . ./ubsoft/indicator_sysmonitor.sh
     Uninstall_IndicatorSysmonitor
 fi
 
 if [ "${lantern_flag}" == 'y' ]; then
-    . ./ubsoft/lantern.sh
     Uninstall_Lantern
 fi
 
 if [ "${neteasy_cloudmusic_flag}" == 'y' ]; then
-    . ./ubsoft/neteasy_cloud_music.sh
     Uninstall_NeteasyCloudMusic
 fi
 
 if [ "${qqmusic_flag}" == 'y' ]; then
-    . ./ubsoft/qqmusic.sh
     Uninstall_QQmusic
 fi
 
 if [ "${peek_flag}" == 'y' ]; then
-    . ./ubsoft/peek.sh
     Uninstall_Peek
 fi
 
 if [ "${qv2ray_flag}" == 'y' ]; then
-    . ./ubsoft/qv2ray.sh
     Uninstall_Qv2ray
 fi
 
 if [ "${sunlogin_flag}" == 'y' ]; then
-    . ./ubsoft/sunlogin.sh
     Uninstall_Sunlogin
 fi
 
 if [ "${theme_tools_flag}" == 'y' ]; then
-    . ./ubsoft/theme_tools.sh
     Uninstall_ThemeTools
 fi
 
 if [ "${bilibili_video_downloader_flag}" == 'y' ]; then
-    . ./ubsoft/video_download.sh
     Uninstall_BilbiliDownloader
 fi
 
 if [ "${wps_flag}" == 'y' ]; then
-    . ./ubsoft/wps.sh
     Uninstall_Wps
 fi
 
 if [ "${xDroid_flag}" == 'y' ]; then
-    . ./ubsoft/xDroid.sh
     Uninstall_xDroid
 fi
 
 if [ "${conky_flag}" == 'y' ]; then
-    . ./ubsoft/conky.sh
     Uninstall_Conky
 fi
 
 if [ "${my_weather_indicator_flag}" == 'y' ]; then
-    . ./ubsoft/my_weather_indicator.sh
     Uninstall_MyWeatherIndicator
 fi
 
 if [ "${custom_flag}" == 'y' ]; then
-    . ./ubsoft/common_ubsoft.sh
     Uninstall_custom_SnapApp 2>&1 | tee -a $log_dir
     Uninstall_custom_AptApp 2>&1 | tee -a $log_dir
+
 fi
 
 if [ "${cuda_flag}" == 'y' ]; then
-     . ./ubsoft/nvidia.sh
     Uninstall_Cuda 2>&1 | tee -a $log_dir
 fi
 

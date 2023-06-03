@@ -54,7 +54,7 @@ while :; do
       ;;
     --mysql_workbench)
       mysql_workbench_flag=y; shift 1
-      [ "${mysql_workbench_flag}" == 'y' -a -e "/usr/bin/mysql-workbench" ] && { echo "${CWARNING}navicat preminu already installed! ${CEND}"; unset mysql_workbench_flag; }
+      [ "${mysql_workbench_flag}" == 'y' -a -e "/usr/bin/mysql-workbench" ] && { echo "${CWARNING}mysql-workbench already installed! ${CEND}"; unset mysql_workbench_flag; }
       ;;
     --remmina)
       remmina_flag=y; shift 1
@@ -368,7 +368,7 @@ if [ ${ARG_NUM} == 0 ]; then
 fi
 
 #clear latest install_devtools.log
-echo > ${ubdevenv_dir}/install_devtools.log
+echo > $log_dir
 
 # Check download source packages
 if [ "${jmeter_flag}" == 'y' ]; then
@@ -410,7 +410,7 @@ fi
 # install mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
     . ./devtools/data-manager/mysql_workbench.sh
-    Install_MysqlWorkbench 2>&1 | tee -a $log_dir
+    Build_MysqlWorkBench 2>&1 | tee -a $log_dir
 fi
 
 # install remmina
@@ -476,11 +476,11 @@ fi
 case "${jdk_option}" in
   1)
     . ./devbase/language/java/jdk/openjdk-8.sh
-    Install_OpenJDK8 2>&1 | tee -a ${ubdevenv_dir}/install.log
+    Install_OpenJDK8 2>&1 | tee -a $log_dir
     ;;
   2)
     . ./devbase/language/java/jdk/openjdk-11.sh
-    Install_OpenJDK11 2>&1 | tee -a ${ubdevenv_dir}/install.log
+    Install_OpenJDK11 2>&1 | tee -a $log_dir
     ;;
 esac
 

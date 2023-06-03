@@ -8,5 +8,5 @@ Install_OpensshServer(){
 }
 
 Uninstall_OpensshServer(){
-    apt-get autoremove openssh-server
+    apt-get autoremove -y openssh-server
 }

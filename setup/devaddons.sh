@@ -30,7 +30,7 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/command_parameters.sh
 
 ARG_NUM=$#
-TEMP=`getopt -o hiu --long help,install,uninstall,composer,fail2ban,ngx_lua_waf,supervisord,phpmyadmin-- "$@" 2>/dev/null`
+TEMP=`getopt -o hiu --long help,install,uninstall,composer,fail2ban,ngx_lua_waf,supervisord,phpmyadmin -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Devaddons_Help && exit 1
 eval set -- "${TEMP}"
 while :; do

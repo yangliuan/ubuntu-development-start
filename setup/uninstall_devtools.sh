@@ -21,6 +21,8 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/download.sh
 . ./include/get_char.sh
 . ./include/command_parameters.sh
+. ./include/loadshell.sh
+shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
 ARG_NUM=$#
 TEMP=`getopt -o hvV --long help,version,all,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
@@ -56,7 +58,7 @@ while :; do
       rabbitvcs_nautilus_flag=y
       shift 1
       ;;
-    --openssh-server)
+    --openssh_server)
       openssh_server_flag=y; shift 1
       ;;
     --switchhost)
@@ -240,6 +242,6 @@ fi
 
 # uninstall rabbitvcs nautilus
 if [ "${rabbitvcs_nautilus_flag}" == 'y' ]; then
-    . ./devtools/rabbitvcs.sh
+    . ./devtools/files/rabbitvcs.sh
     Uninstall_rabbitbvcs
 fi

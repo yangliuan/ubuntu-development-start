@@ -36,47 +36,17 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./devbase/message-queue/rocketmq.sh
 . ./devbase/database/sqlite3.sh
 . ./devbase/container-platform/docker.sh
-
-Show_Help() {
-  echo
-  echo "Usage: $0  command ...[parameters]....
-  --help, -h                    Show this help message, More: https://oneinstack.com
-  --quiet, -q                   quiet operation
-  --all                         Uninstall All
-  --web                         Uninstall Nginx/Tengine/OpenResty/Apache/Tomcat
-  --mysql                       Uninstall MySQL/MariaDB/Percona
-  --postgresql                  Uninstall PostgreSQL
-  --mongodb                     Uninstall MongoDB
-  --sqlite                      Uninstall Slqite
-  --redis                       Uninstall Redis-server
-  --memcached                   Uninstall Memcached-server
-  --elastic_stack               Uninstall ElasticStack
-  --allmq                       Uninstall MessageQueue
-  --allphp                      Uninstall All PHP
-  --mphp_ver [53~81]            Uninstall another PHP version (PATH: ${php_install_dir}\${mphp_ver})
-  --phpcache                    Uninstall PHP opcode cache
-  --php_extensions [ext name]   Uninstall PHP extensions, include zendguardloader,ioncube,
-                                sourceguardian,imagick,gmagick,fileinfo,imap,ldap,calendar,phalcon,
-                                yaf,yar,redis,memcached,memcache,mongodb,swoole,event,xdebug,yasd_debug
-  --pureftpd                    Uninstall PureFtpd
-  --supervisord                 Uninstall Supervisord
-  --ffmpeg                      Uninstall FFmpeg
-  --nodejs_env                  Uninstall Nodejs Env
-  --python_env                  Uninstall Python Env
-  --go_env                      Uninstall Go Env
-  --docker                      Uninstall Docker
-  "
-}
+. ./include/command_parameters.sh
 
 ARG_NUM=$#
 TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,redis,memcached,elastic_stack,allmq,allphp,mphp_ver:,phpcache,php_extensions:,pureftpd,supervisord,ffmpeg,nodejs_env,python_env,go_env,docker -- "$@" 2>/dev/null`
-[ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
+[ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Devbase_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
   [ -z "$1" ] && break;
   case "$1" in
     -h|--help)
-      Show_Help; exit 0
+      Show_Devbase_Help; exit 0
       ;;
     -q|--quiet)
       quiet_flag=y
@@ -194,7 +164,7 @@ while :; do
       shift
       ;;
     *)
-      echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Help && exit 1
+      echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Devbase_Help && exit 1
       ;;
   esac
 done
@@ -262,7 +232,7 @@ Uninstall_Web() {
   sed -i 's@^website_name=.*@website_name=@' ./options.conf
   sed -i 's@^backup_content=.*@backup_content=@' ./options.conf
   [ -d "${apr_install_dir}" ] && rm -rf ${apr_install_dir}
-  Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_ApacheHttpdDesktop
+  Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_StopAllDesktop
 }
 
 Print_MySQL() {
@@ -863,6 +833,7 @@ What Are You Doing?
         Uninstall_Redis_server
         Uninstall_Memcached_server
         Uninstall_FFmpeg
+        Uninstall_FFmpegDesktop
         Uninstall_openssl
         Uninstall_phpMyAdmin
         Uninstall_Conda
@@ -915,7 +886,7 @@ What Are You Doing?
       Print_Warn
       Print_ElasticStack
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_ElasticStack || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_ElasticStack;Uninstall_ElasticStackDesktop || exit
       ;;
     7)
       Print_Warn
@@ -959,7 +930,7 @@ What Are You Doing?
     14)
       Print_FFmpeg
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_FFmpeg || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_FFmpeg;Uninstall_FFmpegDesktop || exit
       ;;
     15)
       Print_phpMyAdmin
@@ -1043,7 +1014,7 @@ else
     [ "${sqlite_flag}" == 'y' ] && Uninstall_Sqlite3
     [ "${redis_flag}" == 'y' ] && Uninstall_Redis_server
     [ "${memcached_flag}" == 'y' ] && Uninstall_Memcached_server
-    [ "${elastic_stack_flag}" == 'y' ] && Uninstall_ElasticStack;Uninstall_Cerebro
+    [ "${elastic_stack_flag}" == 'y' ] && Uninstall_ElasticStack;Uninstall_ElasticStackDesktop
     [ "${allmq_flag}" == 'y' ] && Uninstall_AllMessageQueue
 
     if [ "${allphp_flag}" == 'y' ]; then
@@ -1058,7 +1029,7 @@ else
 
     [ "${pureftpd_flag}" == 'y' ] && Uninstall_PureFtpd
     [ "${supervisord_flag}" == 'y' ] && Uninstall_Supervisor
-    [ "${ffmpeg_flag}" == 'y' ] && Uninstall_FFmpeg
+    [ "${ffmpeg_flag}" == 'y' ] && Uninstall_FFmpeg;Uninstall_FFmpegDesktop
     [ "${nodejs_env_flag}" == 'y' ] && Uninstall_Node;Uninstall_Nvm
     [ "${python_env_flag}" == 'y' ] && Uninstall_Conda
     [ "${go_env_flag}" == 'y' ] && Uninstall_Go;Uninstall_Gvm
