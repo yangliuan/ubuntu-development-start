@@ -48,6 +48,6 @@ Uninstall_Pcre() {
     popd > /dev/null
 
     pushd /usr/lib/x86_64-linux-gnu > /dev/null
-    rm -fv libpcrecpp.so.0 libpcrecpp.so libpcrecpp.pc libpcrecpp.so.0.0.1 libpcrecpp.a
+    rm -fv libpcrecpp.so libpcrecpp.pc libpcrecpp.so.0.0.1 libpcrecpp.a
     popd > /dev/null
 }
