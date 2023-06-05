@@ -410,7 +410,7 @@ fi
 # install mysql workbench
 if [ "${mysql_workbench_flag}" == 'y' ]; then
     . ./devtools/data-manager/mysql_workbench.sh
-    Build_MysqlWorkBench 2>&1 | tee -a $log_dir
+    Install_MysqlWorkBench 2>&1 | tee -a $log_dir
 fi
 
 # install remmina
