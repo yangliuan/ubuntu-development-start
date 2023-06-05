@@ -11,6 +11,7 @@ Install_Libargon2() {
         /bin/cp libargon2.pc /usr/local/lib/pkgconfig/
         popd > /dev/null
         rm -rf argon2-${argon2_ver}
+        popd > /dev/null
     fi
 }
 

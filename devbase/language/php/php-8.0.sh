@@ -106,6 +106,6 @@ Install_PHP80() {
   Set_EnvPath
   
   popd > /dev/null
-  [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php80_ver}
+  rm -rf php-${php80_ver}
   popd > /dev/null
 }

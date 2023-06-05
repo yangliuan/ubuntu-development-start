@@ -1,5 +1,4 @@
 #!/bin/bash
-
 Install_Mhash() {
     if [ ! -e "/usr/local/include/mhash.h" -a ! -e "/usr/include/mhash.h" ]; then
         [ ${pwd} != ${ubdevenv_dir}/src ] && [ pushd ${ubdevenv_dir}/src > /dev/null ]

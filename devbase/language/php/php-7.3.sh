@@ -101,6 +101,6 @@ Install_PHP73() {
   Set_EnvPath
 
   popd > /dev/null
-  [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php73_ver}
+  rm -rf php-${php73_ver}
   popd > /dev/null
 }

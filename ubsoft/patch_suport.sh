@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_PatchSuport() {
-    if [ -f "${ubdevenv_dir}/log/ubsoftpatch.lock" ]; then
+    if [ -f "${ubdevenv_dir}/data/ubsoftpatch.lock" ]; then
         echo 'ubuntu 2204 patched'
     else
         Install_Appimage
@@ -12,9 +12,9 @@ Install_PatchSuport() {
 }
 
 Patch_Lock() {
-    touch ${ubdevenv_dir}/log/ubsoftpatch.lock
-    date +"%Y-%m-%d %H:%M:%S" > ${ubdevenv_dir}/log/ubsoftpatch.lock
-    chmod -R 611 ${ubdevenv_dir}/log/ubsoftpatch.lock
+    touch ${ubdevenv_dir}/data/ubsoftpatch.lock
+    date +"%Y-%m-%d %H:%M:%S" > ${ubdevenv_dir}/data/ubsoftpatch.lock
+    chmod -R 611 ${ubdevenv_dir}/data/ubsoftpatch.lock
 }
 
 #support run application then extension to Appimage

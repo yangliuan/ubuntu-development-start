@@ -9,6 +9,11 @@ Install_MysqlWorkbench() {
     popd > /dev/null
 }
 
+Uninstall_MysqlWorkbench() {
+    dpkg -P mysql-workbench-community
+    apt-get -y autoremove
+}
+
 # Build_MysqlWorkBench() {
 #     pushd ${ubdevenv_dir}/src > /dev/null
 #     if [ ! -e "mysql-workbench-8.0.33.tar.gz" ]; then
@@ -33,11 +38,3 @@ Install_MysqlWorkbench() {
 #     popd > /dev/nulld
 #     popd > /dev/null
 # }
-
-Uninstall_MysqlWorkbench() {
-    dpkg -P mysql-workbench-community
-    apt-get -y autoremove
-}
-
-
-

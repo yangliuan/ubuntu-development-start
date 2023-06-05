@@ -36,6 +36,7 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./devbase/message-queue/rocketmq.sh
 . ./devbase/database/sqlite3.sh
 . ./devbase/container-platform/docker.sh
+. ./devbase/system-lib/pcre.sh
 . ./include/command_parameters.sh
 
 ARG_NUM=$#
@@ -232,7 +233,7 @@ Uninstall_Web() {
   sed -i 's@^website_name=.*@website_name=@' ./options.conf
   sed -i 's@^backup_content=.*@backup_content=@' ./options.conf
   [ -d "${apr_install_dir}" ] && rm -rf ${apr_install_dir}
-  Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_StopAllDesktop
+  Uninstall_Pcre;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_StopAllDesktop
 }
 
 Print_MySQL() {
@@ -265,7 +266,7 @@ Uninstall_MySQL() {
     rm -rf ${db_install_dir} /etc/init.d/mysqld /etc/my.cnf* /etc/ld.so.conf.d/*{mysql,mariadb,percona}*.conf
     id -u mysql >/dev/null 2>&1 ; [ $? -eq 0 ] && userdel mysql
     [ -e "${db_data_dir}" ] && /bin/mv ${db_data_dir}{,$(date +%Y%m%d%H)}
-    sed -i 's@^dbrootpwd=.*@dbrootpwd=@' ./options.conf
+    sed -i 's@^dbrootpwd=.*@dbrootpwd=@' ./data/database.pwd
     sed -i "s@${db_install_dir}/bin:@@" /etc/profile
     Uninstall_MysqlDesktop
     echo "${CMSG}MySQL uninstall completed! ${CEND}"
@@ -281,7 +282,7 @@ Uninstall_PostgreSQL() {
     [ -e "${php_install_dir}/etc/php.d/pgsql.ini" ] && rm -f ${php_install_dir}/etc/php.d/pgsql.ini
     id -u postgres >/dev/null 2>&1 ; [ $? -eq 0 ] && userdel postgres
     [ -e "${pgsql_data_dir}" ] && /bin/mv ${pgsql_data_dir}{,$(date +%Y%m%d%H)}
-    sed -i 's@^dbpostgrespwd=.*@dbpostgrespwd=@' ./options.conf
+    sed -i 's@^dbpostgrespwd=.*@dbpostgrespwd=@' ./data/database.pwd
     sed -i "s@${pgsql_install_dir}/bin:@@" /etc/profile
     Uninstall_PostgresqlDesktop
     echo "${CMSG}PostgreSQL uninstall completed! ${CEND}"
@@ -298,7 +299,7 @@ Uninstall_MongoDB() {
     [ -e "${php_install_dir}/etc/php.d/mongodb.ini" ] && rm -f ${php_install_dir}/etc/php.d/mongodb.ini
     id -u mongod > /dev/null 2>&1 ; [ $? -eq 0 ] && userdel mongod
     [ -e "${mongo_data_dir}" ] && /bin/mv ${mongo_data_dir}{,$(date +%Y%m%d%H)}
-    sed -i 's@^dbmongopwd=.*@dbmongopwd=@' ./options.conf
+    sed -i 's@^dbmongopwd=.*@dbmongopwd=@' ./data/database.pwd
     sed -i "s@${mongo_install_dir}/bin:@@" /etc/profile
     Uninstall_MongoDBDesktop
     echo "${CMSG}MongoDB uninstall completed! ${CEND}"

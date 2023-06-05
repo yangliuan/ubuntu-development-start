@@ -91,6 +91,6 @@ Install_PHP56() {
   Set_EnvPath
   
   popd > /dev/null
-  [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php56_ver}
+  rm -rf php-${php56_ver}
   popd > /dev/null
 }

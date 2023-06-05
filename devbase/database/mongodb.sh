@@ -64,7 +64,7 @@ EOF
   sed -i 's@^#security:@security:@' /etc/mongod.conf
   sed -i 's@^#  authorization:@  authorization:@' /etc/mongod.conf
   if [ -e "${mongo_install_dir}/bin/mongo" ]; then
-    sed -i "s+^dbmongopwd.*+dbmongopwd='$dbmongopwd'+" ../options.conf
+    sed -i "s+^dbmongopwd.*+dbmongopwd='$dbmongopwd'+" ../data/database.pwd
     echo "${CSUCCESS}MongoDB installed successfully! ${CEND}"
     rm -rf mongodb-linux-${SYS_BIT_b}-${mongodb_ver}
   else

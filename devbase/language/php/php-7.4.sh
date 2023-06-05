@@ -105,6 +105,6 @@ Install_PHP74() {
   Set_EnvPath
   
   popd > /dev/null
-  [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php74_ver}
+  rm -rf php-${php74_ver}
   popd > /dev/null
 }

@@ -87,6 +87,6 @@ Install_PHP54() {
   Set_EnvPath
 
   popd > /dev/null
-  [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php54_ver}
+  rm -rf php-${php54_ver}
   popd > /dev/null
 }

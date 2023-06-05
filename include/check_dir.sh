@@ -17,3 +17,17 @@
 [ -e "${nginx_install_dir}/sbin/nginx" ] && web_install_dir=${nginx_install_dir}
 [ -e "${tengine_install_dir}/sbin/nginx" ] && web_install_dir=${tengine_install_dir}
 [ -e "${openresty_install_dir}/nginx/sbin/nginx" ] && web_install_dir=${openresty_install_dir}/nginx
+
+# check database option
+if [ ! -e "${ubdevenv_dir}/data/database.pwd" ]; then
+    cat > ${ubdevenv_dir}/data/database.pwd << EOF
+# [MySQL/MariaDB/Percona] automatically generated, You can't change
+dbrootpwd=
+
+# [PostgreSQL] automatically generated, You can't change
+dbpostgrespwd=
+
+# [MongoDB] automatically generated, You can't change
+dbmongopwd=
+EOF
+fi

@@ -32,7 +32,8 @@ Show_Ubsoft_Help() {
   --xDroid                    android runtime
   --conky                     conky
   --my_weather_indicator      weather indicator
-  --custom                   config options install custom software              
+  --custom                    config options install custom software
+  --fceux                     fceux game simulator
   --reboot                    reboot system
   "
 }

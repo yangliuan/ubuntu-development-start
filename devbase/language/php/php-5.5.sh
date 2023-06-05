@@ -90,6 +90,6 @@ Install_PHP55() {
   Set_EnvPath
 
   popd > /dev/null
-  [ -e "${php_install_dir}/bin/phpize" ] && rm -rf php-${php55_ver}
+  rm -rf php-${php55_ver}
   popd > /dev/null
 }

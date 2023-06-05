@@ -11,5 +11,10 @@ Install_Libfreetype() {
         [ -d /usr/lib/pkgconfig ] && /bin/cp ${freetype_install_dir}/lib/pkgconfig/freetype2.pc /usr/lib/pkgconfig/
         popd > /dev/null
         rm -rf freetype-${freetype_ver}
+        popd > /dev/null
     fi
+}
+
+Uninstall_Libfreetype() {
+    rm -rf ${freetype_install_dir} /usr/lib/pkgconfig/freetype2.pc
 }

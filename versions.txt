@@ -186,7 +186,7 @@ jmeter_ver=5.5
 mysql_workbench_ver=8.0.33
 cursor_ver=0.1.3
 
-# Ubuntu Start Version ###########################
+# Ubuntu Software Version ###########################
 # System Base
 nvidia_driver_ver=530
 cuda_ver=1.1-1
@@ -211,3 +211,4 @@ qqmusic_ver=1.1.5
 bilibili_video_downloader_ver=3.3.3
 xDroid_ver=11.1.41
 xDroid_release_time=20230525
+fceux_ver=2.6.5
