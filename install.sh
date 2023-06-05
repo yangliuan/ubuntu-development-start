@@ -8,7 +8,7 @@ bash ${custom_dir}/setup/install_devbase.sh --nginx_option 1  --apache --apache_
 bash ${custom_dir}/setup/install_devtools.sh --openssh_server --switchhost --rdm --navicat_premium --mysql_workbench --remmina --wireshark --terminal_net_tools --postman --runapi --apifox --oss_browser --virtualbox --filezilla --jmeter --vscode --obs_studio --rabbitvcs_nautilus
 
 # install devaddons use costom agruments
-bash ${custom_dir}/setup/devaddons.sh --install --composer --ngx_lua_waf --supervisord --phpmyadmin
+bash ${custom_dir}/setup/devaddons.sh --install --composer --supervisord --phpmyadmin
 
 # install ubsoft use costom agruments
 bash ${custom_dir}/setup/install_ubsoft.sh --input_method_option 2 --chrome --dingtalk --linuxqq --feishu --flameshot --indicator_sysmonitor --neteasy_cloudmusic --qqmusic --peek --qv2ray --theme_tools --bilibili_video_downloader --wps --custom --fceux --deepinwine
