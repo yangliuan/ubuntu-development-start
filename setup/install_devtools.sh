@@ -27,7 +27,7 @@ ARG_NUM=$#
 TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Devtools_Help && exit 1
 eval set -- "${TEMP}"
-  echo $1
+
 while :; do
   [ -z "$1" ] && break;
   case "$1" in

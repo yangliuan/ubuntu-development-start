@@ -1,28 +1,27 @@
 #!/bin/bash
-. ./devbase/system-lib/libevent.sh
-. ./devbase/multimedia/libwebp.sh
-
 installDepsUbuntu() {
-  build_tool="build-essential gcc g++ make cmake cmake-data autoconf pkg-config libtool"
-  pkgList="${build_tool} libicu70 libglib2.0-dev libxml2-dev libperl-dev debian-keyring debian-archive-keyring libjpeg8 libjpeg8-dev libpng-dev libpng12-0 libpng12-dev libpng3 libxml2 libxml2-dev zlib1g zlib1g-dev libc6 libc6-dev libc-client2007e-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev libaio1 libaio-dev numactl libreadline-dev curl libcurl3-gnutls libcurl4-gnutls-dev libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11 libidn11-dev openssl net-tools libssl-dev re2c libsasl2-dev libxslt1-dev libxslt-dev libicu-dev libsqlite3-dev libcloog-ppl1 bison patch vim zip unzip tmux htop bc dc expect libexpat1-dev rsyslog libonig-dev libtirpc-dev libnss3 rsync git lsof lrzsz chrony psmisc wget sysv-rc apt-transport-https ca-certificates software-properties-common gnupg ufw"
-  
+  build_tool="build-essential gcc g++ make cmake cmake-data autoconf pkg-config libtool wget git"
+  ubuntu_tool="debian-keyring debian-archive-keyring apt-transport-https ca-certificates software-properties-common gnupg"
+  dev_deps="libglib2.0-dev libxml2-dev libperl-dev zlib1g-dev libc-client2007e-dev libbz2-1.0 libzip-dev libncurses5-dev libaio-dev libreadline-dev libcurl4-gnutls-dev libltdl-dev libsasl2-dev libxslt-dev libicu-dev libsqlite3-dev libexpat1-dev"
+  pics_extension_deps="libjpeg8 libjpeg8-dev libpng-dev"
+  runtime_deps="libicu70 libglib2.0-0 zlib1g libc6 libbz2-1.0 libncurses5 libaio1 libkrb5-3 libidn11-dev openssl libssl-dev libonig-dev libnss3 libtirpc-dev"
+  utility_tools="patch vim zip unzip tmux bc dc expect rsyslog lrzsz chrony psmisc lsof"
+  pkgList="${build_tool} ${ubuntu_tool} ${dev_deps} ${pics_extension_deps} ${runtime_deps} ${utility_tools}"
+
   for Package in ${pkgList}; do
     apt-get -y install ${Package}
   done
 }
 
 installDepsBySrc() {
+  . ./devbase/system-lib/icu_config.sh
+  . ./devbase/system-lib/libevent.sh
+  . ./devbase/multimedia/libwebp.sh
   Install_Libevent
   Install_Libwebp
   
-  pushd ${ubdevenv_dir}/src > /dev/null
   if ! command -v icu-config > /dev/null 2>&1 || icu-config --version | grep '^3.' || [ "${Ubuntu_ver}" == "20" ]; then
-    tar xzf icu4c-${icu4c_ver}-src.tgz
-    pushd icu/source > /dev/null
-    ./configure --prefix=/usr/local
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf icu
+    Install_Icu4c
   fi
 
   if command -v lsof >/dev/null 2>&1; then
@@ -31,5 +30,4 @@ installDepsBySrc() {
     echo "${CFAILURE}${PM} config error parsing file failed${CEND}"
     kill -9 $$; exit 1;
   fi
-  popd > /dev/null
 }

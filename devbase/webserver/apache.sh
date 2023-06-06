@@ -1,57 +1,23 @@
 #!/bin/bash
-# Author:  yeho <lj2007331 AT gmail.com>
-# BLOG:  https://linuxeye.com
-#
-# Notes: OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+
-#
-# Project home page:
-#       https://oneinstack.com
-#       https://github.com/oneinstack/oneinstack
-
+# https://httpd.apache.org/docs/2.4/install.html DOC
 Install_Apache() {
   pushd ${ubdevenv_dir}/src > /dev/null
-  tar xzf pcre-${pcre_ver}.tar.gz
-  pushd pcre-${pcre_ver} > /dev/null
-  ./configure
-  make -j ${THREAD} && make install
-  popd > /dev/null
-  id -g ${run_group} >/dev/null 2>&1
-  [ $? -ne 0 ] && groupadd ${run_group}
-  id -u ${run_user} >/dev/null 2>&1
-  [ $? -ne 0 ] && useradd -g ${run_group} -M -s /sbin/nologin ${run_user}
-  tar xzf httpd-${apache_ver}.tar.gz
+  
+  #install pcre
+  . ${ubdevenv_dir}/devbase/system-lib/pcre.sh
+  Install_Pcre
 
   # install apr
-  if [ ! -e "${apr_install_dir}/bin/apr-1-config" ]; then
-    tar xzf apr-${apr_ver}.tar.gz
-    pushd apr-${apr_ver} > /dev/null
-    ./configure --prefix=${apr_install_dir}
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf apr-${apr_ver}
-  fi
+  . ${ubdevenv_dir}/devbase/system-lib/apr.sh
+  Install_Apr
 
   # install apr-util
-  if [ ! -e "${apr_install_dir}/bin/apu-1-config" ]; then
-    tar xzf apr-util-${apr_util_ver}.tar.gz
-    pushd apr-util-${apr_util_ver} > /dev/null
-    ./configure --prefix=${apr_install_dir} --with-apr=${apr_install_dir}
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    rm -rf apr-util-${apr_util_ver}
-  fi
+  . ${ubdevenv_dir}/devbase/system-lib/apr_util.sh
+  Install_AprUtil
 
   # install nghttp2
-  if [ ! -e "/usr/local/lib/libnghttp2.so" ]; then
-    tar xzf nghttp2-${nghttp2_ver}.tar.gz
-    pushd nghttp2-${nghttp2_ver} > /dev/null
-    ./configure
-    make -j ${THREAD} && make install
-    popd > /dev/null
-    [ -z "`grep /usr/local/lib /etc/ld.so.conf.d/*.conf`" ] && echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
-    ldconfig
-    rm -rf nghttp2-${nghttp2_ver}
-  fi
+  . ${ubdevenv_dir}/devbase/system-lib/libnghttp2.sh
+  Install_Libnghttp2
 
   if openssl version | grep -Eqi 'OpenSSL 1.1'; then
     with_ssl="--with-ssl"
@@ -59,14 +25,22 @@ Install_Apache() {
     with_old_ssl_flag='y'
     with_ssl="--with-ssl=${openssl_install_dir}"
   fi
+
+  id -g ${run_group} >/dev/null 2>&1
+  [ $? -ne 0 ] && groupadd ${run_group}
+  id -u ${run_user} >/dev/null 2>&1
+  [ $? -ne 0 ] && useradd -g ${run_group} -M -s /sbin/nologin ${run_user}
+
+  tar xzf httpd-${apache_ver}.tar.gz
   pushd httpd-${apache_ver} > /dev/null
   LDFLAGS=-ldl ./configure --prefix=${apache_install_dir} --enable-mpms-shared=all --with-pcre --with-apr=${apr_install_dir} --with-apr-util=${apr_install_dir} --enable-headers --enable-mime-magic --enable-deflate --enable-proxy --enable-so --enable-dav --enable-rewrite --enable-remoteip --enable-expires --enable-static-support --enable-suexec --enable-mods-shared=most --enable-nonportable-atomics=yes --enable-ssl ${with_ssl} --enable-http2 --with-nghttp2=/usr/local
   make -j ${THREAD} && make install
   popd > /dev/null
   unset LDFLAGS
+
   if [ -e "${apache_install_dir}/bin/httpd" ]; then
     echo "${CSUCCESS}Apache installed successfully! ${CEND}"
-    rm -rf httpd-${apache_ver} pcre-${pcre_ver}
+    rm -rf httpd-${apache_ver}
   else
     rm -rf ${apache_install_dir}
     echo "${CFAILURE}Apache install failed, Please contact the author! ${CEND}" && lsb_release -a
@@ -85,6 +59,7 @@ EOF
 
   sed -i "s@^User daemon@User ${run_user}@" ${apache_install_dir}/conf/httpd.conf
   sed -i "s@^Group daemon@Group ${run_group}@" ${apache_install_dir}/conf/httpd.conf
+
   if [[ ! ${nginx_option} =~ ^[1-3]$ ]] && [ ! -e "${web_install_dir}/sbin/nginx" ]; then
     sed -i 's/^#ServerName www.example.com:80/ServerName 0.0.0.0:80/' ${apache_install_dir}/conf/httpd.conf
     TMP_PORT=80
@@ -93,6 +68,7 @@ EOF
     sed -i 's@^Listen.*@Listen 127.0.0.1:88@' ${apache_install_dir}/conf/httpd.conf
     TMP_PORT=88
   fi
+
   sed -i "s@AddType\(.*\)Z@AddType\1Z\n    AddType application/x-httpd-php .php .phtml\n    AddType application/x-httpd-php-source .phps@" ${apache_install_dir}/conf/httpd.conf
   sed -i "s@#AddHandler cgi-script .cgi@AddHandler cgi-script .cgi .pl@" ${apache_install_dir}/conf/httpd.conf
   sed -ri 's@^#(LoadModule.*mod_proxy.so)@\1@' ${apache_install_dir}/conf/httpd.conf
@@ -108,6 +84,7 @@ EOF
   sed -i "s@^DocumentRoot.*@DocumentRoot \"${wwwroot_dir}/default\"@" ${apache_install_dir}/conf/httpd.conf
   sed -i "s@^<Directory \"${apache_install_dir}/htdocs\">@<Directory \"${wwwroot_dir}/default\">@" ${apache_install_dir}/conf/httpd.conf
   sed -i "s@^#Include conf/extra/httpd-mpm.conf@Include conf/extra/httpd-mpm.conf@" ${apache_install_dir}/conf/httpd.conf
+
   if [ "${apache_mpm_option}" == '2' ]; then
     sed -ri 's@^(LoadModule.*mod_mpm_event.so)@#\1@' ${apache_install_dir}/conf/httpd.conf
     sed -i 's@^#LoadModule mpm_prefork_module@LoadModule mpm_prefork_module@' ${apache_install_dir}/conf/httpd.conf

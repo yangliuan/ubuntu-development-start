@@ -21,6 +21,8 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/check_dir.sh
 . ./include/download.sh
 . ./include/get_char.sh
+. ./include/check_sw.sh
+. ./include/memory.sh
 . ./include/base_desktop.sh
 . ./include/develop_config.sh
 . ./include/command_parameters.sh
@@ -900,20 +902,19 @@ echo > $log_dir
 . ./include/check_download.sh
 [ "${armplatform}" == "y" ] && dbinstallmethod=2
 checkDownload 2>&1 | tee -a $log_dir
- 
+
+#check openssl
 . ./devbase/system-lib/openssl.sh
 
-# get OS Memory
-. ./include/memory.sh
-
 if [ ! -e ~/.oneinstack ]; then
-  # Check binary dependencies packages
-  . ./include/check_sw.sh
-  installDepsUbuntu 2>&1 | tee ${ubdevenv_dir}/install.log
   . ./include/init_Ubuntu.sh 2>&1 | tee -a $log_dir
   # Install dependencies from source package
   installDepsBySrc 2>&1 | tee -a $log_dir
 fi
+
+# install binary dependencies packages
+installDepsUbuntu 2>&1 | tee -a $log_dir
+
 
 # start Time
 startTime=`date +%s`

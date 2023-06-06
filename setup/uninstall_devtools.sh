@@ -174,7 +174,9 @@ fi
 if [ "${terminal_net_tools_flag}" == 'y' ]; then
     . ./devtools/network/net_tools.sh
     . ./devtools/network/nethogs.sh
+    . ./devtools/network/traceroute.sh
     . ./devtools/network/wireshark.sh
+    
     Uninstall_Net_Tools
     Uninstall_Nethogs
     Uninstall_Traceroute
