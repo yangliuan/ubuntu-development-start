@@ -17,10 +17,11 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./versions.txt
 . ./options.conf
 . ./include/color.sh
+. ./include/get_char.sh
 . ./include/check_os.sh
 . ./include/check_dir.sh
 . ./include/download.sh
-. ./include/get_char.sh
+. ./include/check_download.sh
 . ./include/check_sw.sh
 . ./include/memory.sh
 . ./include/base_desktop.sh
@@ -885,21 +886,19 @@ if [ ${ARG_NUM} == 0 ]; then
   done
 fi
 
+#clear latest install.log
+echo > $log_dir
+
 if [ ! -e ~/.oneinstack ]; then
-  # install wget gcc curl
   downloadDepsSrc=1
-  apt-get -y install wget gcc curl > /dev/null
+  installBuildUbuntuTool | tee -a $log_dir
 fi
 
 # get the IP information
 IPADDR=$(./include/ois.${ARCH} ip_local)
 OUTIP_STATE=$(./include/ois.${ARCH} ip_state)
 
-#clear latest install.log
-echo > $log_dir
-
 # Check download source packages
-. ./include/check_download.sh
 [ "${armplatform}" == "y" ] && dbinstallmethod=2
 checkDownload 2>&1 | tee -a $log_dir
 
@@ -914,7 +913,6 @@ fi
 
 # install binary dependencies packages
 installDepsUbuntu 2>&1 | tee -a $log_dir
-
 
 # start Time
 startTime=`date +%s`

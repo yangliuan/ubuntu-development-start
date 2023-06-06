@@ -29,6 +29,7 @@ Install_Fceux() {
     fi
 
     rm -rf fceux-${fceux_ver}
+    apt-get autoremove -y qt5-assistant
     popd > /dev/null
 }
 

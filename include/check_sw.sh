@@ -1,12 +1,19 @@
 #!/bin/bash
+
+installBuildUbuntuTool() {
+  build_tools="build-essential gcc g++ make cmake cmake-data autoconf automake pkg-config libtool wget git curl"
+  for build_tool in ${build_tools}; do
+    apt-get -y install ${build_tools}
+  done
+}
+
 installDepsUbuntu() {
-  build_tool="build-essential gcc g++ make cmake cmake-data autoconf pkg-config libtool wget git"
-  ubuntu_tool="debian-keyring debian-archive-keyring apt-transport-https ca-certificates software-properties-common gnupg"
+  ubuntu_tools="debian-keyring debian-archive-keyring apt-transport-https ca-certificates software-properties-common gnupg"
   dev_deps="libglib2.0-dev libxml2-dev libperl-dev zlib1g-dev libc-client2007e-dev libbz2-1.0 libzip-dev libncurses5-dev libaio-dev libreadline-dev libcurl4-gnutls-dev libltdl-dev libsasl2-dev libxslt-dev libicu-dev libsqlite3-dev libexpat1-dev"
   pics_extension_deps="libjpeg8 libjpeg8-dev libpng-dev"
   runtime_deps="libicu70 libglib2.0-0 zlib1g libc6 libbz2-1.0 libncurses5 libaio1 libkrb5-3 libidn11-dev openssl libssl-dev libonig-dev libnss3 libtirpc-dev"
   utility_tools="patch vim zip unzip tmux bc dc expect rsyslog lrzsz chrony psmisc lsof"
-  pkgList="${build_tool} ${ubuntu_tool} ${dev_deps} ${pics_extension_deps} ${runtime_deps} ${utility_tools}"
+  pkgList="${ubuntu_tools} ${dev_deps} ${pics_extension_deps} ${runtime_deps} ${utility_tools}"
 
   for Package in ${pkgList}; do
     apt-get -y install ${Package}

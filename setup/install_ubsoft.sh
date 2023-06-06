@@ -14,12 +14,13 @@ ubdevenv_dir=$(dirname "$(dirname "`readlink -f $0`")")
 log_dir="${ubdevenv_dir}/log/install_ubsoft.log"
 
 pushd ${ubdevenv_dir} > /dev/null
-. ./include/color.sh
 . ./versions.txt
 . ./options.conf
+. ./include/color.sh
+. ./include/get_char.sh
 . ./include/download.sh
 . ./include/check_os.sh
-. ./include/get_char.sh
+. ./include/check_sw.sh
 . ./include/command_parameters.sh
 . ./ubsoft/patch_suport.sh
 . ./ubsoft/input-method/fcitx.sh
@@ -501,7 +502,7 @@ echo "${CMSG}Ubuntu version ${Ubuntu_ver} ${CEND}"
 #set aliyun mirror
 . include/source_list.sh;Set_Aliyun_Sourcelist
 
-apt-get install -y curl wget git gcc make
+installBuildUbuntuTool | tee -a $log_dir
 
 if [ "${remove_flag}" == 'y' ]; then
     Remove_Unwanted 2>&1 | tee -a $log_dir
