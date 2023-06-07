@@ -1,12 +1,10 @@
 #!/bin/bash
 #https://askubuntu.com/questions/1454137/how-do-i-fix-missing-dependencies-when-installing-fceux
-fceux_deps="qtbase5-dev zlib1g-dev libminizip-dev libsdl2-dev liblua5.1-dev qttools5-dev libx264-dev libx265-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libswresample-dev cppcheck"
-
 Install_Fceux() {
     pushd ${ubdevenv_dir}/src > /dev/null
 
-    for fceux_dep in ${fceux_deps}; do
-        apt-get install -y ${fceux_dep}
+    for fceuxDep in ${FceuxDeps}; do
+        apt-get install -y ${fceuxDep}
     done
 
     if [ ! -e "fceux-${fceux_ver}.tar.gz" ]; then
@@ -35,8 +33,4 @@ Install_Fceux() {
 
 Uninstall_Fceux() {
     rm -rf /usr/bin/fceux /usr/share/fceux /usr/share/applications/fceux.desktop
-
-    for fceux_dep in ${fceux_deps}; do
-        apt-get remove -y ${fceux_dep}
-    done
 }

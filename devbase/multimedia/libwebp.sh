@@ -3,7 +3,7 @@
 Install_Libwebp() {
     if [ ! -e "/usr/local/lib/libwebp.la" ]; then
         pushd ${ubdevenv_dir}/src > /dev/null
-        apt-get -y install libtiff-dev libgif-dev
+        #apt-get install -y libtiff-dev libgif-dev
         src_url=https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-${libwebp_ver}.tar.gz && Download_src
         tar zxvf libwebp-${libwebp_ver}.tar.gz
         pushd libwebp-${libwebp_ver} > /dev/null
@@ -24,7 +24,6 @@ Install_Libwebp() {
 }
 
 Uninstall_Libwebp() {
-    apt-get -y remove libtiff-dev libgif-dev
     pushd /usr/local/lib > /dev/null
     rm -rf libwebp.a libwebpdemux.a libwebpdemux.a libwebpdemux.la libwebpdemux.so \
     libwebpdemux.so.2 libwebpdemux.so.2.0.11 libwebp.la libwebpmux.a libwebpmux.la \

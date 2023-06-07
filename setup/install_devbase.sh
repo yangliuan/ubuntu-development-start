@@ -889,11 +889,6 @@ fi
 #clear latest install.log
 echo > $log_dir
 
-if [ ! -e ~/.oneinstack ]; then
-  downloadDepsSrc=1
-  installBuildUbuntuTool | tee -a $log_dir
-fi
-
 # get the IP information
 IPADDR=$(./include/ois.${ARCH} ip_local)
 OUTIP_STATE=$(./include/ois.${ARCH} ip_state)
@@ -902,22 +897,20 @@ OUTIP_STATE=$(./include/ois.${ARCH} ip_state)
 [ "${armplatform}" == "y" ] && dbinstallmethod=2
 checkDownload 2>&1 | tee -a $log_dir
 
-#check openssl
-. ./devbase/system-lib/openssl.sh
-
 if [ ! -e ~/.oneinstack ]; then
+  installBuildUbuntuTool 2>&1 | tee -a $log_dir
   . ./include/init_Ubuntu.sh 2>&1 | tee -a $log_dir
-  # Install dependencies from source package
-  installDepsBySrc 2>&1 | tee -a $log_dir
 fi
-
-# install binary dependencies packages
-installDepsUbuntu 2>&1 | tee -a $log_dir
 
 # start Time
 startTime=`date +%s`
 
-Install_openSSL | tee -a $log_dir
+# install binary dependencies packages
+installDepsUbuntu 2>&1 | tee -a $log_dir
+
+# Install dependencies from source package
+installDepsBySrc 2>&1 | tee -a $log_dir
+
 
 # Jemalloc
 if [[ ${nginx_option} =~ ^[1-3]$ ]] || [[ "${db_option}" =~ ^[1-9]$|^1[0-2]$ ]]; then
@@ -1480,4 +1473,5 @@ if [ ${ARG_NUM} == 0 ]; then
     fi
   done
 fi
+
 [ "${reboot_flag}" == 'y' ] && reboot

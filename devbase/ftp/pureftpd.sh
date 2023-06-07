@@ -7,9 +7,8 @@
 # Project home page:
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
-
 Install_PureFTPd() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${oneinstack_dir}/src > /dev/null
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}
   id -u ${run_user} >/dev/null 2>&1
@@ -24,6 +23,7 @@ Install_PureFTPd() {
   if [ -e "${pureftpd_install_dir}/sbin/pure-ftpwho" ]; then
     /bin/cp ../init.d/pureftpd.service /lib/systemd/system/
     sed -i "s@/usr/local/pureftpd@${pureftpd_install_dir}@g" /lib/systemd/system/pureftpd.service
+    systemctl enable pureftpd
 
     [ ! -e "${pureftpd_install_dir}/etc" ] && mkdir ${pureftpd_install_dir}/etc
     /bin/cp ../config/pure-ftpd.conf ${pureftpd_install_dir}/etc
@@ -38,34 +38,21 @@ Install_PureFTPd() {
     sed -i "s@^# TLS.*@&\nTLSCipherSuite             HIGH:MEDIUM:+TLSv1:\!SSLv2:\!SSLv3@" ${pureftpd_install_dir}/etc/pure-ftpd.conf
     sed -i "s@^# TLS.*@TLS                        1@" ${pureftpd_install_dir}/etc/pure-ftpd.conf
     ulimit -s unlimited
-    service pureftpd start
+    systemctl start pureftpd
 
-    # iptables Ftp
-    if [ "${PM}" == 'apt-get' ]; then
-      if [ -e '/etc/iptables/rules.v4' ]; then
-        if [ -n "`grep 'dport 80 ' /etc/iptables/rules.v4`" ] && [ -z "$(grep '20000:30000' /etc/iptables/rules.v4)" ]; then
-          iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
-          iptables -I INPUT 6 -p tcp -m state --state NEW -m tcp --dport 20000:30000 -j ACCEPT
-          iptables-save > /etc/iptables/rules.v4
-          ip6tables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
-          ip6tables -I INPUT 6 -p tcp -m state --state NEW -m tcp --dport 20000:30000 -j ACCEPT
-          ip6tables-save > /etc/iptables/rules.v6
-        fi
-      elif [ -e '/etc/iptables.up.rules' ]; then
-        if [ -n "`grep 'dport 80 ' /etc/iptables.up.rules`" ] && [ -z "$(grep '20000:30000' /etc/iptables.up.rules)" ]; then
-          iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
-          iptables -I INPUT 6 -p tcp -m state --state NEW -m tcp --dport 20000:30000 -j ACCEPT
-          iptables-save > /etc/iptables.up.rules
-        fi
-      fi
+    # Firewall Ftp
+    if ufw status | grep -wq active; then
+        ufw allow 21/tcp
+        ufw allow 20000:30000/tcp
     fi
 
     echo "${CSUCCESS}Pure-Ftp installed successfully! ${CEND}"
     rm -rf pure-ftpd-${pureftpd_ver}
   else
     rm -rf ${pureftpd_install_dir}
-    echo "${CFAILURE}Pure-Ftpd install failed, Please contact the author! ${CEND}" && lsb_release -a
+    echo "${CFAILURE}Pure-Ftpd install failed, Please contact the author! ${CEND}" && grep -Ew 'NAME|ID|ID_LIKE|VERSION_ID|PRETTY_NAME' /etc/os-release
     kill -9 $$; exit 1;
   fi
   popd > /dev/null
 }
+

@@ -707,20 +707,8 @@ Print_Supervisord() {
   [ -d "/usr/bin/supervisord" ] && echo /usr/bin/supervisord
 }
 
-Print_openssl() {
-  [ -d "${openssl_install_dir}" ] && echo ${openssl_install_dir}
-}
-
-Uninstall_openssl() {
-  [ -d "${openssl_install_dir}" ] && rm -rf ${openssl_install_dir}
-}
-
 Print_libevent() {
   [ -d "${libevent_install_dir}" ] && echo ${libevent_install_dir}
-}
-
-Uninstall_libevent() {
-  [ -d "${libevent_install_dir}" ] && rm -rf ${libevent_install_dir} /usr/lib64/libevent-2.1.so.7
 }
 
 Print_Conda() {
@@ -835,7 +823,6 @@ What Are You Doing?
         Uninstall_Memcached_server
         Uninstall_FFmpeg
         Uninstall_FFmpegDesktop
-        Uninstall_openssl
         Uninstall_phpMyAdmin
         Uninstall_Conda
         Uninstall_Node
@@ -1007,7 +994,6 @@ else
 
   if [ "${uninstall_flag}" == 'y' ]; then
     [ "${all_flag}" == 'y' ] && Uninstall_alldesktop
-    [ "${all_flag}" == 'y' ] && Uninstall_openssl
     [ "${web_flag}" == 'y' ] && Uninstall_Web
     [ "${mysql_flag}" == 'y' ] && Uninstall_MySQL
     [ "${postgresql_flag}" == 'y' ] && Uninstall_PostgreSQL

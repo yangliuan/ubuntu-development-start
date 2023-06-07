@@ -24,3 +24,7 @@ Install_Libevent() {
         popd > /dev/null
     fi
 }
+
+Uninstall_libevent() {
+  [ -d "${libevent_install_dir}" ] && rm -rf ${libevent_install_dir} /usr/lib64/libevent-2.1.so.7
+}

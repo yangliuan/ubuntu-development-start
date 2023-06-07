@@ -133,7 +133,7 @@ else
   with_old_openssl_flag=y
 fi
 
-Install_openSSL() {
+Install_OpenSSL() {
   if [ "${with_old_openssl_flag}" == 'y' ]; then
     if [ ! -e "${openssl_install_dir}/lib/libssl.a" ]; then
       pushd ${ubdevenv_dir}/src > /dev/null
@@ -155,4 +155,8 @@ Install_openSSL() {
       popd > /dev/null
     fi
   fi
+}
+
+Uninstall_openssl() {
+  [ -d "${openssl_install_dir}" ] && rm -rf ${openssl_install_dir}
 }
