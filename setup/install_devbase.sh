@@ -893,6 +893,9 @@ echo > $log_dir
 IPADDR=$(./include/ois.${ARCH} ip_local)
 OUTIP_STATE=$(./include/ois.${ARCH} ip_state)
 
+#set aliyun mirror
+. include/source_list.sh;Set_Aliyun_Sourcelist
+
 # Check download source packages
 [ "${armplatform}" == "y" ] && dbinstallmethod=2
 checkDownload 2>&1 | tee -a $log_dir

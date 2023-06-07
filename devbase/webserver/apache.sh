@@ -16,7 +16,7 @@ Install_Apache() {
   Install_AprUtil
 
   # install nghttp2
-  . ${ubdevenv_dir}/devbase/system-lib/libnghttp2.sh
+  . ${ubdevenv_dir}/devbase/webserver/libnghttp2.sh
   Install_Libnghttp2
 
   if openssl version | grep -Eqi 'OpenSSL 1.1'; then
