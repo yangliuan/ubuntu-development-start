@@ -8,13 +8,13 @@
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
 Install_PureFTPd() {
-  pushd ${oneinstack_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src > /dev/null
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}
   id -u ${run_user} >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -g ${run_group} -M -s /sbin/nologin ${run_user}
 
-  tar xzf pure-ftpd-${pureftpd_ver}.tar.gz
+  tar -zxvf pure-ftpd-${pureftpd_ver}.tar.gz
   pushd pure-ftpd-${pureftpd_ver} > /dev/null
   [ ! -d "${pureftpd_install_dir}" ] && mkdir -p ${pureftpd_install_dir}
   ./configure --prefix=${pureftpd_install_dir} CFLAGS=-O2 --with-puredb --with-quotas --with-cookie --with-virtualhosts --with-virtualchroot --with-diraliases --with-sysquotas --with-ratios --with-altlog --with-paranoidmsg --with-shadow --with-welcomemsg --with-throttling --with-uploadscript --with-language=english --with-tls
