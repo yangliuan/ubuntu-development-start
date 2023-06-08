@@ -6,9 +6,10 @@ Install_Cursor() {
     [ ! -d /opt/cursor ] && mkdir /opt/cursor
     mv x64 /opt/cursor/Cursor.AppImage
     cp -fv ${ubdevenv_dir}/icon/cursor.svg /opt/cursor/
-    chown -R ${run_user}.${run_user} /opt/cursor
-    chmod -R 775 /opt/cursor
     cp -rfv ${ubdevenv_dir}/desktop/cursor.desktop /usr/share/applications/
+    chown -R ${run_user}.${run_user} /opt/cursor /usr/share/applications/cursor.desktop  
+    chmod -R 775 /opt/cursor
+    
     
     popd > /dev/null
 }

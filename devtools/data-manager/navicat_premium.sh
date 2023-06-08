@@ -8,16 +8,14 @@ Install_navicat_premium() {
    if [ ! -e "/opt/navicat" ]; then
       mkdir /opt/navicat
    fi
-   
-   cp -fv navicat${navicat_ver}-premium-cs.AppImage /opt/navicat/navicat-premium-cs.AppImage
+   # reset time
    rm -rfv /home/${run_user}/.config/dconf /home/${run_user}/.config/navicat
+   cp -fv navicat${navicat_ver}-premium-cs.AppImage /opt/navicat/navicat-premium-cs.AppImage
    cp -rfv ${ubdevenv_dir}/icon/navicat.svg /opt/navicat/
-   chown -Rv ${run_user}.${run_group} /opt/navicat
-   chmod -Rv 755 /opt/navicat
-   #desktop
    cp -rfv ${ubdevenv_dir}/desktop/Navicat.Premium.16.desktop /home/${run_user}/.local/share/applications
-   chown -Rv ${run_user}.${run_group} /home/${run_user}/.local/share/applications/Navicat.Premium.16.desktop
-   
+   chown -Rv ${run_user}.${run_group} /opt/navicat /home/${run_user}/.local/share/applications/desktop/Navicat.Premium.16.desktop
+   chmod -Rv 755 /opt/navicat
+
    popd > /dev/null
 }
 

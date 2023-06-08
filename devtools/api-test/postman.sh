@@ -11,8 +11,8 @@ Install_Postman() {
     
     tar -zxvf postman-linux64.tar.gz
     mv -fv Postman /opt/postman
-    chown -Rv ${run_user}.${run_group} /opt/postman
     cp -rfv ${ubdevenv_dir}/desktop/postman.desktop /usr/share/applications/
+    chown -Rv ${run_user}.${run_group} /opt/postman /usr/share/applications/postman.desktop
     #rm -rfv linux64
     
     popd > /dev/null
