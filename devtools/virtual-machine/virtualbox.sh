@@ -7,7 +7,7 @@ Install_Vbox() {
     apt-get -y install -f
     #rm -rfv virtualbox-${virtualbox_ver_base}_${virtualbox_ver_base}.${virtualbox_ver}-${virtualbox_ver_sn}~Ubuntu~${ubuntu_name}_amd64.deb
     src_url="https://download.virtualbox.org/virtualbox/${virtualbox_ver_base}.${virtualbox_ver}/Oracle_VM_VirtualBox_Extension_Pack-${virtualbox_ver_base}.${virtualbox_ver}.vbox-extpack" && Download_src
-    mv -fv Oracle_VM_VirtualBox_Extension_Pack-${virtualbox_ver_base}.${virtualbox_ver}.vbox-extpack /home/${run_user}/Downloads/
+    cp -fv Oracle_VM_VirtualBox_Extension_Pack-${virtualbox_ver_base}.${virtualbox_ver}.vbox-extpack /home/${run_user}/Downloads/
     popd > /dev/null
 }
 
