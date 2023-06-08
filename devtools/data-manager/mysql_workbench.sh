@@ -6,7 +6,6 @@ Install_MysqlWorkbench() {
     dpkg -i "mysql-workbench-community_${mysql_workbench_ver}-1ubuntu${VERSION_ID}_amd64.deb"
     #libmysqlclient21 libpcrecpp0v5 libproj22 libzip4 mysql-common proj-data
     apt-get install -y -f
-    #rm -rfv "mysql-workbench-community-dbgsym_${mysql_workbench_ver}-1ubuntu${VERSION_ID}_amd64.deb"
     popd > /dev/null
 }
 
