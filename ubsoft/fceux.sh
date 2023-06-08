@@ -4,7 +4,7 @@ Install_Fceux() {
     pushd ${ubdevenv_dir}/src > /dev/null
     if [ -e "fceux-${fceux_ver}-${SYS_ARCH}.deb" ]; then
         dpkg -i fceux-${fceux_ver}-${SYS_ARCH}.deb
-        apt-get install -f
+        apt-get install -f -y
     else
         #It is recommended to build it separately in the virtual machine   
         Build_Fceux_Deb
