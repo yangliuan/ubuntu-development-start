@@ -1429,7 +1429,6 @@ Install_LNMPDesktop 2>&1 | tee -a $log_dir
 Install_LAMPDesktop 2>&1 | tee -a $log_dir
 Install_SwithDevEnvDesktop | tee -a $log_dir
 Install_StopAllDesktop 2>&1 | tee -a $log_dir
-WwwlogsDevConfig 2>&1 | tee -a $log_dir
 chmod -R 777 ${ubdevenv_dir}/src
 
 endTime=`date +%s`

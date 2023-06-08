@@ -46,7 +46,7 @@ EOF
     fi
 
     ${conda_install_dir}/bin/conda init
-    ${conda_install_dir}/bin/conda clean -i
+    ${conda_install_dir}/bin/conda clean -i -y
     popd > /dev/null
 }
 

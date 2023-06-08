@@ -50,14 +50,6 @@ OpenRestyDevConfig() {
     fi
 }
 
-WwwlogsDevConfig() {
-    #日志目录开发配置
-    if [ ! -d "${wwwlogs_dir}" ];then
-        mkdir ${wwwlogs_dir}
-        chown -Rv ${run_user}.root ${wwwlogs_dir}
-    fi
-}
-
 PhpDevConfig() {
      #修改所有版本php配置文件权限为777方便用编辑器编辑
     php_dir=(`find /usr/local -maxdepth 1 -type d -name "php*" | sort`)

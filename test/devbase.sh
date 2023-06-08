@@ -76,7 +76,6 @@ Uninstall_FFmpegDesktop
 NginxDevConfig
 TengineDevConfig
 OpenRestyDevConfig
-WwwlogsDevConfig
 PhpDevConfig
 
 
