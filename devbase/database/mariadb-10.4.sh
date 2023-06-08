@@ -66,6 +66,7 @@ Install_MariaDB104() {
   sed -i "s@^basedir=.*@basedir=${mariadb_install_dir}@" /etc/init.d/mysqld
   sed -i "s@^datadir=.*@datadir=${mariadb_data_dir}@" /etc/init.d/mysqld
   chmod +x /etc/init.d/mysqld
+  systemctl daemon-reload 
 
   popd
 

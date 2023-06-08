@@ -69,7 +69,10 @@ Install_MySQL80() {
   sed -i "s@^basedir=.*@basedir=${mysql_install_dir}@" /etc/init.d/mysqld
   sed -i "s@^datadir=.*@datadir=${mysql_data_dir}@" /etc/init.d/mysqld
   chmod +x /etc/init.d/mysqld
+  systemctl daemon-reload 
+systemctl daemon-reload 
 
+  
   popd
 
   # my.cnf

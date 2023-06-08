@@ -64,6 +64,7 @@ Install_Percona56() {
   sed -i "s@^basedir=.*@basedir=${percona_install_dir}@" /etc/init.d/mysqld
   sed -i "s@^datadir=.*@datadir=${percona_data_dir}@" /etc/init.d/mysqld
   chmod +x /etc/init.d/mysqld
+  systemctl daemon-reload 
 
   popd
 
