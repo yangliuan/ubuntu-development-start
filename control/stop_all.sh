@@ -6,6 +6,13 @@ printf "
 #                              stop all service                                #
 ################################################################################
 "
+
+#ssh
+if [ -e "/lib/systemd/system/ssh.service" ]; then
+    sudo systemctl stop ssh.service
+    echo "stop ssh success!"
+fi
+
 # web server
 if [ -e "/lib/systemd/system/httpd.service" ]; then
     sudo systemctl stop httpd.service

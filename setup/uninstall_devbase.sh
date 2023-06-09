@@ -38,6 +38,7 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./devbase/container-platform/docker.sh
 . ./devbase/system-lib/pcre.sh
 . ./include/command_parameters.sh
+. ./devbase/ftp/openssh-server.sh 
 
 ARG_NUM=$#
 TEMP=`getopt -o hvVq --long help,version,quiet,all,web,mysql,postgresql,mongodb,sqlite,redis,memcached,elastic_stack,allmq,allphp,mphp_ver:,phpcache,php_extensions:,pureftpd,supervisord,ffmpeg,nodejs_env,python_env,go_env,docker -- "$@" 2>/dev/null`
@@ -184,7 +185,7 @@ Uninstall_status() {
 }
 
 Uninstall_alldesktop() {
-    Uninstall_ElasticStackDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_SqliteDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;Uninstall_FFmpegDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_StopAllDesktop
+    Uninstall_ElasticStackDesktop;Uninstall_MysqlDesktop;Uninstall_PostgresqlDesktop;Uninstall_MongoDBDesktop;Uninstall_SqliteDesktop;Uninstall_MemcachedDesktop;Uninstall_RedisDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_NginxDesktop;Uninstall_OpenrestyDesktop;Uninstall_TengineDesktop;Uninstall_TomcatDesktop;Uninstall_PureFtpDesktop;Uninstall_PHPFPMDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SupervisorDesktop;Uninstall_KafkaDesktop;Uninstall_RabbitmqDesktop;Uninstall_FFmpegDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_SSHDesktop;Uninstall_StopAllDesktop
 }
 
 Print_Warn() {
@@ -225,7 +226,7 @@ Print_web() {
 Uninstall_Web() {
   [ -d "${nginx_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${nginx_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx /etc/profile.d/nginx.sh /etc/profile.d/nginx.disable; echo "${CMSG}Nginx uninstall completed! ${CEND}"; }
   [ -d "${tengine_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${tengine_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx /etc/profile.d/tengine.sh /etc/profile.d/tengine.disable; echo "${CMSG}Tengine uninstall completed! ${CEND}"; }
-  [ -d "${openresty_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${openresty_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx /etc/profile.d/openrestry.sh /etc/profile.d/openrestry.disable; echo "${CMSG}OpenResty uninstall completed! ${CEND}"; }
+  [ -d "${openresty_install_dir}" ] && { killall nginx > /dev/null 2>&1; rm -rf ${openresty_install_dir} /etc/init.d/nginx /etc/logrotate.d/nginx /etc/profile.d/openresty.sh /etc/profile.d/openresty.disable; echo "${CMSG}OpenResty uninstall completed! ${CEND}"; }
   [ -e "/lib/systemd/system/nginx.service" ] && { systemctl disable nginx > /dev/null 2>&1; rm -f /lib/systemd/system/nginx.service; }
   [ -d "${apache_install_dir}" ] && { service httpd stop > /dev/null 2>&1; rm -rf ${apache_install_dir} /etc/init.d/httpd /etc/logrotate.d/apache /etc/profile.d/apachehttpd.sh; echo "${CMSG}Apache uninstall completed! ${CEND}"; }
   [ -e "/lib/systemd/system/httpd.service" ] && { systemctl disable httpd > /dev/null 2>&1; rm -f /lib/systemd/system/httpd.service; } 
@@ -233,7 +234,7 @@ Uninstall_Web() {
   sed -i 's@^website_name=.*@website_name=@' ./options.conf
   sed -i 's@^backup_content=.*@backup_content=@' ./options.conf
   [ -d "${apr_install_dir}" ] && rm -rf ${apr_install_dir}
-  Uninstall_Pcre;Uninstall_NginxDesktop;Uninstall_OpenrestryDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_StopAllDesktop
+  Uninstall_Pcre;Uninstall_NginxDesktop;Uninstall_OpenrestyDesktop;Uninstall_TengineDesktop;Uninstall_ApacheHttpdDesktop;Uninstall_LNMPDesktop;Uninstall_LAMPDesktop;Uninstall_SwithDevEnvDesktop;Uninstall_StopAllDesktop
 }
 
 Print_MySQL() {
@@ -732,8 +733,8 @@ Print_Go() {
   [ -L "${go_install_dir}" ] && echo "${go_install_dir}"
 }
 
-Print_Gvm() {
-  echo ''
+Print_SSH() {
+  [ -e "/usr/sbin/sshd" ] && echo "/usr/sbin/sshd"
 }
 
 Print_Erlang() {
@@ -767,10 +768,11 @@ What Are You Doing?
 \t${CMSG} 16${CEND}. Uninstall All PHP
 \t${CMSG} 17${CEND}. Uninstall PHP opcode cache
 \t${CMSG} 18${CEND}. Uninstall PHP extensions
+\t${CMSG} 19${CEND}. Uninstall All Service Desktop
 \t${CMSG} 20${CEND}. Uninstall Nodejs (PATH: ${node_install_dir})
 \t${CMSG} 21${CEND}. Uninstall Nvm
 \t${CMSG} 22${CEND}. Uninstall Go
-\t${CMSG} 23${CEND}. Uninstall Gvm
+\t${CMSG} 23${CEND}. Uninstall SSH(openssh-server)
 \t${CMSG} 24${CEND}. Uninstall JDK
 \t${CMSG} 25${CEND}. Uninstall Supervisord
 \t${CMSG} 26${CEND}. Uninstall Docker
@@ -802,7 +804,7 @@ What Are You Doing?
       Print_Node
       Print_Nvm
       Print_Go
-      Print_Gvm
+      Print_SSH
       Print_JDK
       Print_Erlang
       Print_phpMyAdmin
@@ -828,7 +830,7 @@ What Are You Doing?
         Uninstall_Node
         Uninstall_Nvm
         Uninstall_Go
-        Uninstall_Gvm
+        Uninstall_OpensshServer
         Uninstall_JDK
         Uninstall_Erlang
         Uninstall_Supervisor
@@ -939,6 +941,10 @@ What Are You Doing?
       [ "${phpext_option}" != '0' ] && Uninstall_status
       [ "${uninstall_flag}" == 'y' ] && Uninstall_PHPext || exit
       ;;
+    19)
+      Uninstall_status
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_alldesktop || exit
+      ;;
     20)
       Print_Node
       Uninstall_status
@@ -955,9 +961,9 @@ What Are You Doing?
       [ "${uninstall_flag}" == 'y' ] && Uninstall_Go || exit
       ;;
     23)
-      Print_Gvm
+      Print_SSH
       Uninstall_status
-      [ "${uninstall_flag}" == 'y' ] && Uninstall_Gvm || exit
+      [ "${uninstall_flag}" == 'y' ] && Uninstall_OpensshServer || exit
       ;;
     24)
       Print_JDK
@@ -1019,8 +1025,8 @@ else
     [ "${ffmpeg_flag}" == 'y' ] && Uninstall_FFmpeg;Uninstall_FFmpegDesktop
     [ "${nodejs_env_flag}" == 'y' ] && Uninstall_Node;Uninstall_Nvm
     [ "${python_env_flag}" == 'y' ] && Uninstall_Conda
-    [ "${go_env_flag}" == 'y' ] && Uninstall_Go;Uninstall_Gvm
-    
+    [ "${go_env_flag}" == 'y' ] && Uninstall_Go
+        
     if [ "${docker_flag}" == 'y' ]; then
       Uninstall_Docker_Desktop
       Uninstall_Docker_Engine

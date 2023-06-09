@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Openssh
+Comment=openssh service
+Exec=sh /opt/ubdevenv/control/openssh_start.sh
+Icon=/opt/ubdevenv/icon/ssh.svg
+Type=Application
+Terminal=true
+Categories=service;tool
+Keywords=openssh

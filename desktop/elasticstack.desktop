@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Elastic Stack
+Comment=all elastic application service
+Exec=sh /opt/ubdevenv/control/elasticstack_start.sh
+Icon=/opt/ubdevenv/icon/elasticstack.svg
+Type=Application
+Terminal=true
+Categories=service;fulltext
+Keywords=elasticstack

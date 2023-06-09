@@ -86,7 +86,7 @@ if [ ${ARG_NUM} == 0 ]; then
 fi
 
 if [ "${switch_php_flag}" == 'y' ]; then
-    . include/language/php/switch_php.sh
+    . ./devbase/language/php/switch_php.sh
     Switch_PHP
     while :; do echo
         read -e -p "Do you want to switch composer version ? [y/n](n): " switch_composer_flag
@@ -100,7 +100,7 @@ if [ "${switch_php_flag}" == 'y' ]; then
 fi
 
 if [ "${switch_composer_flag}" == 'y' ]; then
-    . include/language/php/switch_composer.sh
+    . ./devbase/language/php/switch_composer.sh
     Switch_Composer
     while :; do echo
         read -e -p "Do you want to switch composer mirrors? [y/n](n): " switch_composer_mirrors_flag
@@ -114,21 +114,21 @@ if [ "${switch_composer_flag}" == 'y' ]; then
 fi
 
 if [ "${switch_composer_mirrors_flag}" == 'y' ]; then
-    . include/language/php/switch_composer.sh
+    . ./devbase/language/php/switch_composer.sh
     Switch_Composer_Mirrors
 fi
 
 if [ "${switch_php_extension_flag}" == 'y' ]; then
-    . include/language/php/switch_extension.sh
+    . ./devbase/language/php/switch_extension.sh
     Switch_Extension
 fi
 
 if [ "${switch_npm_mirrors_flag}" == 'y' ]; then
-    . include/language/nodejs/switch_npm_registry.sh
+    . ./devbase/language/nodejs/switch_npm_registry.sh
     Switch_NpmRegistry
 fi
 
 if [ "${switch_nginx_flag}" == 'y' ]; then
-    . include/webserver/switch_nginx.sh
+    . ./devbase/webserver/switch_nginx.sh
     Switch_Nginx
 fi

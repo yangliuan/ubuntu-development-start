@@ -2,11 +2,11 @@
 ##devbase/database and nosql#####################################################
 Install_ElasticStackDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
-    cp -rfv elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop /usr/share/applications
+    cp -rfv elasticstack.desktop elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop /usr/share/applications
     popd > /dev/null
 
     pushd /usr/share/applications/ > /dev/null
-    chown -Rv ${run_user}.${run_group} elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop
+    chown -Rv ${run_user}.${run_group} elasticstack.desktop elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop
     popd > /dev/null
 }
 
@@ -94,15 +94,26 @@ Uninstall_NginxDesktop() {
     rm -rfv /usr/share/applications/nginx.desktop
 }
 
-Install_OpenrestryDesktop() {
+Install_TengineDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
-    cp -rfv openrestry.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/openrestry.desktop
+    cp -rfv tenigne.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/tenigne.desktop
     popd > /dev/null
 }
 
-Uninstall_OpenrestryDesktop() {
-    rm -rfv /usr/share/applications/openrestry.desktop
+Uninstall_TengineDesktop() {
+    rm -rfv /usr/share/applications/tenigne.desktop
+}
+
+Install_OpenrestyDesktop() {
+    pushd ${ubdevenv_dir}/desktop > /dev/null
+    cp -rfv openresty.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/openresty.desktop
+    popd > /dev/null
+}
+
+Uninstall_OpenrestyDesktop() {
+    rm -rfv /usr/share/applications/openresty.desktop
 }
 
 Install_TomcatDesktop() {
@@ -266,13 +277,23 @@ Uninstall_SwithDevEnvDesktop() {
     rm -rfv /usr/share/applications/switchdevenv.desktop
 }
 
+Install_SSHDesktop() {
+    pushd ${ubdevenv_dir}/desktop > /dev/null
+    cp -rfv openssh.desktop /usr/share/applications
+    chown -Rv ${run_user}.${run_group} /usr/share/applications/openssh.desktop
+    popd > /dev/null
+}
+
+Uninstall_SSHDesktop() {
+    rm -rfv /usr/share/applications/openssh.desktop
+}
+
 Install_StopAllDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv stop-all.desktop /usr/share/applications
     chown -Rv ${run_user}.${run_group} /usr/share/applications/stop-all.desktop
     popd > /dev/null
     Change_Sudoers
-    update-desktop-devbase/database
 }
 
 Uninstall_StopAllDesktop() {

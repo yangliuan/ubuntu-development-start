@@ -3,8 +3,8 @@ clear
 printf "
 ################################################################################
 #             Development environment for Ubuntu 22.04 desktop                 #
-#                            start kafka zookeeper                             #
+#                                start openssh                                 #
 ################################################################################
 "
-sudo systemctl start zookeeper.service
-sudo systemctl status zookeeper.service
+sudo systemctl start ssh.service
+sudo systemctl status ssh.service

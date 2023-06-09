@@ -886,6 +886,9 @@ if [ ${ARG_NUM} == 0 ]; then
   done
 fi
 
+# start Time
+startTime=`date +%s`
+
 #clear latest install.log
 echo > $log_dir
 
@@ -900,22 +903,22 @@ OUTIP_STATE=$(./include/ois.${ARCH} ip_state)
 [ "${armplatform}" == "y" ] && dbinstallmethod=2
 checkDownload 2>&1 | tee -a $log_dir
 
+#init dependencies
 if [ ! -e ~/.oneinstack ]; then
   #install base binary dependencies
-  UbuntuPkgList="${BuildToolsDeps} ${DownloadToolsDeps} ${UtilityToolsDeps} ${UbuntuToolsDeps}"
+  UbuntuPkgList="${BuildToolsDeps} ${DownloadToolsDeps} ${UtilityToolsDeps} ${UbuntuToolsDeps} ${DevDeps} ${RuntimeDeps}"
   installDepsUbuntu 2>&1 | tee -a $log_dir
   . ./include/init_Ubuntu.sh 2>&1 | tee -a $log_dir
-  
+
   # Install dependencies from source package
   installDepsBySrc 2>&1 | tee -a $log_dir
+else
+  # Resolve unknown operations, resulting in uninstallation of development libraries
+  UbuntuPkgList="${DevDeps}" && installDepsUbuntu 2>&1 | tee -a $log_dir
 fi
 
-# start Time
-startTime=`date +%s`
-
-# install about development binary dependencies packages
-UbuntuPkgList="${DevDeps} ${RuntimeDeps} ${ImageExtensionDeps}" && installDepsUbuntu 2>&1 | tee -a $log_dir
-
+# Check the basic applications of different versions and make OpenSSL adaptation
+Install_OpenSSL | tee -a $log_dir
 
 #check firewall
 . ./devbase/firewall/ufw.sh
@@ -1016,13 +1019,13 @@ case "${nginx_option}" in
   2)
     . ./devbase/webserver/tengine.sh
     Install_Tengine 2>&1 | tee -a $log_dir
-    Install_NginxDesktop 2>&1 | tee -a $log_dir
+    Install_TengineDesktop 2>&1 | tee -a $log_dir
     TengineDevConfig 2>&1 | tee -a $log_dir
     ;;
   3)
     . ./devbase/webserver/openresty.sh
-    Install_OpenResty 2>&1 | tee -a $log_dir
-    Install_OpenrestryDesktop 2>&1 | tee -a $log_dir
+    Install_Openresty 2>&1 | tee -a $log_dir
+    Install_OpenrestyDesktop 2>&1 | tee -a $log_dir
     OpenRestyDevConfig 2>&1 | tee -a $log_dir
     ;;
 esac
@@ -1097,7 +1100,6 @@ case "${mq_option}" in
   1)
     . ./devbase/message-queue/kafka.sh
     Install_Kafka 2>&1 | tee -a $log_dir
-    Install_ZookeeperDesktop 2>&1 | tee -a $log_dir 
     Install_KafkaDesktop 2>&1 | tee -a $log_dir
     ;;
   2)

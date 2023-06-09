@@ -8,7 +8,7 @@
 #       https://oneinstack.com
 #       https://github.com/oneinstack/oneinstack
 
-Install_OpenResty() {
+Install_Openresty() {
   pushd ${ubdevenv_dir}/src > /dev/null
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}
@@ -36,8 +36,8 @@ Install_OpenResty() {
     kill -9 $$; exit 1;
   fi
 
-  if [ ! -e "/etc/profile.d/openrestry.sh" ]; then
-        cat > /etc/profile.d/openrestry.sh << EOF
+  if [ ! -e "/etc/profile.d/openresty.sh" ]; then
+        cat > /etc/profile.d/openresty.sh << EOF
 export PATH=${openresty_install_dir}/nginx/sbin:\$PATH
 EOF
   fi

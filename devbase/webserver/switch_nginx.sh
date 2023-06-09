@@ -18,8 +18,7 @@ Switch_Nginx() {
         echo "input error! Please only input number 0~${i}:"
     fi
     
-    systemctl stop nginx.service
-    killall -9 nginx
+    stop_nginx_service
 
     #更新systemd配置文件
     rm -rf /lib/systemd/system/nginx.service
@@ -30,19 +29,19 @@ Switch_Nginx() {
     0)
       sed -i "s@/usr/local/nginx@${nginx_install_dir}@g" /lib/systemd/system/nginx.service
       enable_nginxenv
-      disable_openrestryenv
+      disable_openrestyenv
       disable_tengineenv
       ;;
     1)
       sed -i "s@/usr/local/nginx@${openresty_install_dir}/nginx@g" /lib/systemd/system/nginx.service
       disbale_nginxenv
-      enable_openrestryenv
+      enable_openrestyenv
       disable_tengineenv
       ;;
     2)
       sed -i "s@/usr/local/nginx@${tengine_install_dir}@g" /lib/systemd/system/nginx.service
       disbale_nginxenv
-      disable_openrestryenv
+      disable_openrestyenv
       enable_tengineenv
       ;;
     esac
@@ -53,26 +52,42 @@ Switch_Nginx() {
     systemctl daemon-reload
 }
 
+stop_nginx_service() {
+  # 检查 Nginx 服务状态
+  if systemctl is-active --quiet nginx.service; then
+      echo "正在停止 Nginx 服务..."
+      # 使用 systemctl 停止 Nginx 服务
+      sudo systemctl stop nginx.service
+  fi
+
+  # 检查 Nginx 进程状态
+  if pgrep -x nginx > /dev/null; then
+      echo "强制杀死 Nginx 进程..."
+      # 使用 killall 命令强制杀死 Nginx 进程
+      sudo killall -9 nginx
+  fi
+}
+
 enable_nginxenv() {
-  [ -e "/etc/profile.d/nginx.disable" ] && mv /etc/profile.d/nginx.disable /etc/profile.d/nginx.sh
+  [ -e "/etc/profile.d/nginx.disable" ] && sudo mv /etc/profile.d/nginx.disable /etc/profile.d/nginx.sh
 }
 
 disbale_nginxenv() {
-  [ -e "/etc/profile.d/nginx.sh" ] && mv /etc/profile.d/nginx.sh /etc/profile.d/nginx.disable
+  [ -e "/etc/profile.d/nginx.sh" ] && sudo mv /etc/profile.d/nginx.sh /etc/profile.d/nginx.disable
 }
 
-enable_openrestryenv() {
-  [ -e "/etc/profile.d/openrestry.disable" ] && mv /etc/profile.d/openrestry.disable /etc/profile.d/openrestry.sh
+enable_openrestyenv() {
+  [ -e "/etc/profile.d/openresty.disable" ] && sudo mv /etc/profile.d/openresty.disable /etc/profile.d/openresty.sh
 }
 
-disable_openrestryenv() {
-  [ -e "/etc/profile.d/openrestry.sh" ] && mv /etc/profile.d/openrestry.sh /etc/profile.d/openrestry.disable
+disable_openrestyenv() {
+  [ -e "/etc/profile.d/openresty.sh" ] && sudo mv /etc/profile.d/openresty.sh /etc/profile.d/openresty.disable
 }
 
 enable_tengineenv() {
-  [ -e "/etc/profile.d/tengine.disable" ] && mv /etc/profile.d/tengine.disable /etc/profile.d/tengine.sh
+  [ -e "/etc/profile.d/tengine.disable" ] && sudo mv /etc/profile.d/tengine.disable /etc/profile.d/tengine.sh
 }
 
 disable_tengineenv() {
-  [ -e "/etc/profile.d/tengine.sh" ] && mv /etc/profile.d/tengine.sh /etc/profile.d/tengine.disable
+  [ -e "/etc/profile.d/tengine.sh" ] && sudo mv /etc/profile.d/tengine.sh /etc/profile.d/tengine.disable
 }

@@ -3,13 +3,28 @@ clear
 printf "
 ################################################################################
 #             Development environment for Ubuntu 22.04 desktop                 #
-#                                 start beats                                  #
+#                            start elastic stack                               #
 ################################################################################
 "
 services=""
+if [ -e "/lib/systemd/system/elasticsearch.service" ]; then
+    sudo systemctl start elasticsearch.service
+    services="elasticsearch.service"
+fi
+
+if [ -e "/lib/systemd/system/kibana.service" ]; then
+    sudo systemctl start kibana.service
+    services="${services}kibana.service "
+fi
+
+if [ -e "/lib/systemd/system/logstash.service" ]; then
+    sudo systemctl start logstash.service
+    services="${services}logstash.service "
+fi
+
 if [ -e "/lib/systemd/system/filebeat.service" ]; then
     sudo systemctl start filebeat.service
-    services="filebeat.service"
+    services="${services}filebeat.service "
 fi
 
 if [ -e "/lib/systemd/system/packetbeat.service" ]; then
@@ -32,5 +47,4 @@ if [ -e "/lib/systemd/system/auditbeat.service" ]; then
     services="${services}auditbeat.service"
 fi
 
-# 输出所有服务的状态
 sudo systemctl status $services

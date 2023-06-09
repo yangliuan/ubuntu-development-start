@@ -25,9 +25,9 @@ Install_Kafka() {
     chown -R kafka.kafka ${kafka_install_dir} ${zookeeper_data_dir} ${kafka_data_dir}
     chmod -R 755 ${kafka_install_dir} ${zookeeper_data_dir} ${kafka_data_dir}
     
-    cp ${ubdevenv_dir}/init.d/zookeeper.service /lib/systemd/system/
+    cp ${ubdevenv_dir}/init.d/zookeeper-inkafka.service /lib/systemd/system/
     cp ${ubdevenv_dir}/init.d/kafka.service /lib/systemd/system/
-    sed -i "s@/usr/local/kafka@${kafka_install_dir}@g" /lib/systemd/system/zookeeper.service
+    sed -i "s@/usr/local/kafka@${kafka_install_dir}@g" /lib/systemd/system/zookeeper-inkafka.service
     sed -i "s@/usr/local/kafka@${kafka_install_dir}@g" /lib/systemd/system/kafka.service
     systemctl daemon-reload
     
@@ -38,7 +38,7 @@ Install_Kafka() {
 Uninstall_Kafka() {
     if [ -d "${kafka_install_dir}" ]; then
         rm -rf ${kafka_install_dir}
-        rm -rf /lib/systemd/system/zookeeper.service
+        rm -rf /lib/systemd/system/zookeeper-inkafka.service
         rm -rf /lib/systemd/system/kafka.service
         systemctl daemon-reload
     fi

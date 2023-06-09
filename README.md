@@ -210,4 +210,5 @@ sudo ./install_ubsoft.sh --custom
 [Oneinstack](https://github.com/oneinstack/oneinstack)
 
 
-
+### 改进计划
+- 使用桌面快捷方式desktop文件启动时，在control脚本中增加判断：如果服务未启动则启动服务，如果服务已启动则停止服务

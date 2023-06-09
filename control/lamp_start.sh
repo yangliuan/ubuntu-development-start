@@ -6,7 +6,20 @@ printf "
 #                                 start lamp                                   #
 ################################################################################
 "
-sudo systemctl start httpd.service
-sudo systemctl start php-fpm.service
-sudo systemctl start mysqld.service
-sudo systemctl status httpd.service php-fpm.service mysqld.service
+services=""
+if [ -e "/lib/systemd/system/httpd.service" ]; then
+    sudo systemctl start httpd.service
+    services="httpd.service"
+fi
+
+if [ -e "/lib/systemd/system/php-fpm.service" ]; then
+    sudo systemctl start php-fpm.service
+    services="${services}php-fpm.service "
+fi
+
+if [ -e "/etc/init.d/mysqld" ]; then
+    sudo systemctl start mysqld.service
+    services="${services}mysqld.service"
+fi
+
+sudo systemctl status $services
