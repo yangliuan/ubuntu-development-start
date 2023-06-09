@@ -901,19 +901,24 @@ OUTIP_STATE=$(./include/ois.${ARCH} ip_state)
 checkDownload 2>&1 | tee -a $log_dir
 
 if [ ! -e ~/.oneinstack ]; then
-  installBuildUbuntuTool 2>&1 | tee -a $log_dir
+  #install base binary dependencies
+  UbuntuPkgList="${BuildToolsDeps} ${DownloadToolsDeps} ${UtilityToolsDeps} ${UbuntuToolsDeps}"
+  installDepsUbuntu 2>&1 | tee -a $log_dir
   . ./include/init_Ubuntu.sh 2>&1 | tee -a $log_dir
+  
+  # Install dependencies from source package
+  installDepsBySrc 2>&1 | tee -a $log_dir
 fi
 
 # start Time
 startTime=`date +%s`
 
-# install binary dependencies packages
-installDepsUbuntu 2>&1 | tee -a $log_dir
+# install about development binary dependencies packages
+UbuntuPkgList="${DevDeps} ${RuntimeDeps} ${ImageExtensionDeps}" && installDepsUbuntu 2>&1 | tee -a $log_dir
 
-# Install dependencies from source package
-installDepsBySrc 2>&1 | tee -a $log_dir
 
+#check firewall
+. ./devbase/firewall/ufw.sh
 
 # Jemalloc
 if [[ ${nginx_option} =~ ^[1-3]$ ]] || [[ "${db_option}" =~ ^[1-9]$|^1[0-2]$ ]]; then

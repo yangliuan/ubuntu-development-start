@@ -24,7 +24,7 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/command_parameters.sh
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Devtools_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -36,10 +36,6 @@ while :; do
       ;;
     -v|-V|--version)
       version; exit 0
-      ;;
-    --openssh_server)
-      openssh_server_flag=y; shift 1
-      [ "${openssh_server_flag}" == 'y' -a -e "/usr/sbin/sshd" ] && { echo "${CWARNING}openssh-server already installed! ${CEND}"; unset openssh_server_flag; }
       ;;
     --switchhost)
       switchhost_flag=y; shift 1
@@ -122,18 +118,6 @@ while :; do
 done
 
 if [ ${ARG_NUM} == 0 ]; then
-    # check openssh-server
-    while :; do echo
-        read -e -p "Do you want to install openssh-server? [y/n](n): " openssh_server_flag
-        openssh_server_flag=${openssh_server_flag:-n}
-        if [[ ! ${openssh_server_flag} =~ ^[y,n]$ ]]; then
-            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-        else
-            [ "${openssh_server_flag}" == 'y' -a -e "/usr/sbin/sshd" ] && { echo "${CWARNING}openssh-server already installed! ${CEND}"; unset openssh_server_flag; }
-            break;
-        fi
-    done
-
     # check switchhost
     while :; do echo
         read -e -p "Do you want to install switchhost? [y/n](y): " switchhost_flag
@@ -375,12 +359,6 @@ if [ "${jmeter_flag}" == 'y' ]; then
     . ./include/check_download.sh
     [ "${armplatform}" == "y" ] && dbinstallmethod=2
     checkDownload 2>&1 | tee -a $log_dir
-fi
-
-#install openssh-server
-if [ "${openssh_server_flag}" == 'y' ]; then
-    . ./devtools/network/openssh-server.sh
-    Install_OpensshServer 2>&1 | tee -a $log_dir
 fi
 
 #set develop config

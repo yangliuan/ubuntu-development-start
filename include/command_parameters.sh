@@ -80,7 +80,6 @@ Show_Devtools_Help() {
   echo "Usage: $0  command ...[parameters]....
   --help, -h
   --version, -v 
-  --openssh_server
   --switchhost
   --rdm
   --navicat_premium

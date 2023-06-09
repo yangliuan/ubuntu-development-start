@@ -1,8 +1,9 @@
 #!/bin/bash
 #Dependent Libraries
-BuildToolsDeps="build-essential gcc g++ make cmake cmake-data autoconf automake pkg-config libtool wget git curl"
-UbuntuToolsDeps="debian-keyring debian-archive-keyring apt-transport-https ca-certificates software-properties-common gnupg"
+BuildToolsDeps="build-essential gcc g++ make cmake cmake-data autoconf automake pkg-config libtool"
+DownloadToolsDeps="wget git curl"
 UtilityToolsDeps="patch vim zip unzip 7zip tmux bc dc expect rsyslog lrzsz chrony psmisc lsof"
+UbuntuToolsDeps="debian-keyring debian-archive-keyring apt-transport-https ca-certificates software-properties-common gnupg"
 DevDeps="libglib2.0-dev libxml2-dev libperl-dev zlib1g-dev libc-client2007e-dev libbz2-1.0 libzip-dev libncurses5-dev libaio-dev libreadline-dev libcurl4-gnutls-dev libltdl-dev libsasl2-dev libxslt-dev libicu-dev libsqlite3-dev libexpat1-dev"
 RuntimeDeps="libicu70 libglib2.0-0 zlib1g libc6 libbz2-1.0 libncurses5 libaio1 libkrb5-3 libidn11-dev openssl libssl-dev libonig-dev libnss3 libtirpc-dev"
 ImageExtensionDeps="libjpeg8 libjpeg8-dev libpng-dev librsvg2-dev libtiff-dev libgif-dev"
@@ -14,19 +15,15 @@ FFmpegDeps="nasm libchromaprint-dev frei0r-plugins-dev libgmp-dev ladspa-sdk lib
 . ./devbase/multimedia/libwebp.sh
 . ./devbase/system-lib/openssl.sh
 
-installBuildUbuntuTool() {
-  for buildDep in ${BuildToolsDeps}; do
-    apt-get -y install ${buildDep}
-  done
-}
-
+#UbuntuPkgList you can cusotom,ex: UbuntuPkgList="${BuildToolsDeps} ${DownloadToolsDeps}" or UbuntuPkgList="wget gcc"
 installDepsUbuntu() {
-  pkgList="${UbuntuToolsDeps} ${UtilityToolsDeps} ${DevDeps} ${RuntimeDeps} ${ImageExtensionDeps}"
-
-  for Package in ${pkgList}; do
-    apt-get install -y ${Package}
+  for Package in ${UbuntuPkgList}; do
+    if ! dpkg -s ${Package} > /dev/null 2>&1; then
+      apt-get install -y ${Package}
+    fi
   done
 }
+
 
 installDepsBySrc() { 
   if ! command -v icu-config > /dev/null 2>&1 || icu-config --version | grep '^3.' || [ "${Ubuntu_ver}" == "20" ]; then

@@ -497,12 +497,13 @@ fi
 
 
 echo > $log_dir
-echo "${CMSG}Ubuntu version ${Ubuntu_ver} ${CEND}"
 
 #set aliyun mirror
 . include/source_list.sh;Set_Aliyun_Sourcelist
 
-installBuildUbuntuTool | tee -a $log_dir
+#install dependencies
+UbuntuPkgList="${BuildToolsDeps} ${DownloadToolsDeps}"
+installDepsUbuntu | tee -a $log_dir
 
 if [ "${remove_flag}" == 'y' ]; then
     Remove_Unwanted 2>&1 | tee -a $log_dir
@@ -637,7 +638,6 @@ fi
 
 apt-get -y autoremove 
 snap refresh
-chown -R ${run_user}.root /opt
 
 if [ ${ARG_NUM} == 0 ]; then
   while :; do echo

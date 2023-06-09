@@ -11,4 +11,4 @@ bash ${custom_dir}/setup/devaddons.sh --uninstall --composer --supervisord --php
 bash ${custom_dir}/setup/uninstall_devbase.sh -q --all
 
 # uninstall devtools use costom agruments
-bash ${custom_dir}/setup/uninstall_devtools.sh --openssh_server --switchhost --rdm --navicat_premium --mysql_workbench --remmina --wireshark --terminal_net_tools --postman --runapi --apifox --oss_browser --filezilla --jmeter --obs_studio --rabbitvcs_nautilus
+bash ${custom_dir}/setup/uninstall_devtools.sh --switchhost --rdm --navicat_premium --mysql_workbench --remmina --wireshark --terminal_net_tools --postman --runapi --apifox --oss_browser --filezilla --jmeter --obs_studio --rabbitvcs_nautilus

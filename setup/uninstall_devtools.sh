@@ -25,7 +25,7 @@ pushd ${ubdevenv_dir} > /dev/null
 shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,all,openssh_server,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,all,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Devtools_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -57,9 +57,6 @@ while :; do
       obs_studio_flag=y
       rabbitvcs_nautilus_flag=y
       shift 1
-      ;;
-    --openssh_server)
-      openssh_server_flag=y; shift 1
       ;;
     --switchhost)
       switchhost_flag=y; shift 1
@@ -126,13 +123,6 @@ while :; do
       ;;
   esac
 done
-
-
-# uninstall openssh-server
-if [ "${openssh_server_flag}" == 'y' ]; then
-    . ./devtools/network/openssh-server.sh
-    Uninstall_OpensshServer
-fi
 
 # uninstall switchhost
 if [ "${switchhost_flag}" == 'y' ]; then

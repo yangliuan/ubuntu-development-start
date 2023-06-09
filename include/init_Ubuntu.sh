@@ -85,17 +85,5 @@ LANG=en_US.UTF-8
 LANGUAGE=en_US:en
 EOF
 
-# ufw
-if [ "${devbase/firewall_flag}" == 'y' ]; then
-  ufw allow 22/tcp
-  [ "${ssh_port}" != "22" ] && ufw allow ${ssh_port}/tcp
-  ufw allow 80/tcp
-  ufw allow 443/tcp
-  ufw --force enable
-else
-  ufw --force disable
-fi
-systemctl restart rsyslog ssh
-
 . /etc/profile
 . ~/.bashrc

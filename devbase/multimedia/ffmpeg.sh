@@ -8,9 +8,7 @@ Install_FFmpeg() {
   pushd ${ubdevenv_dir}/src > /dev/null
   [ -e "/usr/bin/ffmpeg" ] && apt-get -y autoremove ffmpeg
 
-  for FFmpegDep in ${FFmpegDeps}; do
-    apt-get install -y ${FFmpegDep}
-  done
+  UbuntuPkgList="${FFmpegDeps}" && installDepsUbuntu
 
   . ${ubdevenv_dir}/devbase/multimedia/libvmaf.sh
   Install_Libvmaf
