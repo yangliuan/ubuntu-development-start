@@ -14,6 +14,6 @@ Download_src() {
     echo "${CFAILURE}Auto download failed! You can manually download ${src_url} into the oneinstack/src directory.${CEND}"
     kill -9 $$; exit 1;
   else
-    chown -R ${run_user}.${run_user} ${src_url##*/}
+    chown -R ${run_user}.${run_group} ${src_url##*/}
   fi
 }

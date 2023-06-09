@@ -34,6 +34,7 @@ EOF
     apt-get install -y deepin-elf-verify deepin-wine-helper:i386 deepin-wine-runtime deepin-wine6-stable
     apt-get install -y -f
 
+    chown -Rv ${run_user}.${run_group} /opt/deepin-wine6-stable /opt/deepinwine
     echo "${CSUCCESS} deepin-wine installed successed！ ${CEND}"
 }
 
@@ -60,8 +61,9 @@ Install_Deepin_Wechat() {
     apt-get install -y libjpeg62
     #字体问题
     apt-get install -y fonts-wqy-microhei fonts-wqy-zenhei
-    #
+    #hold qt5 dependencies
     apt-mark hold libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5qml5 libqt5qmlmodels5 libqt5quick5 libqt5webchannel5 libqt5widgets5
+    chown -Rv ${run_user}.${run_group} /opt/apps/com.qq.weixin.deepin /opt/apps/com.qq.weixin.work.deepin
     popd > /dev/null
 }
 

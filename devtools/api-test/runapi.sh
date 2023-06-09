@@ -7,7 +7,7 @@ Install_Runapi() {
         mv visitFile?sign=e0fb3d738511c03fafd73ef9e484a0d4 runapi.deb
     fi
     dpkg -i runapi.deb
-    [ -d "/opt/runapi" ] && chown -R ${run_user}.${run_user} /opt/runapi
+    [ -d "/opt/runapi" ] && chown -R ${run_user}.${run_group} /opt/runapi
     popd > /dev/null
 }
 

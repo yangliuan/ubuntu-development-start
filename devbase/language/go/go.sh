@@ -12,7 +12,7 @@ Install_Go() {
 
     if [ ! -d "${go_path}" ]; then
         mkdir ${go_path}
-        chown -R ${run_user}.${run_user} ${go_path}
+        chown -R ${run_user}.${run_group} ${go_path}
     fi
 
     ln -s ${go_install_dir}${go_ver} ${go_install_dir}
