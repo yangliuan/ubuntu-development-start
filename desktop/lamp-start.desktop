@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=LAMP
 Comment=PHP Web Environment 
-Exec=sh /opt/ubdevenv/control/lamp_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/lamp_start.sh"
 Icon=/opt/ubdevenv/icon/lamp.svg
 Type=Application
 Terminal=true

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Memcached
 Comment=Memcached is an in-memory key-value store
-Exec=sh /opt/ubdevenv/control/memcached_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/memcached_start.sh"
 Icon=/opt/ubdevenv/icon/memcached.svg
 Type=Application
 Terminal=true

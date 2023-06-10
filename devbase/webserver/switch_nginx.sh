@@ -55,14 +55,14 @@ Switch_Nginx() {
 stop_nginx_service() {
   # 检查 Nginx 服务状态
   if systemctl is-active --quiet nginx.service; then
-      echo "正在停止 Nginx 服务..."
+      #echo "正在停止 Nginx 服务..."
       # 使用 systemctl 停止 Nginx 服务
       sudo systemctl stop nginx.service
   fi
 
   # 检查 Nginx 进程状态
   if pgrep -x nginx > /dev/null; then
-      echo "强制杀死 Nginx 进程..."
+      #echo "强制杀死 Nginx 进程..."
       # 使用 killall 命令强制杀死 Nginx 进程
       sudo killall -9 nginx
   fi

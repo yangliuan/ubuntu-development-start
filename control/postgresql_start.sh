@@ -6,5 +6,16 @@ printf "
 #                                start postgresql                              #
 ################################################################################
 "
-sudo systemctl start postgresql.service
-sudo systemctl status postgresql.service
+if [ -e "/lib/systemd/system/postgresql.service" ]; then
+    if sudo systemctl is-active --quiet postgresql.service; then
+        echo "Stopping postgresql.service"
+        sudo systemctl stop postgresql.service 
+    else
+        echo "Starting postgresql.service"
+        sudo systemctl start postgresql.service 
+    fi
+    sudo systemctl status postgresql.service
+else
+    echo "postgresql is not installed"
+    sleep 3
+fi

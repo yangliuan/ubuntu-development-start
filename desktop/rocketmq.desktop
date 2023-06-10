@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Rocketmq
-Exec=sh /opt/ubdevenv/control/rocketmq_start.sh %U
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/rocketmq_start.sh"
 Type=Application
 Terminal=true
 Icon=/opt/ubdevenv/icon/apacherocketmq.svg

@@ -6,5 +6,16 @@ printf "
 #                                  start php-fpm                               #
 ################################################################################
 "
-sudo systemctl start php-fpm.service 
-sudo systemctl status php-fpm.service
+if [ -e "/lib/systemd/system/php-fpm.service" ]; then
+    if sudo systemctl is-active --quiet php-fpm.service; then
+        echo "Stopping php-fpm.service"
+        sudo systemctl stop php-fpm.service 
+    else
+        echo "Starting php-fpm.service"
+        sudo systemctl start php-fpm.service 
+    fi
+    sudo systemctl status php-fpm.service
+else
+    echo "php-fpm is not installed"
+    sleep 3
+fi

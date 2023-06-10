@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=LNMP
 Comment=PHP Web Environment
-Exec=sh /opt/ubdevenv/control/lnmp_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/lnmp_start.sh"
 Icon=/opt/ubdevenv/icon/lnmp.svg
 Type=Application
 Terminal=true

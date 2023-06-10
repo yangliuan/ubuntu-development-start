@@ -6,5 +6,16 @@ printf "
 #                               start supervisor                               #
 ################################################################################
 "
-sudo systemctl start supervisor.service
-sudo systemctl status supervisor.service
+if [ -e "/lib/systemd/system/supervisor.service" ]; then
+    if sudo systemctl is-active --quiet supervisor.service; then
+        echo "Stopping supervisor.service"
+        sudo systemctl stop supervisor.service 
+    else
+        echo "Starting supervisor.service"
+        sudo systemctl start supervisor.service 
+    fi
+    sudo systemctl status supervisor.service
+else
+    echo "supervisor is not installed"
+    sleep 3
+fi

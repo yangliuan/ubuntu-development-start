@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Apache Zookeeper
 Comment=zookeeper
-Exec=sh /opt/ubdevenv/control/zookeeeper_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/zookeeeper_start.sh"
 Icon=/opt/ubdevenv/icon/zookeeper.svg
 Type=Application
 Terminal=true

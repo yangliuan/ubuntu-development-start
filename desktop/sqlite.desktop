@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Sqlite
 Comment=relation devbase/database
-Exec=sh /opt/ubdevenv/control/sqlite_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/sqlite_start.sh"
 Icon=/opt/ubdevenv/icon/sqlite.svg
 Type=Application
 Terminal=true

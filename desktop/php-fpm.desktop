@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Php Fpm
 Comment=relation devbase/database
-Exec=sh /opt/ubdevenv/control/php-fpm_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/php-fpm_start.sh"
 Icon=/opt/ubdevenv/icon/php.svg
 Type=Application
 Terminal=true

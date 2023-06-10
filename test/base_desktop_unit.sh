@@ -45,10 +45,12 @@ Uninstall_SupervisorDesktop
 Uninstall_ZookeeperDesktop
 Uninstall_KafkaDesktop
 Uninstall_RabbitmqDesktop
+Uninstall_RocketmqDesktop
 Uninstall_StopAllDesktop
 Uninstall_SqliteDesktop
 Uninstall_FFmpegDesktop
 Uninstall_SwithDevEnvDesktop
+Uninstall_SSHDesktop
 
 Install_ElasticStackDesktop
 Install_MysqlDesktop
@@ -69,7 +71,9 @@ Install_SupervisorDesktop
 Install_ZookeeperDesktop
 Install_KafkaDesktop
 Install_RabbitmqDesktop
+Install_RocketmqDesktop
 Install_StopAllDesktop
 Install_SqliteDesktop
 Install_FFmpegDesktop
 Install_SwithDevEnvDesktop
+Install_SSHDesktop

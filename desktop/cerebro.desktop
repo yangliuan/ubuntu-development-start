@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Cerebro
 Comment=cerebro is an open source elasticsearch web admin tool built using Scala, Play Framework, AngularJS and Bootstrap.
-Exec=sh /opt/ubdevenv/control/cerebro_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/cerebro_start.sh"
 Icon=/opt/ubdevenv/icon/logstash.svg
 Type=Application
 Terminal=true

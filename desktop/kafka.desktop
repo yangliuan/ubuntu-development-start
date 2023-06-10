@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Apache Kafka
 Comment=message queue
-Exec=sh /opt/ubdevenv/control/kafka_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/kafka_start.sh"
 Icon=/opt/ubdevenv/icon/apachekafka.svg
 Type=Application
 Terminal=true

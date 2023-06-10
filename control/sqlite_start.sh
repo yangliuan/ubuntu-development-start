@@ -6,4 +6,9 @@ printf "
 #                                   sqlite3                                    #
 ################################################################################
 "
-sqlite3
+if [ -e "/usr/local/bin/sqlite3" ]; then
+    sqlite3
+else
+    echo "sqlite3 is not installed"
+    sleep 3
+fi 

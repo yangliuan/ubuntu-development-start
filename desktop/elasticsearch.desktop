@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Elasticsearch
 Comment=search devbase/database
-Exec=sh /opt/ubdevenv/control/elasticsearch_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/elasticsearch_start.sh"
 Icon=/opt/ubdevenv/icon/elasticsearch.svg
 Type=Application
 Terminal=true

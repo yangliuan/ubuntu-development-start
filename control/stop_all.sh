@@ -75,9 +75,9 @@ if [ -e "/lib/systemd/system/pureftpd.service" ]; then
 fi
 
 # mssage queue
-if [ -e "/lib/systemd/system/zookeeper.service" ]; then
-    sudo systemctl stop zookeeper.service
-    echo "stop zookeeper success!"
+if [ -e "/lib/systemd/system/zookeeper-inkafka.service" ]; then
+    sudo systemctl stop zookeeper-inkafka.service
+    echo "stop zookeeper-inkafka success!"
 fi
 
 if [ -e "/lib/systemd/system/kafka.service" ]; then
@@ -103,47 +103,47 @@ fi
 # elastic stack
 if [ -e "/lib/systemd/system/elasticsearch.service" ]; then
     sudo systemctl stop elasticsearch.service
-    echo "stop elasticsearch.service success!"
+    echo "stop elasticsearch success!"
 fi
 
 if [ -e "/lib/systemd/system/kibana.service" ]; then
     sudo systemctl stop kibana.service
-    echo "stop kibana.service success!"
+    echo "stop kibana success!"
 fi
 
 if [ -e "/lib/systemd/system/logstash.service" ]; then
     sudo systemctl stop logstash.service
-    echo "stop logstash.service success!"
+    echo "stop logstash success!"
 fi
 
 if [ -e "/lib/systemd/system/cerebro.service" ]; then
     sudo systemctl stop cerebro.service
-    echo "stop cerebro.service success!"
+    echo "stop cerebro success!"
 fi
 
 if [ -e "/lib/systemd/system/filebeat.service" ]; then
     sudo systemctl stop filebeat.service
-    echo "stop filebeat.service success!"
+    echo "stop filebeat success!"
 fi
 
 if [ -e "/lib/systemd/system/packetbeat.service" ]; then
     sudo systemctl stop packetbeat.service
-    echo "stop packetbeat.service success! "
+    echo "stop packetbeat success! "
 fi
 
 if [ -e "/lib/systemd/system/metricbeat.service" ]; then
     sudo systemctl stop metricbeat.service
-    echo "stop metricbeat.service success!"
+    echo "stop metricbeat success!"
 fi
 
 if [ -e "/lib/systemd/system/heartbeat-elastic.service" ]; then
     sudo systemctl stop heartbeat-elastic.service
-    echo "stop heartbeat-elastic.service success!"
+    echo "stop heartbeat-elastic success!"
 fi
 
 if [ -e "/lib/systemd/system/auditbeat.service" ]; then
     sudo systemctl stop auditbeat.service
-    echo "stop auditbeat.service success!"
+    echo "stop auditbeat success!"
 fi
 
 if [ -e "/usr/local/php/bin/php" ]; then
@@ -155,4 +155,4 @@ if [ -e "/usr/local/php/bin/php" ]; then
 fi
 
 echo "stop all service successed!"
-sleep 10
+sleep 5

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Pure Ftpd
 Comment=ftp server
-Exec=sh /opt/ubdevenv/control/pure-ftpd_start.sh
+Exec=gnome-terminal -- /bin/bash -c "/opt/ubdevenv/control/pure-ftpd_start.sh"
 Icon=/opt/ubdevenv/icon/ftpserver.svg
 Type=Application
 Terminal=true

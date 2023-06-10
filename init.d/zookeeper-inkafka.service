@@ -1,5 +1,5 @@
 [Unit]
-Description=zookeeperservice
+Description=zookeeperservice in kafka
 After=network.target
 
 [Service]

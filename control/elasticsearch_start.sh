@@ -6,5 +6,16 @@ printf "
 #                            start elasticsearch                               #
 ################################################################################
 "
-sudo systemctl start elasticsearch.service
-sudo systemctl status elasticsearch.service
+if [ -e "/lib/systemd/system/elasticsearch.service" ]; then
+    if sudo systemctl is-active --quiet elasticsearch.service; then
+        echo "Stopping elasticsearch.service"
+        sudo systemctl stop elasticsearch.service 
+    else
+        echo "Starting elasticsearch.service"
+        sudo systemctl start elasticsearch.service 
+    fi
+    sudo systemctl status elasticsearch.service
+else
+    echo "elasticsearch is not installed"
+    sleep 3
+fi
