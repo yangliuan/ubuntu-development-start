@@ -8,10 +8,10 @@ Install_GraphicsMagick() {
   else
     pushd ${ubdevenv_dir}/src > /dev/null
     tar xzf GraphicsMagick-${graphicsmagick_ver}.tar.gz
-    pushd GraphicsMagick-${graphicsmagick_ver} > /dev/null
-    ./configure --prefix=${gmagick_install_dir} --enable-shared --enable-static --enable-symbol-prefix
-    make -j ${THREAD} && make install
-    popd > /dev/null
+      pushd GraphicsMagick-${graphicsmagick_ver} > /dev/null
+      ./configure --prefix=${gmagick_install_dir} --enable-shared --enable-static --enable-symbol-prefix
+      make -j ${THREAD} && make install
+      popd > /dev/null
     rm -rf GraphicsMagick-${graphicsmagick_ver}
     popd > /dev/null
   fi

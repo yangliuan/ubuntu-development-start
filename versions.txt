@@ -78,7 +78,6 @@ icu4c_ver=63_1
 libsodium_ver=1.0.18
 libzip_ver=1.2.0
 argon2_ver=20171227
-libwebp_ver=1.2.4
 imagemagick_ver=7.1.0-62
 imagick_ver=3.7.0
 imagick_oldver=3.4.4
@@ -169,8 +168,12 @@ rabbitmq_ver=3.10.5
 rocketmq_ver=5.1.0
 
 #FFmpeg
-libvmaf_ver=2.1.1
 ffmpeg_ver=6.0
+libvmaf_ver=2.1.1
+kvazaar_ver=2.2.0
+libwebp_ver=1.2.4
+libjxl_ver=0.8.1
+librav1e_ver=0.6.6
 
 #Container Platform
 docker_desktop_ver=4.19.0
