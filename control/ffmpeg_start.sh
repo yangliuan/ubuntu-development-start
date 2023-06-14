@@ -34,11 +34,16 @@ while true; do
 Press key:
 (Enter) use ffplay play video. ffplay keyboard: q exit the currently playing video; [ space ] pause/play video; ← rewind the video; → fast forward videos; ↑ adjust the volume level; ↓ adjust the volume level
 (0) best compression and conversion to mp4
-(1) extract mp3
+(1) extract mp3 and mp4(without auido)
 (2) extract cover image
-(3) extract all fps image
+(3) decode the video into the original frame sequence image
 (4) add image(fix) watermark
 (5) remove image(fix) watermark
+(6) remove the orignal sound of video
+(7) add sound (keep original sound)
+(8) horizontal flip
+(9) frame reversal by filter
+(10) frame reversal by frame image
 "
 
   for ((i=0; i<${#video_files[@]}; i++)); do
@@ -67,24 +72,27 @@ Press key:
     "")
       selected_video=${video_files[$index]}
       ffplay "$selected_video"
+      break;
       ;;
     "0")
       selected_video=${video_files[$index]}
       currently_directory=$(dirname "$selected_video")  # 提取路径部分
       file_name=$(basename "$selected_video")  # 提取文件名（包含扩展名）
       file_name_without_ext="${file_name%.*}"  # 去除扩展名
-      compressed_file="${file_name_without_ext}.mp4"  # 构建新的文件名
-      compressed_path="$currently_directory/compress_$compressed_file"  # 构建完整的新路径
-      ffmpeg -i "$selected_video" -c:v libx264 -preset medium -crf 28 -c:a copy "$compressed_path"
+      out_file_name="${file_name_without_ext}.mp4"  # 构建新的文件名
+      out_file_path="$currently_directory/compress_$out_file_name"  # 构建完整的新路径
+      ffmpeg -i "$selected_video" -c:v libx264 -preset medium -crf 28 -c:a copy "$out_file_path"
       ;;
     "1")
       selected_video=${video_files[$index]}
-      # 获取文件名和扩展名
-      filename=$(basename "$selected_video")
-      extension="${filename##*.}"
+      currently_directory=$(dirname "$selected_video")
+      file_name=$(basename "$selected_video")  # 提取文件名（包含扩展名）
+      file_name_without_ext="${file_name%.*}"  # 去除扩展名  
       # 构建输出文件路径和文件名
-      output_file=${selected_video/${extension}/mp3}
-      ffmpeg -i "$selected_video" -vn -codec:a libmp3lame -qscale:a 2 "$output_file"
+      output_file_audio="$currently_directory/audio_stream_$file_name_without_ext.mp3"
+      output_file_video="$currently_directory/video_stream_$file_name_without_ext.mp4"
+      ffmpeg -i "$selected_video" -f mp3 "$output_file_audio"
+      ffmpeg -i "$selected_video" -vcodec copy -an "$output_file_video"
       ;;
     "2")
       selected_video=${video_files[$index]}
@@ -99,12 +107,10 @@ Press key:
       selected_video=${video_files[$index]}
       currently_directory=$(dirname "$selected_video")  # 提取路径部分
       file_name=$(basename "$selected_video")  # 提取文件名（包含扩展名）
-      file_name_without_ext="${file_name%.*}"  # 去除扩展名
-      #使用ffmpeg获取视频的fps信息并保存到变量中
-      fps=$(ffmpeg -i "$selected_video" 2>&1 | grep -oP "(?<=, )\d+(?= fps)")
-      fps_img_dir=$currently_directory/$file_name_without_ext
-      [ ! -d "$fps_img_dir" ] && mkdir -p $fps_img_dir
-      ffmpeg -i $selected_video -f image2 -vf fps=$fps -qscale:v 2 $fps_img_dir/img%04d.jpg
+      file_name_without_ext="${file_name%.*}"  # 去除扩展名  
+      frame_img_dir=$currently_directory/$file_name_without_ext
+      [ ! -d "$frame_img_dir" ] && mkdir -p $frame_img_dir
+      ffmpeg -i $selected_video -qscale:v 2 $frame_img_dir/%05d.jpg
       ;;
     "4")
       watermark_img='/home/yangliuan/Pictures/Wallpapers/ubuntu-logo.png'
@@ -112,9 +118,9 @@ Press key:
       currently_directory=$(dirname "$selected_video")  # 提取路径部分
       file_name=$(basename "$selected_video")  # 提取文件名（包含扩展名）
       file_name_without_ext="${file_name%.*}"  # 去除扩展名
-      watermark_file="${file_name_without_ext}.mp4"  # 构建新的文件名
-      watermark_path="$currently_directory/watermark_$watermark_file"  # 构建完整的新路径
-      ffmpeg -i $selected_video -vf "movie=${watermark_img} [watermark]; [in][watermark] overlay=50:50 [out]" -y $watermark_path
+      out_file_name="${file_name_without_ext}.mp4"  # 构建新的文件名
+      out_file_path="$currently_directory/watermark_$out_file_name"  # 构建完整的新路径
+      ffmpeg -i $selected_video -vf "movie=${watermark_img} [watermark]; [in][watermark] overlay=50:50 [out]" -y $out_file_path
       ;;
     "5")
       selected_video=${video_files[$index]}
@@ -123,9 +129,45 @@ Press key:
       file_name_without_ext="${file_name%.*}"  # 去除扩展名
       out_file_name="${file_name_without_ext}.mp4"  # 构建新的文件名
       out_file_path="$currently_directory/remove_watermark_$out_file_name"  # 构建完整的新路径
-      # 您可以根据需要修改该命令行参数
       ffmpeg -i $selected_video -vf "delogo=x=50:y=50:w=499:h=410" -c:a copy $out_file_path
-      break;
+      ;;
+    "6")
+      selected_video=${video_files[$index]}
+      currently_directory=$(dirname "$selected_video")  # 提取路径部分
+      file_name=$(basename "$selected_video")  # 提取文件名（包含扩展名）
+      file_name_without_ext="${file_name%.*}"  # 去除扩展名
+      out_file_name="${file_name_without_ext}.mp4"  # 构建新的文件名
+      out_file_path="$currently_directory/remove_sound_$out_file_name"  # 构建完整的新路径
+      ffmpeg -i $selected_video -an $out_file_path -y
+      ;;
+    "7")
+      ;;
+    "8")
+      selected_video=${video_files[$index]}
+      currently_directory=$(dirname "$selected_video")  # 提取路径部分
+      file_name=$(basename "$selected_video")  # 提取文件名（包含扩展名）
+      file_name_without_ext="${file_name%.*}"  # 去除扩展名
+      out_file_name="${file_name_without_ext}.mp4"  # 构建新的文件名
+      out_file_path="$currently_directory/flip_horizontal_$out_file_name"  # 构建完整的新路径
+      ffmpeg -i $selected_video -vf "hflip" $out_file_path
+      ;;
+    "9")
+      selected_video=${video_files[$index]}
+      currently_directory=$(dirname "$selected_video")  # 提取路径部分
+      file_name=$(basename "$selected_video")  # 提取文件名（包含扩展名）
+      file_name_without_ext="${file_name%.*}"  # 去除扩展名
+      out_file_name="${file_name_without_ext}.mp4"  # 构建新的文件名
+      out_file_path="$currently_directory/reversed_frames_$out_file_name"  # 构建完整的新路径
+      ffmpeg -i $selected_video -vf reverse -af areverse  $out_file_path
+      ;;
+    "10")
+      selected_video=${video_files[$index]}
+      currently_directory=$(dirname "$selected_video")  # 提取路径部分
+      file_name=$(basename "$selected_video")  # 提取文件名（包含扩展名）
+      file_name_without_ext="${file_name%.*}"  # 去除扩展名
+      out_file_name="${file_name_without_ext}.mp4"  # 构建新的文件名
+      out_file_path="$currently_directory/reversed_frames2_$out_file_name"  # 构建完整的新路径
+      ffmpeg -i $selected_video -vf reverse -af areverse  $out_file_path
       ;;
   esac
 done
