@@ -12,7 +12,7 @@ Install_ElasticStackDesktop() {
 
 Uninstall_ElasticStackDesktop() {
     pushd /usr/share/applications/ > /dev/null
-    rm -rfv elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop
+    rm -rfv elasticstack.desktop elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop
     popd > /dev/null
 }
 
