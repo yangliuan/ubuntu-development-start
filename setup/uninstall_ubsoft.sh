@@ -24,7 +24,7 @@ pushd ${ubdevenv_dir} > /dev/null
 shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,all,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,sougoupinyin,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,fceux,cuda,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,all,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,sougoupinyin,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,fceux,driver,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Ubsoft_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -124,11 +124,11 @@ while :; do
     --custom)
       custom_flag=y; shift 1
       ;;
-     --fceux)
+    --fceux)
       fceux_flag=y; shift 1
       ;;
-    --cuda)
-      cuda_flag=y; shift 1
+    --driver)
+      driver_flag=y; shift 1
       ;;
     --reboot)
       reboot_flag=y; shift 1
@@ -247,8 +247,8 @@ if [ "${fceux_flag}" == 'y' ]; then
     Uninstall_Fceux 2>&1 | tee -a $log_dir
 fi
 
-if [ "${cuda_flag}" == 'y' ]; then
-    Uninstall_Cuda 2>&1 | tee -a $log_dir
+if [ "${driver_flag}" == 'y' ]; then
+    Uninstall_Driver 2>&1 | tee -a $log_dir
 fi
 
 apt-get autoremove -y

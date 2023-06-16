@@ -35,3 +35,7 @@ Install_Driver() {
         Install_AMDDriver
     fi
 }
+
+Uninstall_Driver() {
+    Uninstall_Cuda
+}
