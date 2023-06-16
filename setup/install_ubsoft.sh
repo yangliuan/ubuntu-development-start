@@ -28,7 +28,7 @@ pushd ${ubdevenv_dir} > /dev/null
 shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,fceux,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,driver,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,fceux,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Ubsoft_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -39,6 +39,9 @@ while :; do
       ;;
     -v|-V|--version)
       version; exit 0
+      ;;
+    --driver)
+      driver_flag=y; shift 1
       ;;
     --input_method_option)
       input_method_option=$2; shift 2
