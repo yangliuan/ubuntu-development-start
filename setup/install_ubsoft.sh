@@ -162,44 +162,22 @@ while :; do echo
     fi
 done
 
-# check nvidia driver
-if lspci | grep -i NVIDIA > /dev/null; then
-    while :; do echo
-        read -e -p "Do you want to installed nvdia driver? [y/n](n): " nvdia_flag
-        nvdia_flag=${nvdia_flag:-y}
-        if [[ ! ${nvdia_flag} =~ ^[y,n]$ ]]; then
-            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-        else
+# check GPU driver 
+while :; do echo
+    read -e -p "Do you want to installed GPU driver? [y/n](n): " driver_flag
+    remove_flag=${remove_flag:-n}
+    if [[ ! ${remove_flag} =~ ^[y,n]$ ]]; then
+        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+    else
+        if lspci | grep -i NVIDIA > /dev/null; then
             [ -e "/usr/bin/nvidia-settings" ] && { echo "${CWARNING}Nvdia driver already installed! ${CEND}"; unset nvdia_flag; }
-            break;
-        fi
-    done
-
-    while :; do echo
-        read -e -p "Do you want to installed cuda? [y/n](n): " cuda_flag
-        cuda_flag=${cuda_flag:-y}
-        if [[ ! ${cuda_flag} =~ ^[y,n]$ ]]; then
-            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-        else
             [ -d "/opt/nvidia" ] && { echo "${CWARNING}Nvdia cuda already installed! ${CEND}"; unset cuda_flag; }
-            break;
-        fi
-    done
-fi
-
-#check amd driver
-if lspci -nn | grep VGA | grep AMD > /dev/null; then
-    while :; do echo
-        read -e -p "Do you want to installed amd gpu driver? [y/n](n): " amd_flag
-        amd_flag=${amd_flag:-y}
-        if [[ ! ${amd_flag} =~ ^[y,n]$ ]]; then
-            echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-        else
+        elif lspci -nn | grep VGA | grep AMD > /dev/null; then
             [ -e "" ] && { echo "${CWARNING}AMD driver already installed! ${CEND}"; unset amd_flag; }
-            break;
         fi
-    done
-fi
+        break;
+    fi
+done
 
 # check input method
 while :; do echo
@@ -510,16 +488,8 @@ if [ "${remove_flag}" == 'y' ]; then
     Uninstall_Libreoffice 2>&1 | tee -a $log_dir
 fi
 
-if [ "${nvdia_flag}" == 'y' ]; then
-    Install_NvidiaDriver 2>&1 | tee -a $log_dir
-fi
-
-if [ "${cuda_flag}" == 'y' ]; then
-    Install_Cuda 2>&1 | tee -a $log_dir
-fi
-
-if [ "${amd_flag}" == 'y' ]; then
-    Install_AMDDriver 2>&1 | tee -a $log_dir
+if [ "${driver_flag}" == 'y' ]; then
+    Install_Driver 2>&1 | tee -a $log_dir
 fi
 
 case "${input_method_option}" in
