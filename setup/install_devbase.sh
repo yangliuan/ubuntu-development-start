@@ -606,7 +606,7 @@ if [ ${ARG_NUM} == 0 ]; then
   fi
 
   # PHP opcode cache and extensions
-  if [ -v php_option ] && ([[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]] || [ -e "${php_install_dir}/bin/phpize" ]); then
+  if [ "${php_flag}" == 'y' ] && ([[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]] || [ -e "${php_install_dir}/bin/phpize" ]); then
     while :; do echo
         read -e -p "Do you want to install opcode cache of the PHP? [y/n]: " phpcache_flag
         if [[ ! ${phpcache_flag} =~ ^[y,n]$ ]]; then
@@ -1364,6 +1364,8 @@ PHP_addons() {
     Install_pecl_rdkafka 2>&1 | tee -a $log_dir
   fi
 }
+
+PHP_addons
 
 # nodejs
 case "${nodejs_method}" in
