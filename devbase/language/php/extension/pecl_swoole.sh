@@ -29,7 +29,7 @@ Install_pecl_swoole() {
       pushd swoole-${swoole_ver} > /dev/null
     fi
     ${php_install_dir}/bin/phpize
-    ./configure --with-php-config=${php_install_dir}/bin/php-config --enable-openssl --with-openssl-dir=${openssl_install_dir}
+    ./configure --with-php-config=${php_install_dir}/bin/php-config --enable-openssl --with-openssl-dir=${openssl_install_dir} --enable-http2
     make -j ${THREAD} && make install
     popd > /dev/null
     if [ -f "${phpExtensionDir}/swoole.so" ]; then
