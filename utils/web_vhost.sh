@@ -630,10 +630,10 @@ EOF
   fi
 
   printf "
-#######################################################################
-#       OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+      #
-#       For more information please visit https://oneinstack.com      #
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                    Web virtual user account management                       #
+################################################################################
 "
   echo "$(printf "%-30s" "Your domain:")${CMSG}${domain}${CEND}"
   echo "$(printf "%-30s" "Nginx Virtualhost conf:")${CMSG}${web_install_dir}/conf/vhost/${domain}.conf${CEND}"
@@ -657,10 +657,10 @@ EOF
   service tomcat restart
 
   printf "
-#######################################################################
-#       OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+      #
-#       For more information please visit https://oneinstack.com      #
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                    Web virtual user account management                       #
+################################################################################
 "
   echo "$(printf "%-30s" "Your domain:")${CMSG}${domain}${CEND}"
   echo "$(printf "%-30s" "Tomcat Virtualhost conf:")${CMSG}${tomcat_install_dir}/conf/vhost/${domain}.xml${CEND}"
@@ -750,10 +750,10 @@ EOF
   fi
 
   printf "
-#######################################################################
-#       OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+      #
-#       For more information please visit https://oneinstack.com      #
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                    Web virtual user account management                       #
+################################################################################
 "
   echo "$(printf "%-30s" "Your domain:")${CMSG}${domain}${CEND}"
   echo "$(printf "%-30s" "Virtualhost conf:")${CMSG}${web_install_dir}/conf/vhost/${domain}.conf${CEND}"
@@ -829,10 +829,10 @@ EOF
   fi
 
   printf "
-#######################################################################
-#       OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+      #
-#       For more information please visit https://oneinstack.com      #
-#######################################################################
+################################################################################
+#             Development environment for Ubuntu 22.04 desktop                 #
+#                    Web virtual user account management                       #
+################################################################################
 "
   echo "$(printf "%-30s" "Your domain:")${CMSG}${domain}${CEND}"
   echo "$(printf "%-30s" "Virtualhost conf:")${CMSG}${web_install_dir}/conf/vhost/${domain}.conf${CEND}"
@@ -1036,6 +1036,23 @@ EOF
 }
 
 Add_Vhost() {
+  while :; do echo
+      echo "Please choose to webserver vhost:"
+      echo -e "\t${CMSG}1${CEND}. Use nginx"
+      echo -e "\t${CMSG}2${CEND}. Use apache"
+      echo -e "\t${CMSG}2${CEND}. Use apache"
+      echo -e "\t${CMSG}2${CEND}. Use apache"
+      read -e -p "Please input a number:(Default 1 press Enter) " ENV_FLAG
+      ENV_FLAG=${ENV_FLAG:-1}
+      if [[ ! ${ENV_FLAG} =~ ^[1-2]$ ]]; then
+        echo "${CWARNING}input error! Please only input number 1~2${CEND}"
+      else
+        break
+      fi
+    done
+}
+
+Add_Vhost_Old() {
   if [ -e "${web_install_dir}/sbin/nginx" -a ! -e "${apache_install_dir}/bin/httpd" ]; then
     Choose_ENV
     Input_Add_domain
