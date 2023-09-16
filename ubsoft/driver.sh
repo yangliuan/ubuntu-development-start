@@ -11,7 +11,7 @@ Install_Cuda() {
     dpkg -i cuda-keyring_${cuda_ver}_all.deb
     apt-get update
     apt-get -y install cuda
-    [ -d "/opt/nvidia" ] && chown -R ${run_user}.${run_group} /opt/nvidia
+    [ -d "/opt/nvidia" ] && chown -R ${run_user}:${run_group} /opt/nvidia
     popd > /dev/null
 }
 

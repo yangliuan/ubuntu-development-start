@@ -9,7 +9,7 @@ Install_Apifox() {
     mv -fv apifox /opt/
     chmod -R 775 /opt/apifox
     cp -rfv ${ubdevenv_dir}/desktop/apifox.desktop /usr/share/applications/
-    chown -R ${run_user}.${run_group} /opt/apifox /usr/share/applications/apifox.desktop
+    chown -R ${run_user}:${run_group} /opt/apifox /usr/share/applications/apifox.desktop
     popd > /dev/null
 }
 

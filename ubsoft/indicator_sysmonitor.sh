@@ -9,7 +9,7 @@ Install_IndicatorSysmonitor() {
     make install
     popd > /dev/null
     rm -rf indicator-sysmonitor
-    #chown -R ${run_user}.${run_group} /usr/bin/indicator-sysmonitor /usr/lib/indicator-sysmonitor /usr/share/applications/indicator-sysmonitor.desktop
+    #chown -R ${run_user}:${run_group} /usr/bin/indicator-sysmonitor /usr/lib/indicator-sysmonitor /usr/share/applications/indicator-sysmonitor.desktop
     chmod -R 755 /usr/bin/indicator-sysmonitor /usr/lib/indicator-sysmonitor /usr/share/applications/indicator-sysmonitor.desktop
     popd > /dev/null
     #nohup indicator-sysmonitor &

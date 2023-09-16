@@ -27,7 +27,7 @@ EOF
 
     if [ ! -e "/home/${run_user}/.npmrc" ];then
         touch /home/${run_user}/.npmrc
-        chown -R ${run_user}.${run_group} /home/${run_user}/.npmrc
+        chown -R ${run_user}:${run_group} /home/${run_user}/.npmrc
         cat >> /home/${run_user}/.npmrc <<EOF
 registry=https://registry.npmmirror.com/
 electron-mirror=https://registry.npmmirror.com/binary.html?path=electron/
