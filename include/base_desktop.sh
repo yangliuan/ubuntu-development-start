@@ -6,7 +6,7 @@ Install_ElasticStackDesktop() {
     popd > /dev/null
 
     pushd /usr/share/applications/ > /dev/null
-    chown -Rv ${run_user}.${run_group} elasticstack.desktop elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop
+    chown -Rv ${run_user}:${run_group} elasticstack.desktop elasticsearch.desktop kibana.desktop logstash.desktop cerebro.desktop beats.desktop
     popd > /dev/null
 }
 
@@ -19,7 +19,7 @@ Uninstall_ElasticStackDesktop() {
 Install_MysqlDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv mysql.desktop  /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/mysql.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/mysql.desktop
     popd > /dev/null
 }
 
@@ -30,7 +30,7 @@ Uninstall_MysqlDesktop() {
 Install_PostgresqlDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv postgresql.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/postgresql.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/postgresql.desktop
     popd > /dev/null
 }
 
@@ -41,7 +41,7 @@ Uninstall_PostgresqlDesktop() {
 Install_MongoDBDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv mongodb.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/mongodb.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/mongodb.desktop
     popd > /dev/null
 }
 
@@ -52,7 +52,7 @@ Uninstall_MongoDBDesktop() {
 Install_MemcachedDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv memcached.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/memcached.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/memcached.desktop
     popd > /dev/null
 }
 
@@ -63,7 +63,7 @@ Uninstall_MemcachedDesktop() {
 Install_RedisDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv redis.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/redis.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/redis.desktop
     popd > /dev/null
 }
 
@@ -75,7 +75,7 @@ Uninstall_RedisDesktop() {
 Install_ApacheHttpdDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv httpd.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/httpd.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/httpd.desktop
     popd > /dev/null
 }
 
@@ -86,7 +86,7 @@ Uninstall_ApacheHttpdDesktop() {
 Install_NginxDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv nginx.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/nginx.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/nginx.desktop
     popd > /dev/null
 }
 
@@ -97,7 +97,7 @@ Uninstall_NginxDesktop() {
 Install_TengineDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv tenigne.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/tenigne.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/tenigne.desktop
     popd > /dev/null
 }
 
@@ -108,7 +108,7 @@ Uninstall_TengineDesktop() {
 Install_OpenrestyDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv openresty.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/openresty.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/openresty.desktop
     popd > /dev/null
 }
 
@@ -119,7 +119,7 @@ Uninstall_OpenrestyDesktop() {
 Install_TomcatDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv tomcat.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/tomcat.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/tomcat.desktop
     popd > /dev/null
 }
 
@@ -131,7 +131,7 @@ Uninstall_TomcatDesktop() {
 Install_PureFtpDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv pure-ftpd.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/pure-ftpd.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/pure-ftpd.desktop
     popd > /dev/null
 }
 
@@ -143,7 +143,7 @@ Uninstall_PureFtpDesktop() {
 Install_PHPFPMDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv php-fpm.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/php-fpm.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/php-fpm.desktop
     popd > /dev/null
 }
 
@@ -165,7 +165,7 @@ Install_LNMPDesktop() {
     if [[ $nginx_flag == true ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
         pushd ${ubdevenv_dir}/desktop > /dev/null
         cp -rfv lnmp-start.desktop /usr/share/applications
-        chown -Rv ${run_user}.${run_group} /usr/share/applications/lnmp-start.desktop
+        chown -Rv ${run_user}:${run_group} /usr/share/applications/lnmp-start.desktop
         popd > /dev/null
     fi
 }
@@ -178,7 +178,7 @@ Install_LAMPDesktop() {
     if [[ -e "${apache_install_dir}/bin/httpd" ]] && [[ -L "/usr/local/php" ]] && [[ -d "${db_install_dir}/support-files" ]]; then
         pushd ${ubdevenv_dir}/desktop > /dev/null
         cp -rfv lamp-start.desktop /usr/share/applications
-        chown -Rv ${run_user}.${run_group} /usr/share/applications/lamp-start.desktop
+        chown -Rv ${run_user}:${run_group} /usr/share/applications/lamp-start.desktop
         popd > /dev/null
     fi
 }
@@ -191,7 +191,7 @@ Uninstall_LAMPDesktop() {
 Install_SupervisorDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv supervisord.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/supervisord.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/supervisord.desktop
     popd > /dev/null
 }
 
@@ -203,7 +203,7 @@ Uninstall_SupervisorDesktop() {
 Install_ZookeeperDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv zookeeper.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/zookeeper.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/zookeeper.desktop
     popd > /dev/null
 }
 
@@ -214,7 +214,7 @@ Uninstall_ZookeeperDesktop() {
 Install_KafkaDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv kafka.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/kafka.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/kafka.desktop
     popd > /dev/null
 }
 
@@ -225,7 +225,7 @@ Uninstall_KafkaDesktop() {
 Install_RabbitmqDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv rabbitmq.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/rabbitmq.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/rabbitmq.desktop
     popd > /dev/null
 }
 
@@ -236,7 +236,7 @@ Uninstall_RabbitmqDesktop() {
 Install_RocketmqDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv rocketmq.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/rocketmq.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/rocketmq.desktop
     popd > /dev/null
 }
 
@@ -247,7 +247,7 @@ Uninstall_RocketmqDesktop() {
 Install_SqliteDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv sqlite.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/sqlite.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/sqlite.desktop
     popd > /dev/null
 }
 
@@ -258,7 +258,7 @@ Uninstall_SqliteDesktop() {
 Install_FFmpegDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv ffmpeg.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/ffmpeg.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/ffmpeg.desktop
     popd > /dev/null
 }
 
@@ -269,7 +269,7 @@ Uninstall_FFmpegDesktop() {
 Install_SwithDevEnvDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv switchdevenv.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/switchdevenv.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/switchdevenv.desktop
     popd > /dev/null
 }
 
@@ -280,7 +280,7 @@ Uninstall_SwithDevEnvDesktop() {
 Install_SSHDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv openssh.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/openssh.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/openssh.desktop
     popd > /dev/null
 }
 
@@ -291,7 +291,7 @@ Uninstall_SSHDesktop() {
 Install_StopAllDesktop() {
     pushd ${ubdevenv_dir}/desktop > /dev/null
     cp -rfv stop-all.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/stop-all.desktop
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/stop-all.desktop
     popd > /dev/null
     Change_Sudoers
 }

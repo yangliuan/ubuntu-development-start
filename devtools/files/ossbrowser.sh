@@ -7,7 +7,7 @@ Install_Ossbrowser() {
     unzip oss-browser-linux-x64.zip
     mv -fv oss-browser-linux-x64 /opt/oss-browser
     cp -rfv ${ubdevenv_dir}/desktop/oss-browser.desktop /usr/share/applications/
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/oss-browser.desktop /opt/oss-browser-linux-x64
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/oss-browser.desktop /opt/oss-browser-linux-x64
     chmod -Rv 755 /opt/oss-browser-linux-x64
     sudo apt-get install libgconf-2-4
     

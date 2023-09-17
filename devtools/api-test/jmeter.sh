@@ -8,7 +8,7 @@ Install_Jmeter() {
     unzip apache-jmeter-${jmeter_ver}.zip
     mv -fv apache-jmeter-${jmeter_ver} /opt/jmeter
     cp -rfv ${ubdevenv_dir}/desktop/jmeter.desktop /usr/share/applications/
-    chown -Rv ${run_user}.${run_group} /opt/jmeter /usr/share/applications/jmeter.desktop
+    chown -Rv ${run_user}:${run_group} /opt/jmeter /usr/share/applications/jmeter.desktop
     chmod -Rv 755 /opt/jmeter
         
     popd > /dev/null

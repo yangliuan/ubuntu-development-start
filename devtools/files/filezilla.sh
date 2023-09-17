@@ -6,8 +6,8 @@ Install_FileZilla() {
     tar -jxvf FileZilla_${filezilla_ver}_x86_64-linux-gnu.tar.bz2
     mv -fv FileZilla3 /opt/filezilla3
     cp -rfv ${ubdevenv_dir}/desktop/filezilla3.desktop /usr/share/applications/
-    chown -Rv ${run_user}.${run_group} /usr/share/applications/filezilla3.desktop
-    chown -Rv ${run_user}.${run_group} /opt/filezilla3
+    chown -Rv ${run_user}:${run_group} /usr/share/applications/filezilla3.desktop
+    chown -Rv ${run_user}:${run_group} /opt/filezilla3
     chmod -Rv 755 /opt/filezilla3
     #rm -rfv FileZilla_${filezilla_ver}_x86_64-linux-gnu.tar.bz2
     popd > /dev/null

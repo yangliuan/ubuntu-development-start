@@ -8,7 +8,7 @@ Install_BilbiliDownloader() {
     cp -rfv ${ubdevenv_dir}/icon/bvdownloader.png /opt/bilibilivideo-downloader
     chmod -Rv 755 /opt/bilibilivideo-downloader/bvdownloader.AppImage
     cp -rfv ${ubdevenv_dir}/desktop/bilibilivideo-downloader.desktop /usr/share/applications
-    chown -Rv ${run_user}.${run_group} /opt/bilibilivideo-downloader/ /usr/share/applications//bilibilivideo-downloader.desktop
+    chown -Rv ${run_user}:${run_group} /opt/bilibilivideo-downloader/ /usr/share/applications//bilibilivideo-downloader.desktop
     popd > /dev/null
 }
 

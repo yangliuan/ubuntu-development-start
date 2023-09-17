@@ -34,7 +34,7 @@ EOF
     apt-get install -y deepin-elf-verify deepin-wine-helper:i386 deepin-wine-runtime deepin-wine6-stable
     apt-get install -y -f
 
-    chown -Rv ${run_user}.${run_group} /opt/deepin-wine6-stable /opt/deepinwine
+    chown -Rv ${run_user}:${run_group} /opt/deepin-wine6-stable /opt/deepinwine
     echo "${CSUCCESS} deepin-wine installed successed！ ${CEND}"
 }
 
@@ -48,13 +48,13 @@ Uninstall_DeepinWine() {
 
 Install_Deepin_Wechat() {
     pushd ${ubdevenv_dir}/src > /dev/null
-    #apt-get install -y com.qq.weixin.deepin com.qq.weixin.work.deepin
-    [ ! -e "com.qq.weixin.deepin_3.7.0.30deepin17_i386.deb" ] && apt-get download -y com.qq.weixin.deepin
-    dpkg -i com.qq.weixin.deepin_3.7.0.30deepin17_i386.deb
+    apt-get install -y com.qq.weixin.deepin com.qq.weixin.work.deepin
+    #[ ! -e "com.qq.weixin.deepin_3.7.0.30deepin17_i386.deb" ] && apt-get download -y com.qq.weixin.deepin
+    #dpkg -i com.qq.weixin.deepin_3.7.0.30deepin17_i386.deb
     apt-get install -y -f
-    [ ! -e "com.qq.weixin.work.deepin_4.0.16.6007deepin21_i386.deb" ] && apt-get download -y com.qq.weixin.work.deepin
-    dpkg -i com.qq.weixin.work.deepin_4.0.16.6007deepin21_i386.deb
-    apt-get install -y -f
+    #[ ! -e "com.qq.weixin.work.deepin_4.0.16.6007deepin21_i386.deb" ] && apt-get download -y com.qq.weixin.work.deepin
+    #dpkg -i com.qq.weixin.work.deepin_4.0.16.6007deepin21_i386.deb
+    #apt-get install -y -f
 
     #解决无法发送图片问题
     apt-get install -y libjpeg62:i386
@@ -62,8 +62,8 @@ Install_Deepin_Wechat() {
     #字体问题
     apt-get install -y fonts-wqy-microhei fonts-wqy-zenhei
     #hold qt5 dependencies
-    apt-mark hold libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5qml5 libqt5qmlmodels5 libqt5quick5 libqt5webchannel5 libqt5widgets5
-    chown -Rv ${run_user}.${run_group} /opt/apps/com.qq.weixin.deepin /opt/apps/com.qq.weixin.work.deepin
+    #apt-mark hold libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5qml5 libqt5qmlmodels5 libqt5quick5 libqt5webchannel5 libqt5widgets5
+    chown -Rv ${run_user}:${run_group} /opt/apps/com.qq.weixin.deepin /opt/apps/com.qq.weixin.work.deepin
     popd > /dev/null
 }
 

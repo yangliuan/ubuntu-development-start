@@ -13,7 +13,7 @@ Install_navicat_premium() {
    cp -fv navicat${navicat_ver}-premium-cs.AppImage /opt/navicat/navicat-premium-cs.AppImage
    cp -rfv ${ubdevenv_dir}/icon/navicat.svg /opt/navicat/
    cp -rfv ${ubdevenv_dir}/desktop/Navicat.Premium.16.desktop /home/${run_user}/.local/share/applications
-   chown -Rv ${run_user}.${run_group} /opt/navicat /home/${run_user}/.local/share/applications/desktop/Navicat.Premium.16.desktop
+   chown -Rv ${run_user}:${run_group} /opt/navicat /home/${run_user}/.local/share/applications/desktop/Navicat.Premium.16.desktop
    chmod -Rv 755 /opt/navicat
 
    popd > /dev/null

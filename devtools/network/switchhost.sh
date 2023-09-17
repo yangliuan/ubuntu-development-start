@@ -13,7 +13,7 @@ Install_SwitchHost() {
     cp -fv SwitchHosts_linux_x86_64_4.1.0.6076.AppImage /opt/switchhost/SwitchHosts_linux_x86_64.AppImage
     cp -rfv ${ubdevenv_dir}/icon/switchhost.png /opt/switchhost/
     cp -rfv ${ubdevenv_dir}/desktop/switchhost.desktop /usr/share/applications/
-    chown -Rv ${run_user}.${run_group} /opt/switchhost /usr/share/applications/switchhost.desktop
+    chown -Rv ${run_user}:${run_group} /opt/switchhost /usr/share/applications/switchhost.desktop
     chmod -Rv 755 /opt/switchhost
 
     popd > /dev/null

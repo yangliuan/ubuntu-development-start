@@ -37,11 +37,9 @@ elif [[ "${Platform}" =~ ^ubuntu$|^linuxmint$|^elementary$ ]]; then
     [[ "${VERSION_MAIN_ID}" =~ ^18$ ]] && Ubuntu_ver=16
     [[ "${VERSION_MAIN_ID}" =~ ^19$ ]] && Ubuntu_ver=18
     [[ "${VERSION_MAIN_ID}" =~ ^20$ ]] && Ubuntu_ver=20
-    [[ "${VERSION_MAIN_ID}" =~ ^21$ ]] && Ubuntu_ver=22
   elif [[ "${Platform}" =~ ^elementary$ ]]; then
     [[ "${VERSION_MAIN_ID}" =~ ^5$ ]] && Ubuntu_ver=18
     [[ "${VERSION_MAIN_ID}" =~ ^6$ ]] && Ubuntu_ver=20
-    [[ "${VERSION_MAIN_ID}" =~ ^7$ ]] && Ubuntu_ver=22
   fi
 else
   echo "${CFAILURE}Does not support this OS ${CEND}"
@@ -110,8 +108,14 @@ else
   sslLibVer=unknown
 fi
 
-if [ "${Ubuntu_ver}" == "22" ]; then
-    ubuntu_name="jammy"
-else
-    ubuntu_name="eoan"
-fi
+case "${Ubuntu_ver}" in
+20)
+  ubuntu_name="eoan"
+;;
+22)
+  ubuntu_name="jammy"
+;;
+23)
+  ubuntu_name="lunar"
+;;
+esac

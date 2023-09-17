@@ -7,7 +7,7 @@ Install_Chrome() {
     dpkg -i google-chrome-stable_current_amd64.deb
     apt-get install -f
     #rm -rfv google-chrome-stable_current_amd64.deb
-    chown -Rv ${run_user}.${run_group} /opt/google
+    chown -Rv ${run_user}:${run_group} /opt/google
     popd > /dev/null
 }
 

@@ -96,7 +96,7 @@ while :; do
       ;;
     --qqmusic)
       qqmusic_flag=y; shift 1
-       [ "${qqmusic_flag}" == 'y' -a -e "/usr/bin/qqmusic" ] && { echo "${CWARNING}qqmusic already installed! ${CEND}"; unset qqmusic_flag; }
+       #[ "${qqmusic_flag}" == 'y' -a -e "/usr/bin/qqmusic" ] && { echo "${CWARNING}qqmusic already installed! ${CEND}"; unset qqmusic_flag; }
       ;;
     --peek)
       peek_flag=y; shift 1
@@ -183,7 +183,8 @@ while :; do echo
 done
 
 # check input method
-while :; do echo
+if [ ${Ubuntu_ver} != "23" ]; then
+    while :; do echo
     read -e -p "Do you want to install input method? [y/n](y): " input_method_flag
     input_method_flag=${input_method_flag:-y}
     if [[ ! ${input_method_flag} =~ ^[y,n]$ ]]; then
@@ -209,7 +210,8 @@ while :; do echo
         fi
         break;
     fi
-done
+    done
+fi
 
 # check Baidunetdisk 
 while :; do echo
@@ -599,8 +601,8 @@ if [ "${fceux_flag}" == 'y' ]; then
     Install_Fceux 2>&1 | tee -a $log_dir
 fi
 
-#install ubuntu 22.04 patch
-if [ "${Ubuntu_ver}" == "22" ]; then
+#install ubuntu 22+ patch
+if [[ ${Ubuntu_ver} =~ ^2[2-3]$ ]]; then
     Install_PatchSuport 2>&1 | tee -a $log_dir
 fi
 

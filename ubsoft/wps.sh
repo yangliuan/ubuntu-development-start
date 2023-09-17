@@ -12,7 +12,7 @@ Install_Wps() {
     src_url="http://mirror.yangliuan.cn/wps_symbol_fonts.zip" && Download_src
     unzip wps_symbol_fonts.zip -d /usr/share/fonts
     fc-cache
-    chown -Rv ${run_user}.${run_group} /opt/kingsoft
+    chown -Rv ${run_user}:${run_group} /opt/kingsoft
     popd > /dev/null
 }
 

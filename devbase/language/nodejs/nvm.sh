@@ -9,7 +9,7 @@ Install_Nvm() {
     
     tar -zxvf nvm-${nvm_ver}.tar.gz
     mv -fv nvm-${nvm_ver} ${nvm_install_dir}
-    chown -Rv ${run_user}.${run_group} ${nvm_install_dir}
+    chown -Rv ${run_user}:${run_group} ${nvm_install_dir}
 
     if [ -e "${nvm_install_dir}/nvm.sh" ]; then
         echo "${CSUCCESS}Nvm installed successfully! ${CEND}"

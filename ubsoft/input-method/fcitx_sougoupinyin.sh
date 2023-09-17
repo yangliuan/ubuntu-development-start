@@ -10,7 +10,7 @@ Install_Sougoupinyin() {
     apt-get -y install libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2 libgsettings-qt1
     apt-get -y install -f
     #rm -rfv sogoupinyin_${sougoupinyin_ver}_amd64.deb
-    chown -Rv ${run_user}.${run_group} /opt/sogoupinyin
+    chown -Rv ${run_user}:${run_group} /opt/sogoupinyin
     popd > /dev/null
 }
 
