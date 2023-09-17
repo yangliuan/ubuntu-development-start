@@ -6,7 +6,7 @@ Install_Dingtalk() {
     src_url="https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${dingtalk_ver}_amd64.deb" && Download_src
     dpkg -i com.alibabainc.dingtalk_${dingtalk_ver}_amd64.deb
     apt-get -y install -f
-    chown -R ${run_user}.root /opt/apps
+    chown -R ${run_user}:${run_group} /opt/apps
     #rm -rfv com.alibabainc.dingtalk_${dingtalk_ver}_amd64.deb
     popd > /dev/null
 }
