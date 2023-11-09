@@ -206,8 +206,8 @@ feishu_ver=6.1.12
 
 # Office
 baidunetdisk_ver=4.17.7
-wps_ver=11.1.0.11691
-wps_sub_ver=11691
+wps_ver=11.1.0.11708
+wps_sub_ver=11708
 
 # Entertainment
 qqmusic_ver=1.1.5

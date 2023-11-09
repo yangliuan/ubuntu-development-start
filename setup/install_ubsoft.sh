@@ -183,7 +183,7 @@ while :; do echo
 done
 
 # check input method
-if [ ${Ubuntu_ver} != "23" ]; then
+if [ ${Ubuntu_ver} le "22" ]; then
     while :; do echo
     read -e -p "Do you want to install input method? [y/n](y): " input_method_flag
     input_method_flag=${input_method_flag:-y}
@@ -430,51 +430,51 @@ while :; do echo
 done
 
 # check xDroid
-while :; do echo
-    read -e -p "Do you want to install xDroid? [y/n](y): " xDroid_flag
-    xDroid_flag=${xDroid_flag:-y}
-    if [[ ! ${xDroid_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-         [ "${xDroid_flag}" == 'y' -a -e "/opt/xdroid/bin" ] && { echo "${CWARNING}xDroid already installed! ${CEND}"; unset xDroid_flag; }
-        break;
-    fi
-done
+# while :; do echo
+#     read -e -p "Do you want to install xDroid? [y/n](y): " xDroid_flag
+#     xDroid_flag=${xDroid_flag:-y}
+#     if [[ ! ${xDroid_flag} =~ ^[y,n]$ ]]; then
+#         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+#     else
+#          [ "${xDroid_flag}" == 'y' -a -e "/opt/xdroid/bin" ] && { echo "${CWARNING}xDroid already installed! ${CEND}"; unset xDroid_flag; }
+#         break;
+#     fi
+# done
 
 # check conky
-while :; do echo
-    read -e -p "Do you want to install conky? [y/n](y): " conky_flag
-    conky_flag=${conky_flag:-y}
-    if [[ ! ${conky_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-         [ "${conky_flag}" == 'y' -a -e "/usr/bin/conky" ] && { echo "${CWARNING}conky_flag already installed! ${CEND}"; unset conky_flag; }
-        break;
-    fi
-done
+# while :; do echo
+#     read -e -p "Do you want to install conky? [y/n](y): " conky_flag
+#     conky_flag=${conky_flag:-y}
+#     if [[ ! ${conky_flag} =~ ^[y,n]$ ]]; then
+#         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+#     else
+#          [ "${conky_flag}" == 'y' -a -e "/usr/bin/conky" ] && { echo "${CWARNING}conky_flag already installed! ${CEND}"; unset conky_flag; }
+#         break;
+#     fi
+# done
 
 # check my weather indicator
-while :; do echo
-    read -e -p "Do you want to install my weather indicator? [y/n](y): " my_weather_indicator_flag
-    my_weather_indicator_flag=${my_weather_indicator_flag:-y}
-    if [[ ! ${my_weather_indicator_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-         [ "${my_weather_indicator_flag}" == 'y' -a -e "/opt/extras.ubuntu.com/my-weather-indicator/bin/my-weather-indicator" ] && { echo "${CWARNING}my_weather_indicator_flag already installed! ${CEND}"; unset my_weather_indicator_flag; }
-        break;
-    fi
-done
+# while :; do echo
+#     read -e -p "Do you want to install my weather indicator? [y/n](y): " my_weather_indicator_flag
+#     my_weather_indicator_flag=${my_weather_indicator_flag:-y}
+#     if [[ ! ${my_weather_indicator_flag} =~ ^[y,n]$ ]]; then
+#         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+#     else
+#          [ "${my_weather_indicator_flag}" == 'y' -a -e "/opt/extras.ubuntu.com/my-weather-indicator/bin/my-weather-indicator" ] && { echo "${CWARNING}my_weather_indicator_flag already installed! ${CEND}"; unset my_weather_indicator_flag; }
+#         break;
+#     fi
+# done
 
 # check custom software
-while :; do echo
-    read -e -p "Do you want to install custom software? [y/n](y): " custom_flag
-    custom_flag=${custom_flag:-y}
-    if [[ ! ${custom_flag} =~ ^[y,n]$ ]]; then
-        echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-    else
-        break;
-    fi
-done
+# while :; do echo
+#     read -e -p "Do you want to install custom software? [y/n](y): " custom_flag
+#     custom_flag=${custom_flag:-y}
+#     if [[ ! ${custom_flag} =~ ^[y,n]$ ]]; then
+#         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+#     else
+#         break;
+#     fi
+# done
 
 fi
 
