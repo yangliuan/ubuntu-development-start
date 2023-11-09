@@ -549,7 +549,7 @@ if [ "${lantern_flag}" == 'y' ]; then
 fi
 
 if [ "${neteasy_cloudmusic_flag}" == 'y' ]; then
-    Install_NeteasyCloudMusic 2>&1 | tee -a $log_dir
+    Install_NeteasyCloudMusicElectron 2>&1 | tee -a $log_dir
 fi
 
 if [ "${peek_flag}" == 'y' ]; then

@@ -195,7 +195,7 @@ if [ "${lantern_flag}" == 'y' ]; then
 fi
 
 if [ "${neteasy_cloudmusic_flag}" == 'y' ]; then
-    Uninstall_NeteasyCloudMusic
+    Uninstall_NeteasyCloudMusicElectron
 fi
 
 if [ "${qqmusic_flag}" == 'y' ]; then

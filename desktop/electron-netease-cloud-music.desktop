@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Electron NetEase Cloud Music
+Comment=Electron NetEase Cloud Music
+Exec=/opt/electron-netease-cloud-music/electron-netease-cloud-music
+Icon=/opt/electron-netease-cloud-music/electron-netease-cloud-music.svg
+Type=Application
+Categories=player
+Keywords=NetEase Cloud Music
