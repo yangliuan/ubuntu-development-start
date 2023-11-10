@@ -14,7 +14,7 @@ Install_AliSQL56() {
   [ $? -ne 0 ] && useradd -M -s /sbin/nologin mysql
 
   [ ! -d "${alisql_install_dir}" ] && mkdir -p ${alisql_install_dir}
-  mkdir -p ${alisql_data_dir};chown mysql.mysql -R ${alisql_data_dir}
+  mkdir -p ${alisql_data_dir};chown mysql:mysql -R ${alisql_data_dir}
 
   tar xzf alisql-${alisql_ver}.tar.gz
   pushd alisql-${alisql_ver}
@@ -188,7 +188,7 @@ EOF
   ${alisql_install_dir}/scripts/mysql_install_db --user=mysql --basedir=${alisql_install_dir} --datadir=${alisql_data_dir}
 
   [ "${Wsl}" == true ] && chmod 600 /etc/my.cnf
-  chown mysql.mysql -R ${alisql_data_dir}
+  chown mysql:mysql -R ${alisql_data_dir}
   [ -d "/etc/mysql" ] && mv /etc/mysql{,_bk}
   service mysqld start
   [ -z "$(grep ^'export PATH=' /etc/profile)" ] && echo "export PATH=${alisql_install_dir}/bin:\$PATH" >> /etc/profile

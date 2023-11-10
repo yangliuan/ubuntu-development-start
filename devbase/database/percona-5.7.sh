@@ -14,7 +14,7 @@ Install_Percona57() {
   [ $? -ne 0 ] && useradd -M -s /sbin/nologin mysql
 
   [ ! -d "${percona_install_dir}" ] && mkdir -p ${percona_install_dir}
-  mkdir -p ${percona_data_dir};chown mysql.mysql -R ${percona_data_dir}
+  mkdir -p ${percona_data_dir};chown mysql:mysql -R ${percona_data_dir}
 
   if [ "${dbinstallmethod}" == "1" ]; then
     tar xzf Percona-Server-${percona57_ver}-Linux.${SYS_BIT_b}.glibc2.12.tar.gz
@@ -203,7 +203,7 @@ EOF
   ${percona_install_dir}/bin/mysqld --initialize-insecure --user=mysql --basedir=${percona_install_dir} --datadir=${percona_data_dir}
 
   [ "${Wsl}" == true ] && chmod 600 /etc/my.cnf
-  chown mysql.mysql -R ${percona_data_dir}
+  chown mysql:mysql -R ${percona_data_dir}
   [ -d "/etc/mysql" ] && /bin/mv /etc/mysql{,_bk}
   service mysqld start
   [ -z "$(grep ^'export PATH=' /etc/profile)" ] && echo "export PATH=${percona_install_dir}/bin:\$PATH" >> /etc/profile

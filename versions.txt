@@ -48,9 +48,9 @@ php71_ver=7.1.33
 php72_ver=7.2.34
 php73_ver=7.3.33
 php74_ver=7.4.33
-php80_ver=8.0.28
-php81_ver=8.1.18
-php82_ver=8.2.5
+php80_ver=8.0.30
+php81_ver=8.1.25
+php82_ver=8.2.12
 
 # PHP Composer
 composer_old_ver=1.10.26

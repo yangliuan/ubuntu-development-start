@@ -12,7 +12,7 @@ Install_MongoDB() {
   pushd ${ubdevenv_dir}/src > /dev/null
   id -u mongod >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -s /sbin/nologin mongod
-  mkdir -p ${mongo_data_dir};chown mongod.mongod -R ${mongo_data_dir}
+  mkdir -p ${mongo_data_dir};chown mongod:mongod -R ${mongo_data_dir}
   tar xzf mongodb-linux-x86_64-${mongodb_ver}.tgz
   /bin/mv mongodb-linux-x86_64-${mongodb_ver} ${mongo_install_dir}
 
