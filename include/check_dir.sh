@@ -35,11 +35,11 @@ fi
 #check wwwroot_dir
 if [ ! -d ${wwwroot_dir} ];then
     mkdir -p ${wwwroot_dir}
-    chown -Rv ${run_user}.root ${wwwroot_dir}
+    chown -Rv ${run_user}:root ${wwwroot_dir}
 fi
 
 #check wwwroot_logs
 if [ ! -d "${wwwlogs_dir}" ];then
     mkdir -p ${wwwlogs_dir}
-    chown -Rv ${run_user}.root ${wwwlogs_dir}
+    chown -Rv ${run_user}:root ${wwwlogs_dir}
 fi
