@@ -183,7 +183,7 @@ while :; do echo
 done
 
 # check input method
-if [ ${Ubuntu_ver} le "22" ]; then
+if [ ${Ubuntu_ver} -le "22" ]; then
     while :; do echo
     read -e -p "Do you want to install input method? [y/n](y): " input_method_flag
     input_method_flag=${input_method_flag:-y}

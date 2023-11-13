@@ -199,8 +199,8 @@ flameshot_ver=12.1.0
 
 # IM
 dingtalk_ver=1.7.0.30424
-linuxqq_link_token=2355235c
-linuxqq_ver=3.1.1-11223
+linuxqq_link_token=fd2e886e
+linuxqq_ver=3.2.2-18394
 feishu_link_token=d358d0df
 feishu_ver=6.1.12
 
