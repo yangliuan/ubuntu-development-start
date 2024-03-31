@@ -24,7 +24,7 @@ pushd ${ubdevenv_dir} > /dev/null
 shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,all,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,sougoupinyin,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,fceux,driver,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,all,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,clash,sougoupinyin,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,fceux,driver,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Ubsoft_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -50,6 +50,7 @@ while :; do
       qqmusic_flag=y
       peek_flag=y
       qv2ray_flag=y
+      clash_flag=y
       sunlogin_flag=y
       bilibili_video_downloader_flag=y
       xDroid_flag=y
@@ -99,6 +100,9 @@ while :; do
       ;;
     --qv2ray)
       qv2ray_flag=y; shift 1
+      ;;
+    --clash)
+      clash_flag=y; shift 1
       ;;
     --sunlogin)
       sunlogin_flag=y; shift 1
@@ -208,6 +212,10 @@ fi
 
 if [ "${qv2ray_flag}" == 'y' ]; then
     Uninstall_Qv2ray
+fi
+
+if [ "${clash_flag}" == 'y' ]; then
+    Uninstall_clash
 fi
 
 if [ "${sunlogin_flag}" == 'y' ]; then

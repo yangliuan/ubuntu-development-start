@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Clash
+Comment=Clash For Windows
+Exec=/opt/clash/cfw
+Icon=/opt/clash/clash.png
+Type=Application
+Categories=Network;
+Keywords=CFW;Clash

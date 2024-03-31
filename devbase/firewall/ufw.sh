@@ -1,8 +1,8 @@
 #!/bin/bash
 # ufw
 if [ "${firewall_flag}" == 'y' ]; then
-  if ! dpkg -s openssh-server > /dev/null 2>&1 ; then
-      . ./devbase/ftp/openssh-server.sh && Install_OpensshServer
+  if ! openssh-server > /dev/null 2>&1 ; then
+      . ./devbase/ftp/openssh-server.sh && Install_OpensshServer 2>&1 | tee -a $log_dir
       Install_SSHDesktop
   fi
   
@@ -11,7 +11,7 @@ if [ "${firewall_flag}" == 'y' ]; then
   ufw allow 80/tcp
   ufw allow 443/tcp
   ufw --force enable
-else
+else openssh
   ufw --force disable
 fi
 

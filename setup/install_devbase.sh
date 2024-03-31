@@ -224,7 +224,7 @@ fi
 if [ ${ARG_NUM} == 0 ]; then
   # check iptables
   while :; do echo
-    read -e -p "Do you want to enable firewall? [y/n](default:n): " firewall_flag
+    read -e -p "Do you want to enable firewall? [y/n](default:y): " firewall_flag
     firewall_flag=${firewall_flag:-n}
     if [[ ! ${firewall_flag} =~ ^[y,n]$ ]]; then
       echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"

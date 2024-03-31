@@ -28,7 +28,7 @@ pushd ${ubdevenv_dir} > /dev/null
 shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,driver,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,fceux,reboot -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,driver,input_method_option:,baidunetdisk,chrome,deepinwine,dingtalk,linuxqq,feishu,flameshot,indicator_sysmonitor,lantern,neteasy_cloudmusic,qqmusic,peek,qv2ray,clash,sunlogin,theme_tools,bilibili_video_downloader,wps,xDroid,conky,my_weather_indicator,custom,fceux,reboot -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Ubsoft_Help && exit 1
 eval set -- "${TEMP}"
 while :; do
@@ -105,6 +105,10 @@ while :; do
     --qv2ray)
       qv2ray_flag=y; shift 1
        [ "${qv2ray_flag}" == 'y' -a -e "/opt/qv2ray/Qv2ray-v2.7.0-linux-x64.AppImage" ] && { echo "${CWARNING}qv2ray already installed! ${CEND}"; unset qv2ray_flag; }
+      ;;
+    --clash)
+      clash_flag=y; shift 1
+       [ "${clash_flag}" == 'y' -a -e "/opt/clash/cfw" ] && { echo "${CWARNING}clash already installed! ${CEND}"; unset clash_flag; }
       ;;
     --sunlogin)
       sunlogin_flag=y; shift 1
@@ -562,6 +566,10 @@ fi
 
 if [ "${qv2ray_flag}" == 'y' ]; then
     Install_Qv2ray 2>&1 | tee -a $log_dir
+fi
+
+if [ "${clash_flag}" == 'y' ]; then
+    Install_ClashForWindow 2>&1 | tee -a $log_dir
 fi
 
 if [ "${sunlogin_flag}" == 'y' ]; then
