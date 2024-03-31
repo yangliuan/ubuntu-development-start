@@ -215,7 +215,7 @@ if [ "${qv2ray_flag}" == 'y' ]; then
 fi
 
 if [ "${clash_flag}" == 'y' ]; then
-    Uninstall_clash
+    Uninstall_ClashForWindow
 fi
 
 if [ "${sunlogin_flag}" == 'y' ]; then
