@@ -610,7 +610,7 @@ if [ "${fceux_flag}" == 'y' ]; then
 fi
 
 #install ubuntu 22+ patch
-if [[ ${Ubuntu_ver} =~ ^2[2-3]$ ]]; then
+if [[ ${Ubuntu_ver} =~ ^2[2-4]$ ]]; then
     Install_PatchSuport 2>&1 | tee -a $log_dir
 fi
 

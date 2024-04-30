@@ -115,7 +115,4 @@ case "${Ubuntu_ver}" in
 22)
   ubuntu_name="jammy"
 ;;
-23)
-  ubuntu_name="lunar"
-;;
 esac
