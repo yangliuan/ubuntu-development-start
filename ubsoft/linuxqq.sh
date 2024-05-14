@@ -3,11 +3,12 @@
 Install_LinuxQQ() {
     pushd ${ubdevenv_dir}/src > /dev/null
     echo "Download linux qq ..."
-    src_url="https://dldir1.qq.com/qqfile/qq/QQNT/${linuxqq_link_token}/linuxqq_${linuxqq_ver}_amd64.deb" && Download_src
-    dpkg -i linuxqq_${linuxqq_ver}_amd64.deb
+    # https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240428_amd64_01.deb
+    src_url="https://dldir1.qq.com/qqfile/qq/QQNT/${linuxqq_link_token}/linuxqq_${linuxqq_ver}_amd64_01.deb" && Download_src
+    dpkg -i linuxqq_${linuxqq_ver}_amd64_01.deb
     apt-get -y install -f
     #rm -rfv linuxqq_${linuxqq_ver}_amd64.deb
-    chmod -R 777  /opt/QQ
+    chown -Rv ${run_user}:${run_group} /opt/QQ
     popd > /dev/null
 }
 

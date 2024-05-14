@@ -3,7 +3,7 @@
 BuildToolsDeps="build-essential gcc g++ make cmake cmake-data autoconf automake pkg-config libtool"
 DownloadToolsDeps="wget git curl"
 UtilityToolsDeps="patch vim zip unzip 7zip bc dc expect rsyslog lrzsz chrony psmisc lsof"
-UbuntuToolsDeps="debian-keyring debian-archive-keyring apt-transport-https ca-certificates software-properties-common gnupg"
+UbuntuToolsDeps="debian-keyring debian-archive-keyring apt-transport-https ca-certificates software-properties-common gnupg neofetch"
 RuntimeDeps="libicu70 libglib2.0-0 zlib1g libc6 libbz2-1.0 libncurses5 libaio1 libkrb5-3 openssl libnss3 libjpeg8 libbz2-1.0 libxml2"
 DevDeps="libglib2.0-dev libxml2-dev libperl-dev zlib1g-dev libc-client2007e-dev libzip-dev libncurses5-dev libaio-dev libreadline-dev libcurl4-gnutls-dev libltdl-dev libsasl2-dev libxslt-dev libicu-dev libsqlite3-dev libexpat1-dev libssl-dev libonig-dev libtirpc-dev libjpeg8-dev libpng-dev librsvg2-dev libtiff-dev libgif-dev libidn11-dev"
 

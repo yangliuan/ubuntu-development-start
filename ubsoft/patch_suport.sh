@@ -1,7 +1,7 @@
 #!/bin/bash
 Install_PatchSuport() {
     if [ -f "${ubdevenv_dir}/data/ubsoftpatch.lock" ]; then
-        echo 'ubuntu 2204 patched'
+        echo "ubuntu ${ubuntu_name} patched"
     else
         Install_Appimage
         Install_XdgDesktopPortalGnome
@@ -20,7 +20,7 @@ Patch_Lock() {
 #support run application then extension to Appimage
 #Rerf  https://askubuntu.com/questions/1403811/appimage-on-ubuntu-22-04
 Install_Appimage() {
-    add-apt-repository -y universe
+    ##add-apt-repository -y universe
     apt-get install -y libfuse2
 }
 
@@ -45,6 +45,7 @@ Install_Ntfs3g() {
 ResetTimeForWindow() {
     apt-get install -y ntpdate
     ntpdate time.windows.com
+    [ ${Ubuntu_ver} ="24" ] && apt install util-linux-extra
     hwclock --localtime --systohc
 }
 

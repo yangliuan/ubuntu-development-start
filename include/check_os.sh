@@ -115,4 +115,7 @@ case "${Ubuntu_ver}" in
 22)
   ubuntu_name="jammy"
 ;;
+24)
+  ubuntu_name="noble"
+;;
 esac

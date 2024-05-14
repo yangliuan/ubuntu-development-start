@@ -10,8 +10,9 @@ bash ${custom_dir}/setup/install_devbase.sh --nginx_option 1  --apache --apache_
 # install devtools use costom agruments
 bash ${custom_dir}/setup/install_devtools.sh --switchhost --rdm --navicat_premium --mysql_workbench --remmina --wireshark --terminal_net_tools --postman --runapi --apifox --oss_browser --virtualbox --filezilla --jmeter --vscode --obs_studio --rabbitvcs_nautilus
 
-# install devaddons use costom agruments
+
+wasm# install devaddons use costom agruments
 bash ${custom_dir}/setup/devaddons.sh --install --composer --supervisord --phpmyadmin
 
 # lasted install deepinwine, beacause qt5 dependency package
-bash ${custom_dir}/setup/install_ubsoft.sh --deepinwine
+bash ${custom_dir}/setup/install_ubsoft.sh --deepinwinesudo apt install 

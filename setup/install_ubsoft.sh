@@ -486,7 +486,7 @@ fi
 echo > $log_dir
 
 #set aliyun mirror
-. include/source_list.sh;Set_Aliyun_Sourcelist
+#. include/source_list.sh;Set_Aliyun_Sourcelist
 
 #install dependencies
 UbuntuPkgList="${BuildToolsDeps} ${DownloadToolsDeps}"
