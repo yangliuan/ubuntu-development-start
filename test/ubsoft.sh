@@ -51,4 +51,6 @@ echo > $log_dir
 
 # Install_IndicatorStickynotes 2>&1 | tee -a $log_dir
 # Uninstall_IndicatorSysmonitor 2>&1 | tee -a $log_dir
-Install_Fceux 2>&1 | tee -a $log_dir
+#Install_Fceux 2>&1 | tee -a $log_dir
+
+#Install_AtzStore 2>&1 | tee -a $log_dir
