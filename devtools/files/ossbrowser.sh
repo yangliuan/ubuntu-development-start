@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Ossbrowser() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devtools > /dev/null
 
     echo "Download ossbrowser..."    
     src_url="https://gosspublic.alicdn.com/oss-browser/1.16.0/oss-browser-linux-x64.zip" && Download_src

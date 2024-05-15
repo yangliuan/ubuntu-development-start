@@ -5,7 +5,7 @@ Install_Vscode() {
     #发送cURL请求，检索下载链接的最终URL
     final_url=$(curl -sIL -o /dev/null -w '%{url_effective}' "$src_url")
     echo "$final_url"
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devtools > /dev/null
     Download_src
     file_name="code_${final_url#*code_}"
     mv "download?build=stable&os=linux-deb-x64" $file_name

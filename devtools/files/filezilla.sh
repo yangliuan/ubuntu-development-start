@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_FileZilla() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devtools > /dev/null
     echo "Download filezilla ftp client ..."
     src_url="http://mirror.yangliuan.cn/FileZilla_${filezilla_ver}_x86_64-linux-gnu.tar.bz2" && Download_src
     tar -jxvf FileZilla_${filezilla_ver}_x86_64-linux-gnu.tar.bz2

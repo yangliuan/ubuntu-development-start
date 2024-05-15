@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://www.postman.com/
 Install_Postman() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devtools > /dev/null
 
     echo "Download postman ..."
     if [ ! -e "postman-linux64.tar.gz" ]; then

@@ -1,8 +1,9 @@
 #!/bin/bash
+#https://github.com/oldj/SwitchHosts
+#host管理工具
 Install_SwitchHost() {
-    #https://github.com/oldj/SwitchHosts
-    #host管理工具
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devtools > /dev/null
+    
     echo "Download switchhost..."
     src_url="http://mirror.yangliuan.cn/SwitchHosts_linux_x86_64_4.1.0.6076.AppImage" && Download_src
     

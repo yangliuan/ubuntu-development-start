@@ -24,3 +24,10 @@ Check_Ubsoft_src() {
     chown -Rv ${run_user}:root ${ubdevenv_dir}/src/ubsoft
   fi
 }
+
+Check_Devtools_src() {
+  if [ ! -e "${ubdevenv_dir}/src/devtools" ]; then
+    mkdir ${ubdevenv_dir}/src/devtools
+    chown -Rv ${run_user}:root ${ubdevenv_dir}/src/devtools
+  fi
+}

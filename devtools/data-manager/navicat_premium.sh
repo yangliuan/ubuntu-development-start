@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_navicat_premium() {
-   pushd ${ubdevenv_dir}/src > /dev/null
+   pushd ${ubdevenv_dir}/src/devtools > /dev/null
 
    echo "Download navicat preminu${navicat_ver}..."
    src_url="https://download.navicat.com.cn/download/navicat${navicat_ver}-premium-cs.AppImage" && Download_src

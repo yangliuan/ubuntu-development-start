@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://jmeter.apache.org/
 Install_Jmeter() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devtools > /dev/null
 
     echo "Download jmeter ..."
     src_url="http://mirror.yangliuan.cn/apache-jmeter-${jmeter_ver}.zip" && Download_src
