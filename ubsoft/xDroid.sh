@@ -2,7 +2,7 @@
 #安卓模拟器
 #DOC:https://www.linzhuotech.com/Product/download
 Install_xDroid() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     echo "Download xDroid ..."
     src_url="https://d6.injdk.cn/xdroid/xDroidInstall-x86_64-v${xDroid_ver}-${xDroid_release_time}.run.tar.gz" && Download_src
     tar -zxvf xDroidInstall-x86_64-v${xDroid_ver}-${xDroid_release_time}.run.tar.gz

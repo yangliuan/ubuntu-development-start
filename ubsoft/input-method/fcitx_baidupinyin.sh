@@ -2,7 +2,7 @@
 #https://srf.baidu.com/site/guanwang_linux/index.html
 #https://blog.csdn.net/yjp19871013/article/details/126031527
 Install_Baidupinyin() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     echo "Download baidu pinyin..."
     src_url="http://mirror.yangliuan.cn/fcitx-baidupinyin.deb" && Download_src
     Install_Fcitx

@@ -1,8 +1,8 @@
 #!/bin/bash
+#https://github.com/flameshot-org/flameshot
 Install_Flameshot() {
-    #https://github.com/flameshot-org/flameshot
-    pushd ${ubdevenv_dir}/src > /dev/null
-
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
+    
     echo "Download flameshot ..."
     src_url="http://mirror.yangliuan.cn/flameshot-${flameshot_ver}-1.debian-10.amd64.deb" && Download_src
     dpkg -i flameshot-${flameshot_ver}-1.debian-10.amd64.deb

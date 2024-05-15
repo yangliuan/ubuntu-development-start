@@ -6,7 +6,7 @@ Install_NvidiaDriver() {
 
 #https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64 Download Page
 Install_Cuda() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/${SYS_ARCH_nv}/cuda-keyring_${cuda_ver}_all.deb
     dpkg -i cuda-keyring_${cuda_ver}_all.deb
     apt-get update

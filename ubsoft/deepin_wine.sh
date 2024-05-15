@@ -47,7 +47,7 @@ Uninstall_DeepinWine() {
 }
 
 Install_Deepin_Wechat() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     apt-get install -y com.qq.weixin.deepin com.qq.weixin.work.deepin
     #[ ! -e "com.qq.weixin.deepin_3.7.0.30deepin17_i386.deb" ] && apt-get download -y com.qq.weixin.deepin
     #dpkg -i com.qq.weixin.deepin_3.7.0.30deepin17_i386.deb

@@ -17,3 +17,10 @@ Download_src() {
     chown -R ${run_user}:${run_group} ${src_url##*/}
   fi
 }
+
+Check_Ubsoft_src() {
+  if [ ! -e "${ubdevenv_dir}/src/ubsoft" ]; then
+    mkdir ${ubdevenv_dir}/src/ubsoft
+    chown -Rv ${run_user}:root ${ubdevenv_dir}/src/ubsoft
+  fi
+}

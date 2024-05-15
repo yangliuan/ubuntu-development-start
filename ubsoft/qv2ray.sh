@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Qv2ray() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     echo "Download qv2ray ..."
     #文档地址https://qv2ray.net/lang/zh/getting-started/
     src_url="http://mirror.yangliuan.cn/qv2ray.tar.xz" && Download_src

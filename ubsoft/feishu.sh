@@ -1,9 +1,9 @@
 #!/bin/bash
 #https://www.feishu.cn/download
 Install_Feishu() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     echo "Download feishu ..."
-    src_url=" https://sf3-cn.feishucdn.com/obj/ee-appcenter/${feishu_link_token}/Feishu-linux_x64-${feishu_ver}.deb" && Download_src
+    src_url="https://sf3-cn.feishucdn.com/obj/ee-appcenter/${feishu_link_token}/Feishu-linux_x64-${feishu_ver}.deb" && Download_src
     dpkg -i Feishu-linux_x64-${feishu_ver}.deb
     apt-get -y install -f
     chown -R ${run_user}:${run_user} /opt/bytedance

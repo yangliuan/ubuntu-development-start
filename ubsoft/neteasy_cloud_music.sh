@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_NeteasyCloudMusic() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     echo "Download netease-cloud-music ..."
     src_url="https://d1.music.126.net/dmusic/netease-cloud-music_1.2.1_amd64_ubuntu_20190428.deb" && Download_src
     dpkg -i netease-cloud-music_1.2.1_amd64_ubuntu_20190428.deb

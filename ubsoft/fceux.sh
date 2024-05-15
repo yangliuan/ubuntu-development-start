@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://askubuntu.com/questions/1454137/how-do-i-fix-missing-dependencies-when-installing-fceux
 Install_Fceux() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     if [ -e "fceux-${fceux_ver}-${SYS_ARCH}.deb" ]; then
         dpkg -i fceux-${fceux_ver}-${SYS_ARCH}.deb
         apt-get install -f -y
@@ -18,7 +18,7 @@ Uninstall_Fceux() {
 
 #It is recommended to build it separately in the virtual machine to avoid installing unnecessary packages and link inventory issues
 Build_Fceux_Deb() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     if [ ! -e "fceux-${fceux_ver}.tar.gz" ]; then
         src_url="https://github.com/TASEmulators/fceux/archive/refs/tags/v${fceux_ver}.tar.gz" && Download_src
         mv v${fceux_ver}.tar.gz fceux-${fceux_ver}.tar.gz

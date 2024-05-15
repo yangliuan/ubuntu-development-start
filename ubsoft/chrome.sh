@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Chrome() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
 
     echo "Download chrome ..."
     src_url="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" && Download_src

@@ -1,13 +1,13 @@
 #!/bin/bash
 #https://y.qq.com/download/download.html
 Install_QQmusic() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
 
     echo "Download qqmusic ..."
     src_url="https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_${qqmusic_ver}_amd64.deb" && Download_src
     dpkg -i qqmusic_${qqmusic_ver}_amd64.deb
     apt-get -y install -f
-    chown -R ${run_user}:${run_group} /opt/qqmusic
+    chown -Rv ${run_user}:${run_group} /opt/qqmusic
     #rm -rfv qqmusic_${qqmusic_ver}_amd64.deb
     popd > /dev/null
     if [[ ${Ubuntu_ver} =~ ^2[2-3]$ ]]; then

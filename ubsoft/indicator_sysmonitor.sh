@@ -2,7 +2,7 @@
 #https://github.com/fossfreedom/indicator-sysmonitor
 Install_IndicatorSysmonitor() {
     apt-get install -y python3-psutil gir1.2-appindicator3-0.1
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     src_url="http://mirror.yangliuan.cn/indicator-sysmonitor.tar.xz" && Download_src
     tar xJf indicator-sysmonitor.tar.xz
     pushd indicator-sysmonitor > /dev/null

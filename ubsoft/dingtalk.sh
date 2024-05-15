@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://page.dingtalk.com/wow/z/dingtalk/simple/ddhomedownlaod#/
 Install_Dingtalk() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     echo "Download dingtalk ..."
     src_url="https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${dingtalk_ver}_amd64.deb" && Download_src
     dpkg -i com.alibabainc.dingtalk_${dingtalk_ver}_amd64.deb

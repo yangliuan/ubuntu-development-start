@@ -9,3 +9,16 @@ Source_Shells() {
         fi
     done
 }
+
+# 检测deb软件包是否存在，并按顺序执行安装指令
+CheckInstall_DebFiles() {
+    for debfile in "$@"; do
+        if [ ! -f "$debfile" ]; then
+            echo "Deb File $debfile does not exist."
+            return 1
+        else
+            dpkg -i $debfile
+        fi
+    done
+    return 0
+}

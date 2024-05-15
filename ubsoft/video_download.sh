@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://github.com/BilibiliVideoDownload/BilibiliVideoDownload
 Install_BilbiliDownloader() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     src_url="https://github.com/BilibiliVideoDownload/BilibiliVideoDownload/releases/download/v${bilibili_video_downloader_ver}/BilibiliVideoDownload-${bilibili_video_downloader_ver}.AppImage" && Download_src
     [ ! -d "/opt/bilibilivideo-downloader" ] && mkdir /opt/bilibilivideo-downloader
     cp -rfv BilibiliVideoDownload-${bilibili_video_downloader_ver}.AppImage /opt/bilibilivideo-downloader/bvdownloader.AppImage

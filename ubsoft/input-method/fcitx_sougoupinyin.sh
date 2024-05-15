@@ -2,7 +2,7 @@
 #https://shurufa.sogou.com/linux
 #https://www.ufans.top/index.php/archives/376/
 Install_Sougoupinyin() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     echo "Download sougou pinyin..."
     src_url="http://mirror.yangliuan.cn/sogoupinyin_${sougoupinyin_ver}_amd64.deb" && Download_src
     Install_Fcitx

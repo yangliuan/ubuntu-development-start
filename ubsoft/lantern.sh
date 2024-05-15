@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Lantern() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
 
     echo "Download lantern ..."
     src_url="http://mirror.yangliuan.cn/lantern-installer-64-bit.deb" && Download_src

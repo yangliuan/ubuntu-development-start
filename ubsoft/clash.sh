@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_ClashForWindow() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
 
     echo "Download xmrth clash ..."
     src_url="https://down.xmrth.xyz/Clash.for.Windows-0.20.15-x64-linux.tar.gz" && Download_src

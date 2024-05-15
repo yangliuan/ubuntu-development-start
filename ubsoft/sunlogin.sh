@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://sunlogin.oray.com/download/linux?type=personal
 Install_Sunlogin() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/ubsoft > /dev/null
     echo "Download sunlogin ..."
     src_url="https://down.oray.com/sunlogin/linux/SunloginClient_${sunlogin_ver}_amd64.deb" && Download_src
     dpkg -i SunloginClient_${sunlogin_ver}_amd64.deb
