@@ -3,7 +3,7 @@
 #https://www.jianshu.com/p/3733903440d1
 #https://blog.51cto.com/u_14900374/2576431
 Install_RocketMQ(){
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
     src_url="https://dist.apache.org/repos/dist/release/rocketmq/${rocketmq_ver}/rocketmq-all-${rocketmq_ver}-bin-release.zip" && Download_src
     unzip rocketmq-all-${rocketmq_ver}-bin-release.zip
     mv -fv rocketmq-all-${rocketmq_ver}-bin-release ${rocketmq_install_dir}

@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Apr() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
     if [ ! -e "${apr_install_dir}/bin/apr-1-config" ]; then
         tar xzf apr-${apr_ver}.tar.gz
         pushd apr-${apr_ver} > /dev/null

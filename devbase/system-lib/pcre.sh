@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://www.pcre.org/ PC
 Install_Pcre() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
     dpkg -l|grep libpcre3-dev && apt-get autoremove -y libpcre3-dev
     if [ ! -e "/usr/bin/pcre-config" ]; then
         tar xzf pcre-${pcre_ver}.tar.gz

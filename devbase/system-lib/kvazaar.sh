@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Kvazaar() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
     src_url=https://github.com/ultravideo/kvazaar/releases/download/v${kvazaar_ver}/kvazaar-${kvazaar_ver}.tar.gz && Download_src
 
     if [ ! -e "/usr/local/bin/kvazaar" ]; then

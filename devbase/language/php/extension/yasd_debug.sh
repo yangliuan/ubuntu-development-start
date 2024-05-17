@@ -11,7 +11,7 @@ Install_Yasd() {
     apt-get install libboost-all-dev
 
     if [ -e "${php_install_dir}/bin/phpize" ]; then
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
         phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
         PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
         if [[ "${PHP_main_ver}" =~ ^7.[2-4]$|^8.[0-1]$ ]]; then

@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_PostgreSQL() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
   id -u postgres >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -d ${pgsql_install_dir} -s /bin/bash postgres
   mkdir -p ${pgsql_data_dir};chown postgres:postgres -R ${pgsql_data_dir}

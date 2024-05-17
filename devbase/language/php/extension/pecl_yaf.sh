@@ -10,7 +10,7 @@
 
 Install_pecl_yaf() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
     PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
     PHP_main_ver=${PHP_detail_ver%.*}
     if [[ "${PHP_main_ver}" =~ ^7.[0-4]$|^8.0$ ]]; then

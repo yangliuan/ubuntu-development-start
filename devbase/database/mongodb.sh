@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_MongoDB() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
   id -u mongod >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -s /sbin/nologin mongod
   mkdir -p ${mongo_data_dir};chown mongod:mongod -R ${mongo_data_dir}

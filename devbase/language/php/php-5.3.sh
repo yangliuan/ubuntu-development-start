@@ -10,7 +10,7 @@
 #
 
 Install_PHP53() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
 
   . ${ubdevenv_dir}/devbase/system-lib/iconv.sh
   Install_Libiconv

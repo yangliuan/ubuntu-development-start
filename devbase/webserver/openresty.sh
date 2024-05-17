@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_Openresty() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}
   id -u ${run_user} >/dev/null 2>&1

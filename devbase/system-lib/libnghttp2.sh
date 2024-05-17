@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Libnghttp2() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
     if [ ! -e "/usr/local/lib/libnghttp2.so" ]; then
         tar xzf nghttp2-${nghttp2_ver}.tar.gz
         pushd nghttp2-${nghttp2_ver} > /dev/null

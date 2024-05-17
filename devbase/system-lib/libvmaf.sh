@@ -2,7 +2,7 @@
 #DOC: https://github.com/Netflix/vmaf/blob/master/libvmaf/README.md
 Install_Libvmaf() {
     if [ ! -e "/usr/local/include/libvmaf" ]; then
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
         apt-get -y install meson nasm ninja-build doxygen xxd
         
         if [ ! -e "libvmaf-${libvmaf_ver}.tar.gz" ]; then

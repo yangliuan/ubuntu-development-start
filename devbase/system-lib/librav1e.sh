@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Librav1e() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
     src_url=https://github.com/xiph/rav1e/releases/download/v${librav1e_ver}/librav1e-${librav1e_ver}-linux-generic.tar.gz && Download_src
     tar -zxvf librav1e-${librav1e_ver}-linux-generic.tar.gz
     mv -fv include/rav1e /usr/include/

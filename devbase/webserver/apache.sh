@@ -1,7 +1,7 @@
 #!/bin/bash
 # https://httpd.apache.org/docs/2.4/install.html DOC
 Install_Apache() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
   
   #install pcre
   . ${ubdevenv_dir}/devbase/system-lib/pcre.sh
@@ -16,7 +16,7 @@ Install_Apache() {
   Install_AprUtil
 
   # install nghttp2
-  . ${ubdevenv_dir}/devbase/webserver/libnghttp2.sh
+  . ${ubdevenv_dir}/devbase/system-lib/libnghttp2.sh
   Install_Libnghttp2
 
   if openssl version | grep -Eqi 'OpenSSL 1.1'; then

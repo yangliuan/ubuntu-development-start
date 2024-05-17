@@ -2,7 +2,7 @@
 #repo https://github.com/confluentinc/librdkafka
 Install_Librdkafka() {
     if [ ! -e "/usr/local/lib/librdkafka.so" ]; then
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
         if [ ! -e "librdkafka-${librdkafka_ver}.tar.gz" ]; then
             src_url=https://github.com/confluentinc/librdkafka/archive/refs/tags/v${librdkafka_ver}.tar.gz && Download_src
             mv v${librdkafka_ver}.tar.gz librdkafka-${librdkafka_ver}.tar.gz

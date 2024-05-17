@@ -353,6 +353,7 @@ fi
 
 #clear latest install_devtools.log
 echo > $log_dir
+Check_Devtools_src 2>&1 | tee -a $log_dir
 
 # Check download source packages
 if [ "${jmeter_flag}" == 'y' ]; then

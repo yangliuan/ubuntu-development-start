@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_Node() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/nodejs > /dev/null
   tar xzf node-v${node_ver}-linux-${SYS_ARCH_n}.tar.gz
   /bin/mv node-v${node_ver}-linux-${SYS_ARCH_n} ${node_install_dir}
   if [ -e "${node_install_dir}/bin/node" ]; then

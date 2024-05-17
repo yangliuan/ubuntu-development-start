@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_Icu4c() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
     if ! command -v icu-config > /dev/null 2>&1 || icu-config --version | grep '^3.' || [ "${Ubuntu_ver}" == "20" ]; then
         tar xzf icu4c-${icu4c_ver}-src.tgz
             pushd icu/source > /dev/null

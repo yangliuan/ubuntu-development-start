@@ -3,7 +3,7 @@
 # DOC https://kafka.apache.org/30/documentation.html#quickstart
 # DOC https://kafka.apache.org/downloads
 Install_Kafka() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
     echo "Download kafka ..."
     src_url="https://dlcdn.apache.org/kafka/${kafka_ver}/kafka_${kafka_scala_ver}-${kafka_ver}.tgz" && Download_src
     tar xzf kafka_${kafka_scala_ver}-${kafka_ver}.tgz

@@ -10,7 +10,7 @@
 #       https://www.cnblogs.com/xiaobo0602/p/15256131.html
 
 Install_fail2ban() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase > /dev/null
   src_url=http://mirrors.linuxeye.com/oneinstack/src/fail2ban-${fail2ban_ver}.tar.gz && Download_src
   tar xzf fail2ban-${fail2ban_ver}.tar.gz
   pushd fail2ban-${fail2ban_ver} > /dev/null

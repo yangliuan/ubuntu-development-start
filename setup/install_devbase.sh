@@ -580,10 +580,11 @@ if [ ${ARG_NUM} == 0 ]; then
           echo -e "\t${CMSG}10${CEND}. Install php-8.0"
           echo -e "\t${CMSG}11${CEND}. Install php-8.1"
           echo -e "\t${CMSG}12${CEND}. Install php-8.2"
+          echo -e "\t${CMSG}13${CEND}. Install php-8.3"
           read -e -p "Please input a number:(Default 7 press Enter) " php_option
           php_option=${php_option:-11}
-          php_suffix=([1]=53 [2]=54 [3]=55 [4]=56 [5]=70 [6]=71 [7]=72 [8]=73 [9]=74 [10]=80 [11]=81 [12]=82)
-          if [[ ! ${php_option} =~ ^[1-9]$|^1[0-2]$ ]]; then
+          php_suffix=([1]=53 [2]=54 [3]=55 [4]=56 [5]=70 [6]=71 [7]=72 [8]=73 [9]=74 [10]=80 [11]=81 [12]=82 [13]=83)
+          if [[ ! ${php_option} =~ ^[1-9]$|^1[0-3]$ ]]; then
               echo "${CWARNING}input error! Please only input number 1~11${CEND}"
           else
               #环境变量路径
@@ -606,7 +607,7 @@ if [ ${ARG_NUM} == 0 ]; then
   fi
 
   # PHP opcode cache and extensions
-  if [ "${php_flag}" == 'y' ] && ([[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]] || [ -e "${php_install_dir}/bin/phpize" ]); then
+  if [ "${php_flag}" == 'y' ] && ([[ ${php_option} =~ ^[1-9]$|^1[0-3]$ ]] || [ -e "${php_install_dir}/bin/phpize" ]); then
     while :; do echo
         read -e -p "Do you want to install opcode cache of the PHP? [y/n]: " phpcache_flag
         if [[ ! ${phpcache_flag} =~ ^[y,n]$ ]]; then
@@ -675,7 +676,7 @@ if [ ${ARG_NUM} == 0 ]; then
                 fi
             done
             fi
-            if [[ ${php_option} =~ ^[5-9]$|^1[0-1]$ ]] || [[ "${PHP_main_ver}" =~ ^7.[0-4]$|^8.[0-2]$ ]]; then
+            if [[ ${php_option} =~ ^[5-9]$|^1[0-3]$ ]] || [[ "${PHP_main_ver}" =~ ^7.[0-4]$|^8.[0-3]$ ]]; then
             while :; do
                 echo 'Please select a opcode cache of the PHP:'
                 echo -e "\t${CMSG}1${CEND}. Install Zend OPcache"
@@ -1174,6 +1175,10 @@ case "${php_option}" in
   12)
     . ./devbase/language/php/php-8.2.sh
     Install_PHP82 2>&1 | tee -a $log_dir
+    ;;
+  13)
+    . ./devbase/language/php/php-8.3.sh
+    Install_PHP83 2>&1 | tee -a $log_dir
     ;;
 esac
 

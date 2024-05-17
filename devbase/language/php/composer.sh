@@ -13,8 +13,8 @@ Install_composer() {
     if [ -e "/usr/local/bin/composer" ]; then
       echo "${CWARNING}PHP Composer already installed! ${CEND}"
     else
-      [ ! -d "${ubdevenv_dir}/src/composer" ] && mkdir ${ubdevenv_dir}/src/composer
-      pushd ${ubdevenv_dir}/src/composer > /dev/null
+      [ ! -d "${ubdevenv_dir}/src/devbase/php/composer" ] && mkdir ${ubdevenv_dir}/src/devbase/php/composer
+      pushd ${ubdevenv_dir}/src/devbase/php/composer > /dev/null
       wget -c https://getcomposer.org/download/${composer_old_ver}/composer.phar -O composer${composer_old_ver}.phar > /dev/null 2>&1
       wget -c https://getcomposer.org/download/${composer_ver}/composer.phar -O composer${composer_ver}.phar > /dev/null 2>&1
       cp -fv composer${composer_ver}.phar /usr/local/bin/composer

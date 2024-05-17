@@ -43,68 +43,71 @@ pushd ${ubdevenv_dir} > /dev/null
 
 echo > $log_dir
 
+#Check_Devbase_src 2>&1 | tee -a $log_dir
+#Check_Devbase_sub 2>&1 | tee -a $log_dir
+
 ####################################################system lib
-Install_Librdkafka 2>&1| tee -a $log_dir
-Uninstall_Librdkafka 2>&1| tee -a $log_dir
+# Install_Librdkafka 2>&1| tee -a $log_dir
+# Uninstall_Librdkafka 2>&1| tee -a $log_dir
 
 
-NginxDevConfig
-TengineDevConfig
-OpenRestyDevConfig
-PhpDevConfig
+# NginxDevConfig
+# TengineDevConfig
+# OpenRestyDevConfig
+# PhpDevConfig
 
 
 
 ####################################### test language
-Install_OpenJDK8 2>&1| tee -a $log_dir
-Uninstall_OpenJDK8 2>&1| tee -a $log_dir
-Install_OpenJDK11 2>&1| tee -a $log_dir
-Uninstall_OpenJDK11 2>&1| tee -a $log_dir
+# Install_OpenJDK8 2>&1| tee -a $log_dir
+# Uninstall_OpenJDK8 2>&1| tee -a $log_dir
+# Install_OpenJDK11 2>&1| tee -a $log_dir
+# Uninstall_OpenJDK11 2>&1| tee -a $log_dir
 
-Install_Erlang  2>&1| tee -a $log_dir
-Uninstall_Erlang 2>&1| tee -a $log_dir
+# Install_Erlang  2>&1| tee -a $log_dir
+# Uninstall_Erlang 2>&1| tee -a $log_dir
 
 
-php_install_dir="${php_install_dir}82"
-Install_PHP82  2>&1| tee -a $log_dir
-Set_EnvPath
+#php_install_dir="${php_install_dir}82"
+# Install_PHP82  2>&1| tee -a $log_dir
+# Set_EnvPath
 
-Uninstall_Nvm
-Install_Nvm 2>&1| tee -a $log_dir
+# Uninstall_Nvm
+# Install_Nvm 2>&1| tee -a $log_dir
 
-Uninstall_Conda
-Install_Conda 2>&1| tee -a $log_dir
+# Uninstall_Conda
+# Install_Conda 2>&1| tee -a $log_dir
 
 #######################################test devbase/database
-Install_Sqlite3 2>&1| tee -a $log_dir
-Uninstall_Sqlite3 2>&1| tee -a $log_dir
+# Install_Sqlite3 2>&1| tee -a $log_dir
+# Uninstall_Sqlite3 2>&1| tee -a $log_dir
 
 
 #########################################test message queue
-Uninstall_RabbitMQ 2>&1| tee -a $log_dir
-Install_RabbitMQ 2>&1| tee -a $log_dir
+# Uninstall_RabbitMQ 2>&1| tee -a $log_dir
+# Install_RabbitMQ 2>&1| tee -a $log_dir
 
 
 ##########################################test devtool
-Install_Vscode 2>&1| tee -a $log_dir
+# Install_Vscode 2>&1| tee -a $log_dir
 
 
 
 ########################################multi-media
-Uninstall_Libvmaf 2>&1| tee -a $log_dir
-Install_Libvmaf 2>&1| tee -a $log_dir
+# Uninstall_Libvmaf 2>&1| tee -a $log_dir
+# Install_Libvmaf 2>&1| tee -a $log_dir
 
-Uninstall_FFmpeg 2>&1| tee -a $log_dir
-Install_FFmpeg 2>&1| tee -a $log_dir
+# Uninstall_FFmpeg 2>&1| tee -a $log_dir
+# Install_FFmpeg 2>&1| tee -a $log_dir
 
 #############################################devbase/container-platform
-Install_Docker_Repository 2>&1| tee -a $log_dir
-Install_Docker_Engine 2>&1| tee -a $log_dir
-Install_Docker_Desktop 2>&1| tee -a $log_dir
+# Install_Docker_Repository 2>&1| tee -a $log_dir
+# Install_Docker_Engine 2>&1| tee -a $log_dir
+# Install_Docker_Desktop 2>&1| tee -a $log_dir
 
-Uninstall_Docker_Desktop 2>&1| tee -a $log_dir
-Uninstall_Docker_Engine 2>&1| tee -a $log_dir
-Uninstall_Docker_Repository 2>&1| tee -a $log_dir
+# Uninstall_Docker_Desktop 2>&1| tee -a $log_dir
+# Uninstall_Docker_Engine 2>&1| tee -a $log_dir
+# Uninstall_Docker_Repository 2>&1| tee -a $log_dir
 
 
 ######################################################

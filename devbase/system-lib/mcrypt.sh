@@ -4,6 +4,7 @@
 
 Install_Libmcrypt() {
     if [ ! -e "/usr/local/bin/libmcrypt-config" -a ! -e "/usr/bin/libmcrypt-config" ]; then
+        pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
         tar xzf libmcrypt-${libmcrypt_ver}.tar.gz
         pushd libmcrypt-${libmcrypt_ver} > /dev/null
         ./configure
@@ -15,6 +16,7 @@ Install_Libmcrypt() {
         popd > /dev/null
         popd > /dev/null
         rm -rf libmcrypt-${libmcrypt_ver}
+        popd > /dev/null
     fi
 }
 

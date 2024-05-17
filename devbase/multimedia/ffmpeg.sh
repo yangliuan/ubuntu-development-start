@@ -19,7 +19,7 @@ Install_FFmpeg_Build() {
   # . ${ubdevenv_dir}/devbase/multimedia/librav1e.sh
   # Install_Librav1e
 
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbbase/multimedia > /dev/null
   src_url=https://ffmpeg.org/releases/ffmpeg-${ffmpeg_ver}.tar.xz && Download_src
   tar -xJf ffmpeg-${ffmpeg_ver}.tar.xz
   pushd ffmpeg-${ffmpeg_ver} > /dev/null

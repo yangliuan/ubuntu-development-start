@@ -2,7 +2,7 @@
 #https://freetype.org/
 Install_Libfreetype() {
     if [ ! -e "${freetype_install_dir}/lib/libfreetype.la" ]; then
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
         tar xzf freetype-${freetype_ver}.tar.gz
         pushd freetype-${freetype_ver} > /dev/null
         ./configure --prefix=${freetype_install_dir} --enable-freetype-config

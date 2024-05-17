@@ -1,7 +1,6 @@
 #!/bin/bash
-
 Install_Gvm() {
-    sudo apt-get install curl git mercurial make binutils bison gcc build-essential
+    echo 'install gvm';
 }
 
 Uninstall_Gvm() {

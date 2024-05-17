@@ -5,7 +5,7 @@ Install_ImageMagick() {
   if [ -d "${imagick_install_dir}" ]; then
     echo "${CWARNING}ImageMagick already installed! ${CEND}"
   else
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/multimedia > /dev/null
     tar xzf ImageMagick-${imagemagick_ver}.tar.gz
     #apt-get install libwebp-dev
     pushd ImageMagick-${imagemagick_ver} > /dev/null

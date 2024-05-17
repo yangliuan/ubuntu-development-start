@@ -5,7 +5,7 @@
 
 Install_pecl_parallel() { 
     if [ -e "${php_install_dir}/bin/phpize" ]; then
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
         PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
         phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
         PHP_main_ver=${PHP_detail_ver%.*}

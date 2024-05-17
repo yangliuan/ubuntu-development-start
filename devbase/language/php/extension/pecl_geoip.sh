@@ -11,7 +11,7 @@ Install_pecl_geoip() {
     if [ -e "${php_install_dir}/bin/phpize" ]; then
         PHP_detail_ver=$(${php_install_dir}/bin/php-config --version)
         PHP_main_ver=${PHP_detail_ver%.*}
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
         src_url=https://pecl.php.net/get/geoip-${pecl_geoip_ver}.tgz && Download_src
         tar xzf geoip-${pecl_geoip_ver}.tgz
         geoip-${pecl_geoip_ver}.tgz  > /dev/null

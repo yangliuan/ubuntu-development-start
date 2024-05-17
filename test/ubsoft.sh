@@ -32,7 +32,6 @@ shell_dir=${ubdevenv_dir}/ubsoft && Source_Shells
 echo > $log_dir
 
 #Check_Ubsoft_src 2>&1 | tee -a $log_dir
-#Check_Devtools_src 2>&1 | tee -a $log_dir
 
 # Remove_Unneed  2>&1 | tee -a $log_dir
 # Install_custom_SnapApp  2>&1 | tee -a $log_dir

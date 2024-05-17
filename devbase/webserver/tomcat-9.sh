@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_Tomcat9() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
   . /etc/profile
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}

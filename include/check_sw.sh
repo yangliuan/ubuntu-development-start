@@ -21,7 +21,7 @@ installDepsUbuntu() {
 #include src libary
 . ./devbase/system-lib/icu_config.sh
 . ./devbase/system-lib/libevent.sh
-. ./devbase/multimedia/libwebp.sh
+. ./devbase/system-lib/libwebp.sh
 . ./devbase/system-lib/openssl.sh
 
 installDepsBySrc() { 

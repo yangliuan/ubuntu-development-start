@@ -3,7 +3,7 @@
 #二进制包安装　https://rabbitmq.com/install-generic-unix.html
 #https://rabbitmq.com/devtools.html
 Install_RabbitMQ() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
     src_url="https://github.com/rabbitmq/rabbitmq-server/releases/download/v${rabbitmq_ver}/rabbitmq-server-generic-unix-${rabbitmq_ver}.tar.xz" && Download_src
     echo "Download rabbitmq ..."
     tar xJf rabbitmq-server-generic-unix-${rabbitmq_ver}.tar.xz

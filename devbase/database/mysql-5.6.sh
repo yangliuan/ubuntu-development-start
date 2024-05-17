@@ -9,7 +9,7 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_MySQL56() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
   id -u mysql >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -M -s /sbin/nologin mysql
 

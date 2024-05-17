@@ -2,7 +2,7 @@
 #https://doc.libsodium.org/
 Install_Libsodium() {
     if [ ! -e "/usr/local/lib/libsodium.la" ]; then
-        [ ${pwd} != ${ubdevenv_dir}/src ] && [ pushd ${ubdevenv_dir}/src > /dev/null ]
+        pushd ${ubdevenv_dir}/src/devbase/php > /dev/null 
         tar xzf libsodium-${libsodium_ver}.tar.gz
         pushd libsodium-${libsodium_ver} > /dev/null
         ./configure --disable-dependency-tracking --enable-minimal

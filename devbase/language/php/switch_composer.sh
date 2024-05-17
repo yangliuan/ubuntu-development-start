@@ -3,7 +3,7 @@
 #https://getcomposer.org/download/
 Switch_Composer(){
     #读取所有版本composer文件
-    composer_dir=(`find /opt/ubdevenv/src/composer -maxdepth 1 -type f -name "composer*" | sort`)
+    composer_dir=(`find /opt/ubdevenv/src/devbase/php/composer -maxdepth 1 -type f -name "composer*" | sort`)
     echo
     echo 'Please select a version of the composer:'
     #遍历输出序号和文件路径

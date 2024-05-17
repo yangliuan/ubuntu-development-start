@@ -1,7 +1,7 @@
 #!/bin/bash
 #DOC:https://github.com/nvm-sh/nvm#git-install
 Install_Nvm() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/nodejs > /dev/null
     if [ ! -e "nvm-${nvm_ver}.tar.gz" ]; then
         src_url=https://github.com/nvm-sh/nvm/archive/refs/tags/v${nvm_ver}.tar.gz && Download_src
         mv v${nvm_ver}.tar.gz nvm-${nvm_ver}.tar.gz

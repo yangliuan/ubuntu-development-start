@@ -2,7 +2,7 @@
 #DDC https://developers.google.com/speed/webp/docs/compiling#building
 Install_Libwebp() {
     if [ ! -e "/usr/local/lib/libwebp.la" ]; then
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
         #apt-get install -y libtiff-dev libgif-dev
         src_url=https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-${libwebp_ver}.tar.gz && Download_src
         tar zxvf libwebp-${libwebp_ver}.tar.gz

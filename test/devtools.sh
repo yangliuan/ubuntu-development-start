@@ -24,7 +24,7 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/loadshell.sh
 
 shell_dir="./devtools/data-manager" && Source_Shells
-
 echo > $log_dir
 
-Build_MysqlWorkBench 2>&1 | tee -a $log_dir
+#Build_MysqlWorkBench 2>&1 | tee -a $log_dir
+#Check_Devtools_src 2>&1 | tee -a $log_dir

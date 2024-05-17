@@ -2,7 +2,7 @@
 #https://libssh2.org/
 Install_Libssh2() {
     if [ ! -e "/usr/local/lib/libssh2.la" ]; then
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
         src_url=https://libssh2.org/download/libssh2-${libssh2_ver}.tar.gz && Download_src
         tar -zxvf libssh2-${libssh2_ver}.tar.gz
         pushd libssh2-${libssh2_ver} > /dev/null

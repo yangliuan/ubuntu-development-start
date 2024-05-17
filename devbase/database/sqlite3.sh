@@ -3,7 +3,7 @@
 #https://sqlite.org/download.html
 #https://github.com/sqlite/sqlite
 Install_Sqlite3() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
     src_url=https://sqlite.org/2023/sqlite-autoconf-${sqlite3_ver}.tar.gz && Download_src
     tar -zxvf sqlite-autoconf-${sqlite3_ver}.tar.gz
     pushd sqlite-autoconf-${sqlite3_ver} > /dev/null

@@ -4,7 +4,7 @@
 
 Install_Libiconv() {
     if [ ! -e "${libiconv_install_dir}/lib/libiconv.la" ]; then
-        pushd ${ubdevenv_dir}/src > /dev/null
+        pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
         tar xzf libiconv-${libiconv_ver}.tar.gz
         pushd libiconv-${libiconv_ver} > /dev/null
         ./configure

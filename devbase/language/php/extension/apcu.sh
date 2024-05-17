@@ -11,7 +11,7 @@
 
 Install_APCU() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
     phpExtensionDir=`${php_install_dir}/bin/php-config --extension-dir`
     if [ "`${php_install_dir}/bin/php-config --version | awk -F. '{print $1}'`" == '5' ]; then
       tar xzf apcu-${apcu_oldver}.tgz

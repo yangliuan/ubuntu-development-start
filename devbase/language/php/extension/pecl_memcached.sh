@@ -5,7 +5,7 @@
 
 Install_pecl_memcached() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
     phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
     # php memcached extension
     tar xzf libmemcached-${libmemcached_ver}.tar.gz

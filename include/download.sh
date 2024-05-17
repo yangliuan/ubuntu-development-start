@@ -31,3 +31,27 @@ Check_Devtools_src() {
     chown -Rv ${run_user}:root ${ubdevenv_dir}/src/devtools
   fi
 }
+
+Check_Devbase_src() {
+  if [ ! -e "${ubdevenv_dir}/src/devbase" ]; then
+    mkdir ${ubdevenv_dir}/src/devbase
+    chown -Rv ${run_user}:root ${ubdevenv_dir}/src/devbase
+  fi
+}
+
+Check_Devbase_sub() {
+   if [ -e "${ubdevenv_dir}/src/devbase" ]; then
+    # 指定目录
+    parent_dir="${ubdevenv_dir}/src/devbase"
+    # 要创建的子目录名称列表
+    sub_dirs=("python" "php" "golang" "nodejs" "library" "webserver" "database" "multimedia")
+    # 创建子目录
+    for dir_name in "${sub_dirs[@]}"; do
+        if [ ! -d "$parent_dir/$dir_name" ]; then
+            mkdir -p "$parent_dir/$dir_name"
+            chown -Rv ${run_user}:root "$parent_dir/$dir_name"
+            echo "Created directory: $parent_dir/$dir_name"
+        fi
+    done
+  fi
+}

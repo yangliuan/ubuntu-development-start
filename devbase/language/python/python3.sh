@@ -1,6 +1,6 @@
 #!/bin/bash
 Install_By_Complie() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/python > /dev/null
     pkgList="gcc dialog libaugeas0 augeas-lenses libssl-dev libffi-dev ca-certificates"
     for Package in ${pkgList}; do
       apt-get -y install $Package

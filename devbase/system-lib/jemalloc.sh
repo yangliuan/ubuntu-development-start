@@ -1,7 +1,7 @@
 #!/bin/bash
 Install_Jemalloc() {
   if [ ! -e "/usr/local/lib/libjemalloc.so" ]; then
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
     tar xjf jemalloc-${jemalloc_ver}.tar.bz2
     pushd jemalloc-${jemalloc_ver} > /dev/null
     ./configure

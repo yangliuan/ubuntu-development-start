@@ -1,22 +1,16 @@
 #!/bin/bash
-# Author:  Alpha Eva <kaneawk AT gmail.com>
-#
-# Notes: OneinStack for CentOS/RedHat 7+ Debian 9+ and Ubuntu 16+
-#
-# Project home page:
-#       https://oneinstack.com
-#       https://github.com/oneinstack/oneinstack
+Check_Devbase_sub
 
 checkDownload() {
   mirrorLink=http://mirrors.linuxeye.com/oneinstack/src
-  pushd ${ubdevenv_dir}/src > /dev/null
-  # icu
+  pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
+  # icu 国际化组件Unicode的C/C++版本
   if ! command -v icu-config >/dev/null 2>&1 || icu-config --version | grep '^3.' || [ "${Ubuntu_ver}" == "20" ]; then
     echo "Download icu..."
     src_url=${mirrorLink}/icu4c-${icu4c_ver}-src.tgz && Download_src
   fi
 
-  # General system utils
+  # Openssl 安全通信的加密算法和协议
   if [ "${with_old_openssl_flag}" == 'y' ]; then
     echo "Download openSSL..."
     src_url=https://www.openssl.org/source/old/1.0.2/openssl-${openssl_ver}.tar.gz && Download_src
@@ -24,18 +18,33 @@ checkDownload() {
     src_url=https://curl.se/ca/cacert.pem && Download_src
   fi
 
-  # openssl1.1
+  # openssl1.1 
   if [[ ${nginx_option} =~ ^[1-3]$ ]]; then
       echo "Download openSSL1.1..."
       src_url=https://www.openssl.org/source/openssl-${openssl11_ver}.tar.gz && Download_src
   fi
 
-  # jemalloc
+  # jemalloc 内存优化
   if [[ ${nginx_option} =~ ^[1-3]$ ]] || [[ "${db_option}" =~ ^[1-9]$|^1[0-2]$ ]]; then
     echo "Download jemalloc..."
     src_url=${mirrorLink}/jemalloc-${jemalloc_ver}.tar.bz2 && Download_src
   fi
 
+  # pcre 正则表达式库
+  if [[ "${nginx_option}" =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ]; then
+    echo "Download pcre..."
+    src_url=https://downloads.sourceforge.net/project/pcre/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz && Download_src
+  fi
+
+  # jdk apr apache运行时库
+  if [[ "${jdk_option}"  =~ ^[1-2]$ ]]; then
+    echo "Download apr..."
+    src_url=http://archive.apache.org/dist/apr/apr-${apr_ver}.tar.gz && Download_src
+  fi
+
+  popd > /dev/null
+
+  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
   # nginx/tengine/openresty
   case "${nginx_option}" in
     1)
@@ -52,12 +61,6 @@ checkDownload() {
       src_url=https://openresty.org/download/openresty-${openresty_ver}.tar.gz && Download_src
       ;;
   esac
-
-  # pcre
-  if [[ "${nginx_option}" =~ ^[1-3]$ ]] || [ "${apache_flag}" == 'y' ]; then
-    echo "Download pcre..."
-    src_url=https://downloads.sourceforge.net/project/pcre/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz && Download_src
-  fi
 
   # apache
   if [ "${apache_flag}" == 'y' ]; then
@@ -89,22 +92,24 @@ checkDownload() {
       ;;
   esac
 
-  # jdk apr
-  if [[ "${jdk_option}"  =~ ^[1-2]$ ]]; then
-    echo "Download apr..."
-    src_url=http://archive.apache.org/dist/apr/apr-${apr_ver}.tar.gz && Download_src
-  fi
+  popd > /dev/null
+
+ 
 
   if [[ "${db_option}" =~ ^[1-9]$|^1[0-4]$ ]]; then
     if [[ "${db_option}" =~ ^[1,2,5,6,7,9]$|^10$ ]] && [ "${dbinstallmethod}" == "2" ]; then
       [[ "${db_option}" =~ ^[2,5,6,7]$|^10$ ]] && boost_ver=${boost_oldver}
       [[ "${db_option}" =~ ^9$ ]] && boost_ver=${boost_percona_ver}
+      # C++依赖库
       echo "Download boost..."
       [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR_BOOST=${mirrorLink} || DOWN_ADDR_BOOST=https://downloads.sourceforge.net/project/boost/boost/${boost_ver}
       boostVersion2=$(echo ${boost_ver} | awk -F. '{print $1"_"$2"_"$3}')
+      pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
       src_url=${DOWN_ADDR_BOOST}/boost_${boostVersion2}.tar.gz && Download_src
+      popd > /dev/null
     fi
 
+    pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
     case "${db_option}" in
       1)
         # MySQL 8.0
@@ -481,15 +486,33 @@ checkDownload() {
     esac
   fi
 
+  # redis-server
+  if [ "${redis_flag}" == 'y' ]; then
+    echo "Download redis-server..."
+    src_url=http://download.redis.io/releases/redis-${redis_ver}.tar.gz && Download_src
+  fi
+
+  # memcached-server
+  if [ "${memcached_flag}" == 'y' ]; then
+    echo "Download memcached-server..."
+    [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR=${mirrorLink} || DOWN_ADDR=http://www.memcached.org/files
+    src_url=${DOWN_ADDR}/memcached-${memcached_ver}.tar.gz && Download_src
+  fi
+
+  popd > /dev/null
+
+  pushd ${ubdevenv_dir}/src/devbase/php > /dev/null
   # PHP
   if [[ "${php_option}" =~ ^[1-9]$|^1[0-2]$ ]] || [[ "${mphp_ver}" =~ ^5[3-6]$|^7[0-4]$|^8[0-2]$ ]]; then
     echo "PHP common..."
+    #pushd ${ubdevenv_dir}/src/devbase/library > /dev/null
     src_url=${mirrorLink}/libiconv-${libiconv_ver}.tar.gz && Download_src
     src_url=https://curl.haxx.se/download/curl-${curl_ver}.tar.gz && Download_src
     src_url=https://downloads.sourceforge.net/project/mhash/mhash/${mhash_ver}/mhash-${mhash_ver}.tar.gz && Download_src
     src_url=https://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${libmcrypt_ver}/libmcrypt-${libmcrypt_ver}.tar.gz && Download_src
     src_url=https://downloads.sourceforge.net/project/mcrypt/MCrypt/${mcrypt_ver}/mcrypt-${mcrypt_ver}.tar.gz && Download_src
     src_url=${mirrorLink}/freetype-${freetype_ver}.tar.gz && Download_src
+    #popd > /dev/null
   fi
 
   if [ "${php_option}" == '1' ] || [ "${mphp_ver}" == '53' ]; then
@@ -534,6 +557,11 @@ checkDownload() {
     src_url=http://mirrors.linuxeye.com/oneinstack/src/libzip-${libzip_ver}.tar.gz && Download_src
   elif [ "${php_option}" == '12' ] || [ "${mphp_ver}" == '82' ]; then
     src_url=https://secure.php.net/distributions/php-${php82_ver}.tar.gz && Download_src
+    src_url=http://mirrors.linuxeye.com/oneinstack/src/argon2-${argon2_ver}.tar.gz && Download_src
+    src_url=http://mirrors.linuxeye.com/oneinstack/src/libsodium-${libsodium_ver}.tar.gz && Download_src
+    src_url=http://mirrors.linuxeye.com/oneinstack/src/libzip-${libzip_ver}.tar.gz && Download_src
+  elif [ "${php_option}" == '13' ] || [ "${mphp_ver}" == '83' ]; then
+    src_url=https://secure.php.net/distributions/php-${php83_ver}.tar.gz && Download_src
     src_url=http://mirrors.linuxeye.com/oneinstack/src/argon2-${argon2_ver}.tar.gz && Download_src
     src_url=http://mirrors.linuxeye.com/oneinstack/src/libsodium-${libsodium_ver}.tar.gz && Download_src
     src_url=http://mirrors.linuxeye.com/oneinstack/src/libzip-${libzip_ver}.tar.gz && Download_src
@@ -634,12 +662,6 @@ checkDownload() {
     fi
   fi
 
-  # redis-server
-  if [ "${redis_flag}" == 'y' ]; then
-    echo "Download redis-server..."
-    src_url=http://download.redis.io/releases/redis-${redis_ver}.tar.gz && Download_src
-  fi
-
   # pecl_redis
   if [ "${pecl_redis}" == '1' ]; then
     if [[ "${php_option}" =~ ^[1-4]$ ]]; then
@@ -649,13 +671,6 @@ checkDownload() {
       echo "Download pecl_redis for php 7.x..."
       src_url=https://pecl.php.net/get/redis-${pecl_redis_ver}.tgz && Download_src
     fi
-  fi
-
-  # memcached-server
-  if [ "${memcached_flag}" == 'y' ]; then
-    echo "Download memcached-server..."
-    [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR=${mirrorLink} || DOWN_ADDR=http://www.memcached.org/files
-    src_url=${DOWN_ADDR}/memcached-${memcached_ver}.tar.gz && Download_src
   fi
 
   # pecl_memcached
@@ -693,18 +708,20 @@ checkDownload() {
     src_url=https://pecl.php.net/get/mongodb-${pecl_mongodb_ver}.tgz && Download_src
   fi
 
+  popd > /dev/null
+
+  pushd ${ubdevenv_dir}/src/devbase/nodejs > /dev/null
   # nodejs
   if [ "${nodejs_flag}" == 'y' ]; then
     echo "Download Nodejs..."
     [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR_NODE=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release || DOWN_ADDR_NODE=https://nodejs.org/dist
     src_url=${DOWN_ADDR_NODE}/v${nodejs_ver}/node-v${nodejs_ver}-linux-${SYS_ARCH_n}.tar.gz && Download_src
   fi
+  popd > /dev/null
 
   # pureftpd
   if [ "${pureftpd_flag}" == 'y' ]; then
     echo "Download pureftpd..."
     src_url=https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-${pureftpd_ver}.tar.gz && Download_src
   fi
-
-  popd > /dev/null
 }

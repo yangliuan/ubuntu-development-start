@@ -482,7 +482,6 @@ done
 
 fi
 
-
 echo > $log_dir
 
 #set aliyun mirror
@@ -490,7 +489,8 @@ echo > $log_dir
 
 #install dependencies
 UbuntuPkgList="${BuildToolsDeps} ${DownloadToolsDeps}"
-installDepsUbuntu | tee -a $log_dir
+installDepsUbuntu  2>&1 | tee -a $log_dir
+Check_Ubsoft_src  2>&1 | tee -a $log_dir
 
 if [ "${remove_flag}" == 'y' ]; then
     Remove_Unwanted 2>&1 | tee -a $log_dir

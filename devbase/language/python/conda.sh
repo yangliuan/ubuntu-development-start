@@ -5,7 +5,7 @@
 #https://github.com/conda/conda repo page
 
 Install_Conda() {
-    pushd ${ubdevenv_dir}/src > /dev/null
+    pushd ${ubdevenv_dir}/src/devbase/python > /dev/null
     src_url=http://mirrors.aliyun.com/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh && Download_src
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${conda_install_dir}
     
