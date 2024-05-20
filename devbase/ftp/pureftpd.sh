@@ -9,6 +9,10 @@
 #       https://github.com/oneinstack/oneinstack
 Install_PureFTPd() {
   pushd ${ubdevenv_dir}/src/devbase > /dev/null
+  # pureftpd
+  echo "Download pureftpd..."
+  src_url=https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-${pureftpd_ver}.tar.gz && Download_src
+  
   id -g ${run_group} >/dev/null 2>&1
   [ $? -ne 0 ] && groupadd ${run_group}
   id -u ${run_user} >/dev/null 2>&1
@@ -21,12 +25,12 @@ Install_PureFTPd() {
   make -j ${THREAD} && make install
   popd > /dev/null
   if [ -e "${pureftpd_install_dir}/sbin/pure-ftpwho" ]; then
-    /bin/cp ../init.d/pureftpd.service /lib/systemd/system/
+    /bin/cp ${ubdevenv_dir}/init.d/pureftpd.service /lib/systemd/system/
     sed -i "s@/usr/local/pureftpd@${pureftpd_install_dir}@g" /lib/systemd/system/pureftpd.service
     systemctl enable pureftpd
 
     [ ! -e "${pureftpd_install_dir}/etc" ] && mkdir ${pureftpd_install_dir}/etc
-    /bin/cp ../config/pure-ftpd.conf ${pureftpd_install_dir}/etc
+    /bin/cp ${ubdevenv_dir}/config/pure-ftpd.conf ${pureftpd_install_dir}/etc
     sed -i "s@^PureDB.*@PureDB  ${pureftpd_install_dir}/etc/pureftpd.pdb@" ${pureftpd_install_dir}/etc/pure-ftpd.conf
     sed -i "s@^LimitRecursion.*@LimitRecursion  65535 8@" ${pureftpd_install_dir}/etc/pure-ftpd.conf
     IPADDR=${IPADDR:-127.0.0.1}

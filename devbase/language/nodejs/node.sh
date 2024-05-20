@@ -10,6 +10,10 @@
 
 Install_Node() {
   pushd ${ubdevenv_dir}/src/devbase/nodejs > /dev/null
+  # nodejs
+  echo "Download Nodejs..."
+  [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR_NODE=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release || DOWN_ADDR_NODE=https://nodejs.org/dist
+  src_url=${DOWN_ADDR_NODE}/v${nodejs_ver}/node-v${nodejs_ver}-linux-${SYS_ARCH_n}.tar.gz && Download_src
   tar xzf node-v${node_ver}-linux-${SYS_ARCH_n}.tar.gz
   /bin/mv node-v${node_ver}-linux-${SYS_ARCH_n} ${node_install_dir}
   if [ -e "${node_install_dir}/bin/node" ]; then

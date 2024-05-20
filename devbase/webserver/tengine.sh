@@ -15,9 +15,9 @@ Install_Tengine() {
   id -u ${run_user} >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -g ${run_group} -M -s /sbin/nologin ${run_user}
 
-  tar xzf pcre-${pcre_ver}.tar.gz
+  tar xzf ${ubdevenv_dir}/src/devbase/library/pcre-${pcre_ver}.tar.gz
+  tar xzf ${ubdevenv_dir}/src/devbase/library/openssl-${openssl11_ver}.tar.gz
   tar xzf tengine-${tengine_ver}.tar.gz
-  tar xzf openssl-${openssl11_ver}.tar.gz
   pushd tengine-${tengine_ver} > /dev/null
   # Modify Tengine version
   #sed -i 's@TENGINE "/" TENGINE_VERSION@"Tengine/unknown"@' src/core/nginx.h
@@ -42,16 +42,16 @@ EOF
   fi
   . /etc/profile
 
-  /bin/cp ../init.d/nginx.service /lib/systemd/system/
+  /bin/cp ${ubdevenv_dir}/init.d/nginx.service /lib/systemd/system/
   sed -i "s@/usr/local/nginx@${tengine_install_dir}@g" /lib/systemd/system/nginx.service
 
   mv ${tengine_install_dir}/conf/nginx.conf{,_bk}
   if [ "${apache_flag}" == 'y' ] || [ -e "${apache_install_dir}/bin/httpd" ]; then
-    /bin/cp ../config/nginx_apache.conf ${tengine_install_dir}/conf/nginx.conf
+    /bin/cp ${ubdevenv_dir}/config/nginx_apache.conf ${tengine_install_dir}/conf/nginx.conf
   elif { [[ ${tomcat_option} =~ ^[1-4]$ ]] || [ -e "${tomcat_install_dir}/conf/server.xml" ]; } && { [[ ! ${php_option} =~ ^[1-9]$|^1[0-1]$ ]] && [ ! -e "${php_install_dir}/bin/php" ]; }; then
-    /bin/cp ../config/nginx_tomcat.conf ${tengine_install_dir}/conf/nginx.conf
+    /bin/cp ${ubdevenv_dir}/config/nginx_tomcat.conf ${tengine_install_dir}/conf/nginx.conf
   else
-    /bin/cp ../config/nginx.conf ${tengine_install_dir}/conf/nginx.conf
+    /bin/cp ${ubdevenv_dir}/config/nginx.conf ${tengine_install_dir}/conf/nginx.conf
     [[ "${php_option}" =~ ^[1-9]$|^1[0-1]$ ]] && [ -z "`grep '/php-fpm_status' ${tengine_install_dir}/conf/nginx.conf`" ] &&  sed -i "s@index index.html index.php;@index index.html index.php;\n    location ~ /php-fpm_status {\n        #fastcgi_pass remote_php_ip:9000;\n        fastcgi_pass unix:/dev/shm/php-cgi.sock;\n        fastcgi_index index.php;\n        include fastcgi.conf;\n        allow 127.0.0.1;\n        deny all;\n        }@" ${tengine_install_dir}/conf/nginx.conf
   fi
   cat > ${tengine_install_dir}/conf/proxy.conf << EOF

@@ -58,8 +58,8 @@ Nginx_lua_waf() {
     src_url=http://mirrors.linuxeye.com/oneinstack/src/ngx_devel_kit.tar.gz && Download_src
     src_url=http://mirrors.linuxeye.com/oneinstack/src/lua-nginx-module-${lua_nginx_module_ver}.tar.gz && Download_src
     tar xzf nginx-${nginx_ver}.tar.gz
-    tar xzf openssl-${openssl11_ver}.tar.gz
-    tar xzf pcre-${pcre_ver}.tar.gz
+    tar xzf ${ubdevenv_dir}/src/devbase/library/openssl-${openssl11_ver}.tar.gz
+    tar xzf ${ubdevenv_dir}/src/devbase/library/pcre-${pcre_ver}.tar.gz
     tar xzf ngx_devel_kit.tar.gz
     tar xzf lua-nginx-module-${lua_nginx_module_ver}.tar.gz
     pushd nginx-${nginx_ver}
@@ -88,7 +88,7 @@ Nginx_lua_waf() {
 }
 
 Tengine_lua_waf() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
   [ ! -e "${tengine_install_dir}/sbin/nginx" ] && echo "${CWARNING}Tengine is not installed on your system! ${CEND}" && exit 1
   if [ ! -e "/usr/local/lib/libluajit-5.1.so.2.1.0" ]; then
     [ -e "/usr/local/lib/libluajit-5.1.so.2.0.5" ] && find /usr/local -name *luajit* | xargs rm -rf
@@ -119,8 +119,8 @@ Tengine_lua_waf() {
     src_url=http://mirrors.linuxeye.com/oneinstack/src/ngx_devel_kit.tar.gz && Download_src
     src_url=http://mirrors.linuxeye.com/oneinstack/src/lua-nginx-module.tar.gz && Download_src
     tar xzf tengine-${tengine_ver}.tar.gz
-    tar xzf openssl-${openssl11_ver}.tar.gz
-    tar xzf pcre-${pcre_ver}.tar.gz
+    tar xzf ${ubdevenv_dir}/src/devbase/library/openssl-${openssl11_ver}.tar.gz
+    tar xzf ${ubdevenv_dir}/src/devbase/library/pcre-${pcre_ver}.tar.gz
     tar xzf ngx_devel_kit.tar.gz
     tar xzf lua-nginx-module.tar.gz
     pushd tengine-${tengine_ver}
@@ -151,7 +151,7 @@ Tengine_lua_waf() {
 }
 
 enable_lua_waf() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
   . ../include/check_dir.sh
   rm -f ngx_lua_waf.tar.gz
   src_url=http://mirrors.linuxeye.com/oneinstack/src/ngx_lua_waf.tar.gz && Download_src
@@ -173,7 +173,7 @@ enable_lua_waf() {
 }
 
 disable_lua_waf() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
   . ../include/check_dir.sh
   sed -i '/include waf.conf;/d' ${web_install_dir}/conf/nginx.conf
   ${web_install_dir}/sbin/nginx -t

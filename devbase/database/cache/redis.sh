@@ -9,7 +9,11 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_redis_server() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
+  # redis-server
+  echo "Download redis-server..."
+  src_url=http://download.redis.io/releases/redis-${redis_ver}.tar.gz && Download_src
+  
   tar xzf redis-${redis_ver}.tar.gz
   pushd redis-${redis_ver} > /dev/null
   if [ "${OS_BIT}" == '32' -a "${armplatform}" != 'y' ]; then
@@ -37,7 +41,7 @@ Install_redis_server() {
     chown -R redis:redis ${redis_install_dir}/{var,etc}
 
     
-    /bin/cp ../init.d/redis-server.service /lib/systemd/system/
+    /bin/cp ${ubdevenv_dir}/init.d/redis-server.service /lib/systemd/system/
     sed -i "s@/usr/local/redis@${redis_install_dir}@g" /lib/systemd/system/redis-server.service
    
     #[ -z "`grep 'vm.overcommit_memory' /etc/sysctl.conf`" ] && echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf

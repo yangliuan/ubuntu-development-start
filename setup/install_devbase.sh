@@ -516,8 +516,8 @@ if [ ${ARG_NUM} == 0 ]; then
           echo -e "\t${CMSG}4${CEND}. Do not install"
           read -e -p "Please input a number:(Default 1 press Enter) " mq_option
           mq_option=${mq_option:-1}
-          if [[ ! ${mq_option} =~ ^[1-3]$ ]]; then
-            echo "${CWARNING}input error! Please only input number 1~3${CEND}"
+          if [[ ! ${mq_option} =~ ^[1-4]$ ]]; then
+            echo "${CWARNING}input error! Please only input number 1~4${CEND}"
           else
             [ "${mq_option}" = '1' -a -e "${kafka_install_dir}/bin/kafka-server-start.sh" ] && { echo "${CWARNING}Kafka already installed! ${CEND}"; unset mq_option; }
             [ "${mq_option}" = '2' -a -e "${rabbitmq_install_dir}" ] && { echo "${CWARNING}Rabbitmq  already installed! ${CEND}"; unset mq_option; }

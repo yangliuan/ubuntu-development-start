@@ -36,15 +36,16 @@ checkDownload() {
     src_url=https://downloads.sourceforge.net/project/pcre/pcre/${pcre_ver}/pcre-${pcre_ver}.tar.gz && Download_src
   fi
 
+  popd > /dev/null
+
+  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
+  
   # jdk apr apache运行时库
   if [[ "${jdk_option}"  =~ ^[1-2]$ ]]; then
     echo "Download apr..."
     src_url=http://archive.apache.org/dist/apr/apr-${apr_ver}.tar.gz && Download_src
   fi
 
-  popd > /dev/null
-
-  pushd ${ubdevenv_dir}/src/devbase/webserver > /dev/null
   # nginx/tengine/openresty
   case "${nginx_option}" in
     1)
@@ -93,8 +94,6 @@ checkDownload() {
   esac
 
   popd > /dev/null
-
- 
 
   if [[ "${db_option}" =~ ^[1-9]$|^1[0-4]$ ]]; then
     if [[ "${db_option}" =~ ^[1,2,5,6,7,9]$|^10$ ]] && [ "${dbinstallmethod}" == "2" ]; then
@@ -485,20 +484,6 @@ checkDownload() {
         ;;
     esac
   fi
-
-  # redis-server
-  if [ "${redis_flag}" == 'y' ]; then
-    echo "Download redis-server..."
-    src_url=http://download.redis.io/releases/redis-${redis_ver}.tar.gz && Download_src
-  fi
-
-  # memcached-server
-  if [ "${memcached_flag}" == 'y' ]; then
-    echo "Download memcached-server..."
-    [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR=${mirrorLink} || DOWN_ADDR=http://www.memcached.org/files
-    src_url=${DOWN_ADDR}/memcached-${memcached_ver}.tar.gz && Download_src
-  fi
-
   popd > /dev/null
 
   pushd ${ubdevenv_dir}/src/devbase/php > /dev/null

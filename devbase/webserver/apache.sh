@@ -54,7 +54,7 @@ EOF
   fi
   . /etc/profile
 
-  /bin/cp ../init.d/httpd.service /lib/systemd/system/
+  /bin/cp ${ubdevenv_dir}/init.d/httpd.service /lib/systemd/system/
   sed -i "s@/usr/local/apache@${apache_install_dir}@g" /lib/systemd/system/httpd.service
 
   sed -i "s@^User daemon@User ${run_user}@" ${apache_install_dir}/conf/httpd.conf

@@ -9,7 +9,13 @@
 #       https://github.com/oneinstack/oneinstack
 
 Install_memcached_server() {
-  pushd ${ubdevenv_dir}/src > /dev/null
+  pushd ${ubdevenv_dir}/src/devbase/database > /dev/null
+  # memcached-server
+  if [ "${memcached_flag}" == 'y' ]; then
+    echo "Download memcached-server..."
+    [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR=${mirrorLink} || DOWN_ADDR=http://www.memcached.org/files
+    src_url=${DOWN_ADDR}/memcached-${memcached_ver}.tar.gz && Download_src
+  fi
   # memcached server
   id -u memcached >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -M -s /sbin/nologin memcached
@@ -25,7 +31,7 @@ Install_memcached_server() {
     rm -rf memcached-${memcached_ver}
     ln -s ${memcached_install_dir}/bin/memcached /usr/bin/memcached
     
-    /bin/cp ../init.d/Memcached-init-Ubuntu /etc/init.d/memcached;
+    /bin/cp ${ubdevenv_dir}/init.d/Memcached-init-Ubuntu /etc/init.d/memcached;
     sed -i "s@/usr/local/memcached@${memcached_install_dir}@g" /etc/init.d/memcached
     let memcachedCache="${Mem}/8"
     [ -n "$(grep 'CACHESIZE=' /etc/init.d/memcached)" ] && sed -i "s@^CACHESIZE=.*@CACHESIZE=${memcachedCache}@" /etc/init.d/memcached

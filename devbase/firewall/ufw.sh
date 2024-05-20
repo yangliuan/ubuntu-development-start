@@ -11,7 +11,7 @@ if [ "${firewall_flag}" == 'y' ]; then
   ufw allow 80/tcp
   ufw allow 443/tcp
   ufw --force enable
-else openssh
+else
   ufw --force disable
 fi
 
