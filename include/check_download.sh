@@ -694,19 +694,4 @@ checkDownload() {
   fi
 
   popd > /dev/null
-
-  pushd ${ubdevenv_dir}/src/devbase/nodejs > /dev/null
-  # nodejs
-  if [ "${nodejs_flag}" == 'y' ]; then
-    echo "Download Nodejs..."
-    [ "${OUTIP_STATE}"x == "China"x ] && DOWN_ADDR_NODE=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release || DOWN_ADDR_NODE=https://nodejs.org/dist
-    src_url=${DOWN_ADDR_NODE}/v${nodejs_ver}/node-v${nodejs_ver}-linux-${SYS_ARCH_n}.tar.gz && Download_src
-  fi
-  popd > /dev/null
-
-  # pureftpd
-  if [ "${pureftpd_flag}" == 'y' ]; then
-    echo "Download pureftpd..."
-    src_url=https://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-${pureftpd_ver}.tar.gz && Download_src
-  fi
 }
