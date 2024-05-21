@@ -443,6 +443,7 @@ checkDownload() {
           DOWN_ADDR_PGSQL=https://ftp.postgresql.org/pub/source/v${pgsql_ver}
           DOWN_ADDR_PGSQL_BK=https://ftp.heanet.ie/mirrors/postgresql/source/v${pgsql_ver}
         fi
+        #echo $(pwd)
         src_url=${DOWN_ADDR_PGSQL}/${FILE_NAME} && Download_src
         src_url=${DOWN_ADDR_PGSQL}/${FILE_NAME}.md5 && Download_src
         PGSQL_TAR_MD5=$(awk '{print $1}' ${FILE_NAME}.md5)

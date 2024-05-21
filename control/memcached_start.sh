@@ -9,7 +9,7 @@ printf "
 if [ -e "/lib/systemd/system/memcached.service" ]; then
     if sudo systemctl is-active --quiet memcached.service; then
         echo "Stopping memcached.service"
-        sudo systemctl stop memcached.service 
+        sudo systemctl stop memcached.service
     else
         echo "Starting memcached.service"
         sudo systemctl start memcached.service 
