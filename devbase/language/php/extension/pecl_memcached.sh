@@ -9,9 +9,9 @@ Install_pecl_memcached() {
     phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
     # php memcached extension
     tar xzf libmemcached-${libmemcached_ver}.tar.gz
-    patch -d libmemcached-${libmemcached_ver} -p0 < libmemcached-build.patch
+    patch -d libmemcached-${libmemcached_ver} -p0 < ${ubdevenv_dir}/src/patch/libmemcached-build.patch
     pushd libmemcached-${libmemcached_ver} > /dev/null
-    [ "${PM}" == 'apt-get' ] && sed -i "s@lthread -pthread -pthreads@lthread -lpthread -pthreads@" ./configure
+    sed -i "s@lthread -pthread -pthreads@lthread -lpthread -pthreads@" ./configure
     ./configure --with-memcached=${memcached_install_dir}
     make -j ${THREAD} && make install
     popd > /dev/null

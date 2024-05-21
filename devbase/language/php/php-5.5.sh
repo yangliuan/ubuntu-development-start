@@ -37,7 +37,7 @@ Install_PHP55() {
   [ $? -ne 0 ] && useradd -g ${run_group} -M -s /sbin/nologin ${run_user}
 
   tar xzf php-${php55_ver}.tar.gz
-  patch -d php-${php55_ver} -p0 < fpm-race-condition.patch
+  patch -d php-${php55_ver} -p0 < ${ubdevenv_dir}/src/patch/fpm-race-condition.patch
   pushd php-${php55_ver} > /dev/null
   [ ! -d "${php_install_dir}" ] && mkdir -p ${php_install_dir}
   { [ ${Debian_ver} -ge 10 >/dev/null 2>&1 ] || [ ${Ubuntu_ver} -ge 19 >/dev/null 2>&1 ]; } || intl_modules_options='--enable-intl'

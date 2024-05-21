@@ -503,15 +503,11 @@ checkDownload() {
 
   if [ "${php_option}" == '1' ] || [ "${mphp_ver}" == '53' ]; then
     src_url=${mirrorLink}/debian_patches_disable_SSLv2_for_openssl_1_0_0.patch && Download_src
-    src_url=${mirrorLink}/php5.3patch && Download_src
     src_url=https://secure.php.net/distributions/php-${php53_ver}.tar.gz && Download_src
-    src_url=${mirrorLink}/fpm-race-condition.patch && Download_src
   elif [ "${php_option}" == '2' ] || [ "${mphp_ver}" == '54' ]; then
     src_url=https://secure.php.net/distributions/php-${php54_ver}.tar.gz && Download_src
-    src_url=${mirrorLink}/fpm-race-condition.patch && Download_src
   elif [ "${php_option}" == '3' ] || [ "${mphp_ver}" == '55' ]; then
     src_url=https://secure.php.net/distributions/php-${php55_ver}.tar.gz && Download_src
-    src_url=${mirrorLink}/fpm-race-condition.patch && Download_src
   elif [ "${php_option}" == '4' ] || [ "${mphp_ver}" == '56' ]; then
     src_url=https://secure.php.net/distributions/php-${php56_ver}.tar.gz && Download_src
   elif [ "${php_option}" == '5' ] || [ "${mphp_ver}" == '70' ]; then

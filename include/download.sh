@@ -44,7 +44,7 @@ Check_Devbase_sub() {
     # 指定目录
     parent_dir="${ubdevenv_dir}/src/devbase"
     # 要创建的子目录名称列表
-    sub_dirs=("python" "php" "golang" "nodejs" "library" "webserver" "database" "multimedia")
+    sub_dirs=("python" "php" "golang" "nodejs" "erlang" "library" "webserver" "database" "multimedia")
     # 创建子目录
     for dir_name in "${sub_dirs[@]}"; do
         if [ ! -d "$parent_dir/$dir_name" ]; then

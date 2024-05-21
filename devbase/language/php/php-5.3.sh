@@ -38,10 +38,10 @@ Install_PHP53() {
   [ $? -ne 0 ] && useradd -g ${run_group} -M -s /sbin/nologin ${run_user}
 
   tar xzf php-${php53_ver}.tar.gz
-  patch -d php-${php53_ver} -p0 < fpm-race-condition.patch
+  patch -d php-${php53_ver} -p0 < ${ubdevenv_dir}/src/patch/fpm-race-condition.patch
   pushd php-${php53_ver} > /dev/null
-  patch -p1 < ../patch/php5.3patch
-  patch -p1 < ../debian_patches_disable_SSLv2_for_openssl_1_0_0.patch
+  patch -p1 < ${ubdevenv_dir}/src/patch/php5.3patch
+  patch -p1 < ${ubdevenv_dir}/src/patch/debian_patches_disable_SSLv2_for_openssl_1_0_0.patch
   make clean
   [ ! -d "${php_install_dir}" ] && mkdir -p ${php_install_dir}
   { [ ${Debian_ver} -ge 10 >/dev/null 2>&1 ] || [ ${Ubuntu_ver} -ge 19 >/dev/null 2>&1 ]; } || intl_modules_options='--enable-intl'

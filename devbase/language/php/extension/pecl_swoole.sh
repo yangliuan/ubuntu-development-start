@@ -20,9 +20,17 @@ Install_pecl_swoole() {
       tar xzf swoole-1.10.5.tgz
       pushd swoole-1.10.5 > /dev/null
     elif [[ "${PHP_main_ver}" =~ ^7.[0-1]$ ]]; then
-      src_url=https://pecl.php.net/get/swoole-${swoole_oldver}.tgz && Download_src
-      tar xzf swoole-${swoole_oldver}.tgz
-      pushd swoole-${swoole_oldver} > /dev/null
+      src_url=https://pecl.php.net/get/swoole-4.5.2.tgz && Download_src
+      tar xzf swoole-4.5.2.tgz
+      pushd swoole-4.5.2 > /dev/null
+    elif [[ "${PHP_main_ver}" =~ ^7.[2-4]$ ]]; then
+      src_url=https://pecl.php.net/get/swoole-4.8.13.tgz && Download_src
+      tar xzf swoole-4.8.13.tgz
+      pushd swoole-4.8.13 > /dev/null
+    elif [[ "${PHP_main_ver}" =~ ^8.[0-2]$ ]]; then
+      src_url=https://pecl.php.net/get/swoole-4.8.13.tgz && Download_src
+      tar xzf swoole-4.8.13.tgz
+      pushd swoole-4.8.13 > /dev/null
     else
       src_url=https://pecl.php.net/get/swoole-${swoole_ver}.tgz && Download_src
       tar xzf swoole-${swoole_ver}.tgz

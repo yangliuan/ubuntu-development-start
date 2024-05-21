@@ -37,7 +37,7 @@ Install_PHP54() {
   [ $? -ne 0 ] && useradd -g ${run_group} -M -s /sbin/nologin ${run_user}
 
   tar xzf php-${php54_ver}.tar.gz
-  patch -d php-${php54_ver} -p0 < fpm-race-condition.patch
+  patch -d php-${php54_ver} -p0 < ${ubdevenv_dir}/src/patch/fpm-race-condition.patch
   pushd php-${php54_ver} > /dev/null
   make clean
   [ ! -d "${php_install_dir}" ] && mkdir -p ${php_install_dir}

@@ -732,8 +732,8 @@ if [ ${ARG_NUM} == 0 ]; then
         echo -e "\t${CMSG}22${CEND}. Install grpc(PHP>=7.0)"
         echo -e "\t${CMSG}23${CEND}. Install protobuf(PHP>=7.0)"
         echo -e "\t${CMSG}24${CEND}. Install rdkafka"
-        read -e -p "Please input numbers:(Default '4 6 11 16 17' press Enter) " phpext_option
-        phpext_option=${phpext_option:-'4 6 11 16 17'}
+        read -e -p "Please input numbers:(Default '4 6 19' press Enter) " phpext_option
+        phpext_option=${phpext_option:-'4 6 19'}
         [ "${phpext_option}" == '0' ] && break
         array_phpext=(${phpext_option})
         array_all=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24)
