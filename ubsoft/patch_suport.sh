@@ -45,8 +45,11 @@ Install_Ntfs3g() {
 ResetTimeForWindow() {
     apt-get install -y ntpdate
     ntpdate time.windows.com
-    [ ${Ubuntu_ver} ="24" ] && apt install util-linux-extra
-    hwclock --localtime --systohc
+
+    if [[ "$Ubuntu_ver" == "24" ]]; then
+        apt-get install util-linux-extra
+        hwclock --localtime --systohc
+    fi
 }
 
 Reinstall_GnomeCenter (){
