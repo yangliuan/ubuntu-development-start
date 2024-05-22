@@ -187,8 +187,8 @@ while :; do echo
 done
 
 # check input method
-if [ ${Ubuntu_ver} -le "22" ]; then
-    while :; do echo
+
+while :; do echo
     read -e -p "Do you want to install input method? [y/n](y): " input_method_flag
     input_method_flag=${input_method_flag:-y}
     if [[ ! ${input_method_flag} =~ ^[y,n]$ ]]; then
@@ -197,12 +197,16 @@ if [ ${Ubuntu_ver} -le "22" ]; then
         if [ "${input_method_flag}" == 'y' ]; then
             while :; do echo
                 echo 'Please select input method:'
-                echo -e "\t${CMSG}1${CEND}. Install googlepinyin"
-                echo -e "\t${CMSG}2${CEND}. Install sougoupinyin"
-                echo -e "\t${CMSG}3${CEND}. Install baidupinyin"
-                read -e -p "Please input a number:(Default 1 press Enter) " input_method_option
+                if [[ "$Ubuntu_ver" =~ ^2[2-3]$ ]]; then
+                    echo -e "\t${CMSG}1${CEND}. Install googlepinyin"
+                    echo -e "\t${CMSG}2${CEND}. Install sougoupinyin"
+                    echo -e "\t${CMSG}3${CEND}. Install baidupinyin"
+                else
+                    echo -e "\t${CMSG}4${CEND}. Install fcitx5pinyin"
+                fi
+                read -e -p "Please input a number:(Default 0 press Enter) " input_method_option
                 input_method_option=${input_method_option:-1}
-                if [[ ! ${input_method_option} =~ ^[1-3]$ ]]; then
+                if [[ ! ${input_method_option} =~ ^[1-4]$ ]]; then
                     echo "${CWARNING}input error! Please only input number 1~4${CEND}"
                 else
                     [ "${input_method_option}" = '1' -a -e "/usr/lib/x86_64-linux-gnu/fcitx/fcitx-googlepinyin.so" ] && { echo "${CWARNING}googlepinyin already installed! ${CEND}"; unset input_method_option; }
@@ -214,8 +218,8 @@ if [ ${Ubuntu_ver} -le "22" ]; then
         fi
         break;
     fi
-    done
-fi
+done
+
 
 # check Baidunetdisk 
 while :; do echo
@@ -524,6 +528,10 @@ case "${input_method_option}" in
   3)
     . ubsoft/input-method/fcitx_baidupinyin.sh
     Install_Baidupinyin 2>&1 | tee -a $log_dir
+    ;;
+  4)
+    . ubsoft/input-method/fcitx.sh
+    Install_Fcitx5Pinyin 2>&1 | tee -a $log_dir
     ;;
 esac
 
