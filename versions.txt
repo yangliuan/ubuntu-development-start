@@ -191,7 +191,7 @@ cursor_ver=0.1.3
 
 # Ubuntu Software Version ###########################
 # System Base
-nvidia_driver_ver=530
+nvidia_driver_ver=535
 cuda_ver=1.1-1
 sougoupinyin_ver=4.2.1.145
 sunlogin_ver=11.0.1.44968
@@ -200,7 +200,7 @@ flameshot_ver=12.1.0
 # IM
 dingtalk_ver=7.5.10.404071
 linuxqq_link_token=fd2e886e
-linuxqq_ver=3.2.7-240428
+linuxqq_ver=3.2.8_240520
 feishu_link_token=d358d0df
 feishu_ver=6.1.12
 

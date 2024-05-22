@@ -177,8 +177,8 @@ while :; do echo
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
         if lspci | grep -i NVIDIA > /dev/null; then
-            [ -e "/usr/bin/nvidia-settings" ] && { echo "${CWARNING}Nvdia driver already installed! ${CEND}"; unset nvdia_flag; }
-            [ -d "/opt/nvidia" ] && { echo "${CWARNING}Nvdia cuda already installed! ${CEND}"; unset cuda_flag; }
+            [ -e "" ] && { echo "${CWARNING}Nvdia driver already installed! ${CEND}"; unset nvdia_flag; }
+            [ -d "" ] && { echo "${CWARNING}Nvdia cuda already installed! ${CEND}"; unset cuda_flag; }
         elif lspci -nn | grep VGA | grep AMD > /dev/null; then
             [ -e "" ] && { echo "${CWARNING}AMD driver already installed! ${CEND}"; unset amd_flag; }
         fi
@@ -242,13 +242,24 @@ while :; do echo
 done
 
 # check deepinwine 
+# while :; do echo
+#     read -e -p "Do you want to install deepinwine? [y/n](y): " deepinwine_flag
+#     deepinwine_flag=${deepinwine_flag:-y}
+#     if [[ ! ${deepinwine_flag} =~ ^[y,n]$ ]]; then
+#         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
+#     else
+#          [ "${deepinwine_flag}" == 'y' -a -e "/etc/apt/sources.list.d/deepin-wine.i-m.dev.list" ] && { echo "${CWARNING}deepinwine_flag already installed! ${CEND}"; unset deepinwine_flag; }
+#         break;
+#     fi
+# done
+
 while :; do echo
-    read -e -p "Do you want to install deepinwine? [y/n](y): " deepinwine_flag
-    deepinwine_flag=${deepinwine_flag:-y}
-    if [[ ! ${deepinwine_flag} =~ ^[y,n]$ ]]; then
+    read -e -p "Do you want to install wechat? [y/n](y): " wechat_flag
+    wechat_flag=${wechat_flag:-y}
+    if [[ ! ${wechat_flag} =~ ^[y,n]$ ]]; then
         echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
     else
-         [ "${deepinwine_flag}" == 'y' -a -e "/etc/apt/sources.list.d/deepin-wine.i-m.dev.list" ] && { echo "${CWARNING}deepinwine_flag already installed! ${CEND}"; unset deepinwine_flag; }
+         [ "${wechat_flag}" == 'y' -a -e "/opt/apps/com.tencent.wechat" ] && { echo "${CWARNING}wechat already installed! ${CEND}"; unset wechat_flag; }
         break;
     fi
 done
@@ -522,6 +533,10 @@ fi
 
 if [ "${chrome_flag}" == 'y' ]; then
     Install_Chrome 2>&1 | tee -a $log_dir
+fi
+
+if [ "${wechat_flag}" == 'y' ]; then
+    Install_Wechat 2>&1 | tee -a $log_dir
 fi
 
 if [ "${dingtalk_flag}" == 'y' ]; then
