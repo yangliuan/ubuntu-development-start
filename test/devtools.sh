@@ -32,3 +32,4 @@ shell_dir="./devtools/data-manager" && Source_Shells
 
 shell_dir="./devtools/files" && Source_Shells
 Install_Git 2>&1 | tee -a $log_dir
+#Uninstall_Git  2>&1 | tee -a $log_dir

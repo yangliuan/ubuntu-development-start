@@ -13,10 +13,10 @@ Install_Git() {
     pushd git-${git_last_ver}
     make configure
     ./configure CFLAGS="-I/usr/local/include" LDFLAGS="-L/usr/local/lib -liconv"
-    make -j ${THREAD} all && make install
+    make -j ${THREAD} && make install
     popd > /dev/null
 }
 
 Uninstall_Git() {
-    rm -rf /usr/local/bin/git
+    rm -rf /usr/local/bin/git /usr/local/share/man/man1/git* /usr/local/libexec/git-core/ /usr/local/share/git-core/
 }
