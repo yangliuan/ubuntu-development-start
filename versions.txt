@@ -1,5 +1,6 @@
 # newest software version
 #Base Version ############################
+git_last_ver=2.45.1
 # Web
 nginx_ver=1.23.0
 tengine_ver=2.3.3

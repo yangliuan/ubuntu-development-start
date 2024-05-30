@@ -10,7 +10,13 @@ Install_Libiconv() {
         ./configure
         make -j ${THREAD} && make install
         popd > /dev/null
-        rm -rf libiconv-${libiconv_ver}
+        if [ -e "${libiconv_install_dir}/lib/libiconv.la" ]; then
+            echo "${CSUCCESS}libiconv installed successfully! ${CEND}"
+            rm -rf libiconv-${libiconv_ver}
+            ldconfig
+        else
+            echo "${CFAILURE}libiconv install failed, Please contact the author! ${CEND}" && lsb_release -a
+        fi
         popd > /dev/null
     fi
 }
