@@ -20,7 +20,8 @@ Patch_Lock() {
 #support run application then extension to Appimage
 #Rerf  https://askubuntu.com/questions/1403811/appimage-on-ubuntu-22-04
 Install_Appimage() {
-    ##add-apt-repository -y universe
+    add-apt-repository -y universe
+    apt-get update && apt-get upgrade
     apt-get install -y libfuse2
 }
 
