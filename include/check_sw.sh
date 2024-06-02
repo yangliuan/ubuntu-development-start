@@ -23,7 +23,7 @@ installDepsUbuntu() {
 . ./devbase/system-lib/libevent.sh
 . ./devbase/system-lib/libwebp.sh
 . ./devbase/system-lib/openssl.sh
-. ./devbase/devtools/files/git.sh
+. ./devtools/files/git.sh
 
 installDepsBySrc() { 
   Install_Icu4c

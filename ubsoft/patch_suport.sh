@@ -53,6 +53,32 @@ ResetTimeForWindow() {
     fi
 }
 
+#https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup
+Surface_Support() {
+    if [ ! -e "/etc/apt/trusted.gpg.d/linux-surface.gpg" ];then
+        #First you need to import the keys we use to sign packages.
+        wget -qO - https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc | gpg --dearmor | dd of=/etc/apt/trusted.gpg.d/linux-surface.gpg
+    fi
+
+    if [ ! -e "/etc/apt/sources.list.d/linux-surface.list" ];then
+        #After this you can add the repository configuration and update APT.
+        echo "deb [arch=amd64] https://pkg.surfacelinux.com/debian release main" | tee /etc/apt/sources.list.d/linux-surface.list
+    fi
+    
+    #update
+    apt-get update
+    #
+    apt-get install -y linux-image-surface linux-headers-surface libwacom-surface iptsd
+    apt-get install -y linux-surface-secureboot-mok
+}
+
+#https://github.com/linux-surface/linux-surface/wiki/Known-Issues-and-FAQ#apt-update-fails-on-ubuntudebian-based-distributions-with-error-401-unauthorized
+# AptUrlFix() {
+#     add-apt-repository ppa:gpxbv/apt-urlfix
+#     apt-get update
+#     apt-get install apt
+# }
+
 Reinstall_GnomeCenter (){
     apt-get install -y gnome-control-center --reinstall
 }
