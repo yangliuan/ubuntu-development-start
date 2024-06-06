@@ -20,7 +20,8 @@ apr_util_ver=1.6.1
 nghttp2_ver=1.42.0
 
 # DB
-mysql80_ver=8.0.33
+mysql84_ver=8.4.0
+mysql80_ver=8.0.37
 mysql57_ver=5.7.41
 mysql56_ver=5.6.51
 mysql55_ver=5.5.62

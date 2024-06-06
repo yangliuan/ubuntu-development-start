@@ -24,7 +24,7 @@ pushd ${ubdevenv_dir} > /dev/null
 . ./include/command_parameters.sh
 
 ARG_NUM=$#
-TEMP=`getopt -o hvV --long help,version,switchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
+TEMP=`getopt -o hvV --long help,version,git,sswitchhost,rdm,navicat_premium,mysql_workbench,remmina,wireshark,terminal_net_tools,postman,runapi,apifox,oss_browser,virtualbox,filezilla,jmeter,vscode,cursor,obs_studio,rabbitvcs_nautilus -- "$@" 2>/dev/null`
 [ $? != 0 ] && echo "${CWARNING}ERROR: unknown argument! ${CEND}" && Show_Devtools_Help && exit 1
 eval set -- "${TEMP}"
 
@@ -36,6 +36,9 @@ while :; do
       ;;
     -v|-V|--version)
       version; exit 0
+      ;;
+    --git)
+      git_flag=y; shift 1
       ;;
     --switchhost)
       switchhost_flag=y; shift 1
@@ -354,6 +357,11 @@ fi
 #clear latest install_devtools.log
 echo > $log_dir
 Check_Devtools_src 2>&1 | tee -a $log_dir
+
+if [ "${git_flag}" == 'y' ]; then
+    . ./devtools/network/git.sh
+    Install_Git 2>&1 | tee -a $log_dir
+fi
 
 # Check download source packages
 if [ "${jmeter_flag}" == 'y' ]; then
