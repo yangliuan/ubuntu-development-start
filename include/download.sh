@@ -1,20 +1,41 @@
 #!/bin/bash
-# Author:  yeho <lj2007331 AT gmail.com>
-# BLOG:  https://linuxeye.com
-#
-# Notes: OneinStack for CentOS/RedHat 7+ Debian 8+ and Ubuntu 16+
-#
-# Project home page:
-#       https://oneinstack.com
-#       https://github.com/oneinstack/oneinstack
-
-Download_src() {
+Download_src_old() {
   [ -s "${src_url##*/}" ] && echo "[${CMSG}${src_url##*/}${CEND}] found" || { wget --limit-rate=100M --tries=6 -c --no-check-certificate ${src_url}; sleep 1; }
   if [ ! -e "${src_url##*/}" ]; then
-    echo "${CFAILURE}Auto download failed! You can manually download ${src_url} into the oneinstack/src directory.${CEND}"
+    echo "${CFAILURE}Auto download failed! You can manually download ${src_url} into the src directory.${CEND}"
     kill -9 $$; exit 1;
   else
     chown -R ${run_user}:${run_group} ${src_url##*/}
+  fi
+}
+
+# Function to download a file
+Download_src() {
+  # 提取文件名
+  filename_ex=$(basename "${src_url%%\?*}")
+  echo "full filename:"$filename_ex
+
+  # 检查文件是否存在且非空，如果存在则输出提示信息，否则下载文件
+  [ -s "$filename_ex" ] && echo "[${CMSG}$filename_ex${CEND}] found" || { wget --limit-rate=100M --tries=3 -c --no-check-certificate ${src_url} -O "$filename_ex"; sleep 1; }
+  
+  if [[ "$filename_ex" == *.tar.* ]]; then
+    filename="${filename_ex%.tar.*}"
+  elif [[ "$filename_ex" == *.zip || "$filename_ex" == *.rar || "$filename_ex" == *.gz || "$filename_ex" == *.bz2 || "$filename_ex" == *.xz || "$filename_ex" == *.7z || "$filename_ex" == *.z || "$filename_ex" == *.lzma || "$filename_ex" == *.lzo ]]; then
+    filename="${filename_ex%.*}"
+  elif [[ "$filename_ex" == *.* ]]; then
+    filename="${filename_ex}"
+  else
+    filename="$filename_ex"
+  fi
+  echo "without extension filename:"$filename
+ 
+  # 如果下载失败（文件不存在），输出错误信息并终止脚本
+  if [ ! -e "$filename_ex" ]; then
+    echo "${CFAILURE}Auto download failed! You can manually download ${src_url} into the src directory.${CEND}"
+    kill -9 $$; exit 1;
+  else
+    # 下载成功后，更改文件所有者
+    chown -R ${run_user}:${run_group} "$filename_ex"
   fi
 }
 

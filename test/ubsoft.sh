@@ -60,4 +60,4 @@ echo > $log_dir
 
 #Install_Wechat 2>&1 | tee -a $log_dir
 
-Surface_Support 2>&1 | tee -a $log_dir
+#Surface_Support 2>&1 | tee -a $log_dir
