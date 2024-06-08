@@ -60,8 +60,8 @@ composer_old_ver=1.10.26
 composer_ver=2.5.7
 
 # Nodejs
-nodejs_ver=18.14.2
-nvm_ver=0.39.3
+nodejs_ver=20.14.0
+nvm_ver=0.39.7
 
 # go
 go120_ver=1.20.5
