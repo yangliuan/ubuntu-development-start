@@ -1,13 +1,13 @@
 #!/bin/bash
-Download_src_old() {
-  [ -s "${src_url##*/}" ] && echo "[${CMSG}${src_url##*/}${CEND}] found" || { wget --limit-rate=100M --tries=6 -c --no-check-certificate ${src_url}; sleep 1; }
-  if [ ! -e "${src_url##*/}" ]; then
-    echo "${CFAILURE}Auto download failed! You can manually download ${src_url} into the src directory.${CEND}"
-    kill -9 $$; exit 1;
-  else
-    chown -R ${run_user}:${run_group} ${src_url##*/}
-  fi
-}
+# Download_src_old() {
+#   [ -s "${src_url##*/}" ] && echo "[${CMSG}${src_url##*/}${CEND}] found" || { wget --limit-rate=100M --tries=6 -c --no-check-certificate ${src_url}; sleep 1; }
+#   if [ ! -e "${src_url##*/}" ]; then
+#     echo "${CFAILURE}Auto download failed! You can manually download ${src_url} into the src directory.${CEND}"
+#     kill -9 $$; exit 1;
+#   else
+#     chown -R ${run_user}:${run_group} ${src_url##*/}
+#   fi
+# }
 
 # Function to download a file
 Download_src() {

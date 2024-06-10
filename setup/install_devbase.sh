@@ -1430,7 +1430,7 @@ if [ "${docker_flag}" == 'y' ]; then
   Install_Docker_Desktop | tee -a $log_dir
 fi
 
-if [[ ${php_option} =~ ^[1-9]$|^1[0-2]$ ]]; then
+if [[ ${php_option} =~ ^[1-9]$|^1[0-3]$ ]]; then
   #php开发配置
   PhpDevConfig | tee -a $log_dir
   Install_PHPFPMDesktop
