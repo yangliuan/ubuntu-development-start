@@ -52,7 +52,7 @@ Install_MySQL80() {
 
   if [ -d "${mysql_install_dir}/support-files" ]; then
     sed -i 's@executing mysqld_safe@executing mysqld_safe\nexport LD_PRELOAD=/usr/local/lib/libjemalloc.so@' ${mysql_install_dir}/bin/mysqld_safe
-    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ../data/database.pwd
+    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ${ubdevenv_dir}/data/database.pwd
     echo "${CSUCCESS}MySQL installed successfully! ${CEND}"
     if [ "${dbinstallmethod}" == "1" ]; then
       rm -rf mysql-${mysql80_ver}-*-x86_64
@@ -202,7 +202,7 @@ EOF
   ${mysql_install_dir}/bin/mysqld --initialize-insecure --user=mysql --basedir=${mysql_install_dir} --datadir=${mysql_data_dir}
 
   [ "${Wsl}" == true ] && chmod 600 /etc/my.cnf
-  chown mysql:mysql -R ${mysql_data_dir}
+  chown -Rv mysql:mysql ${mysql_data_dir}
   [ -d "/etc/mysql" ] && /bin/mv /etc/mysql{,_bk}
 
   service mysqld start

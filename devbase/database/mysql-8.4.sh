@@ -43,7 +43,7 @@ Install_MySQL84() {
 
   if [ -d "${mysql_install_dir}/support-files" ]; then
     sed -i 's@executing mysqld_safe@executing mysqld_safe\nexport LD_PRELOAD=/usr/local/lib/libjemalloc.so@' ${mysql_install_dir}/bin/mysqld_safe
-    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ../options.conf
+    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ${ubdevenv_dir}/data/database.pwd
     echo "${CSUCCESS}MySQL installed successfully! ${CEND}"
     if [ "${dbinstallmethod}" == "1" ]; then
       rm -rf mysql-${mysql84_ver}-*-x86_64

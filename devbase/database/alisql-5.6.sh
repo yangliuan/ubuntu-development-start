@@ -37,7 +37,7 @@ Install_AliSQL56() {
 
   if [ -d "${alisql_install_dir}/support-files" ]; then
     echo never > /sys/kernel/mm/transparent_hugepage/enabled
-    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ../data/database.pwd
+    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ${ubdevenv_dir}/data/database.pwd
     echo "${CSUCCESS}AliSQL installed successfully! ${CEND}"
     rm -rf alisql-${alisql_ver}
   else

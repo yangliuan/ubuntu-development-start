@@ -43,7 +43,7 @@ Install_PostgreSQL() {
   service postgresql reload
 
   if [ -e "${pgsql_install_dir}/bin/psql" ]; then
-    sed -i "s+^dbpostgrespwd.*+dbpostgrespwd='$dbpostgrespwd'+" ../data/database.pwd
+    sed -i "s+^dbpostgrespwd.*+dbpostgrespwd='$dbpostgrespwd'+" ${ubdevenv_dir}/data/database.pwd
     echo "${CSUCCESS}PostgreSQL installed successfully! ${CEND}"
     rm -rf postgresql-${pgsql_ver}
   else

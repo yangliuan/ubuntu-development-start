@@ -45,7 +45,7 @@ Install_MySQL56() {
   fi
 
   if [ -d "${mysql_install_dir}/support-files" ]; then
-    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ../data/database.pwd
+    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ${ubdevenv_dir}/data/database.pwd
     echo "${CSUCCESS}MySQL installed successfully! ${CEND}"
     if [ "${dbinstallmethod}" == "1" ]; then
       rm -rf mysql-${mysql56_ver}-*-x86_64

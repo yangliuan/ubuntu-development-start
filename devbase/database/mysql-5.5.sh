@@ -47,7 +47,7 @@ Install_MySQL55() {
   fi
 
   if [ -d "${mysql_install_dir}/support-files" ]; then
-    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ../data/database.pwd
+    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ${ubdevenv_dir}/data/database.pwd
     echo "${CSUCCESS}MySQL installed successfully! ${CEND}"
     if [ "${dbinstallmethod}" == "1" ]; then
       rm -rf mysql-${mysql55_ver}-*-${SYS_BIT_b}

@@ -49,7 +49,7 @@ Install_MariaDB103() {
   fi
 
   if [ -d "${mariadb_install_dir}/support-files" ]; then
-    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ../data/database.pwd
+    sed -i "s+^dbrootpwd.*+dbrootpwd='${dbrootpwd}'+" ${ubdevenv_dir}/data/database.pwd
     echo "${CSUCCESS}MariaDB installed successfully! ${CEND}"
     if [ "${dbinstallmethod}" == "1" ]; then
       rm -rf mariadb-${mariadb103_ver}-linux-${SYS_BIT_b}

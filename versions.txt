@@ -2,7 +2,7 @@
 #Base Version ############################
 git_last_ver=2.45.1
 # Web
-nginx_ver=1.23.0
+nginx_ver=1.26.1
 tengine_ver=2.3.3
 openresty_ver=1.21.4.1
 openssl11_ver=1.1.1s
